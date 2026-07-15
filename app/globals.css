@@ -39,7 +39,7 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(250,246,239,.86);ba
 .nav{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:82px}
 .brand{display:flex;align-items:center;gap:14px;cursor:pointer}
 .brand .mark{width:44px;height:56px;flex:none}
-.brand .mark svg{width:100%;height:100%;display:block}
+.brand .mark svg,.brand .mark img{width:100%;height:100%;display:block;object-fit:contain}
 .brand .words{display:flex;flex-direction:column;line-height:1}
 .brand .name{font-family:var(--serif);font-size:27px;letter-spacing:5px;color:var(--ink);text-transform:uppercase;font-weight:500}
 .brand .sub{font-family:var(--script);font-size:16px;color:var(--gold-deep);margin-top:3px}
@@ -82,7 +82,7 @@ h2.big{font-size:clamp(30px,4vw,46px);font-weight:500}
 .hero-copy p.h-sub{font-size:19px;color:var(--muted);max-width:520px;margin:18px 0 30px}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
 .hero-mark-bg{position:absolute;z-index:1;right:9%;top:50%;transform:translateY(-50%)}
-.hero-mark-bg svg{width:176px;height:230px;filter:drop-shadow(0 14px 26px rgba(150,110,40,.28))}
+.hero-mark-bg svg,.hero-mark-bg img{width:176px;height:230px;object-fit:contain;filter:drop-shadow(0 14px 26px rgba(150,110,40,.28))}
 .photo-tag{position:absolute;z-index:3;right:18px;bottom:18px;background:rgba(62,58,52,.72);color:#F3ECE0;border:1px dashed rgba(255,255,255,.55);padding:7px 14px;border-radius:999px;font-size:11px;letter-spacing:.4px;backdrop-filter:blur(4px)}
 
 /* ---------- cards ---------- */
@@ -115,7 +115,7 @@ h2.big{font-size:clamp(30px,4vw,46px);font-weight:500}
 /* ---------- cta band ---------- */
 .band{background:linear-gradient(120deg,var(--ink),#4b453c);color:#F4ECDF;border-radius:26px;padding:60px;text-align:center;position:relative;overflow:hidden}
 .band .mark-lg{display:flex;justify-content:center;margin-bottom:6px}
-.band .mark-lg svg{width:64px;height:84px}
+.band .mark-lg svg,.band .mark-lg img{width:64px;height:84px;object-fit:contain}
 .band h2{color:#fff;font-size:clamp(28px,3.6vw,42px)}
 .band p{color:#D9CFBE;max-width:560px;margin:12px auto 26px}
 .band .script{color:var(--gold-soft)}
