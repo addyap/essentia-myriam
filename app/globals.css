@@ -212,3 +212,12 @@ footer ul a:hover{color:var(--gold-soft)}
   .foot-grid{grid-template-columns:1fr}
   .brand .name{font-size:22px;letter-spacing:3px}
 }
+
+/* ---------- floating WhatsApp button ---------- */
+.wa-float{position:fixed;right:26px;bottom:26px;z-index:25;width:58px;height:58px;border-radius:50%;background:#25D366;color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 12px 28px -8px rgba(20,60,40,.5);transition:.25s}
+.wa-float svg{width:29px;height:29px}
+.wa-float:hover{background:#1EBE5A;transform:translateY(-3px) scale(1.05);box-shadow:0 16px 34px -8px rgba(20,60,40,.6)}
+@media(max-width:560px){
+  .wa-float{right:16px;bottom:16px;width:52px;height:52px}
+  .wa-float svg{width:26px;height:26px}
+}
