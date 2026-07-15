@@ -155,7 +155,7 @@ form.mock{display:grid;gap:16px}
 .pill-note{display:inline-flex;gap:8px;align-items:center;background:var(--gold-tint);border:1px solid var(--gold-soft);color:var(--gold-deep);padding:8px 16px;border-radius:999px;font-size:13px;margin-top:16px}
 .coords{display:flex;flex-direction:column;gap:12px;margin-top:22px;font-size:15px;color:var(--muted)}
 .coords div{display:flex;gap:12px;align-items:center}
-.coords .ic{color:var(--gold-deep);display:flex}
+.coords .ic{color:var(--gold-deep);display:flex;width:20px;height:20px;background:none;border-radius:0;margin-bottom:0;flex:none}
 .coords .ic svg{width:20px;height:20px}
 .coords a{color:inherit;transition:.2s}
 .coords a:hover{color:var(--gold-deep)}
