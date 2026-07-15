@@ -157,6 +157,8 @@ form.mock{display:grid;gap:16px}
 .coords div{display:flex;gap:12px;align-items:center}
 .coords .ic{color:var(--gold-deep);display:flex}
 .coords .ic svg{width:20px;height:20px}
+.coords a{color:inherit;transition:.2s}
+.coords a:hover{color:var(--gold-deep)}
 
 /* ---------- resources ---------- */
 .tabs{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:34px}

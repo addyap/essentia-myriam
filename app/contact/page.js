@@ -29,8 +29,9 @@ export default function ContactPage() {
             <div className="card">
               <h3>{c.infoTitle}</h3>
               <div className="coords">
-                <div><span className="ic"><Icon name="mail" /></span> {b.email}</div>
-                <div><span className="ic"><Icon name="phone" /></span> {b.phone}</div>
+                <div><span className="ic"><Icon name="mail" /></span> <a href={`mailto:${b.email}`}>{b.email}</a></div>
+                <div><span className="ic"><Icon name="phone" /></span> <a href={`tel:+${b.waNumber}`}>{b.phone}</a></div>
+                <div><span className="ic"><Icon name="whatsapp" /></span> <a href={`https://wa.me/${b.waNumber}`} target="_blank" rel="noopener noreferrer">{c.whatsapp}</a></div>
                 <div><span className="ic"><Icon name="pin" /></span> {b.address}</div>
               </div>
             </div>
