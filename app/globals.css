@@ -45,12 +45,13 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(250,246,239,.86);ba
 .brand .name{font-family:var(--serif);font-size:27px;letter-spacing:5px;color:var(--ink);text-transform:uppercase;font-weight:500;white-space:nowrap}
 .brand .name .byline{font-family:var(--script);font-size:16px;letter-spacing:0;text-transform:none;font-weight:400;color:var(--gold-deep);margin-left:9px;vertical-align:middle}
 .brand .sub{font-family:var(--script);font-size:16px;color:var(--gold-deep);margin-top:3px}
-nav.main{display:flex;align-items:center;gap:26px}
-nav.main a{font-size:13.5px;letter-spacing:.6px;color:var(--muted);padding:6px 0;position:relative;transition:.2s;cursor:pointer}
+nav.main{display:flex;align-items:center;gap:19px}
+nav.main a{font-size:13.5px;letter-spacing:.6px;color:var(--muted);padding:6px 0;position:relative;transition:.2s;cursor:pointer;white-space:nowrap}
 nav.main a:hover{color:var(--ink)}
 nav.main a.active{color:var(--gold-deep)}
 nav.main a.active::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:1.5px;background:var(--gold)}
-.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-size:13.5px;letter-spacing:.6px;padding:12px 22px;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:.22s;font-weight:600}
+nav.main .btn{padding:12px 22px}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-size:13.5px;letter-spacing:.6px;padding:12px 22px;border-radius:999px;cursor:pointer;border:1px solid transparent;transition:.22s;font-weight:600;white-space:nowrap}
 .btn-gold{background:var(--gold);color:#241f18}
 .btn-gold:hover{background:var(--gold-deep);color:#fff;transform:translateY(-1px)}
 .btn-ghost{border-color:var(--gold);color:var(--gold-deep);background:transparent}
