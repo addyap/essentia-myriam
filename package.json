@@ -1,0 +1,17 @@
+{
+  "name": "essentia",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Essentia — Myriam Diougoan Blanch. Coaching, therapy & HR consulting.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1"
+  }
+}
