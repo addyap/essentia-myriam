@@ -13,7 +13,7 @@ export const metadata = {
     description: "Coaching, thérapie et conseil RH multilingue.",
     type: 'website',
   },
-  icons: { icon: '/logo.svg' },
+  icons: { icon: '/favicon.png' },
 };
 
 export default function RootLayout({ children }) {

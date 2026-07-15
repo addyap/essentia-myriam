@@ -45,7 +45,7 @@ export function Footer() {
           </div>
         </div>
         <div className="foot-bottom">
-          <span>{t.footer.rights.replace('{name}', brand.name)}</span>
+          <span>{t.footer.rights.replace('{year}', new Date().getFullYear()).replace('{name}', brand.name)}</span>
           <span className="script" style={{ fontSize: 15 }}>{t.footer.tagline}</span>
         </div>
       </div>

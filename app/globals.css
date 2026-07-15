@@ -106,9 +106,8 @@ h2.big{font-size:clamp(30px,4vw,46px);font-weight:500}
 
 /* ---------- about ---------- */
 .split{display:grid;grid-template-columns:.9fr 1.1fr;gap:54px;align-items:center}
-.portrait{aspect-ratio:4/5;border-radius:22px;background:linear-gradient(160deg,var(--accent-soft),var(--gold-tint));display:flex;align-items:center;justify-content:center;position:relative;box-shadow:var(--shadow);border:1px solid var(--line)}
-.portrait .ph{text-align:center;color:var(--accent-deep);opacity:.85;font-size:13px;letter-spacing:1px;padding:20px}
-.portrait .ph svg{width:60px;height:60px;margin-bottom:10px;opacity:.7}
+.portrait{aspect-ratio:4/5;border-radius:22px;background:linear-gradient(160deg,var(--accent-soft),var(--gold-tint));display:flex;align-items:center;justify-content:center;position:relative;box-shadow:var(--shadow);border:1px solid var(--line);overflow:hidden}
+.portrait img{width:100%;height:100%;object-fit:cover;display:block}
 .chips-langs{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
 .chips-langs span{background:var(--gold-tint);border:1px solid var(--gold-soft);color:var(--gold-deep);padding:6px 16px;border-radius:999px;font-size:13px;letter-spacing:.5px}
 

@@ -10,7 +10,7 @@ export default function AboutPage() {
       <section>
         <div className="wrap split">
           <div className="portrait">
-            <div className="ph"><Icon name="user" /><br />{a.photoCaption}</div>
+            <img src="/myriam.jpg" alt={a.title} />
           </div>
           <div>
             <span className="eyebrow">{a.eyebrow}</span>
