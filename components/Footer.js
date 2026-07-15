@@ -10,7 +10,7 @@ export function Footer() {
       <div className="wrap">
         <div className="foot-grid">
           <div>
-            <div className="name">{brand.name}</div>
+            <div className="name">{brand.name}<span className="byline">by MDB</span></div>
             <div className="sub">{brand.sub}</div>
             <p style={{ marginTop: 14, fontSize: 14, maxWidth: 280 }}>{t.footer.blurb}</p>
             <div className="chips-langs" style={{ marginTop: 16 }}>
@@ -31,16 +31,16 @@ export function Footer() {
             <ul>
               <li><Link href={ROUTES.booking}>{t.ui.book}</Link></li>
               <li><Link href={ROUTES.contact}>{t.nav.contact}</Link></li>
-              <li><a href="mailto:contact@essentia.com">contact@essentia.com</a></li>
+              <li><a href={`mailto:${t.booking.email}`}>{t.booking.email}</a></li>
             </ul>
           </div>
           <div>
             <h5>{t.footer.legal}</h5>
             <ul>
-              <li><a href="#">{t.footer.legalNotice}</a></li>
-              <li><a href="#">{t.footer.privacy}</a></li>
-              <li><a href="#">{t.footer.rgpd}</a></li>
-              <li><a href="#">{t.footer.ethics}</a></li>
+              <li><Link href={ROUTES.legalNotice}>{t.footer.legalNotice}</Link></li>
+              <li><Link href={ROUTES.privacy}>{t.footer.privacy}</Link></li>
+              <li><Link href={ROUTES.rgpd}>{t.footer.rgpd}</Link></li>
+              <li><Link href={ROUTES.ethics}>{t.footer.ethics}</Link></li>
             </ul>
           </div>
         </div>

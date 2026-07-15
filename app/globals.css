@@ -42,7 +42,8 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(250,246,239,.86);ba
 .brand .mark{width:44px;height:56px;flex:none}
 .brand .mark svg,.brand .mark img{width:100%;height:100%;display:block;object-fit:contain}
 .brand .words{display:flex;flex-direction:column;line-height:1}
-.brand .name{font-family:var(--serif);font-size:27px;letter-spacing:5px;color:var(--ink);text-transform:uppercase;font-weight:500}
+.brand .name{font-family:var(--serif);font-size:27px;letter-spacing:5px;color:var(--ink);text-transform:uppercase;font-weight:500;white-space:nowrap}
+.brand .name .byline{font-family:var(--script);font-size:16px;letter-spacing:0;text-transform:none;font-weight:400;color:var(--gold-deep);margin-left:9px;vertical-align:middle}
 .brand .sub{font-family:var(--script);font-size:16px;color:var(--gold-deep);margin-top:3px}
 nav.main{display:flex;align-items:center;gap:26px}
 nav.main a{font-size:13.5px;letter-spacing:.6px;color:var(--muted);padding:6px 0;position:relative;transition:.2s;cursor:pointer}
@@ -178,6 +179,7 @@ form.mock{display:grid;gap:16px}
 footer.site{background:var(--ink);color:#CFC6B8;padding:64px 0 30px}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
 footer .name{font-family:var(--serif);letter-spacing:4px;text-transform:uppercase;color:#fff;font-size:22px}
+footer .name .byline{font-family:var(--script);font-size:15px;letter-spacing:0;text-transform:none;font-weight:400;color:var(--gold-soft);margin-left:8px;vertical-align:middle}
 footer .sub{font-family:var(--script);color:var(--gold-soft);font-size:16px}
 footer h5{color:#fff;font-family:var(--sans);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
 footer ul{list-style:none;display:flex;flex-direction:column;gap:9px}
