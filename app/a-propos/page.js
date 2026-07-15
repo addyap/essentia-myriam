@@ -1,6 +1,8 @@
 'use client';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
+// Real headshot pending — Myriam felt the previous photo (public/myriam.jpg)
+// was too smiley / not professional enough. Placeholder until a replacement.
 
 export default function AboutPage() {
   const { t } = useApp();
@@ -10,7 +12,7 @@ export default function AboutPage() {
       <section>
         <div className="wrap split">
           <div className="portrait">
-            <img src="/myriam.jpg" alt={a.title} />
+            <div className="ph"><Icon name="user" /><br />{a.photoCaption}</div>
           </div>
           <div>
             <span className="eyebrow">{a.eyebrow}</span>
