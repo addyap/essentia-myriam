@@ -26,13 +26,13 @@ img{max-width:100%}
 .script{font-family:var(--script);color:var(--gold-deep);font-weight:400}
 
 /* ---------- top bar (language) ---------- */
-.topbar{background:var(--ink);color:#F3ECE0;font-size:13px;letter-spacing:.4px}
+.topbar{background:var(--cream-2);color:var(--ink);font-size:13px;letter-spacing:.4px;border-bottom:1px solid var(--line)}
 .topbar .wrap{display:flex;align-items:center;justify-content:flex-end;gap:16px;min-height:48px;flex-wrap:wrap}
 .switch{display:flex;align-items:center;gap:10px}
-.switch .lbl{display:flex;align-items:center;gap:6px;opacity:.9;text-transform:uppercase;font-size:12px;letter-spacing:1.4px;color:var(--gold-soft);font-weight:700}
+.switch .lbl{display:flex;align-items:center;gap:6px;text-transform:uppercase;font-size:12px;letter-spacing:1.4px;color:var(--gold-deep);font-weight:700}
 .switch .lbl svg{width:15px;height:15px}
-.chip{cursor:pointer;padding:7px 15px;border-radius:999px;border:1.5px solid rgba(255,255,255,.42);color:#F3ECE0;background:rgba(255,255,255,.06);font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:.4px;transition:.2s;min-width:42px;text-align:center}
-.chip:hover{border-color:var(--gold-soft);color:#fff;background:rgba(255,255,255,.12)}
+.chip{cursor:pointer;padding:7px 15px;border-radius:999px;border:1.5px solid var(--line);color:var(--muted);background:var(--paper);font-family:var(--sans);font-size:13.5px;font-weight:600;letter-spacing:.4px;transition:.2s;min-width:42px;text-align:center}
+.chip:hover{border-color:var(--gold);color:var(--ink);background:var(--gold-tint)}
 .chip.on{background:var(--gold);border-color:var(--gold);color:#241f18;font-weight:700}
 
 /* ---------- header ---------- */
@@ -72,16 +72,16 @@ h2.big{font-size:clamp(30px,4vw,46px);font-weight:500}
 .center .divider{margin:22px auto}
 
 /* ---------- photo-ready full-bleed hero ---------- */
-.hero-full{position:relative;min-height:0;padding:72px 0 60px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
+.hero-full{position:relative;min-height:0;padding:44px 0 36px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
 .hero-photo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;background:linear-gradient(180deg,#eef3ea 0%,#e3ece0 45%,#efe6d6 100%)}
 .hero-photo .glow{position:absolute;top:13%;right:24%;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(246,228,184,.9),rgba(246,228,184,0));filter:blur(6px)}
 .hero-photo .hills2{position:absolute;left:0;right:0;bottom:0;height:48%}
 .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(250,246,239,.97) 0%,rgba(250,246,239,.82) 38%,rgba(250,246,239,.25) 70%,rgba(250,246,239,0) 100%)}
 .hero-full-inner{position:relative;z-index:2;width:100%}
 .hero-copy{max-width:620px}
-.hero-copy .h-title{font-size:clamp(38px,5.4vw,68px);line-height:1.05;font-weight:500;margin:10px 0 6px}
+.hero-copy .h-title{font-size:clamp(34px,4.6vw,58px);line-height:1.05;font-weight:500;margin:8px 0 4px}
 .hero-copy .h-title em{font-style:italic;color:var(--gold-deep)}
-.hero-copy p.h-sub{font-size:19px;color:var(--muted);max-width:520px;margin:18px 0 30px}
+.hero-copy p.h-sub{font-size:18px;color:var(--muted);max-width:520px;margin:14px 0 22px}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
 .hero-mark-bg{position:absolute;z-index:1;right:8%;top:50%;transform:translateY(-50%);width:270px;height:352px}
 .hero-mark-bg::before{content:"";position:absolute;inset:-46px;border-radius:50%;background:radial-gradient(circle,rgba(250,246,239,.65) 0%,rgba(250,246,239,.22) 45%,rgba(250,246,239,0) 72%)}
@@ -198,7 +198,7 @@ footer ul a:hover{color:var(--gold-soft)}
   .band{padding:40px 26px}
   section{padding:60px 0}
   .hero-mark-bg{width:170px;height:222px;opacity:.35;right:0}
-  .hero-full{padding:48px 0 40px}
+  .hero-full{padding:28px 0 24px}
   .hero-scrim{background:linear-gradient(90deg,rgba(250,246,239,.96) 0%,rgba(250,246,239,.86) 60%,rgba(250,246,239,.55) 100%)}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
