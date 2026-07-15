@@ -1,6 +1,6 @@
 /* ===========================================================
    Essentia — design system
-   Palette: gold + cream, sage-green accent, soft charcoal ink
+   Palette: soft sky blue + cream, soft charcoal ink
    Type: Cormorant Garamond (serif) · Mulish (body) · Parisienne (script)
    =========================================================== */
 :root{
@@ -8,7 +8,7 @@
   --ink:#3E3A34; --muted:#6E655A; --faint:#736C61;
   --gold:#7FA8C9; --gold-deep:#4F7A9B; --gold-soft:#C3DCE9; --gold-tint:#EDF4F8;
   --line:rgba(127,168,201,.28);
-  --accent:#93A585; --accent-soft:#E9EFE3; --accent-deep:#6C8060; --accent2:#E7CBC4;
+  --accent:var(--gold); --accent-soft:var(--gold-tint); --accent-deep:var(--gold-deep); --accent2:#E7CBC4;
   --shadow:0 18px 50px -24px rgba(90,70,35,.35);
   --radius:18px;
   --serif:'Cormorant Garamond',Georgia,serif;
