@@ -7,11 +7,11 @@ import { WhatsAppButton } from '@/components/WhatsAppButton';
 export const metadata = {
   title: 'Essentia by MDB — Myriam Diougoan Blanch',
   description:
-    "Coaching, thérapie et conseil RH. Un accompagnement à la fois spirituel et pragmatique pour transformer vos défis en évolutions profondes et durables.",
+    "Coaching, psychothérapie et conseil RH. Un accompagnement à la fois spirituel et pragmatique pour transformer vos défis en évolutions profondes et durables.",
   metadataBase: new URL('https://essentia.example.com'),
   openGraph: {
     title: 'Essentia by MDB — Myriam Diougoan Blanch',
-    description: "Coaching, thérapie et conseil RH multilingue.",
+    description: "Coaching, psychothérapie et conseil RH multilingue.",
     type: 'website',
   },
   icons: { icon: '/favicon.png' },
