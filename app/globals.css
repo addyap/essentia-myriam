@@ -72,7 +72,7 @@ h2.big{font-size:clamp(30px,4vw,46px);font-weight:500}
 .center .divider{margin:22px auto}
 
 /* ---------- photo-ready full-bleed hero ---------- */
-.hero-full{position:relative;min-height:86vh;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
+.hero-full{position:relative;min-height:0;padding:120px 0 100px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
 .hero-photo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;background:linear-gradient(180deg,#eef3ea 0%,#e3ece0 45%,#efe6d6 100%)}
 .hero-photo .glow{position:absolute;top:13%;right:24%;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(246,228,184,.9),rgba(246,228,184,0));filter:blur(6px)}
 .hero-photo .hills2{position:absolute;left:0;right:0;bottom:0;height:48%}
@@ -198,7 +198,7 @@ footer ul a:hover{color:var(--gold-soft)}
   .band{padding:40px 26px}
   section{padding:60px 0}
   .hero-mark-bg{width:170px;height:222px;opacity:.35;right:0}
-  .hero-full{min-height:74vh}
+  .hero-full{padding:80px 0 60px}
   .hero-scrim{background:linear-gradient(90deg,rgba(250,246,239,.96) 0%,rgba(250,246,239,.86) 60%,rgba(250,246,239,.55) 100%)}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
