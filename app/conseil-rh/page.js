@@ -38,8 +38,9 @@ export default function RhPage() {
           <div>
             <span className="kicker">{r.eyebrow}</span>
             <h2 className="big">{r.approachTitle}</h2>
+            <div className="flourish"><Icon name="briefcase" /></div>
           </div>
-          <div><p className="lead">{r.approachBody}</p></div>
+          <div><p className="prose">{r.approachBody}</p></div>
         </div>
       </section>
 

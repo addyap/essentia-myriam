@@ -1,7 +1,8 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/components/Providers';
-import { Icon } from '@/components/Icon';
+
+const THUMB = { Blog: '/res-blog.jpg', Vlog: '/res-vlog.jpg', Podcast: '/res-podcast.jpg' };
 
 export default function ResourcesPage() {
   const { t } = useApp();
@@ -39,7 +40,7 @@ export default function ResourcesPage() {
           <div className="res-grid">
             {visible.map((x, i) => (
               <div className="res" key={i}>
-                <div className="thumb"><Icon name={x.ic} /></div>
+                <div className="thumb" style={{ backgroundImage: `url(${THUMB[x.cat]})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
                 <div className="body">
                   <span className="tag">{x.cat}</span>
                   <h4>{x.t}</h4>

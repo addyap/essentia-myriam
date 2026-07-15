@@ -10,17 +10,8 @@ export default function HomePage() {
   const h = t.home;
   return (
     <>
-      {/* PHOTO-READY HERO — to use a real image, add a background-image to .hero-photo
-          (e.g. style={{ backgroundImage: "url('/hero.jpg')" }}) or drop in a next/image
-          <Image fill> as the first child. The scrim keeps the headline legible. */}
       <section className="hero-full">
-        <div className="hero-photo">
-          <div className="glow" />
-          <svg className="hills2" viewBox="0 0 600 240" preserveAspectRatio="none">
-            <path d="M0 150 C120 110 220 170 320 140 C420 110 520 160 600 130 L600 240 L0 240Z" fill="rgba(198,146,58,.10)" />
-            <path d="M0 190 C140 160 260 205 380 180 C480 160 560 195 600 180 L600 240 L0 240Z" fill="rgba(198,146,58,.16)" />
-          </svg>
-        </div>
+        <div className="hero-photo" style={{ backgroundImage: "url('/hero.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
         <div className="hero-scrim" />
         <span className="hero-mark-bg"><Logo /></span>
         <div className="wrap hero-full-inner">
@@ -36,7 +27,6 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-        <span className="photo-tag">{t.ui.photoSlot}</span>
       </section>
 
       <section>

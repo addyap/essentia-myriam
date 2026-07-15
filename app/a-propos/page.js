@@ -16,8 +16,8 @@ export default function AboutPage() {
             <span className="eyebrow">{a.eyebrow}</span>
             <h2 className="big">{a.title}</h2>
             <p className="lead" style={{ margin: '10px 0 18px' }}>{a.lead}</p>
-            <p style={{ color: 'var(--muted)', marginBottom: 14 }}>{a.p1}</p>
-            <p style={{ color: 'var(--muted)' }}>{a.p2}</p>
+            <p className="prose" style={{ marginBottom: 14 }}>{a.p1}</p>
+            <p className="prose">{a.p2}</p>
             <div className="chips-langs">
               <span>Français</span><span>English</span><span>Italiano</span><span>Español</span>
             </div>
@@ -26,10 +26,13 @@ export default function AboutPage() {
       </section>
 
       <section className="section-soft">
-        <div className="wrap">
-          <span className="kicker">{a.eyebrow}</span>
-          <h2 className="big" style={{ maxWidth: 760, marginBottom: 18 }}>{a.journeyTitle}</h2>
-          <p className="lead" style={{ maxWidth: 820 }}>{a.journeyBody}</p>
+        <div className="wrap split">
+          <div>
+            <span className="kicker">{a.eyebrow}</span>
+            <h2 className="big">{a.journeyTitle}</h2>
+            <div className="flourish"><Icon name="compass" /></div>
+          </div>
+          <div><p className="prose">{a.journeyBody}</p></div>
         </div>
       </section>
 
@@ -43,6 +46,7 @@ export default function AboutPage() {
           <div className="grid g-2">
             {a.values.map((v, i) => (
               <div className="card" key={i}>
+                <div className="ic"><Icon name={v.ic} /></div>
                 <h3>{v.t}</h3>
                 <p>{v.d}</p>
               </div>
@@ -56,8 +60,9 @@ export default function AboutPage() {
           <div>
             <span className="kicker">{a.eyebrow}</span>
             <h2 className="big">{a.whyTitle}</h2>
+            <div className="flourish"><Icon name="spark" /></div>
           </div>
-          <div><p className="lead">{a.whyBody}</p></div>
+          <div><p className="prose">{a.whyBody}</p></div>
         </div>
       </section>
     </>

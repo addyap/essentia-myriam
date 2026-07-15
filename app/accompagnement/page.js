@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
+import { Icon } from '@/components/Icon';
 import { ROUTES } from '@/lib/routes';
 
 export default function CoachingPage() {
@@ -23,6 +24,7 @@ export default function CoachingPage() {
           <div className="grid g-2" style={{ marginTop: 22 }}>
             {c.items.map((it, i) => (
               <div className="card" key={i}>
+                <div className="ic"><Icon name={it.ic} /></div>
                 <span className="num">0{i + 1}</span>
                 <h3>{it.t}</h3>
                 <p>{it.d}</p>
