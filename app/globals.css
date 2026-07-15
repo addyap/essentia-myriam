@@ -189,9 +189,13 @@ footer ul a:hover{color:var(--gold-soft)}
 
 /* ---------- responsive ---------- */
 @media(max-width:900px){
-  nav.main{position:fixed;inset:82px 0 auto 0;background:var(--cream);flex-direction:column;padding:20px 28px;gap:14px;border-bottom:1px solid var(--line);transform:translateY(-140%);transition:.3s;z-index:30}
+  .topbar .wrap{min-height:42px}
+  .nav{min-height:66px}
+  nav.main{position:fixed;top:66px;left:0;right:0;height:100vh;height:100dvh;background:var(--cream);flex-direction:column;align-items:stretch;padding:10px 28px 28px;gap:2px;overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(-140%);transition:.3s;z-index:30}
   nav.main.open{transform:none}
-  .menu-toggle{display:block}
+  nav.main a{padding:15px 4px;font-size:16.5px;text-align:center;border-bottom:1px solid var(--line)}
+  nav.main .btn-gold{margin-top:18px;justify-content:center;padding:15px 22px}
+  .menu-toggle{display:block;font-size:24px;line-height:1}
   .split,.book-grid{grid-template-columns:1fr}
   .g-3,.quotes,.price-grid,.res-grid{grid-template-columns:1fr}
   .g-2{grid-template-columns:1fr}

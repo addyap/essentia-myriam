@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useApp } from './Providers';
@@ -13,6 +13,11 @@ export function Header() {
   const { lang, setLang, t, brand } = useApp();
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [open]);
 
   return (
     <>
@@ -69,9 +74,10 @@ export function Header() {
           <button
             className="menu-toggle"
             aria-label={t.ui.menu}
+            aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            ☰
+            {open ? '✕' : '☰'}
           </button>
         </div>
       </header>
