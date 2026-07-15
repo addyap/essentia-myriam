@@ -6,8 +6,8 @@
 :root{
   --cream:#FAF6EF; --cream-2:#F3EBDD; --paper:#FFFDFA;
   --ink:#3E3A34; --muted:#6E655A; --faint:#736C61;
-  --gold:#C6923A; --gold-deep:#A9761F; --gold-soft:#E7D3AB; --gold-tint:#F7EEDC;
-  --line:rgba(198,146,58,.28);
+  --gold:#7FA8C9; --gold-deep:#4F7A9B; --gold-soft:#C3DCE9; --gold-tint:#EDF4F8;
+  --line:rgba(127,168,201,.28);
   --accent:#93A585; --accent-soft:#E9EFE3; --accent-deep:#6C8060; --accent2:#E7CBC4;
   --shadow:0 18px 50px -24px rgba(90,70,35,.35);
   --radius:18px;
