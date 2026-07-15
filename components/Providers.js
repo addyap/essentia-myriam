@@ -13,6 +13,10 @@ export function Providers({ children }) {
     if (saved && T[saved]) setLangState(saved);
   }, []);
 
+  useEffect(() => {
+    document.documentElement.lang = lang;
+  }, [lang]);
+
   const setLang = (l) => {
     setLangState(l);
     localStorage.setItem(LANG_KEY, l);
