@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useApp } from './Providers';
 import { Logo } from './Logo';
+import { Icon } from './Icon';
 import { ROUTES, NAV } from '@/lib/routes';
 
 const LANGS = ['fr', 'en', 'it', 'es'];
@@ -19,7 +20,7 @@ export function Header() {
       <div className="topbar">
         <div className="wrap">
           <div className="switch">
-            <span className="lbl">{t.ui.language}</span>
+            <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
             {LANGS.map((l) => (
               <button
                 key={l}
