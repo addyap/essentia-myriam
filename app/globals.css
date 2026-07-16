@@ -29,7 +29,7 @@ img{max-width:100%}
 
 /* ---------- top bar (language) ---------- */
 .topbar{background:var(--cream-2);color:var(--ink);font-size:13px;letter-spacing:.4px;border-bottom:1px solid var(--line)}
-.topbar .wrap{display:flex;align-items:center;justify-content:flex-end;gap:16px;min-height:48px;flex-wrap:wrap}
+.topbar .wrap{max-width:none;display:flex;align-items:center;justify-content:flex-end;gap:16px;min-height:48px;flex-wrap:wrap}
 .switch{display:flex;align-items:center;gap:10px}
 .switch .lbl{display:flex;align-items:center;gap:6px;text-transform:uppercase;font-size:12px;letter-spacing:1.4px;color:var(--gold-deep);font-weight:700}
 .switch .lbl svg{width:15px;height:15px}
@@ -39,7 +39,7 @@ img{max-width:100%}
 
 /* ---------- header ---------- */
 header.site{position:sticky;top:0;z-index:40;background:rgba(250,246,239,.86);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:82px}
+.nav{max-width:none;display:flex;align-items:center;justify-content:space-between;gap:18px;min-height:82px}
 .brand{display:flex;align-items:center;gap:14px;cursor:pointer}
 .brand .mark{width:44px;height:56px;flex:none}
 .brand .mark svg,.brand .mark img{width:100%;height:100%;display:block;object-fit:contain}
