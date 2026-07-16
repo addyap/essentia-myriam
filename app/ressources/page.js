@@ -40,7 +40,7 @@ export default function ResourcesPage() {
                 <div className="thumb" style={{ backgroundImage: `url(${THUMB[x.cat]})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
                 <div className="body">
                   <span className="tag">{x.cat}</span>
-                  <h4>{x.t}</h4>
+                  <h3>{x.t}</h3>
                   <p>{x.d}</p>
                 </div>
               </div>
@@ -49,10 +49,12 @@ export default function ResourcesPage() {
           <div className="news">
             <span className="kicker">{r.newsTitle}</span>
             <p style={{ color: 'var(--muted)', maxWidth: 460, margin: '6px auto 0' }}>{r.newsSub}</p>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <input type="email" placeholder={r.newsPlace} />
-              <button className="btn btn-gold">{r.newsBtn}</button>
+            <form onSubmit={(e) => { e.preventDefault(); setSubscribed(true); }}>
+              <label htmlFor="newsletter-email" className="sr-only">{r.newsPlace}</label>
+              <input id="newsletter-email" name="email" type="email" autoComplete="email" placeholder={r.newsPlace} required />
+              <button className="btn btn-gold" disabled={subscribed}>{r.newsBtn}</button>
             </form>
+            {subscribed ? <p className="notice" style={{ margin: '14px auto 0' }} role="status">{t.ui.formUnavailable}</p> : null}
           </div>
         </div>
       </section>

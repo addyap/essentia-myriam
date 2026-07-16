@@ -10,7 +10,7 @@ export default function NotFound() {
     <section>
       <div className="wrap center">
         <span className="eyebrow">{n.eyebrow}</span>
-        <h2 className="big">{n.title}</h2>
+        <h1 className="big">{n.title}</h1>
         <div className="divider" />
         <p className="lead" style={{ marginBottom: 30 }}>{n.text}</p>
         <Link className="btn btn-gold" href={ROUTES.home}>{n.backBtn}</Link>

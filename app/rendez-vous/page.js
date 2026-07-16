@@ -1,9 +1,11 @@
 'use client';
+import { useState } from 'react';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
+import { PageHeader } from '@/components/PageHeader';
 
 function Calendar({ b }) {
-  const dn = ['L', 'M', 'M', 'J', 'V', 'S', 'D'];
+  const dn = b.weekdays;
   const free = [3, 4, 10, 11, 12, 17, 18, 24, 25];
   const cells = [];
   for (let i = 0; i < 35; i++) {
@@ -30,27 +32,25 @@ function Calendar({ b }) {
 export default function BookingPage() {
   const { t } = useApp();
   const b = t.booking;
+  const [sent, setSent] = useState(false);
   return (
     <>
       <section>
-        <div className="wrap center">
-          <span className="eyebrow">{b.eyebrow}</span>
-          <h2 className="big">{b.title}</h2>
-          <div className="divider" />
-          <p className="lead">{b.lead}</p>
-        </div>
+        <PageHeader eyebrow={b.eyebrow} title={b.title} lead={b.lead} />
       </section>
       <section className="section-soft" style={{ paddingTop: 20 }}>
         <div className="wrap book-grid">
-          <form className="mock" onSubmit={(e) => e.preventDefault()}>
-            <div className="field"><label>{b.fName}</label><input type="text" placeholder={b.fName} /></div>
-            <div className="field"><label>{b.fEmail}</label><input type="email" placeholder={b.fEmail} /></div>
+          <form className="mock" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+            <div className="field"><label htmlFor="booking-name">{b.fName}</label><input id="booking-name" name="name" type="text" autoComplete="name" placeholder={b.fName} /></div>
+            <div className="field"><label htmlFor="booking-email">{b.fEmail}</label><input id="booking-email" name="email" type="email" autoComplete="email" placeholder={b.fEmail} /></div>
             <div className="field">
-              <label>{b.fType}</label>
-              <select>{b.opt.map((o, i) => <option key={i}>{o}</option>)}</select>
+              <label htmlFor="booking-type">{b.fType}</label>
+              <select id="booking-type" name="type">{b.opt.map((o, i) => <option key={i}>{o}</option>)}</select>
             </div>
-            <div className="field"><label>{b.fMsg}</label><textarea rows={4} placeholder={b.fMsg} /></div>
-            <button className="btn btn-gold" style={{ justifyContent: 'center' }}>{b.send}</button>
+            <div className="field"><label htmlFor="booking-message">{b.fMsg}</label><textarea id="booking-message" name="message" rows={4} placeholder={b.fMsg} /></div>
+            <button className="btn btn-gold" style={{ justifyContent: 'center' }} disabled={sent}>{b.send}</button>
+            {sent ? <p className="notice" role="status">{t.ui.formUnavailable}</p> : null}
+            <span className="kicker" style={{ marginTop: 8 }}>{b.coordsTitle}</span>
             <div className="coords">
               <div><span className="ic"><Icon name="pin" /></span> {b.address}</div>
               <div><span className="ic"><Icon name="mail" /></span> {b.email}</div>

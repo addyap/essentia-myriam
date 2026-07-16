@@ -16,10 +16,11 @@ export default function AboutPage() {
           </div>
           <div>
             <span className="eyebrow">{a.eyebrow}</span>
-            <h2 className="big">{a.title}</h2>
+            <h1 className="big">{a.title}</h1>
             <p className="lead" style={{ margin: '10px 0 18px' }}>{a.lead}</p>
             <p className="prose" style={{ marginBottom: 14 }}>{a.p1}</p>
             <p className="prose">{a.p2}</p>
+            <span className="kicker" style={{ marginTop: 18, display: 'block' }}>{a.langsTitle}</span>
             <div className="chips-langs">
               <span>Français</span><span>English</span><span>Italiano</span><span>Español</span>
             </div>

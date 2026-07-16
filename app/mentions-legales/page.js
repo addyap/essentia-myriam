@@ -1,14 +1,17 @@
-export const metadata = { title: 'Mentions légales — Essentia by MDB' };
+'use client';
+import { useApp } from '@/components/Providers';
 
 export default function MentionsLegalesPage() {
+  const { lang, t } = useApp();
   return (
     <section>
       <div className="wrap" style={{ maxWidth: 780 }}>
         <span className="eyebrow">Informations</span>
-        <h2 className="big">Mentions légales</h2>
+        <h1 className="big">Mentions légales</h1>
         <div className="divider" />
+        {lang !== 'fr' ? <p className="notice" role="status">{t.ui.legalFrenchOnly}</p> : null}
 
-        <h3 style={{ fontSize: 22, marginTop: 32, marginBottom: 10 }}>Éditeur du site</h3>
+        <h3 className="legal-h3">Éditeur du site</h3>
         <p className="prose">
           Le site Essentia by MDB est édité par Myriam Diougoan Blanch, coach, consultante RH et
           formatrice indépendante.
@@ -24,20 +27,20 @@ export default function MentionsLegalesPage() {
           Directeur de la publication : Myriam Diougoan Blanch.
         </p>
 
-        <h3 style={{ fontSize: 22, marginTop: 32, marginBottom: 10 }}>Hébergement</h3>
+        <h3 className="legal-h3">Hébergement</h3>
         <p className="prose">
           Le site est hébergé par Vercel Inc., 340 S Lemon Ave #4133, Walnut, CA 91789,
           États-Unis — <a href="https://vercel.com" target="_blank" rel="noopener noreferrer">vercel.com</a>.
         </p>
 
-        <h3 style={{ fontSize: 22, marginTop: 32, marginBottom: 10 }}>Propriété intellectuelle</h3>
+        <h3 className="legal-h3">Propriété intellectuelle</h3>
         <p className="prose">
           L&rsquo;ensemble des contenus présents sur ce site (textes, logo, mise en page) est la
           propriété de Myriam Diougoan Blanch, sauf mention contraire. Toute reproduction, même
           partielle, est soumise à autorisation préalable.
         </p>
 
-        <h3 style={{ fontSize: 22, marginTop: 32, marginBottom: 10 }}>Données personnelles</h3>
+        <h3 className="legal-h3">Données personnelles</h3>
         <p className="prose">
           Le traitement des données personnelles collectées via ce site est détaillé dans notre
           page dédiée à la <a href="/confidentialite">confidentialité</a> et à la{' '}
