@@ -29,7 +29,7 @@ img{max-width:100%}
 
 /* ---------- top bar (language) ---------- */
 .topbar{background:var(--cream-2);color:var(--ink);font-size:13px;letter-spacing:.4px;border-bottom:1px solid var(--line)}
-.topbar .wrap{max-width:none;display:flex;align-items:center;justify-content:flex-end;gap:16px;min-height:48px;flex-wrap:wrap}
+.topbar .wrap{max-width:none;display:flex;align-items:center;justify-content:center;gap:16px;min-height:48px;flex-wrap:wrap}
 .switch{display:flex;align-items:center;gap:10px}
 .switch .lbl{display:flex;align-items:center;gap:6px;text-transform:uppercase;font-size:12px;letter-spacing:1.4px;color:var(--gold-deep);font-weight:700}
 .switch .lbl svg{width:15px;height:15px}
