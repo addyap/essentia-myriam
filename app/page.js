@@ -23,7 +23,7 @@ export default function HomePage() {
             <p className="h-sub">{h.heroSub}</p>
             <div className="hero-cta">
               <Link className="btn btn-gold" href={ROUTES.booking}>{h.heroCta1}</Link>
-              <Link className="btn btn-ghost" href={ROUTES.about}>{h.heroCta2}</Link>
+              <Link className="btn btn-soft" href={ROUTES.about}>{h.heroCta2}</Link>
             </div>
           </div>
         </div>

@@ -58,6 +58,8 @@ nav.main .btn{padding:12px 22px}
 .btn-gold:hover{background:var(--gold-deep);color:#fff;transform:translateY(-1px)}
 .btn-ghost{border-color:var(--gold);color:var(--gold-deep);background:transparent}
 .btn-ghost:hover{background:var(--gold-tint)}
+.btn-soft{background:var(--gold-soft);color:var(--gold-deep)}
+.btn-soft:hover{background:var(--gold);color:#241f18;transform:translateY(-1px)}
 .menu-toggle{display:none;align-items:center;justify-content:center;min-width:44px;min-height:44px;background:none;border:none;cursor:pointer;font-size:26px;color:var(--ink)}
 
 /* ---------- sections ---------- */
