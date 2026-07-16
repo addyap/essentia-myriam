@@ -6,7 +6,7 @@
 :root{
   --cream:#FAF6EF; --cream-2:#F3EBDD; --paper:#FFFDFA;
   --ink:#3E3A34; --muted:#6E655A; --faint:#736C61;
-  --gold:#7FA8C9; --gold-deep:#4F7A9B; --gold-soft:#C3DCE9; --gold-tint:#EDF4F8;
+  --gold:#7FA8C9; --gold-deep:#486F8E; --gold-soft:#C3DCE9; --gold-tint:#EDF4F8;
   --line:rgba(127,168,201,.28);
   --accent:var(--gold); --accent-soft:var(--gold-tint); --accent-deep:var(--gold-deep); --accent2:#E7CBC4;
   --shadow:0 18px 50px -24px rgba(90,70,35,.35);
@@ -74,7 +74,7 @@ h2.big{font-size:clamp(30px,4vw,46px);font-weight:500}
 
 /* ---------- photo-ready full-bleed hero ---------- */
 .hero-full{position:relative;min-height:0;padding:44px 0 36px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
-.hero-photo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;background:linear-gradient(180deg,#eef3ea 0%,#e3ece0 45%,#efe6d6 100%)}
+.hero-photo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;background:linear-gradient(180deg,#EDF4F8 0%,#DCE9F2 45%,#efe6d6 100%)}
 .hero-photo .glow{position:absolute;top:13%;right:24%;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(246,228,184,.9),rgba(246,228,184,0));filter:blur(6px)}
 .hero-photo .hills2{position:absolute;left:0;right:0;bottom:0;height:48%}
 .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(250,246,239,.97) 0%,rgba(250,246,239,.82) 38%,rgba(250,246,239,.25) 70%,rgba(250,246,239,0) 100%)}
@@ -98,7 +98,7 @@ h2.big{font-size:clamp(30px,4vw,46px);font-weight:500}
 .card .ic svg{width:26px;height:26px}
 .card h3{font-size:23px;margin-bottom:8px}
 .card p{color:var(--muted);font-size:15px}
-.card .num{font-family:var(--serif);font-size:15px;color:var(--gold);letter-spacing:2px;display:block;margin-bottom:10px}
+.card .num{font-family:var(--serif);font-size:15px;color:var(--gold-deep);letter-spacing:2px;display:block;margin-bottom:10px}
 .card .ic + .num{margin-top:-4px}
 
 /* ---------- long-form body copy ---------- */
@@ -138,7 +138,7 @@ h2.big{font-size:clamp(30px,4vw,46px);font-weight:500}
 .price .amt small{font-size:15px;color:var(--muted)}
 .price ul{list-style:none;margin-top:14px;text-align:left;font-size:14.5px;color:var(--muted)}
 .price li{padding:7px 0;border-top:1px solid var(--line);display:flex;gap:8px}
-.price li .tick{color:var(--gold)}
+.price li .tick{color:var(--gold-deep)}
 
 /* ---------- booking / contact ---------- */
 .book-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
