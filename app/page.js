@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
 import { Logo } from '@/components/Logo';
@@ -11,7 +12,7 @@ export default function HomePage() {
   return (
     <>
       <section className="hero-full">
-        <div className="hero-photo" style={{ backgroundImage: "url('/hero.jpg')", backgroundSize: 'cover', backgroundPosition: 'center' }} />
+        <Image src="/hero.jpg" alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} className="hero-photo" />
         <div className="hero-scrim" />
         <span className="hero-mark-bg"><Logo /></span>
         <div className="wrap hero-full-inner">

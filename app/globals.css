@@ -80,13 +80,13 @@ section{padding:82px 0}
 
 /* ---------- photo-ready page header (sub-pages) ---------- */
 .page-hero{position:relative;overflow:hidden;padding:96px 0}
-.page-hero .page-photo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+.page-hero .page-photo{z-index:0}
 .page-hero .page-scrim{position:absolute;inset:0;z-index:1;background:rgba(250,246,239,.76)}
 .page-hero .wrap{position:relative;z-index:2}
 
 /* ---------- photo-ready full-bleed hero ---------- */
 .hero-full{position:relative;min-height:0;padding:44px 0 36px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
-.hero-photo{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center;background:linear-gradient(180deg,#EDF4F8 0%,#DCE9F2 45%,#efe6d6 100%)}
+.hero-photo{z-index:0;background:linear-gradient(180deg,#EDF4F8 0%,#DCE9F2 45%,#efe6d6 100%)}
 .hero-photo .glow{position:absolute;top:13%;right:24%;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(246,228,184,.9),rgba(246,228,184,0));filter:blur(6px)}
 .hero-photo .hills2{position:absolute;left:0;right:0;bottom:0;height:48%}
 .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(250,246,239,.88) 0%,rgba(250,246,239,.58) 38%,rgba(250,246,239,.12) 70%,rgba(250,246,239,0) 100%)}

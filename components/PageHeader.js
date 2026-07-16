@@ -1,4 +1,5 @@
 'use client';
+import Image from 'next/image';
 
 // Shared eyebrow/h1/divider/lead block used at the top of every page. Centralizing
 // it means a page can no longer accidentally reuse the same content key for both
@@ -17,7 +18,7 @@ export function PageHeader({ eyebrow, title, lead, center = true, photo }) {
 
   return (
     <>
-      <div className="page-photo" style={{ backgroundImage: `url('${photo}')` }} />
+      <Image src={photo} alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} className="page-photo" />
       <div className="page-scrim" />
       {content}
     </>
