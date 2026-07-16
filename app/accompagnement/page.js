@@ -10,8 +10,8 @@ export default function CoachingPage() {
   const c = t.coaching;
   return (
     <>
-      <section>
-        <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} />
+      <section className="page-hero">
+        <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} photo="/hero-coaching.jpg" />
       </section>
 
       <section className="section-soft">

@@ -11,8 +11,8 @@ export default function RhPage() {
   const r = t.rh;
   return (
     <>
-      <section>
-        <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} />
+      <section className="page-hero">
+        <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} photo="/hero-rh.jpg" />
       </section>
 
       <section className="section-soft">

@@ -1,6 +1,7 @@
 'use client';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
+import { PageHeader } from '@/components/PageHeader';
 
 export default function ContactPage() {
   const { t } = useApp();
@@ -8,13 +9,8 @@ export default function ContactPage() {
   const b = t.booking;
   return (
     <>
-      <section>
-        <div className="wrap center">
-          <span className="eyebrow">{c.eyebrow}</span>
-          <h2 className="big">{c.title}</h2>
-          <div className="divider" />
-          <p className="lead">{c.lead}</p>
-        </div>
+      <section className="page-hero">
+        <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} photo="/hero-contact.jpg" />
       </section>
       <section className="section-soft" style={{ paddingTop: 24 }}>
         <div className="wrap book-grid">
