@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useApp } from '@/components/Providers';
+import { PageHeader } from '@/components/PageHeader';
 
 const THUMB = { Blog: '/res-blog.jpg', Vlog: '/res-vlog.jpg', Podcast: '/res-podcast.jpg' };
 
@@ -8,18 +9,14 @@ export default function ResourcesPage() {
   const { t } = useApp();
   const r = t.resources;
   const [filter, setFilter] = useState('__all');
+  const [subscribed, setSubscribed] = useState(false);
 
   const visible = r.items.filter((x) => filter === '__all' || x.cat === filter);
 
   return (
     <>
       <section>
-        <div className="wrap center">
-          <span className="eyebrow">{r.eyebrow}</span>
-          <h2 className="big">{r.title}</h2>
-          <div className="divider" />
-          <p className="lead">{r.lead}</p>
-        </div>
+        <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} />
       </section>
       <section className="section-soft" style={{ paddingTop: 24 }}>
         <div className="wrap">

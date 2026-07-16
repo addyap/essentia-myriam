@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
+import { PageHeader } from '@/components/PageHeader';
 import { ROUTES } from '@/lib/routes';
 
 export default function CoachingPage() {
@@ -10,12 +11,7 @@ export default function CoachingPage() {
   return (
     <>
       <section>
-        <div className="wrap center">
-          <span className="eyebrow">{c.eyebrow}</span>
-          <h2 className="big">{c.title}</h2>
-          <div className="divider" />
-          <p className="lead">{c.lead}</p>
-        </div>
+        <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} />
       </section>
 
       <section className="section-soft">
@@ -36,7 +32,7 @@ export default function CoachingPage() {
 
       <section>
         <div className="wrap center">
-          <span className="eyebrow">{c.methodsTitle}</span>
+          <span className="eyebrow">{c.methodsEyebrow}</span>
           <h2 className="big">{c.methodsTitle}</h2>
           <p className="lead">{c.methodsSub}</p>
           <div className="chips-langs" style={{ justifyContent: 'center', marginTop: 24 }}>
@@ -48,14 +44,14 @@ export default function CoachingPage() {
       <section className="section-accent">
         <div className="wrap">
           <div className="center" style={{ marginBottom: 20 }}>
-            <span className="eyebrow">{c.pricingTitle}</span>
+            <span className="eyebrow">{c.pricingEyebrow}</span>
             <h2 className="big">{c.pricingTitle}</h2>
             <p className="lead">{c.pricingSub}</p>
           </div>
           <div className="price-grid">
             {c.prices.map((p, i) => (
               <div className="price" key={i}>
-                <h4>{p.t}</h4>
+                <h3>{p.t}</h3>
                 <div className="amt">{p.amt} {p.per ? <small>/ {p.per}</small> : null}</div>
                 <ul>
                   {p.feat.map((f, j) => (

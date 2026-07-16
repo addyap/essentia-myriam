@@ -1,4 +1,4 @@
-const BASE_URL = 'https://essentia.example.com';
+import { SITE_URL as BASE_URL } from '@/lib/config';
 
 export default function robots() {
   return {

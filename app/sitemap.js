@@ -1,6 +1,5 @@
 import { ROUTES } from '@/lib/routes';
-
-const BASE_URL = 'https://essentia.example.com';
+import { SITE_URL as BASE_URL } from '@/lib/config';
 
 export default function sitemap() {
   const paths = Object.values(ROUTES);

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
 import { Logo } from '@/components/Logo';
+import { PageHeader } from '@/components/PageHeader';
 import { ROUTES } from '@/lib/routes';
 
 export default function RhPage() {
@@ -11,12 +12,7 @@ export default function RhPage() {
   return (
     <>
       <section>
-        <div className="wrap center">
-          <span className="eyebrow">{r.eyebrow}</span>
-          <h2 className="big">{r.title}</h2>
-          <div className="divider" />
-          <p className="lead">{r.lead}</p>
-        </div>
+        <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} />
       </section>
 
       <section className="section-soft">
