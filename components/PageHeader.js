@@ -4,7 +4,7 @@ import Image from 'next/image';
 // Shared eyebrow/h1/divider/lead block used at the top of every page. Centralizing
 // it means a page can no longer accidentally reuse the same content key for both
 // the eyebrow and the title (as accompagnement's methods/pricing sections once did).
-export function PageHeader({ eyebrow, title, lead, center = true, photo }) {
+export function PageHeader({ eyebrow, title, lead, center = true, photo, photoPosition = 'center' }) {
   const content = (
     <div className={center ? 'wrap center' : 'wrap'}>
       <span className="eyebrow">{eyebrow}</span>
@@ -18,7 +18,7 @@ export function PageHeader({ eyebrow, title, lead, center = true, photo }) {
 
   return (
     <>
-      <Image src={photo} alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} className="page-photo" />
+      <Image src={photo} alt="" fill priority sizes="100vw" style={{ objectFit: 'cover', objectPosition: photoPosition }} className="page-photo" />
       <div className="page-scrim" />
       {content}
     </>
