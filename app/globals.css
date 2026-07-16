@@ -89,8 +89,8 @@ section{padding:82px 0}
 .hero-copy p.h-sub{font-size:18px;color:var(--muted);max-width:520px;margin:14px 0 22px}
 .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
 .hero-mark-bg{position:absolute;z-index:1;right:8%;top:50%;transform:translateY(-50%);width:270px;height:352px}
-.hero-mark-bg::before{content:"";position:absolute;inset:-46px;border-radius:50%;background:radial-gradient(circle,rgba(250,246,239,.65) 0%,rgba(250,246,239,.22) 45%,rgba(250,246,239,0) 72%)}
-.hero-mark-bg svg,.hero-mark-bg img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 20px 38px rgba(90,60,20,.45))}
+.hero-mark-bg::before{content:"";position:absolute;inset:-58px;border-radius:50%;background:radial-gradient(circle,rgba(250,246,239,.78) 0%,rgba(224,180,104,.32) 42%,rgba(224,180,104,.1) 64%,rgba(224,180,104,0) 78%)}
+.hero-mark-bg svg,.hero-mark-bg img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 20px 38px rgba(90,60,20,.45)) drop-shadow(0 0 24px rgba(224,180,104,.5))}
 
 /* ---------- cards ---------- */
 .grid{display:grid;gap:24px}
