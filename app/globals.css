@@ -206,7 +206,8 @@ form.mock{display:grid;gap:16px}
 footer.site{background:var(--ink);color:#CFC6B8;padding:64px 0 30px}
 .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px}
 footer .name{font-family:var(--serif);letter-spacing:4px;text-transform:uppercase;color:#fff;font-size:22px}
-footer .sub{font-family:var(--script);color:var(--gold-soft);font-size:16px}
+footer .byline{font-family:var(--serif);font-style:italic;font-size:13px;letter-spacing:.3px;color:#CFC6B8;margin-top:4px}
+footer .sub{font-family:var(--script);color:var(--gold-soft);font-size:16px;margin-top:2px}
 footer h3{color:#fff;font-family:var(--sans);font-size:13px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:14px;font-weight:700}
 footer ul{list-style:none;display:flex;flex-direction:column;gap:9px}
 footer ul a{color:#CFC6B8;font-size:14px;cursor:pointer}
