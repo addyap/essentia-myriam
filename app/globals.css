@@ -81,9 +81,9 @@ section{padding:82px 0}
 /* ---------- photo-ready page header (sub-pages) ---------- */
 .page-hero{position:relative;overflow:hidden;padding:96px 0}
 .page-hero .page-photo{z-index:0}
-.page-hero .page-scrim{position:absolute;inset:0;z-index:1;background:rgba(250,246,239,.5)}
+.page-hero .page-scrim{position:absolute;inset:0;z-index:1;background:rgba(250,246,239,.65)}
 .page-hero .wrap{position:relative;z-index:2}
-.page-hero .eyebrow,.page-hero .big,.page-hero .lead{text-shadow:0 1px 3px rgba(250,246,239,.9),0 2px 20px rgba(250,246,239,.8)}
+.page-hero .eyebrow,.page-hero .big,.page-hero .lead{text-shadow:0 1px 4px rgba(250,246,239,.95),0 0 14px rgba(250,246,239,.9),0 2px 26px rgba(250,246,239,.8)}
 .page-hero .lead{color:var(--ink)}
 
 /* ---------- photo-ready mid-page section (e.g. testimonials) ---------- */
@@ -91,7 +91,7 @@ section{padding:82px 0}
 .section-photo .section-bg-photo{z-index:0}
 .section-photo .section-scrim{position:absolute;inset:0;z-index:1;background:rgba(250,246,239,.86)}
 .section-photo .wrap{position:relative;z-index:2}
-.section-photo .eyebrow,.section-photo .big{text-shadow:0 1px 3px rgba(250,246,239,.9),0 2px 20px rgba(250,246,239,.8)}
+.section-photo .eyebrow,.section-photo .big{text-shadow:0 1px 4px rgba(250,246,239,.95),0 0 14px rgba(250,246,239,.9),0 2px 26px rgba(250,246,239,.8)}
 
 /* ---------- photo-ready full-bleed hero ---------- */
 .hero-full{position:relative;min-height:0;padding:44px 0 36px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
@@ -101,7 +101,7 @@ section{padding:82px 0}
 .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(250,246,239,.80) 0%,rgba(250,246,239,.55) 38%,rgba(250,246,239,.15) 70%,rgba(250,246,239,0) 100%)}
 .hero-full-inner{position:relative;z-index:2;width:100%}
 .hero-copy{max-width:620px}
-.hero-copy .kicker,.hero-copy .h-title,.hero-copy p.h-sub{text-shadow:0 1px 3px rgba(250,246,239,.9),0 2px 20px rgba(250,246,239,.8)}
+.hero-copy .kicker,.hero-copy .h-title,.hero-copy p.h-sub{text-shadow:0 1px 4px rgba(250,246,239,.95),0 0 14px rgba(250,246,239,.9),0 2px 26px rgba(250,246,239,.8)}
 .hero-copy .h-title{font-size:clamp(34px,4.6vw,58px);line-height:1.05;font-weight:500;margin:8px 0 4px}
 .hero-copy .h-title em{font-style:italic;color:var(--gold-deep)}
 .hero-copy p.h-sub{font-size:18px;color:var(--ink);max-width:520px;margin:14px 0 22px}
