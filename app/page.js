@@ -74,7 +74,9 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-accent">
+      <section className="section-accent section-photo">
+        <Image src="/hero-testimonials.jpg" alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} className="section-bg-photo" />
+        <div className="section-scrim" />
         <div className="wrap">
           <div className="center" style={{ marginBottom: 44 }}>
             <span className="eyebrow">{h.testiEyebrow}</span>

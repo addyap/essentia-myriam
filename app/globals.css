@@ -86,12 +86,19 @@ section{padding:82px 0}
 .page-hero .eyebrow,.page-hero .big,.page-hero .lead{text-shadow:0 1px 3px rgba(250,246,239,.9),0 2px 20px rgba(250,246,239,.8)}
 .page-hero .lead{color:var(--ink)}
 
+/* ---------- photo-ready mid-page section (e.g. testimonials) ---------- */
+.section-photo{position:relative;overflow:hidden}
+.section-photo .section-bg-photo{z-index:0}
+.section-photo .section-scrim{position:absolute;inset:0;z-index:1;background:rgba(250,246,239,.86)}
+.section-photo .wrap{position:relative;z-index:2}
+.section-photo .eyebrow,.section-photo .big{text-shadow:0 1px 3px rgba(250,246,239,.9),0 2px 20px rgba(250,246,239,.8)}
+
 /* ---------- photo-ready full-bleed hero ---------- */
 .hero-full{position:relative;min-height:0;padding:44px 0 36px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
 .hero-photo{z-index:0;background:linear-gradient(180deg,#EDF4F8 0%,#DCE9F2 45%,#efe6d6 100%)}
 .hero-photo .glow{position:absolute;top:13%;right:24%;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(246,228,184,.9),rgba(246,228,184,0));filter:blur(6px)}
 .hero-photo .hills2{position:absolute;left:0;right:0;bottom:0;height:48%}
-.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(250,246,239,.93) 0%,rgba(250,246,239,.72) 38%,rgba(250,246,239,.22) 70%,rgba(250,246,239,0) 100%)}
+.hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(250,246,239,.80) 0%,rgba(250,246,239,.55) 38%,rgba(250,246,239,.15) 70%,rgba(250,246,239,0) 100%)}
 .hero-full-inner{position:relative;z-index:2;width:100%}
 .hero-copy{max-width:620px}
 .hero-copy .kicker,.hero-copy .h-title,.hero-copy p.h-sub{text-shadow:0 1px 3px rgba(250,246,239,.9),0 2px 20px rgba(250,246,239,.8)}
@@ -222,7 +229,7 @@ footer ul a:hover{color:var(--gold-soft)}
   .hero-mark-bg{width:170px;height:222px;opacity:.35;right:0}
   .hero-full{padding:28px 0 24px}
   .page-hero{padding:64px 0}
-  .hero-scrim{background:linear-gradient(90deg,rgba(250,246,239,.9) 0%,rgba(250,246,239,.68) 60%,rgba(250,246,239,.32) 100%)}
+  .hero-scrim{background:linear-gradient(90deg,rgba(250,246,239,.78) 0%,rgba(250,246,239,.50) 60%,rgba(250,246,239,.20) 100%)}
   .foot-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:560px){

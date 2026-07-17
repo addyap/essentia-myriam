@@ -35,8 +35,8 @@ export default function BookingPage() {
   const [sent, setSent] = useState(false);
   return (
     <>
-      <section>
-        <PageHeader eyebrow={b.eyebrow} title={b.title} lead={b.lead} />
+      <section className="page-hero">
+        <PageHeader eyebrow={b.eyebrow} title={b.title} lead={b.lead} photo="/hero-booking.jpg" />
       </section>
       <section className="section-soft" style={{ paddingTop: 20 }}>
         <div className="wrap book-grid">
