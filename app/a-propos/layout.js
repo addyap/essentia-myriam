@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'À propos — Essentia by Myriam Diougoan Blanch',
+  title: 'À propos — Essentia de Myriam Diougoan Blanch',
   description: "Découvrez le parcours de Myriam Diougoan Blanch, coach, psychothérapeute et consultante RH, et son approche holistique de l'accompagnement.",
   alternates: { canonical: '/a-propos' },
 };

@@ -11,7 +11,7 @@ export function Footer() {
         <div className="foot-grid">
           <div>
             <div className="name">{brand.name}</div>
-            <div className="byline">by Myriam Diougoan Blanch</div>
+            <div className="byline">de Myriam Diougoan Blanch</div>
             <div className="sub">{brand.sub}</div>
             <p style={{ marginTop: 14, fontSize: 14, maxWidth: 280 }}>{t.footer.blurb}</p>
             <div className="chips-langs" style={{ marginTop: 16 }}>

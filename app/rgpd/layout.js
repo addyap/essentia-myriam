@@ -1,6 +1,6 @@
 export const metadata = {
-  title: 'RGPD — Essentia by Myriam Diougoan Blanch',
-  description: 'Vos droits RGPD sur le site Essentia by Myriam Diougoan Blanch : accès, rectification, effacement et comment les exercer.',
+  title: 'RGPD — Essentia de Myriam Diougoan Blanch',
+  description: 'Vos droits RGPD sur le site Essentia de Myriam Diougoan Blanch : accès, rectification, effacement et comment les exercer.',
   alternates: { canonical: '/rgpd' },
 };
 

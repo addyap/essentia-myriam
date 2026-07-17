@@ -17,10 +17,10 @@ export default function ContactPage() {
       <section className="section-soft" style={{ paddingTop: 24 }}>
         <div className="wrap book-grid">
           <form className="mock" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
-            <div className="field"><label htmlFor="contact-name">{c.fName}</label><input id="contact-name" name="name" autoComplete="name" placeholder={c.fName} /></div>
-            <div className="field"><label htmlFor="contact-email">{c.fEmail}</label><input id="contact-email" name="email" type="email" autoComplete="email" placeholder={c.fEmail} /></div>
+            <div className="field"><label htmlFor="contact-name">{c.fName}</label><input id="contact-name" name="name" autoComplete="name" placeholder={c.fName} required /></div>
+            <div className="field"><label htmlFor="contact-email">{c.fEmail}</label><input id="contact-email" name="email" type="email" autoComplete="email" placeholder={c.fEmail} required /></div>
             <div className="field"><label htmlFor="contact-subject">{c.fSubject}</label><input id="contact-subject" name="subject" placeholder={c.fSubject} /></div>
-            <div className="field"><label htmlFor="contact-message">{c.fMsg}</label><textarea id="contact-message" name="message" rows={5} placeholder={c.fMsg} /></div>
+            <div className="field"><label htmlFor="contact-message">{c.fMsg}</label><textarea id="contact-message" name="message" rows={5} placeholder={c.fMsg} required /></div>
             <button className="btn btn-gold" style={{ justifyContent: 'center' }} disabled={sent}>{c.send}</button>
             {sent ? <p className="notice" role="status">{t.ui.formUnavailable}</p> : null}
           </form>
