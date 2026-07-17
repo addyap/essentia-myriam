@@ -10,7 +10,7 @@ export function Footer() {
       <div className="wrap">
         <div className="foot-grid">
           <div>
-            <div className="name">{brand.name}<span className="byline">by MDB</span></div>
+            <div className="name">{brand.name}</div>
             <div className="sub">{brand.sub}</div>
             <p style={{ marginTop: 14, fontSize: 14, maxWidth: 280 }}>{t.footer.blurb}</p>
             <div className="chips-langs" style={{ marginTop: 16 }}>
@@ -18,7 +18,7 @@ export function Footer() {
             </div>
           </div>
           <div>
-            <h5>{t.footer.explore}</h5>
+            <h3>{t.footer.explore}</h3>
             <ul>
               <li><Link href={ROUTES.about}>{t.nav.about}</Link></li>
               <li><Link href={ROUTES.coaching}>{t.nav.coaching}</Link></li>
@@ -27,7 +27,7 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h5>{t.footer.contact}</h5>
+            <h3>{t.footer.contact}</h3>
             <ul>
               <li><Link href={ROUTES.booking}>{t.ui.book}</Link></li>
               <li><Link href={ROUTES.contact}>{t.nav.contact}</Link></li>
@@ -35,7 +35,7 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h5>{t.footer.legal}</h5>
+            <h3>{t.footer.legal}</h3>
             <ul>
               <li><Link href={ROUTES.legalNotice}>{t.footer.legalNotice}</Link></li>
               <li><Link href={ROUTES.privacy}>{t.footer.privacy}</Link></li>

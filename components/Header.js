@@ -60,7 +60,7 @@ export function Header() {
           <Link href="/" className="brand" onClick={() => setOpen(false)}>
             <span className="mark"><Logo /></span>
             <span className="words">
-              <span className="name">{brand.name}<span className="byline">by MDB</span></span>
+              <span className="name">{brand.name}</span>
               <span className="sub">{brand.sub}</span>
             </span>
           </Link>
