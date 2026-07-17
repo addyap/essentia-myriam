@@ -13,8 +13,8 @@ export default function MentionsLegalesPage() {
 
         <h3 className="legal-h3">Éditeur du site</h3>
         <p className="prose">
-          Le site Essentia by MDB est édité par Myriam Diougoan Blanch, coach, consultante RH et
-          formatrice indépendante.
+          Le site Essentia by Myriam Diougoan Blanch est édité par sa fondatrice, coach, consultante
+          RH et formatrice indépendante.
         </p>
         <p className="prose" style={{ marginTop: 10 }}>
           Statut juridique : <em>à compléter</em><br />

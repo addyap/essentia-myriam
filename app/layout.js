@@ -26,7 +26,7 @@ const parisienne = Parisienne({
   display: 'swap',
 });
 
-const title = 'Essentia by MDB — Myriam Diougoan Blanch';
+const title = 'Essentia by Myriam Diougoan Blanch';
 const description =
   "Coaching, psychothérapie et conseil RH. Un accompagnement à la fois spirituel et pragmatique pour transformer vos défis en évolutions profondes et durables.";
 
@@ -56,7 +56,7 @@ export const metadata = {
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
-  name: 'Essentia by MDB',
+  name: 'Essentia by Myriam Diougoan Blanch',
   description,
   url: SITE_URL,
   image: `${SITE_URL}/og-image.jpg`,

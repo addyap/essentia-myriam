@@ -1,5 +1,5 @@
 export const metadata = {
-  title: 'Contact — Essentia by MDB',
+  title: 'Contact — Essentia by Myriam Diougoan Blanch',
   description: 'Contactez Myriam Diougoan Blanch pour toute question sur le coaching, la psychothérapie ou le conseil RH.',
   alternates: { canonical: '/contact' },
 };
