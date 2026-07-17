@@ -61,6 +61,7 @@ export function Header() {
             <span className="mark"><Logo /></span>
             <span className="words">
               <span className="name">{brand.name}</span>
+              <span className="byline">by Myriam Diougoan Blanch</span>
               <span className="sub">{brand.sub}</span>
             </span>
           </Link>
