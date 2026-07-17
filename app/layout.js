@@ -61,7 +61,7 @@ const jsonLd = {
   url: SITE_URL,
   image: `${SITE_URL}/og-image.jpg`,
   email: 'mdbchandale@gmail.com',
-  telephone: '+33769157211',
+  telephone: '+33601300642',
   founder: { '@type': 'Person', name: 'Myriam Diougoan Blanch' },
   areaServed: 'FR',
   availableLanguage: ['fr', 'en', 'it', 'es'],

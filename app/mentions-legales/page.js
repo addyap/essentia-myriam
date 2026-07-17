@@ -21,7 +21,7 @@ export default function MentionsLegalesPage() {
           Siège / adresse professionnelle : <em>à compléter</em><br />
           Numéro SIRET : <em>à compléter</em><br />
           Email : <a href="mailto:mdbchandale@gmail.com">mdbchandale@gmail.com</a><br />
-          Téléphone : <a href="tel:+33769157211">+33 (0)7 69 15 72 11</a>
+          Téléphone : <a href="tel:+33601300642">+33 (0)6 01 30 06 42</a>
         </p>
         <p className="prose" style={{ marginTop: 10 }}>
           Directeur de la publication : Myriam Diougoan Blanch.
