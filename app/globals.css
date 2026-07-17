@@ -81,7 +81,7 @@ section{padding:82px 0}
 /* ---------- photo-ready page header (sub-pages) ---------- */
 .page-hero{position:relative;overflow:hidden;padding:96px 0}
 .page-hero .page-photo{z-index:0}
-.page-hero .page-scrim{position:absolute;inset:0;z-index:1;background:rgba(250,246,239,.85)}
+.page-hero .page-scrim{position:absolute;inset:0;z-index:1;background:rgba(250,246,239,.5)}
 .page-hero .wrap{position:relative;z-index:2}
 .page-hero .eyebrow,.page-hero .big,.page-hero .lead{text-shadow:0 1px 3px rgba(250,246,239,.9),0 2px 20px rgba(250,246,239,.8)}
 .page-hero .lead{color:var(--ink)}
