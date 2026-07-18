@@ -82,15 +82,8 @@ export default function HomePage() {
             <span className="eyebrow">{h.testiEyebrow}</span>
             <h2 className="big">{h.testiTitle}</h2>
           </div>
-          <div className="quotes">
-            {h.testi.map((q, i) => (
-              <div className="quote" key={i}>
-                <div className="qm">&rdquo;</div>
-                <p>{q.q}</p>
-                <span className="who">{q.w}</span>
-              </div>
-            ))}
-          </div>
+          {/* Testimonial quotes hidden until real client testimonials are collected.
+              Restore by re-mapping h.testi here (data kept in lib/content per locale). */}
         </div>
       </section>
 
