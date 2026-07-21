@@ -166,6 +166,10 @@ section{padding:82px 0}
 /* ---------- booking / contact ---------- */
 .book-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:start}
 form.mock{display:grid;gap:16px}
+/* Honeypot: off-screen (not display:none/visibility:hidden, which some bots detect
+   and skip) so real visitors never see or tab into it, but simple scripted form-fillers
+   still find and fill it, giving handleSubmit something to check. */
+.hp{position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden}
 .field{display:flex;flex-direction:column;gap:6px}
 .field label{font-size:13px;letter-spacing:.5px;color:var(--muted)}
 .field input,.field textarea,.field select{font-family:var(--sans);font-size:15px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);resize:vertical}

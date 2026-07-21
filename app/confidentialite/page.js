@@ -1,5 +1,7 @@
 'use client';
 import { useApp } from '@/components/Providers';
+import { RevealContact } from '@/components/RevealContact';
+import { CONTACT } from '@/lib/contact';
 
 export default function ConfidentialitePage() {
   const { lang, t } = useApp();
@@ -50,7 +52,7 @@ export default function ConfidentialitePage() {
         <h3 className="legal-h3">Contact</h3>
         <p className="prose">
           Pour toute question relative à vos données personnelles, vous pouvez écrire à{' '}
-          <a href="mailto:mdbchandale@gmail.com">mdbchandale@gmail.com</a>.
+          <RevealContact enc={CONTACT.email} kind="email" />.
         </p>
       </div>
     </section>

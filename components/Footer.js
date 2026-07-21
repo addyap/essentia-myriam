@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { useApp } from './Providers';
 import { ROUTES } from '@/lib/routes';
+import { RevealContact } from './RevealContact';
+import { CONTACT } from '@/lib/contact';
 
 export function Footer() {
   const { t, brand } = useApp();
@@ -32,7 +34,7 @@ export function Footer() {
             <ul>
               <li><Link href={ROUTES.booking}>{t.ui.book}</Link></li>
               <li><Link href={ROUTES.contact}>{t.nav.contact}</Link></li>
-              <li><a href={`mailto:${t.booking.email}`}>{t.booking.email}</a></li>
+              <li><RevealContact enc={CONTACT.email} kind="email" /></li>
             </ul>
           </div>
           <div>

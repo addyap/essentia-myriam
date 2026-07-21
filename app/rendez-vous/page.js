@@ -3,6 +3,8 @@ import { useState } from 'react';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
 import { PageHeader } from '@/components/PageHeader';
+import { RevealContact } from '@/components/RevealContact';
+import { CONTACT } from '@/lib/contact';
 
 function Calendar({ b }) {
   const dn = b.weekdays;
@@ -33,6 +35,17 @@ export default function BookingPage() {
   const { t } = useApp();
   const b = t.booking;
   const [sent, setSent] = useState(false);
+  const [startedAt] = useState(() => Date.now());
+
+  // Front-line spam filter. NOTE: client-side deterrent only — a real backend
+  // MUST re-check the honeypot + timing server-side and add rate-limiting.
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.company && form.company.value) return;      // honeypot filled → silently drop
+    if (Date.now() - startedAt < 2500) return;           // submitted too fast to be human
+    setSent(true);
+  };
   return (
     <>
       <section className="page-hero">
@@ -40,7 +53,8 @@ export default function BookingPage() {
       </section>
       <section className="section-soft" style={{ paddingTop: 20 }}>
         <div className="wrap book-grid">
-          <form className="mock" onSubmit={(e) => { e.preventDefault(); setSent(true); }}>
+          <form className="mock" onSubmit={handleSubmit}>
+            <div className="hp" aria-hidden="true"><label htmlFor="booking-company">Ne pas remplir</label><input id="booking-company" name="company" type="text" tabIndex={-1} autoComplete="off" /></div>
             <div className="field"><label htmlFor="booking-name">{b.fName}</label><input id="booking-name" name="name" type="text" autoComplete="name" placeholder={b.fName} required /></div>
             <div className="field"><label htmlFor="booking-email">{b.fEmail}</label><input id="booking-email" name="email" type="email" autoComplete="email" placeholder={b.fEmail} required /></div>
             <div className="field">
@@ -53,8 +67,8 @@ export default function BookingPage() {
             <span className="kicker" style={{ marginTop: 8 }}>{b.coordsTitle}</span>
             <div className="coords">
               <div><span className="ic"><Icon name="pin" /></span> {b.address}</div>
-              <div><span className="ic"><Icon name="mail" /></span> {b.email}</div>
-              <div><span className="ic"><Icon name="phone" /></span> {b.phone}</div>
+              <div><span className="ic"><Icon name="mail" /></span> <RevealContact enc={CONTACT.email} kind="email" /></div>
+              <div><span className="ic"><Icon name="phone" /></span> <RevealContact enc={CONTACT.phone} kind="tel" /></div>
             </div>
           </form>
           <Calendar b={b} />

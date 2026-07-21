@@ -1,19 +1,21 @@
 'use client';
 import { useApp } from './Providers';
 import { Icon } from './Icon';
+import { RevealContact } from './RevealContact';
+import { CONTACT } from '@/lib/contact';
 
 export function WhatsAppButton() {
   const { t } = useApp();
   return (
-    <a
+    <RevealContact
+      enc={CONTACT.wa}
+      kind="wa"
+      waText={t.booking.waGreeting}
       className="wa-float"
-      href={`https://wa.me/${t.booking.waNumber}`}
-      target="_blank"
-      rel="noopener noreferrer"
       aria-label={t.contact.whatsapp}
       title={t.contact.whatsapp}
     >
       <Icon name="whatsapp" />
-    </a>
+    </RevealContact>
   );
 }

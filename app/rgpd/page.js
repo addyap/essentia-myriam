@@ -1,5 +1,7 @@
 'use client';
 import { useApp } from '@/components/Providers';
+import { RevealContact } from '@/components/RevealContact';
+import { CONTACT } from '@/lib/contact';
 
 export default function RgpdPage() {
   const { lang, t } = useApp();
@@ -34,7 +36,7 @@ export default function RgpdPage() {
 
         <h3 className="legal-h3">Comment exercer ces droits</h3>
         <p className="prose">
-          Écrivez à <a href="mailto:mdbchandale@gmail.com">mdbchandale@gmail.com</a> en précisant
+          Écrivez à <RevealContact enc={CONTACT.email} kind="email" /> en précisant
           votre demande. Une réponse vous sera apportée dans un délai maximum d&rsquo;un mois,
           conformément au RGPD.
         </p>

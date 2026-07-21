@@ -1,5 +1,7 @@
 'use client';
 import { useApp } from '@/components/Providers';
+import { RevealContact } from '@/components/RevealContact';
+import { CONTACT } from '@/lib/contact';
 
 export default function MentionsLegalesPage() {
   const { lang, t } = useApp();
@@ -20,8 +22,8 @@ export default function MentionsLegalesPage() {
           Statut juridique : <em>à compléter</em><br />
           Siège / adresse professionnelle : <em>à compléter</em><br />
           Numéro SIRET : <em>à compléter</em><br />
-          Email : <a href="mailto:mdbchandale@gmail.com">mdbchandale@gmail.com</a><br />
-          Téléphone : <a href="tel:+33601300642">+33 (0)6 01 30 06 42</a>
+          Email : <RevealContact enc={CONTACT.email} kind="email" /><br />
+          Téléphone : <RevealContact enc={CONTACT.phone} kind="tel" />
         </p>
         <p className="prose" style={{ marginTop: 10 }}>
           Directeur de la publication : Myriam Diougoan Blanch.
