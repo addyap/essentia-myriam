@@ -1,7 +1,7 @@
 'use client';
-import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
+// Real headshot pending — placeholder until a photo is supplied.
 
 export default function AboutPage() {
   const { t } = useApp();
@@ -11,7 +11,7 @@ export default function AboutPage() {
       <section>
         <div className="wrap split">
           <div className="portrait">
-            <Image src="/myriam.jpg" alt={a.title} fill priority sizes="(max-width: 900px) 100vw, 480px" style={{ objectFit: 'cover' }} />
+            <div className="ph"><Icon name="user" /><br />{a.photoCaption}</div>
           </div>
           <div>
             <span className="eyebrow">{a.eyebrow}</span>
