@@ -21,10 +21,10 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    // Mirrors the @media(max-width:900px) breakpoint in globals.css — below it,
+    // Mirrors the @media(max-width:1080px) breakpoint in globals.css — below it,
     // nav.main is visually hidden off-screen via transform (not display:none),
     // so its links must be pulled out of the tab order by hand when closed.
-    const mq = window.matchMedia('(max-width: 900px)');
+    const mq = window.matchMedia('(max-width: 1080px)');
     const update = () => setIsMobile(mq.matches);
     update();
     mq.addEventListener('change', update);
