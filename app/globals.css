@@ -47,10 +47,12 @@ header.site{position:sticky;top:0;z-index:40;background:rgba(250,246,239,.86);ba
 .brand{flex:none}
 .lang-side{flex:none;justify-content:flex-end}
 .brand{display:flex;align-items:center;gap:26px;cursor:pointer;padding:8px 0}
-/* Same gold color-boost as .hero-mark-bg's svg (app/page.js hero), without its
-   surrounding halo — richer yellow/gold on the mark itself, nothing behind it. */
+/* Same gold color-boost and drop-shadow glow bleed as .hero-mark-bg's svg
+   (app/page.js hero), shadow blur/offset scaled down for the much smaller
+   62x79 mark — no surrounding ::before background aura, just the color and
+   the glow bleeding off the mark's own edges. */
 .brand .mark{width:62px;height:79px;flex:none}
-.brand .mark svg,.brand .mark img{width:100%;height:100%;display:block;object-fit:contain;filter:brightness(1.14) saturate(1.3) contrast(1.06)}
+.brand .mark svg,.brand .mark img{width:100%;height:100%;display:block;object-fit:contain;filter:brightness(1.14) saturate(1.3) contrast(1.06) drop-shadow(0 4px 8px rgba(90,60,20,.35)) drop-shadow(0 0 7px rgba(224,180,104,.55))}
 /* "ESSENTIA de Myriam Diougoan Blanch" reads as one baseline-aligned line with
    the script tagline beneath; on mobile (<=1080px) the lockup stacks again. */
 .brand .words{display:grid;grid-template-columns:max-content max-content;align-items:baseline;column-gap:16px;line-height:1}
