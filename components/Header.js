@@ -33,23 +33,25 @@ export function Header() {
 
   const navHidden = isMobile && !open;
 
+  const langChips = LANGS.map((l) => (
+    <button
+      key={l}
+      className={'chip' + (lang === l ? ' on' : '')}
+      onClick={() => setLang(l)}
+      aria-label={l.toUpperCase()}
+    >
+      {l.toUpperCase()}
+    </button>
+  ));
+
   return (
     <>
-      {/* language bar */}
+      {/* language bar — mobile/tablet only; on desktop the switch lives in the header row */}
       <div className="topbar">
         <div className="wrap">
           <div className="switch">
             <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
-            {LANGS.map((l) => (
-              <button
-                key={l}
-                className={'chip' + (lang === l ? ' on' : '')}
-                onClick={() => setLang(l)}
-                aria-label={l.toUpperCase()}
-              >
-                {l.toUpperCase()}
-              </button>
-            ))}
+            {langChips}
           </div>
         </div>
       </div>
@@ -66,6 +68,24 @@ export function Header() {
             </span>
           </Link>
 
+          <div className="lang-side switch">
+            <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
+            {langChips}
+          </div>
+
+          <button
+            className="menu-toggle"
+            aria-label={t.ui.menu}
+            aria-expanded={open}
+            onClick={() => setOpen((v) => !v)}
+          >
+            {open ? '✕' : '☰'}
+          </button>
+        </div>
+
+        {/* desktop: centred menu row under the brand row; mobile: display:contents
+            wrapper so nav.main keeps working as the fixed slide-down overlay */}
+        <div className="nav-row">
           <nav className={'main' + (open ? ' open' : '')} aria-hidden={navHidden}>
             {NAV.map((key) => {
               const href = ROUTES[key];
@@ -86,15 +106,6 @@ export function Header() {
               {t.ui.book}
             </Link>
           </nav>
-
-          <button
-            className="menu-toggle"
-            aria-label={t.ui.menu}
-            aria-expanded={open}
-            onClick={() => setOpen((v) => !v)}
-          >
-            {open ? '✕' : '☰'}
-          </button>
         </div>
       </header>
     </>
