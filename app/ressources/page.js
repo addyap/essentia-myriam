@@ -10,8 +10,19 @@ export default function ResourcesPage() {
   const r = t.resources;
   const [filter, setFilter] = useState('__all');
   const [subscribed, setSubscribed] = useState(false);
+  const [startedAt] = useState(() => Date.now());
 
   const visible = r.items.filter((x) => filter === '__all' || x.cat === filter);
+
+  // Same front-line spam filter as the contact/booking forms (client-side
+  // deterrent only — a real backend must re-check both server-side).
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    if (form.company && form.company.value) return;
+    if (Date.now() - startedAt < 2500) return;
+    setSubscribed(true);
+  };
 
   return (
     <>
@@ -49,7 +60,8 @@ export default function ResourcesPage() {
           <div className="news">
             <span className="kicker">{r.newsTitle}</span>
             <p style={{ color: 'var(--muted)', maxWidth: 460, margin: '6px auto 0' }}>{r.newsSub}</p>
-            <form onSubmit={(e) => { e.preventDefault(); setSubscribed(true); }}>
+            <form onSubmit={handleSubscribe}>
+              <div className="hp" aria-hidden="true"><label htmlFor="newsletter-company">Ne pas remplir</label><input id="newsletter-company" name="company" type="text" tabIndex={-1} autoComplete="off" /></div>
               <label htmlFor="newsletter-email" className="sr-only">{r.newsPlace}</label>
               <input id="newsletter-email" name="email" type="email" autoComplete="email" placeholder={r.newsPlace} required />
               <button className="btn btn-gold" disabled={subscribed}>{r.newsBtn}</button>
