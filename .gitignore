@@ -7,3 +7,6 @@
 .env*
 .vercel
 npm-debug.log*
+
+# Regenerated automatically by `npm run dev` / `npm run build` (see tina/config.js)
+/tina/__generated__

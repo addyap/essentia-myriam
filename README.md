@@ -60,11 +60,38 @@ gh repo create essentia --private --source=. --remote=origin --push
 
 | You want to change… | Edit… |
 |---|---|
-| Any text, in any of the 4 languages | `lib/content.js` (one object per language — `fr`, `en`, `it`, `es`) |
+| Any text, in any of the 4 languages | Visit `/admin` on the site (TinaCMS — see § 4a below) — or edit `content/global/{fr,en,it,es}.json` directly, one file per language |
 | Colours, spacing, fonts | `app/globals.css` (CSS variables at the top under `:root`) |
 | The logo | `components/Logo.js` (inline SVG) and `public/logo.svg` (favicon) — swap in Myriam's final logo file |
 | Navigation / URLs | `lib/routes.js` |
 | Page structure | `app/<route>/page.js` |
+
+---
+
+## 4a. Letting Myriam edit text herself (TinaCMS)
+
+Text content (headings, paragraphs, button labels — not layout/colors/images) can be
+edited through a visual admin at **`/admin`** instead of by editing code. It's TinaCMS,
+git-backed: saving there commits straight to this repo, which redeploys automatically
+via Vercel like any other push. Local `npm run dev` already works with this out of the
+box (no account needed — that's Tina's local mode).
+
+For Myriam to edit the **live** site herself, TinaCloud (Tina's free hosted backend)
+needs to be connected once:
+
+1. Go to **app.tina.io**, sign in with GitHub, and create a project pointing at this
+   repo (`essentia-myriam`), branch `main`.
+2. Copy the **Client ID** and generate a **Content Token** it gives you.
+3. In the Vercel project → **Settings → Environment Variables**, add:
+   - `NEXT_PUBLIC_TINA_CLIENT_ID` = (the Client ID)
+   - `TINA_TOKEN` = (the Content Token)
+4. Redeploy. `/admin` on the live site now works for anyone with a TinaCloud login for
+   this project (add Myriam as a collaborator in the TinaCloud dashboard).
+
+Until step 3 is done, the build script (`scripts/build.mjs`) automatically skips the
+Tina admin build and `/admin` 404s — the public site is unaffected either way.
+
+Schema (which fields exist, labels, icon-picker options) lives in `tina/config.js`.
 
 ---
 
@@ -75,7 +102,7 @@ These are stubbed in the design and ready to be wired up:
 - **Real photographs** — the hero has a photo-ready slot (`.hero-photo` in `app/page.js`; drop in a `background-image` or a `next/image` `<Image fill>`), and the About page has a portrait frame awaiting Myriam's professional photo.
 - **Booking + online payment** — the `/rendez-vous` calendar and form are visual placeholders. Recommended integrations: **Cal.com** or **Calendly** for scheduling, **Stripe** for payment.
 - **Contact / booking form submissions** — forms are non-functional mockups; connect to a service (e.g. Formspree, Resend, or a Next.js API route) to actually send.
-- **Testimonials** — currently sample quotes in `lib/content.js`; replace with real client testimonials.
+- **Testimonials** — currently sample quotes in `content/global/*.json` (editable via `/admin`); replace with real client testimonials.
 - **Legal pages** — Mentions légales / Confidentialité / RGPD / Charte éthique are footer links awaiting content.
 
 ---

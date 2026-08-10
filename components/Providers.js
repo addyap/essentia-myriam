@@ -1,15 +1,17 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
-import { fr } from '@/lib/content/fr';
+import fr from '@/content/global/fr.json';
 
+// Content now lives in content/global/*.json — editable through TinaCMS with a
+// live visual preview, not just by hand-editing code (see tina/config.js).
 // Only French is bundled synchronously (it's the SSR/first-paint default);
 // the other three locales are fetched on demand so a visitor's browser never
 // downloads content for languages they don't use.
 const LOADERS = {
   fr: () => Promise.resolve(fr),
-  en: () => import('@/lib/content/en').then((m) => m.en),
-  it: () => import('@/lib/content/it').then((m) => m.it),
-  es: () => import('@/lib/content/es').then((m) => m.es),
+  en: () => import('@/content/global/en.json').then((m) => m.default),
+  it: () => import('@/content/global/it.json').then((m) => m.default),
+  es: () => import('@/content/global/es.json').then((m) => m.default),
 };
 
 const AppContext = createContext(null);

@@ -83,7 +83,7 @@ export default function HomePage() {
             <h2 className="big">{h.testiTitle}</h2>
           </div>
           {/* Testimonial quotes hidden until real client testimonials are collected.
-              Restore by re-mapping h.testi here (data kept in lib/content per locale). */}
+              Restore by re-mapping h.testi here (data kept in content/global per locale). */}
         </div>
       </section>
 
