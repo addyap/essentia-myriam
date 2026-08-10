@@ -69,6 +69,11 @@ export default defineConfig({
         // that's needed.
         ui: {
           allowedActions: { create: false, delete: false },
+          // Opens the real homepage in Tina's live-preview iframe when this
+          // document is edited. Content is one shared document for the whole
+          // site (see Providers.js), so from there Myriam can click through
+          // the site's own nav to any page and it stays live.
+          router: () => '/',
         },
         fields: [
           {
