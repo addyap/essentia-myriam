@@ -57,10 +57,16 @@ export default defineConfig({
         label: 'Contenu du site',
         path: 'content/global',
         format: 'json',
-        // Exactly 4 documents already exist (fr/en/it/es), one per language the
-        // site supports. Creating a 5th or deleting one would desync the language
-        // switcher from real content, so both actions are disabled here — editing
-        // existing documents is all that's needed.
+        // 4 documents exist on disk (fr/en/it/es — one per language the site can
+        // support), but only French is switched on right now (lib/config.js
+        // ENABLED_LANGS); en/it/es aren't reachable from the live site while
+        // that's the case. `match` hides them from this list entirely so there's
+        // no way to accidentally edit a language nobody can see — remove it (and
+        // update ENABLED_LANGS) once translations resume.
+        match: { include: 'fr' },
+        // Creating a 5th or deleting fr.json would desync the site from real
+        // content, so both actions are disabled — editing what exists is all
+        // that's needed.
         ui: {
           allowedActions: { create: false, delete: false },
         },

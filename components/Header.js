@@ -6,8 +6,7 @@ import { useApp } from './Providers';
 import { Logo } from './Logo';
 import { Icon } from './Icon';
 import { ROUTES, NAV } from '@/lib/routes';
-
-const LANGS = ['fr', 'en', 'it', 'es'];
+import { ENABLED_LANGS } from '@/lib/config';
 
 export function Header() {
   const { lang, setLang, t, brand } = useApp();
@@ -33,7 +32,10 @@ export function Header() {
 
   const navHidden = isMobile && !open;
 
-  const langChips = LANGS.map((l) => (
+  // Switcher only makes sense once a second language is actually reachable
+  // again (see lib/config.js ENABLED_LANGS) — a lone "FR" chip does nothing.
+  const showSwitcher = ENABLED_LANGS.length > 1;
+  const langChips = ENABLED_LANGS.map((l) => (
     <button
       key={l}
       className={'chip' + (lang === l ? ' on' : '')}
@@ -47,14 +49,16 @@ export function Header() {
   return (
     <>
       {/* language bar — mobile/tablet only; on desktop the switch lives in the header row */}
-      <div className="topbar">
-        <div className="wrap">
-          <div className="switch">
-            <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
-            {langChips}
+      {showSwitcher && (
+        <div className="topbar">
+          <div className="wrap">
+            <div className="switch">
+              <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
+              {langChips}
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* main header */}
       <header className="site">
@@ -68,10 +72,12 @@ export function Header() {
             </span>
           </Link>
 
-          <div className="lang-side switch">
-            <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
-            {langChips}
-          </div>
+          {showSwitcher && (
+            <div className="lang-side switch">
+              <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
+              {langChips}
+            </div>
+          )}
 
           <button
             className="menu-toggle"

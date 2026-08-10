@@ -1,18 +1,23 @@
 'use client';
 import { createContext, useContext, useState, useEffect } from 'react';
 import fr from '@/content/global/fr.json';
+import { ENABLED_LANGS } from '@/lib/config';
 
-// Content now lives in content/global/*.json — editable through TinaCMS with a
-// live visual preview, not just by hand-editing code (see tina/config.js).
+// Content lives in content/global/*.json — editable through TinaCMS's visual
+// admin at /admin (see tina/config.js), not just by hand-editing code.
 // Only French is bundled synchronously (it's the SSR/first-paint default);
-// the other three locales are fetched on demand so a visitor's browser never
-// downloads content for languages they don't use.
-const LOADERS = {
+// other locales are fetched on demand so a visitor's browser never downloads
+// content for languages they don't use.
+const ALL_LOADERS = {
   fr: () => Promise.resolve(fr),
   en: () => import('@/content/global/en.json').then((m) => m.default),
   it: () => import('@/content/global/it.json').then((m) => m.default),
   es: () => import('@/content/global/es.json').then((m) => m.default),
 };
+// Only expose loaders for languages currently switched on (see lib/config.js)
+// — a stale 'en'/'it'/'es' value in a returning visitor's localStorage must
+// fall back to French rather than trying to load a disabled locale.
+const LOADERS = Object.fromEntries(ENABLED_LANGS.map((l) => [l, ALL_LOADERS[l]]));
 
 const AppContext = createContext(null);
 const LANG_KEY = 'essentia-lang';
