@@ -1,4 +1,4 @@
-import { Cormorant_Garamond, Mulish, Parisienne } from 'next/font/google';
+import { Fraunces, Mulish, Parisienne } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/Providers';
 import { Header } from '@/components/Header';
@@ -6,7 +6,11 @@ import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { SITE_URL } from '@/lib/config';
 
-const cormorant = Cormorant_Garamond({
+// Swapped from Cormorant Garamond per Myriam's feedback (2026-08-14 voice
+// notes): the previous headline serif read as "dur"/"anguleux" (hard,
+// angular) to her; she asked for something softer, less rigid. Fraunces is a
+// warm, soft-terminaled display serif built for exactly that brief.
+const headlineSerif = Fraunces({
   subsets: ['latin'],
   weight: ['400', '500', '600'],
   style: ['normal', 'italic'],
@@ -75,7 +79,7 @@ export default function RootLayout({ children }) {
     // fr/en/it/es all render at this same URL with no locale-specific routes
     // or hreflang, so crawlers only ever index the French version — see the
     // full-site audit report for the URL-based-routing fix if this changes.
-    <html lang="fr" className={`${cormorant.variable} ${mulish.variable} ${parisienne.variable}`}>
+    <html lang="fr" className={`${headlineSerif.variable} ${mulish.variable} ${parisienne.variable}`}>
       <head>
         <script
           type="application/ld+json"
