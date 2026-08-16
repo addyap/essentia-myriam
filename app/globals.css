@@ -249,10 +249,17 @@ footer ul a:hover{color:var(--gold-soft)}
   /* the desktop menu row disappears as a box; nav.main inside it becomes the
      fixed slide-down overlay, so the wrapper must not reserve any space */
   .nav-row{display:contents}
-  .brand{gap:12px;padding:5px 0}
+  /* .brand's desktop `flex:none` refuses to shrink, so a long byline/tagline
+     (both edited freely through Tina — length isn't guaranteed) pushes the
+     header wider than the screen instead of wrapping. min-width:0 lets it
+     shrink to the row's available space; the .words children then truncate
+     with an ellipsis instead of overflowing, keeping the header's height
+     fixed (nav.main's slide-down overlay is pinned to top:66px). */
+  .brand{gap:12px;padding:5px 0;flex:1 1 auto;min-width:0}
   .brand .mark{width:44px;height:56px}
-  .brand .words{display:flex;flex-direction:column;align-items:flex-start}
-  .brand .name{font-size:26px;letter-spacing:4px;margin-right:-4px}
+  .brand .words{display:flex;flex-direction:column;align-items:stretch;min-width:0;flex:1 1 auto}
+  .brand .name{font-size:26px;letter-spacing:4px;margin-right:-4px;overflow:hidden;text-overflow:ellipsis}
+  .brand .byline,.brand .sub{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%}
   .brand .byline{font-size:12.5px;letter-spacing:.8px;margin-top:3px}
   .brand .sub{font-size:15px;margin-top:3px}
   nav.main{position:fixed;top:66px;left:0;right:0;height:100vh;height:100dvh;background:var(--cream);flex-direction:column;align-items:stretch;padding:10px 28px 28px;gap:2px;overflow-y:auto;-webkit-overflow-scrolling:touch;transform:translateY(-140%);transition:.3s;z-index:30}
