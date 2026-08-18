@@ -1,4 +1,4 @@
-import { Fraunces, Mulish, Parisienne } from 'next/font/google';
+import { GFS_Didot, Mulish, Parisienne } from 'next/font/google';
 import './globals.css';
 import { Providers } from '@/components/Providers';
 import { Header } from '@/components/Header';
@@ -6,14 +6,18 @@ import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
 import { SITE_URL } from '@/lib/config';
 
-// Swapped from Cormorant Garamond per Myriam's feedback (2026-08-14 voice
-// notes): the previous headline serif read as "dur"/"anguleux" (hard,
-// angular) to her; she asked for something softer, less rigid. Fraunces is a
-// warm, soft-terminaled display serif built for exactly that brief.
-const headlineSerif = Fraunces({
+// Requested: Didot, per the specimen comparison Myriam reviewed. The real
+// Linotype Didot is only licensed for local/system use (it ships with
+// macOS) — embedding it on the public site would mean redistributing a
+// commercial font without a web license. GFS Didot is a free, OFL-licensed
+// revival of the same historical Firmin Didot letterforms, safe to self-host
+// here. It only ships one weight/style (400 normal) — the browser
+// synthesizes bold/italic for the h1-h5 weight:500 and .lead/.byline
+// italic rules that were written for Fraunces's 3 weights + true italic.
+const headlineSerif = GFS_Didot({
   subsets: ['latin'],
-  weight: ['400', '500', '600'],
-  style: ['normal', 'italic'],
+  weight: ['400'],
+  style: ['normal'],
   variable: '--font-serif',
   display: 'swap',
 });
