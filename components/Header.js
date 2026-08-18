@@ -64,7 +64,7 @@ export function Header() {
       <header className="site">
         <div className="wrap nav">
           <Link href="/" className="brand" onClick={() => setOpen(false)}>
-            <span className="mark"><Logo /></span>
+            <span className="mark"><Logo sizes="(max-width: 1080px) 44px, 62px" priority /></span>
             <span className="words">
               <span className="name">{brand.name}</span>
               <span className="byline">{brand.byline}</span>

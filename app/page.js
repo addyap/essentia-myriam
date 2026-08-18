@@ -14,7 +14,7 @@ export default function HomePage() {
       <section className="hero-full">
         <Image src="/hero.jpg" alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} className="hero-photo" />
         <div className="hero-scrim" />
-        <span className="hero-mark-bg"><Logo /></span>
+        <span className="hero-mark-bg"><Logo sizes="(max-width: 1080px) 170px, 300px" priority /></span>
         <div className="wrap hero-full-inner">
           <div className="hero-copy">
             <span className="kicker">{h.heroKicker}</span>
@@ -90,7 +90,7 @@ export default function HomePage() {
       <section>
         <div className="wrap">
           <div className="band">
-            <div className="mark-lg"><Logo /></div>
+            <div className="mark-lg"><Logo sizes="64px" /></div>
             <span className="script" style={{ fontSize: 26 }}>{t.ui.discover}</span>
             <h2>{h.bandTitle}</h2>
             <p>{h.bandText}</p>
