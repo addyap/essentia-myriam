@@ -14,7 +14,7 @@ export default function HomePage() {
       <section className="hero-full">
         <Image src="/hero.jpg" alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} className="hero-photo" />
         <div className="hero-scrim" />
-        <span className="hero-mark-bg"><Logo src="/logo-hero-2.webp" sizes="(max-width: 1080px) 170px, 300px" priority /></span>
+        <span className="hero-mark-bg"><Logo sizes="(max-width: 1080px) 170px, 300px" priority /></span>
         <div className="wrap hero-full-inner">
           <div className="hero-copy">
             <span className="kicker">{h.heroKicker}</span>
