@@ -27,7 +27,7 @@ export default function ResourcesPage() {
   return (
     <>
       <section className="page-hero">
-        <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} photo="/hero-resources.jpg" />
+        <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} scene="resources" />
       </section>
       <section className="section-soft" style={{ paddingTop: 24 }}>
         <div className="wrap">

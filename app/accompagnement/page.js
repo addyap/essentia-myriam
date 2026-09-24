@@ -11,7 +11,7 @@ export default function CoachingPage() {
   return (
     <>
       <section className="page-hero">
-        <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} photo="/hero-coaching.jpg" />
+        <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} scene="coaching" />
       </section>
 
       <section className="section-soft">

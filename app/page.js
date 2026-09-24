@@ -4,6 +4,7 @@ import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
 import { Logo } from '@/components/Logo';
+import { HeroScene } from '@/components/HeroScene';
 import { ROUTES } from '@/lib/routes';
 
 export default function HomePage() {
@@ -12,7 +13,7 @@ export default function HomePage() {
   return (
     <>
       <section className="hero-full">
-        <Image src="/hero.jpg" alt="" fill priority sizes="100vw" style={{ objectFit: 'cover' }} className="hero-photo" />
+        <HeroScene scene="home" />
         <div className="hero-scrim" />
         <span className="hero-mark-bg"><Logo sizes="(max-width: 1080px) 170px, 300px" priority /></span>
         <div className="wrap hero-full-inner">

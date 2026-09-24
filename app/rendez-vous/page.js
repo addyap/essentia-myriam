@@ -49,7 +49,7 @@ export default function BookingPage() {
   return (
     <>
       <section className="page-hero">
-        <PageHeader eyebrow={b.eyebrow} title={b.title} lead={b.lead} photo="/hero-booking.jpg" />
+        <PageHeader eyebrow={b.eyebrow} title={b.title} lead={b.lead} scene="booking" />
       </section>
       <section className="section-soft" style={{ paddingTop: 20 }}>
         <div className="wrap book-grid">

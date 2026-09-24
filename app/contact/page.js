@@ -26,7 +26,7 @@ export default function ContactPage() {
   return (
     <>
       <section className="page-hero">
-        <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} photo="/hero-contact.jpg" />
+        <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} scene="contact" />
       </section>
       <section className="section-soft" style={{ paddingTop: 24 }}>
         <div className="wrap book-grid">
