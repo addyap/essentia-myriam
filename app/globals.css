@@ -113,6 +113,22 @@ section{padding:82px 0}
 /* ---------- photo-ready full-bleed hero ---------- */
 .hero-full{position:relative;min-height:0;padding:44px 0 36px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
 .hero-photo{z-index:0;background:linear-gradient(180deg,#EDF4F8 0%,#DCE9F2 45%,#efe6d6 100%)}
+/* Animate only the banner photos; their overflow-hidden sections contain the
+   overscan while copy and scrims stay still. Motion is opt-in by preference. */
+@media(prefers-reduced-motion:no-preference){
+  .hero-full > .hero-photo,.page-hero > .page-photo{
+    animation:hero-photo-drift 20s ease-in-out infinite alternate,
+      hero-photo-reveal 1.4s ease-out both;
+  }
+}
+@keyframes hero-photo-drift{
+  from{transform:scale(1.04) translate3d(-.5%,0,0)}
+  to{transform:scale(1.10) translate3d(.5%,-.5%,0)}
+}
+@keyframes hero-photo-reveal{
+  from{opacity:0}
+  to{opacity:1}
+}
 .hero-photo .glow{position:absolute;top:13%;right:24%;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(246,228,184,.9),rgba(246,228,184,0));filter:blur(6px)}
 .hero-photo .hills2{position:absolute;left:0;right:0;bottom:0;height:48%}
 .hero-scrim{position:absolute;inset:0;z-index:1;background:linear-gradient(90deg,rgba(250,246,239,.80) 0%,rgba(250,246,239,.55) 38%,rgba(250,246,239,.15) 70%,rgba(250,246,239,0) 100%)}
