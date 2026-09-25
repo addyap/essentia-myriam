@@ -66,7 +66,8 @@ export function HeroScene({ scene = 'home' }) {
         data-paused={paused || !visible || reducedMotion} aria-hidden="true">
         {scene === 'home' ? (
           <video ref={videoRef} className="hero-scene-photo" src={HOME_HERO_VIDEO}
-            poster="/images/heroes/home.webp" muted loop playsInline preload="metadata" />
+            poster="/images/heroes/home.webp" muted loop playsInline preload="metadata"
+            style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
         ) : (
           <Image src={`/images/heroes/${scene}.webp`} alt="" fill priority sizes="100vw"
             className="hero-scene-photo" />
