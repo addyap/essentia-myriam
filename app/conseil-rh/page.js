@@ -12,7 +12,7 @@ export default function RhPage() {
   return (
     <>
       <section className="page-hero">
-        <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} photo="/hero-rh.jpg" />
+        <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} scene="rh" />
       </section>
 
       <section className="section-soft">

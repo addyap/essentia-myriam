@@ -113,21 +113,44 @@ section{padding:82px 0}
 /* ---------- photo-ready full-bleed hero ---------- */
 .hero-full{position:relative;min-height:0;padding:44px 0 36px;display:flex;align-items:center;overflow:hidden;background:var(--cream)}
 .hero-photo{z-index:0;background:linear-gradient(180deg,#EDF4F8 0%,#DCE9F2 45%,#efe6d6 100%)}
-/* Animate only the banner photos; their overflow-hidden sections contain the
-   overscan while copy and scrims stay still. Motion is opt-in by preference. */
+/* Layered light and atmosphere bring each scene to life without video downloads.
+   Keep the text and contrast scrims outside these decorative moving layers. */
+.hero-scene{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none;background:var(--cream)}
+.hero-scene-photo{object-fit:cover;object-position:center 58%}
+.hero-scene--home .hero-scene-photo{object-position:65% center}
+.hero-scene--resources .hero-scene-photo{object-position:65% 65%}
+.hero-scene--booking .hero-scene-photo{object-position:65% 60%}
+.hero-scene-light{position:absolute;inset:-15%;opacity:.22;transform:translateX(-3%);background:linear-gradient(115deg,transparent 20%,rgba(255,245,218,.7) 36%,transparent 53%,rgba(255,249,232,.35) 67%,transparent 80%);mix-blend-mode:soft-light}
+.hero-scene--rh .hero-scene-light{background:linear-gradient(105deg,transparent 15%,rgba(233,245,255,.7) 40%,transparent 55%,rgba(255,249,232,.45) 75%,transparent)}
+.hero-scene--contact .hero-scene-light{transform-origin:top left}
+.hero-scene-mist{position:absolute;inset:25% -20% -15%;opacity:.3;background:radial-gradient(ellipse at 25% 65%,rgba(255,255,255,.55),transparent 55%),radial-gradient(ellipse at 80% 40%,rgba(236,244,250,.5),transparent 50%)}
+.hero-motion-toggle{display:none;position:absolute;right:18px;bottom:14px;z-index:3;width:44px;height:44px;align-items:center;justify-content:center;border:1px solid var(--line);border-radius:50%;background:rgba(250,246,239,.92);color:var(--ink);cursor:pointer}
+.hero-motion-toggle:hover{background:var(--paper)}
+.hero-motion-toggle:focus-visible{outline:2px solid var(--gold-deep);outline-offset:3px}
 @media(prefers-reduced-motion:no-preference){
-  .hero-full > .hero-photo,.page-hero > .page-photo{
-    animation:hero-photo-drift 20s ease-in-out infinite alternate,
-      hero-photo-reveal 1.4s ease-out both;
-  }
+  .hero-scene-photo{animation:hero-photo-drift 24s ease-in-out infinite alternate,hero-photo-reveal 1.4s ease-out both}
+  .hero-scene-light{animation:hero-light-shift 12s ease-in-out infinite alternate}
+  .hero-scene--rh .hero-scene-light{animation-duration:16s}
+  .hero-scene--contact .hero-scene-light{animation-duration:14s;animation-direction:alternate-reverse}
+  .hero-scene-mist{animation:hero-mist-drift 22s ease-in-out infinite alternate}
+  .hero-scene[data-paused="true"] > *{animation-play-state:paused}
+  .hero-motion-toggle{display:flex}
 }
 @keyframes hero-photo-drift{
-  from{transform:scale(1.04) translate3d(-.5%,0,0)}
-  to{transform:scale(1.10) translate3d(.5%,-.5%,0)}
+  from{transform:scale(1.03) translate3d(-.3%,0,0)}
+  to{transform:scale(1.07) translate3d(.3%,-.3%,0)}
 }
 @keyframes hero-photo-reveal{
   from{opacity:0}
   to{opacity:1}
+}
+@keyframes hero-light-shift{
+  from{transform:translate3d(-3%,0,0) rotate(-2deg);opacity:.22}
+  to{transform:translate3d(3%,2%,0) rotate(2deg);opacity:.55}
+}
+@keyframes hero-mist-drift{
+  from{transform:translate3d(-3%,1%,0);opacity:.2}
+  to{transform:translate3d(4%,-2%,0);opacity:.42}
 }
 .hero-photo .glow{position:absolute;top:13%;right:24%;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(246,228,184,.9),rgba(246,228,184,0));filter:blur(6px)}
 .hero-photo .hills2{position:absolute;left:0;right:0;bottom:0;height:48%}

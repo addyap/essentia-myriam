@@ -1,10 +1,10 @@
 'use client';
-import Image from 'next/image';
+import { HeroScene } from '@/components/HeroScene';
 
 // Shared eyebrow/h1/divider/lead block used at the top of every page. Centralizing
 // it means a page can no longer accidentally reuse the same content key for both
 // the eyebrow and the title (as accompagnement's methods/pricing sections once did).
-export function PageHeader({ eyebrow, title, lead, center = true, photo, photoPosition = 'center' }) {
+export function PageHeader({ eyebrow, title, lead, center = true, scene }) {
   const content = (
     <div className={center ? 'wrap center' : 'wrap'}>
       <span className="eyebrow">{eyebrow}</span>
@@ -14,11 +14,11 @@ export function PageHeader({ eyebrow, title, lead, center = true, photo, photoPo
     </div>
   );
 
-  if (!photo) return content;
+  if (!scene) return content;
 
   return (
     <>
-      <Image src={photo} alt="" fill priority sizes="100vw" style={{ objectFit: 'cover', objectPosition: photoPosition }} className="page-photo" />
+      <HeroScene scene={scene} />
       <div className="page-scrim" />
       {content}
     </>
