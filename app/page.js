@@ -1,4 +1,5 @@
 'use client';
+import { HeroScene } from '@/components/HeroScene';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useApp } from '@/components/Providers';
@@ -12,6 +13,8 @@ export default function HomePage() {
   return (
     <>
       <section className="hero-full">
+        <HeroScene scene="home" />
+        <div className="hero-scrim" />
         <div className="wrap hero-full-inner">
           <div className="hero-copy">
             <span className="kicker">{h.heroKicker}</span>
@@ -72,7 +75,7 @@ export default function HomePage() {
       </section>
 
       <section className="section-accent section-photo">
-        <Image src="/hero-testimonials.jpg" alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} className="section-bg-photo" />
+        <Image src="/images/nature/testimonials.webp" alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} className="section-bg-photo" />
         <div className="section-scrim" />
         <div className="wrap">
           <div className="center" style={{ marginBottom: 44 }}>
