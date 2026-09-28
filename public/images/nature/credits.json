@@ -1,0 +1,45 @@
+{
+  "license": "https://www.pexels.com/license/",
+  "photos": [
+    {
+      "file": "home.webp",
+      "photographer": "Pixabay",
+      "source": "https://www.pexels.com/photo/forest-with-sunlight-158251/"
+    },
+    {
+      "file": "coaching.webp",
+      "photographer": "Kostas Dimopoulos",
+      "source": "https://www.pexels.com/photo/seashore-at-dawn-in-greece-15131108/"
+    },
+    {
+      "file": "rh.webp",
+      "photographer": "eberhard grossgasteiger",
+      "source": "https://www.pexels.com/photo/sunlight-filtering-through-majestic-forest-trees-28871326/"
+    },
+    {
+      "file": "resources.webp",
+      "photographer": "Giuseppe Paoletti",
+      "source": "https://www.pexels.com/photo/sunlit-meadow-with-wildflowers-and-tall-grass-38891513/"
+    },
+    {
+      "file": "contact.webp",
+      "photographer": "Sabine Fischer",
+      "source": "https://www.pexels.com/photo/sunset-over-a-field-of-wildflowers-24366539/"
+    },
+    {
+      "file": "booking.webp",
+      "photographer": "Oktay Köseoğlu",
+      "source": "https://www.pexels.com/photo/peaceful-forest-pathway-with-sunlight-filtering-through-trees-34552314/"
+    },
+    {
+      "file": "about.webp",
+      "photographer": "Thang Nguyen",
+      "source": "https://www.pexels.com/photo/serene-tropical-garden-pathway-in-sunlight-34056717/"
+    },
+    {
+      "file": "testimonials.webp",
+      "photographer": "Walter Coppola",
+      "source": "https://www.pexels.com/photo/serene-coastal-sunrise-over-reflective-beach-31533927/"
+    }
+  ]
+}

@@ -32,7 +32,9 @@ export default function AboutPage() {
           <div>
             <span className="kicker">{a.eyebrow}</span>
             <h2 className="big">{a.journeyTitle}</h2>
-            <div className="flourish"><Icon name="compass" /></div>
+            <div className="about-nature">
+              <Image src="/images/nature/about.webp" alt="" fill sizes="(max-width: 900px) 100vw, 540px" style={{ objectFit: 'cover' }} />
+            </div>
           </div>
           <div><p className="prose">{a.journeyBody}</p></div>
         </div>
