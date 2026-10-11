@@ -1,6 +1,7 @@
 'use client';
 import { useApp } from '@/components/Providers';
 import { RevealContact } from '@/components/RevealContact';
+import placeholders from '@/content/launch-placeholders.json';
 import { CONTACT } from '@/lib/contact';
 
 export default function MentionsLegalesPage() {
@@ -19,9 +20,9 @@ export default function MentionsLegalesPage() {
           RH et formatrice indépendante.
         </p>
         <p className="prose" style={{ marginTop: 10 }}>
-          Statut juridique : <em>à compléter</em><br />
-          Siège / adresse professionnelle : <em>à compléter</em><br />
-          Numéro SIRET : <em>à compléter</em><br />
+          Statut juridique : <em>{placeholders.legal.status}</em><br />
+          Siège / adresse professionnelle : <em>{placeholders.legal.address}</em><br />
+          Numéro SIRET : <em>{placeholders.legal.siret}</em><br />
           Email : <RevealContact enc={CONTACT.email} kind="email" /><br />
           Téléphone : <RevealContact enc={CONTACT.phone} kind="tel" />
         </p>

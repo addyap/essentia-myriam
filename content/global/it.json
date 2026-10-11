@@ -378,5 +378,55 @@
     "title": "Pagina non trovata",
     "text": "La pagina che stai cercando non esiste o è stata spostata.",
     "backBtn": "Torna alla home"
+  },
+  "launchDetails": {
+    "status": "Informazioni da completare",
+    "note": "Queste informazioni saranno aggiunte dopo la conferma di Myriam.",
+    "booking": {
+      "title": "Il vostro primo incontro",
+      "fields": [
+        {
+          "label": "Durata del colloquio",
+          "value": "Da completare"
+        },
+        {
+          "label": "Modalità e luogo delle sedute",
+          "value": "Da completare"
+        },
+        {
+          "label": "Tariffe e modalità di pagamento",
+          "value": "Da completare"
+        },
+        {
+          "label": "Condizioni di annullamento e rinvio",
+          "value": "Da completare"
+        },
+        {
+          "label": "Conferma dell’appuntamento",
+          "value": "Da completare"
+        }
+      ]
+    },
+    "credentials": {
+      "title": "Qualifiche e quadro professionale",
+      "fields": [
+        {
+          "label": "Diplomi ed enti di formazione",
+          "value": "Da completare"
+        },
+        {
+          "label": "Certificazioni e date di conseguimento",
+          "value": "Da completare"
+        },
+        {
+          "label": "Titoli professionali e iscrizioni applicabili",
+          "value": "Da completare"
+        },
+        {
+          "label": "Esperienza professionale verificata",
+          "value": "Da completare"
+        }
+      ]
+    }
   }
 }

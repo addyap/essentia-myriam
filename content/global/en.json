@@ -378,5 +378,55 @@
     "title": "Page not found",
     "text": "The page you're looking for doesn't exist or has been moved.",
     "backBtn": "Back to home"
+  },
+  "launchDetails": {
+    "status": "Details to be completed",
+    "note": "These details will be added once confirmed by Myriam.",
+    "booking": {
+      "title": "Your first conversation",
+      "fields": [
+        {
+          "label": "Conversation duration",
+          "value": "To be completed"
+        },
+        {
+          "label": "Session format and location",
+          "value": "To be completed"
+        },
+        {
+          "label": "Fees and payment terms",
+          "value": "To be completed"
+        },
+        {
+          "label": "Cancellation and rescheduling terms",
+          "value": "To be completed"
+        },
+        {
+          "label": "Appointment confirmation",
+          "value": "To be completed"
+        }
+      ]
+    },
+    "credentials": {
+      "title": "Qualifications and professional practice",
+      "fields": [
+        {
+          "label": "Qualifications and training providers",
+          "value": "To be completed"
+        },
+        {
+          "label": "Certifications and award dates",
+          "value": "To be completed"
+        },
+        {
+          "label": "Applicable professional titles and registrations",
+          "value": "To be completed"
+        },
+        {
+          "label": "Verified professional experience",
+          "value": "To be completed"
+        }
+      ]
+    }
   }
 }

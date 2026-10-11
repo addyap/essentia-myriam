@@ -99,3 +99,7 @@ Motion remains an enhancement: roughly 7.28s continuous drawing, 900ms handoff, 
 - [GitHub-reviewed Next.js image optimization advisory](https://github.com/advisories/GHSA-cjq9-62q9-8jv4): the SSRF case requires remote allow-listed images; this project has no remotePatterns configured. Dependency patching still addresses the wider audit findings.
 - [CNIL: respecting individuals’ rights](https://www.cnil.fr/fr/respecter-les-droits-des-personnes): notices and rights-handling must reflect the real processing; owner validation remains necessary.
 - Existing project records: `DESIGN-AUDIT.md`, `MOTION-SYSTEM.md`.
+
+### Placeholder follow-up
+
+At the owner's request, explicit placeholders have been added for missing legal, privacy, qualification and first-appointment details. About and appointment blocks are translated in all four locales; legal/privacy blocks remain labelled French. `LAUNCH-RECORD.md` provides fields for every outstanding approval and verification category above. These are draft slots, not verified claims or completed launch checks.

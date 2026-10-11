@@ -39,3 +39,7 @@ Contact and appointment pages use real email, phone and WhatsApp links. There is
 GitHub repository: `addyap/essentia-myriam`. Production origin: `https://www.essentiademdb.com`. The existing Vercel Git integration deploys pushes to `main`. Review the generated deployment and test its public alias after release; a successful local build alone does not confirm production health.
 
 See **LAUNCH-AUDIT.md** for ranked findings, verification evidence and the release checklist. **DESIGN-AUDIT.md** and **MOTION-SYSTEM.md** describe the visual direction and motion specification. Missing legal business details and owner validation of claims remain release gates. Multilingual SEO needs distinct locale URLs; current translations are a visitor feature at shared French URLs.
+
+## Details awaiting owner confirmation
+
+Visible, explicitly marked placeholders now appear on About, Appointment, Legal Notice and Privacy pages. Edit legal/privacy values in `content/launch-placeholders.json` and translated credentials/appointment fields under `launchDetails` in the four locale files. `LAUNCH-RECORD.md` contains fill-in fields for business approvals, browser/accessibility testing, performance, analytics and deployment evidence. Placeholders do not close launch gates.

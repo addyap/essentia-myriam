@@ -1,6 +1,8 @@
 'use client';
 import { useApp } from '@/components/Providers';
 import { RevealContact } from '@/components/RevealContact';
+import { PendingDetails } from '@/components/PendingDetails';
+import placeholders from '@/content/launch-placeholders.json';
 import { CONTACT } from '@/lib/contact';
 
 export default function ConfidentialitePage() {
@@ -15,6 +17,8 @@ export default function ConfidentialitePage() {
         <p className="lead" style={{ margin: '10px 0 0' }}>
           Comment vos données personnelles sont collectées et utilisées sur ce site.
         </p>
+
+        <PendingDetails {...placeholders.privacy} />
 
         <h2 className="legal-h3">Quelles données sont collectées</h2>
         <p className="prose">

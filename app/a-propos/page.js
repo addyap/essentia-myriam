@@ -1,6 +1,7 @@
 'use client';
 import Image from 'next/image';
 import { useApp } from '@/components/Providers';
+import { PendingDetails } from '@/components/PendingDetails';
 import { Icon } from '@/components/Icon';
 
 export default function AboutPage() {
@@ -28,6 +29,10 @@ export default function AboutPage() {
       </section>
 
       <section className="section-soft">
+        <div className="wrap"><PendingDetails title={t.launchDetails.credentials.title} status={t.launchDetails.status} note={t.launchDetails.note} fields={t.launchDetails.credentials.fields} /></div>
+      </section>
+
+      <section>
         <div className="wrap split">
           <div>
             <span className="kicker">{a.eyebrow}</span>

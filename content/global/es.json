@@ -378,5 +378,55 @@
     "title": "Página no encontrada",
     "text": "La página que buscas no existe o ha sido movida.",
     "backBtn": "Volver al inicio"
+  },
+  "launchDetails": {
+    "status": "Información por completar",
+    "note": "Estos datos se añadirán tras la confirmación de Myriam.",
+    "booking": {
+      "title": "Su primera conversación",
+      "fields": [
+        {
+          "label": "Duración de la conversación",
+          "value": "Por completar"
+        },
+        {
+          "label": "Modalidad y lugar de las sesiones",
+          "value": "Por completar"
+        },
+        {
+          "label": "Tarifas y condiciones de pago",
+          "value": "Por completar"
+        },
+        {
+          "label": "Condiciones de cancelación y cambio de fecha",
+          "value": "Por completar"
+        },
+        {
+          "label": "Confirmación de la cita",
+          "value": "Por completar"
+        }
+      ]
+    },
+    "credentials": {
+      "title": "Cualificaciones y marco profesional",
+      "fields": [
+        {
+          "label": "Titulaciones y centros de formación",
+          "value": "Por completar"
+        },
+        {
+          "label": "Certificaciones y fechas de obtención",
+          "value": "Por completar"
+        },
+        {
+          "label": "Títulos profesionales y registros aplicables",
+          "value": "Por completar"
+        },
+        {
+          "label": "Experiencia profesional verificada",
+          "value": "Por completar"
+        }
+      ]
+    }
   }
 }

@@ -1,0 +1,20 @@
+{
+  "legal": {
+    "status": "[À compléter : statut juridique de l’activité]",
+    "address": "[À compléter : adresse professionnelle complète]",
+    "siret": "[À compléter : numéro SIRET]"
+  },
+  "privacy": {
+    "title": "Informations à préciser avant publication définitive",
+    "status": "Informations à compléter",
+    "note": "Les éléments ci-dessous doivent être confirmés par la responsable de l’activité pour refléter ses pratiques réelles.",
+    "fields": [
+      { "label": "Identité et coordonnées complètes du responsable", "value": "[À compléter : identité juridique et adresse professionnelle]" },
+      { "label": "Finalités et bases légales des traitements", "value": "[À compléter : finalité et base légale pour chaque traitement]" },
+      { "label": "Durées de conservation", "value": "[À compléter : durée ou critère par catégorie de données]" },
+      { "label": "Prestataires et destinataires", "value": "[À compléter : hébergement, messagerie et autres prestataires utilisés]" },
+      { "label": "Transferts hors de l’Union européenne", "value": "[À compléter : transferts éventuels et garanties applicables]" },
+      { "label": "Journaux techniques et sécurité", "value": "[À compléter : données enregistrées, accès et durée de conservation]" }
+    ]
+  }
+}

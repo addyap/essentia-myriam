@@ -1,6 +1,7 @@
 'use client';
 import { useApp } from '@/components/Providers';
 import { PageHeader } from '@/components/PageHeader';
+import { PendingDetails } from '@/components/PendingDetails';
 import { ContactOptions } from '@/components/ContactOptions';
 
 export default function BookingPage() {
@@ -19,5 +20,6 @@ export default function BookingPage() {
         </aside>
       </div>
     </section>
+    <section><div className="wrap"><PendingDetails title={t.launchDetails.booking.title} status={t.launchDetails.status} note={t.launchDetails.note} fields={t.launchDetails.booking.fields} /></div></section>
   </>;
 }

@@ -510,3 +510,12 @@ footer a:focus-visible,.crest-pause:focus-visible{outline-color:#FCC200}
 @media(max-width:560px){.wa-float{bottom:max(16px,env(safe-area-inset-bottom))}}
 
 @media(max-width:900px) and (prefers-reduced-motion:reduce){.hero-cine-crest{opacity:.2!important}}
+
+/* Owner-supplied details awaiting confirmation. */
+.pending-details{max-width:780px;padding:28px;border:1px dashed var(--gold-deep);background:var(--paper);margin:24px 0}
+.pending-details h2{font-size:clamp(24px,3vw,32px);margin-bottom:12px}
+.pending-details dl{margin-top:20px}
+.pending-details dl>div{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;padding:14px 0;border-top:1px solid var(--line)}
+.pending-details dt{font-weight:600;color:var(--ink)}
+.pending-details dd{color:var(--muted);overflow-wrap:anywhere}
+@media(max-width:560px){.pending-details{padding:20px}.pending-details dl>div{grid-template-columns:1fr;gap:4px}}
