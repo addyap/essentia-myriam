@@ -426,8 +426,8 @@ footer ul a:hover{color:var(--gold-soft)}
 .crest-side{color:#A47609}
 .crest-face{color:#FCC200;filter:drop-shadow(0 -1px 0 #fff2af88) drop-shadow(0 10px 16px #0005)}
 .crest-highlight{color:#fff5c5;opacity:0;pointer-events:none;clip-path:polygon(-60% 0,-40% 0,-70% 100%,-90% 100%)}
-.crest-stage[data-phase="gold"] .crest-ink,.crest-stage[data-phase="static"] .crest-ink{opacity:0}
-.crest-stage[data-phase="gold"] .crest-relief,.crest-stage[data-phase="static"] .crest-relief{opacity:1;transform:rotateX(var(--tilt-x,-3deg)) rotateY(var(--tilt-y,5deg))}
+.crest-stage[data-webgl="true"] .crest-ink,.crest-stage[data-fallback="true"][data-phase="gold"] .crest-ink,.crest-stage[data-phase="static"] .crest-ink{opacity:0}
+.crest-stage[data-fallback="true"][data-phase="gold"] .crest-relief,.crest-stage[data-phase="static"] .crest-relief{opacity:1;transform:rotateX(var(--tilt-x,-3deg)) rotateY(var(--tilt-y,5deg))}
 .crest-stage[data-phase="gold"] .crest-highlight{animation:crestLight 900ms ease-in-out 200ms both}
 @keyframes crestLight{0%{opacity:0}25%,70%{opacity:.4}100%{opacity:0;clip-path:polygon(140% 0,160% 0,130% 100%,110% 100%)}}
 .crest-replay{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:38px;background:transparent;border:0;color:#e5d9b9;font:inherit;font-size:11px;padding:12px;white-space:nowrap;cursor:pointer;opacity:.8}
@@ -468,23 +468,23 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 
 /* Compact hero, with a progressively enhanced extruded gold crest. */
-.hero-cine{min-height:clamp(540px,78svh,760px);padding:56px 0 78px}
-.hero-cine-crest .hero-cine-mark{width:min(300px,28vw)}
+.hero-cine{min-height:clamp(440px,64svh,610px);padding:36px 0 58px}
+.hero-cine-crest .hero-cine-mark{width:min(250px,24vw)}
 .crest-webgl{position:absolute;inset:0;opacity:0;transition:opacity 900ms var(--ease-out)}
 .crest-webgl canvas{display:block;width:100%;height:100%}
 .crest-stage[data-webgl="true"] .crest-webgl{opacity:1}
 .crest-stage[data-webgl="true"] .crest-relief{opacity:0}
 @media(max-width:900px){
- .hero-cine{min-height:0;padding:54px 0 48px}
+ .hero-cine{min-height:0;padding:36px 0 34px}
  .hero-cine-crest .hero-cine-mark{width:min(300px,70vw)}
  .hero-cine-scroll{display:none}
- .hero-cine-title{font-size:clamp(32px,8vw,48px)}
+ .hero-cine-title{font-size:clamp(30px,7.5vw,42px)}
  .hero-cine-sub{margin:18px 0 24px}
 }
 @media(prefers-reduced-motion:reduce){.crest-webgl{display:none}}
 .hero-cine-inner{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
-.hero-cine-title{font-size:clamp(36px,4.2vw,56px)}
-@media(max-width:900px){.hero-cine-inner{grid-template-columns:1fr}.hero-cine-title{font-size:clamp(32px,8vw,48px)}}
+.hero-cine-title{font-size:clamp(34px,3.8vw,50px)}
+@media(max-width:900px){.hero-cine-inner{grid-template-columns:1fr}.hero-cine-title{font-size:clamp(30px,7.5vw,42px)}}
 .crest-pause{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:68px;background:transparent;border:0;color:#e5d9b9;font:inherit;font-size:11px;padding:10px;white-space:nowrap;cursor:pointer}
 .crest-pause:hover{text-decoration:underline;text-underline-offset:4px}
 .hero-cine .crest-pause:focus-visible{outline-color:#FCC200}

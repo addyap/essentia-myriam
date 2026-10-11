@@ -40,19 +40,19 @@ export function HeroCrest() {
     ref.current.style.removeProperty('--tilt-y');
   };
   return <div className="crest-experience">
-    <div className="crest-stage" ref={ref} data-phase={phase} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
+    <div className="crest-stage" ref={ref} data-phase={phase} data-fallback={failed || reduced} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
       <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw key={run} onComplete={finish} /> : <LogoMark />}</div>
       <div className="crest-relief" aria-hidden="true">
         {[4, 3, 2, 1].map(layer => <LogoMark key={layer} className="crest-side" style={{ transform: `translateZ(${-layer * 1.5}px)` }} />)}
         <LogoMark className="crest-face" />
         <div className="crest-highlight"><LogoMark /></div>
       </div>
-      {!reduced && !failed && source && phase !== 'drawing' && <GoldLogo3D key={run} source={source} animate={phase === 'gold'} paused={paused} onReady={onReady} onFailure={onFailure} />}
+      {!reduced && !failed && source && <GoldLogo3D key={run} source={source} animate={phase === 'gold'} paused={paused} onReady={onReady} onFailure={onFailure} />}
     </div>
     <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>
       Rejouer le dessin du logo
     </button>
-    {ready && !reduced && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
+    {ready && !reduced && phase === 'gold' && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
       {paused ? 'Reprendre le mouvement' : 'Mettre le mouvement en pause'}
     </button>}
   </div>;

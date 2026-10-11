@@ -1,10 +1,13 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-// Loaded only after the handwriting. SVG remains the fallback until first render.
+// Prepare behind the handwriting; start the pivot only after the handoff.
 export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure }) {
   const host = useRef(null);
   const pause = useRef(paused);
+  const playing = useRef(animate);
+  const wake = useRef(null);
+  useEffect(() => { playing.current = animate; wake.current?.(); }, [animate]);
   useEffect(() => { pause.current = paused; }, [paused]);
   useEffect(() => {
     let disposed = false, renderer, frame, observer, resizeObserver, cleanup = () => {};
@@ -46,13 +49,14 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
         }
       }
       let elapsed = 0, last = null, visible = true, px = 0, py = 0;
-      const duration = animate ? 24000 : 0;
+      const duration = 24000;
+      const handoff = 850;
       const draw = now => {
         frame = null;
         if (disposed || !visible || document.hidden) { last = null; return; }
-        if (last !== null && !pause.current) elapsed += Math.min(now - last, 50);
+        if (last !== null && playing.current && !pause.current) elapsed += Math.min(now - last, 50);
         last = now;
-        const p = duration ? Math.min(1, elapsed / duration) : 1;
+        const p = Math.min(1, Math.max(0, elapsed - handoff) / duration);
         // Three broad, slow pivots; ease into the first and out of the last.
         const envelope = Math.min(1, p / .08, (1 - p) / .08);
         const excursion = Math.sin(p * Math.PI * 6) * .72 * Math.max(0, envelope);
@@ -61,12 +65,13 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
         group.rotation.x += (targetX - group.rotation.x) * .12;
         group.rotation.y += (targetY - group.rotation.y) * .12;
         renderer.render(scene, camera);
-        if (p < 1 || Math.abs(targetX - group.rotation.x) > .0001 || Math.abs(targetY - group.rotation.y) > .0001) frame = requestAnimationFrame(draw);
+        if ((playing.current && p < 1) || Math.abs(targetX - group.rotation.x) > .0001 || Math.abs(targetY - group.rotation.y) > .0001) frame = requestAnimationFrame(draw);
       };
       const schedule = () => { if (!frame && visible && !document.hidden) frame = requestAnimationFrame(draw); };
+      wake.current = () => { last = null; schedule(); };
       const resize = () => { renderer.setSize(el.clientWidth, el.clientHeight); schedule(); };
       const move = event => {
-        if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+        if (!playing.current || elapsed < handoff || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
         const r = el.getBoundingClientRect();
         px = ((event.clientX - r.left) / r.width - .5) * .28;
         py = ((event.clientY - r.top) / r.height - .5) * .14;
@@ -88,10 +93,10 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       resize(); renderer.render(scene, camera); onReady();
     }).catch(() => { if (!disposed) onFailure(); });
     return () => {
-      disposed = true; cancelAnimationFrame(frame); cleanup(); observer?.disconnect(); resizeObserver?.disconnect();
+      disposed = true; wake.current = null; cancelAnimationFrame(frame); cleanup(); observer?.disconnect(); resizeObserver?.disconnect();
       geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); environment?.dispose(); pmrem?.dispose();
       renderer?.dispose(); renderer?.domElement.remove();
     };
-  }, [source, animate, onReady, onFailure]);
+  }, [source, onReady, onFailure]);
   return <div ref={host} className="crest-webgl" aria-hidden="true" />;
 }
