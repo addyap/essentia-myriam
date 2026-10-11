@@ -1,11 +1,10 @@
 'use client';
-import { HeroScene } from '@/components/HeroScene';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
 import { LogoMark } from '@/components/LogoMark';
-import { LogoMarkDraw } from '@/components/LogoMarkDraw';
+import { HomeHero } from '@/components/HomeHero';
 import { ROUTES } from '@/lib/routes';
 
 export default function HomePage() {
@@ -13,26 +12,9 @@ export default function HomePage() {
   const h = t.home;
   return (
     <>
-      <section className="hero-full">
-        <HeroScene scene="home" />
-        <div className="hero-scrim" />
-        <div className="hero-mark-bg"><LogoMarkDraw /></div>
-        <div className="wrap hero-full-inner">
-          <div className="hero-copy">
-            <span className="kicker">{h.heroKicker}</span>
-            <h1 className="h-title">
-              {h.heroTitle[0]}<em>{h.heroTitle[1]}</em>{h.heroTitle[2]}
-            </h1>
-            <p className="h-sub">{h.heroSub}</p>
-            <div className="hero-cta">
-              <Link className="btn btn-gold" href={ROUTES.booking}>{h.heroCta1}</Link>
-              <Link className="btn btn-soft" href={ROUTES.about}>{h.heroCta2}</Link>
-            </div>
-          </div>
-        </div>
-      </section>
+      <HomeHero />
 
-      <section>
+      <section id="essence">
         <div className="wrap center">
           <span className="eyebrow">{h.introEyebrow}</span>
           <h2 className="big">{h.introTitle}</h2>

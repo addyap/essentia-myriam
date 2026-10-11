@@ -1,0 +1,123 @@
+'use client';
+import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
+import { useApp } from '@/components/Providers';
+import { LogoMarkDraw } from '@/components/LogoMarkDraw';
+import { ROUTES } from '@/lib/routes';
+
+// "Clairière" — the art-directed home hero. A cinematic forest-at-golden-hour
+// scene graded to let the type sit in light on the left while the hand-signed
+// gold monogram crest glows in the shadowed right. Depth comes from layered
+// pointer/scroll parallax (no WebGL); entrance + draw-on are CSS/SVG. All
+// motion is transform/opacity and disabled under prefers-reduced-motion.
+const MOTES = [
+  { l: '58%', t: '72%', s: 7, dur: 15, delay: 0, d: 2 },
+  { l: '66%', t: '84%', s: 5, dur: 19, delay: 3, d: 3 },
+  { l: '74%', t: '60%', s: 9, dur: 17, delay: 1, d: 2 },
+  { l: '82%', t: '78%', s: 6, dur: 21, delay: 5, d: 3 },
+  { l: '70%', t: '44%', s: 4, dur: 23, delay: 2, d: 1 },
+  { l: '88%', t: '52%', s: 7, dur: 18, delay: 6, d: 2 },
+  { l: '62%', t: '34%', s: 5, dur: 25, delay: 4, d: 1 },
+  { l: '78%', t: '90%', s: 8, dur: 16, delay: 7, d: 3 },
+  { l: '92%', t: '68%', s: 5, dur: 20, delay: 1.5, d: 2 },
+  { l: '54%', t: '56%', s: 6, dur: 22, delay: 3.5, d: 1 },
+];
+
+export function HomeHero() {
+  const { t } = useApp();
+  const h = t.home;
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (window.matchMedia('(hover: none)').matches) {
+      // touch: keep scroll depth, skip pointer parallax
+    }
+
+    let mx = 0, my = 0, tmx = 0, tmy = 0, raf = 0, ticking = false;
+
+    const onMove = (e) => {
+      const r = el.getBoundingClientRect();
+      tmx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1..1
+      tmy = ((e.clientY - r.top) / r.height - 0.5) * 2;
+      schedule();
+    };
+    const onScroll = () => {
+      const r = el.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, -r.top / (r.height || 1)));
+      el.style.setProperty('--sp', p.toFixed(4));
+      schedule();
+    };
+    const tick = () => {
+      ticking = false;
+      mx += (tmx - mx) * 0.08;
+      my += (tmy - my) * 0.08;
+      el.style.setProperty('--mx', mx.toFixed(4));
+      el.style.setProperty('--my', my.toFixed(4));
+      if (Math.abs(tmx - mx) > 0.001 || Math.abs(tmy - my) > 0.001) schedule();
+    };
+    const schedule = () => { if (!ticking) { ticking = true; raf = requestAnimationFrame(tick); } };
+
+    el.addEventListener('pointermove', onMove, { passive: true });
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => {
+      el.removeEventListener('pointermove', onMove);
+      window.removeEventListener('scroll', onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+
+  const title = Array.isArray(h.heroTitle) ? h.heroTitle : ['', '', ''];
+
+  return (
+    <section className="hero-cine" ref={ref} aria-label="Essentia">
+      <div className="hero-cine-bg" aria-hidden="true">
+        <Image src="/images/nature/home.webp" alt="" fill priority sizes="100vw" className="hero-cine-photo" />
+      </div>
+      <div className="hero-cine-grade" aria-hidden="true" />
+      <div className="hero-cine-rays" aria-hidden="true"><span /><span /></div>
+      <div className="hero-cine-motes" aria-hidden="true">
+        {MOTES.map((m, i) => (
+          <span key={i} style={{
+            left: m.l, top: m.t, width: m.s, height: m.s,
+            '--mdur': `${m.dur}s`, '--mdelay': `${m.delay}s`, '--mdepth': m.d,
+          }} />
+        ))}
+      </div>
+      <div className="hero-cine-grain" aria-hidden="true" />
+      <div className="hero-cine-frame" aria-hidden="true"><i /><i /><i /><i /></div>
+
+      <div className="wrap hero-cine-inner">
+        <div className="hero-cine-copy">
+          <span className="hero-cine-kicker">{h.heroKicker}</span>
+          <h1 className="hero-cine-title">
+            {title[0]}<em>{title[1]}</em>{title[2]}
+          </h1>
+          <p className="hero-cine-sub">{h.heroSub}</p>
+          <div className="hero-cine-cta">
+            <Link className="hero-btn hero-btn-gold" href={ROUTES.booking}>
+              <span>{h.heroCta1}</span>
+              <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+            </Link>
+            <Link className="hero-btn hero-btn-ghost" href={ROUTES.about}>{h.heroCta2}</Link>
+          </div>
+        </div>
+
+        <div className="hero-cine-crest" aria-hidden="true">
+          <div className="hero-cine-halo" />
+          <div className="hero-mark-bg hero-cine-mark"><LogoMarkDraw /></div>
+          <span className="hero-cine-sign">Myriam Diougoan Blanch</span>
+        </div>
+      </div>
+
+      <a className="hero-cine-scroll" href="#essence" aria-label="Défiler">
+        <span className="hero-cine-scroll-word">Explorer</span>
+        <span className="hero-cine-scroll-line" />
+      </a>
+    </section>
+  );
+}
