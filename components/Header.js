@@ -70,6 +70,7 @@ export function Header() {
       className={'chip' + (lang === l ? ' on' : '')}
       onClick={() => setLang(l)}
       aria-label={l.toUpperCase()}
+      aria-pressed={lang === l}
     >
       {l.toUpperCase()}
     </button>

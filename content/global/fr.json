@@ -107,7 +107,8 @@
     ],
     "bandTitle": "Prêt(e) à libérer votre potentiel ?",
     "bandText": "Ensemble, nous co-créons un chemin sur mesure, aligné sur vos valeurs et vos ambitions.",
-    "bandBtn": "Réserver un premier échange"
+    "bandBtn": "Réserver un premier échange",
+    "pauseEyebrow": "Une philosophie"
   },
   "about": {
     "eyebrow": "À propos",
@@ -292,7 +293,8 @@
       "D"
     ],
     "address": "Consultations en cabinet & en visioconférence",
-    "waGreeting": "Bonjour Myriam, je vous contacte depuis votre site Essentia à propos de…"
+    "waGreeting": "Bonjour Myriam, je vous contacte depuis votre site Essentia à propos de…",
+    "directLead": "Contactez Myriam directement pour convenir ensemble d’un premier rendez-vous."
   },
   "resources": {
     "eyebrow": "Ressources",
@@ -345,7 +347,8 @@
     "newsTitle": "Recevez la newsletter",
     "newsSub": "Des ressources et inspirations, une fois par mois. Sans surcharge.",
     "newsBtn": "Je m’inscris",
-    "newsPlace": "Votre adresse e-mail"
+    "newsPlace": "Votre adresse e-mail",
+    "comingSoon": "À venir"
   },
   "contact": {
     "eyebrow": "Contact",
@@ -359,7 +362,11 @@
     "infoTitle": "Coordonnées",
     "hoursTitle": "Disponibilités",
     "hours": "Du lundi au vendredi, 9h – 19h (CET)",
-    "whatsapp": "Écrire sur WhatsApp"
+    "whatsapp": "Écrire sur WhatsApp",
+    "directTitle": "Faisons connaissance",
+    "directLead": "Choisissez le moyen de contact qui vous convient pour échanger avec Myriam.",
+    "emailAction": "Écrire un email",
+    "phoneAction": "Appeler Myriam"
   },
   "notFound": {
     "eyebrow": "404",

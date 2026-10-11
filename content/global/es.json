@@ -2,7 +2,7 @@
   "brand": {
     "essentia": {
       "name": "Essentia",
-      "sub": "la esencia de tu elevación",
+      "sub": "Un viaje suspendido donde el tiempo susurra a tu verdadera esencia",
       "byline": "de Myriam Diougoan Blanch"
     },
     "aletheias": {
@@ -42,9 +42,9 @@
   "home": {
     "heroKicker": "Bienvenida",
     "heroTitle": [
-      "Revela tu ",
-      "potencial",
-      ", alinea tu vida."
+      "Un viaje suspendido donde el tiempo susurra a tu verdadera ",
+      "esencia",
+      ""
     ],
     "heroSub": "Coaching, psicoterapia y consultoría de RRHH. Desde hace más de 15 años acompaño a personas y organizaciones hacia una vida alineada, plena y con sentido.",
     "heroCta1": "Reservar una cita",
@@ -107,7 +107,8 @@
     ],
     "bandTitle": "¿List@ para liberar tu potencial?",
     "bandText": "Juntos co-creamos un camino a medida, alineado con tus valores y ambiciones.",
-    "bandBtn": "Reservar un primer encuentro"
+    "bandBtn": "Reservar un primer encuentro",
+    "pauseEyebrow": "Una filosofía"
   },
   "about": {
     "eyebrow": "Sobre mí",
@@ -292,7 +293,8 @@
       "D"
     ],
     "address": "Sesiones en consulta & por videoconferencia",
-    "waGreeting": "Hola Myriam, le escribo desde su sitio Essentia sobre…"
+    "waGreeting": "Hola Myriam, le escribo desde su sitio Essentia sobre…",
+    "directLead": "Contacta directamente con Myriam para acordar una primera cita."
   },
   "resources": {
     "eyebrow": "Recursos",
@@ -345,7 +347,8 @@
     "newsTitle": "Recibe la newsletter",
     "newsSub": "Recursos e inspiración, una vez al mes. Sin saturación.",
     "newsBtn": "Suscribirme",
-    "newsPlace": "Tu correo electrónico"
+    "newsPlace": "Tu correo electrónico",
+    "comingSoon": "Próximamente"
   },
   "contact": {
     "eyebrow": "Contacto",
@@ -359,7 +362,11 @@
     "infoTitle": "Datos de contacto",
     "hoursTitle": "Disponibilidad",
     "hours": "De lunes a viernes, 9 – 19 h (CET)",
-    "whatsapp": "Escribir por WhatsApp"
+    "whatsapp": "Escribir por WhatsApp",
+    "directTitle": "Conozcámonos",
+    "directLead": "Elige la forma de contacto que prefieras para hablar con Myriam.",
+    "emailAction": "Escribir un email",
+    "phoneAction": "Llamar a Myriam"
   },
   "notFound": {
     "eyebrow": "404",

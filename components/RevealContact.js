@@ -45,7 +45,7 @@ export function RevealContact({ enc, kind, className, children, waText, ...rest 
 
   let href;
   if (kind === 'email') href = `mailto:${value}`;
-  else if (kind === 'tel') href = `tel:${value.replace(/[^+\d]/g, '')}`;
+  else if (kind === 'tel') href = `tel:${value.replace(/\(0\)/g, '').replace(/[^+\d]/g, '')}`;
   else if (kind === 'wa') {
     href = `https://wa.me/${value.replace(/[^\d]/g, '')}`;
     if (waText) href += `?text=${encodeURIComponent(waText)}`;
