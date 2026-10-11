@@ -9,21 +9,8 @@ import { ROUTES } from '@/lib/routes';
 // "Clairière" — the art-directed home hero. A cinematic forest-at-golden-hour
 // scene graded to let the type sit in light on the left while the hand-signed
 // gold monogram crest glows in the shadowed right. Depth comes from layered
-// pointer/scroll parallax (no WebGL); entrance + draw-on are CSS/SVG. All
+// pointer parallax; the crest adds a progressively enhanced 3D pivot. All
 // motion is transform/opacity and disabled under prefers-reduced-motion.
-const MOTES = [
-  { l: '58%', t: '72%', s: 7, dur: 15, delay: 0, d: 2 },
-  { l: '66%', t: '84%', s: 5, dur: 19, delay: 3, d: 3 },
-  { l: '74%', t: '60%', s: 9, dur: 17, delay: 1, d: 2 },
-  { l: '82%', t: '78%', s: 6, dur: 21, delay: 5, d: 3 },
-  { l: '70%', t: '44%', s: 4, dur: 23, delay: 2, d: 1 },
-  { l: '88%', t: '52%', s: 7, dur: 18, delay: 6, d: 2 },
-  { l: '62%', t: '34%', s: 5, dur: 25, delay: 4, d: 1 },
-  { l: '78%', t: '90%', s: 8, dur: 16, delay: 7, d: 3 },
-  { l: '92%', t: '68%', s: 5, dur: 20, delay: 1.5, d: 2 },
-  { l: '54%', t: '56%', s: 6, dur: 22, delay: 3.5, d: 1 },
-];
-
 export function HomeHero() {
   const { t } = useApp();
   const h = t.home;
@@ -90,14 +77,6 @@ export function HomeHero() {
       </div>
       <div className="hero-cine-grade" aria-hidden="true" />
       <div className="hero-cine-rays" aria-hidden="true"><span /><span /></div>
-      <div className="hero-cine-motes" aria-hidden="true">
-        {MOTES.slice(0, 3).map((m, i) => (
-          <span key={i} style={{
-            left: m.l, top: m.t, width: m.s, height: m.s,
-            '--mdur': `${m.dur}s`, '--mdelay': `${m.delay}s`, '--mdepth': m.d,
-          }} />
-        ))}
-      </div>
       <div className="hero-cine-grain" aria-hidden="true" />
       <div className="hero-cine-frame" aria-hidden="true"><i /><i /><i /><i /></div>
 

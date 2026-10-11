@@ -60,7 +60,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
         const p = Math.min(1, Math.max(0, elapsed - handoff) / duration);
         // Three broad, slow pivots; ease into the first and out of the last.
         const envelope = Math.min(1, p / .08, (1 - p) / .08);
-        const excursion = Math.sin(p * Math.PI * 6) * .72 * Math.max(0, envelope);
+        const excursion = Math.sin(p * Math.PI * 6) * 1.05 * Math.max(0, envelope);
         const pointerBlend = Math.min(1, Math.max(0, elapsed - handoff) / 250);
         const targetX = p * -.045 + Math.sin(p * Math.PI * 3) * -.1 + py * pointerBlend;
         const targetY = excursion + p * .075 + px * pointerBlend;

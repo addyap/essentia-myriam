@@ -6,8 +6,8 @@ import { useEffect, useRef } from 'react';
 // pass, sequenced back-to-back at constant pen speed, and a glowing nib rides
 // each stroke at the ink frontier so the eye follows the hand. The strokes mask
 // the filled logo so the real gold calligraphy appears behind the nib; hd-fill
-// fades in at the very end to complete any missed sliver. Keyframes:
-// app/globals.css (heroStroke / heroPenFill). Honors prefers-reduced-motion.
+// fades in at the very end to complete any missed sliver. A single RAF clock
+// synchronizes pen and ink and honors prefers-reduced-motion.
 export function LogoMarkDraw({ className, onComplete, paused = false }) {
   const ref = useRef(null);
   const pause = useRef(paused);

@@ -43,7 +43,7 @@ Use explicit states: drawing → waiting-for-model (only if needed) → handoff 
 1. At the final pen stroke, retain the completed silhouette in the exact same position and dimensions.
 2. Reveal a front-facing, stationary 3D mesh with matching camera framing and #FCC200 front material. Fade the completed SVG out as the canvas fades in, over 900ms.
 3. Start the pivot clock only after both drawing completion and model readiness. Reserve the first 900ms for the crossfade, then ramp movement gently over the next 1.9 seconds.
-4. Keep the existing 24-second pivot: three slow left/right cycles, approximately ±41° yaw, with pitch limited to roughly 6°. Settle at about 4° yaw and −2.6° pitch.
+4. Keep the existing 24-second pivot: three slow left/right cycles, approximately ±60° yaw, with pitch limited to roughly 6°. Settle at about 4° yaw and −2.6° pitch.
 5. Maintain a constant front-face colour. Light and reflection affect the bevel and sides; avoid colour cycling or a bright flash at takeover.
 6. Pause freezes the animation clock. Replay resets drawing, readiness and pivot timing. Pause/replay controls must remain reachable on touch and keyboard, outside any faded decorative wrapper.
 7. Do not replay automatically on scroll. Offscreen and hidden-tab time does not consume the animation. Stop rendering after settling unless pointer interaction requires a frame.
@@ -161,3 +161,11 @@ Code-review assessment: 6/10 provisionally. Clear triggers and a recognizable si
 Implemented shared route-aware reveals, heading/intro timing, portrait entrances, bounded card staggering, control timing, reduced-motion overrides, finite decorative motion, time-based hero parallax, synchronized 900ms logo handoff, pointer ramp, handwriting/pivot pause controls outside the mobile watermark, offscreen/hidden-tab suspension, and mobile keyboard menu handling. The hero remains compact and the front-face gold remains #FCC200. Native navigation and scroll remain intact. Placeholder forms retain their honest unavailable messaging.
 
 Validation: production build passes; desktop and 390px mobile layouts inspected; mobile overflow, WebGL takeover and Escape dismissal checked. Reduced-motion runtime changes, slow-connection fallback and real-device frame-rate profiling still need dedicated interactive verification.
+
+## Final cleanup and regression verification
+
+Consolidated hero base rules, responsive overrides and reduced-motion rules; removed obsolete handwriting keyframes, hidden dust markup and unused looping effects. Widened the three slow pivots to approximately ±60° while keeping the 24-second duration and #FCC200 front face. Fixed a reduced-motion/pen-completion race.
+
+`npm run test:motion` runs nine deterministic component-effect checks: late model readiness, failed model/replay fallback, initial and live reduced motion, interrupted handwriting, crossfade timing, wider yaw and settling, pause/resume rendering, and WebGL initialization failure. These host/GPU mocks test lifecycle logic, not physical rendering quality. Production build passed. Browser checks verified 390px layout, menu focus after opening, Escape focus restoration, pause state feedback and 44px controls, plus no horizontal overflow at 640×422 (the reflow size corresponding to a 1280×844 viewport at 200% zoom). Actual browser zoom and physical-phone performance were not measured.
+
+Vercel confirmed production deployment dpl_7c4bvA7rH4fczm4sNmMEA5cZcWLE is READY for bf9abbb3919966200c3dc68ab558b21af77ab075 and assigned to www.essentiademdb.com. This confirmation precedes the latest cleanup/pivot commit, which needs a separate push to deploy.

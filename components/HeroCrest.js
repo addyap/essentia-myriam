@@ -30,7 +30,7 @@ export function HeroCrest() {
     return () => preference.removeEventListener('change', change);
   }, []);
   const finish = () => {
-    setPhase('gold');
+    setPhase(matchMedia('(prefers-reduced-motion: reduce)').matches ? 'static' : 'gold');
   };
   const move = event => {
     if (ready || phase === 'drawing' || !matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
