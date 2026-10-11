@@ -187,3 +187,7 @@ Verification: 16 regression tests pass, including four video lifecycle tests. Pr
 On initial viewports at or below 600px, `HeroVideo` selects `forest-sunlight-mobile.mp4`: 480×854 portrait crop, H.264, 20fps, no audio, fast-start, 697,411 bytes (about 67% less than the desktop payload). Selection is stable for the component lifetime, so orientation changes and pause/resume do not fetch a second rendition. Larger screens keep the 1280×720 desktop file. Network Information API `slow-2g`/`2g` connections use the poster, alongside Save-Data and reduced-motion preferences; browsers without that API still work normally. Media failure releases the source and retains the poster.
 
 Verified initial 390px load requests the mobile file, plays muted, responds to pause and has no horizontal overflow; the primary CTA ends near 635px. Tests cover mobile source selection, retention on resume, slow-link fallback and a <1MB mobile asset budget. This does not substitute for physical iPhone/Android or field performance testing.
+
+### Logo legibility adjustment
+
+Following feedback that the logo turns too obliquely, yaw amplitude is now 0.35 radians (about 20°), with a hard ±0.42-radian cap (24°) including pointer movement. Pointer influence is halved and the resting yaw is 0.05 radians (about 3°). The 24-second rhythm, handwriting handoff and exact gold face colour remain unchanged. The motion regression test now checks a visible two-sided pivot bounded below 25° and the new rest angle.

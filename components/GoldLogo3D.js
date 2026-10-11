@@ -58,12 +58,12 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
         if (last !== null && playing.current && !pause.current) elapsed += Math.min(now - last, 50);
         last = now;
         const p = Math.min(1, Math.max(0, elapsed - handoff) / duration);
-        // Three broad, slow pivots; ease into the first and out of the last.
+        // Three shallow, slow pivots keep the monogram readable throughout.
         const envelope = Math.min(1, p / .08, (1 - p) / .08);
-        const excursion = Math.sin(p * Math.PI * 6) * 1.05 * Math.max(0, envelope);
+        const excursion = Math.sin(p * Math.PI * 6) * .35 * Math.max(0, envelope);
         const pointerBlend = Math.min(1, Math.max(0, elapsed - handoff) / 250);
         const targetX = p * -.045 + Math.sin(p * Math.PI * 3) * -.1 + py * pointerBlend;
-        const targetY = excursion + p * .075 + px * pointerBlend;
+        const targetY = Math.max(-.42, Math.min(.42, excursion + p * .05 + px * pointerBlend));
         const blend = 1 - Math.exp(-dt / 130);
         group.rotation.x += (targetX - group.rotation.x) * blend;
         group.rotation.y += (targetY - group.rotation.y) * blend;
@@ -76,7 +76,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       const move = event => {
         if (!playing.current || elapsed < handoff || !matchMedia('(hover: hover) and (pointer: fine)').matches) return;
         const r = el.getBoundingClientRect();
-        px = ((event.clientX - r.left) / r.width - .5) * .28;
+        px = ((event.clientX - r.left) / r.width - .5) * .14;
         py = ((event.clientY - r.top) / r.height - .5) * .14;
         schedule();
       };

@@ -89,7 +89,7 @@ function gpu() {
 const gpuHost = () => ({clientWidth:250,clientHeight:309,appendChild(){},addEventListener(){},removeEventListener(){}});
 const importsReady = () => new Promise(resolve=>setImmediate(resolve));
 
-test('3D waits for handwriting, holds the crossfade, pivots wider and settles', async () => {
+test('3D waits for handwriting, holds the crossfade, pivots gently within readable angles and settles', async () => {
   const { rotations, modules }=gpu();
   let ready=0;
   const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{source:'<svg/>',animate:false,onReady:()=>ready++,onFailure:()=>assert.fail('Unexpected GPU failure')}});
@@ -100,9 +100,10 @@ test('3D waits for handwriting, holds the crossfade, pivots wider and settles', 
   for(let i=0;i<18;i++)app.frame();
   assert.equal(rotations.at(-1).y,0);
   for(let i=0;i<550;i++)app.frame();
-  assert.ok(Math.max(...rotations.map(r=>r.y))>1, 'Yaw reaches roughly 60 degrees');
-  assert.ok(Math.min(...rotations.map(r=>r.y))<-.95, 'Yaw reaches both sides');
-  assert.ok(Math.abs(rotations.at(-1).y-.075)<.001,'Returns to the rest angle');
+  assert.ok(Math.max(...rotations.map(r=>r.y))>.34, 'A visible, shallow pivot remains');
+  assert.ok(rotations.every(r=>Math.abs(r.y)<=.42), 'Yaw stays below 25 degrees');
+  assert.ok(Math.min(...rotations.map(r=>r.y))<-.30, 'The gentle pivot reaches both sides');
+  assert.ok(Math.abs(rotations.at(-1).y-.05)<.001,'Returns to the rest angle');
   assert.equal(ready,1,'Starting animation does not recreate the renderer');
   app.unmount();
 });
