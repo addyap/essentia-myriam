@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
 import { Logo } from '@/components/Logo';
+import { LogoMark } from '@/components/LogoMark';
 import { ROUTES } from '@/lib/routes';
 
 export default function HomePage() {
@@ -15,6 +16,7 @@ export default function HomePage() {
       <section className="hero-full">
         <HeroScene scene="home" />
         <div className="hero-scrim" />
+        <div className="hero-mark-bg"><LogoMark /></div>
         <div className="wrap hero-full-inner">
           <div className="hero-copy">
             <span className="kicker">{h.heroKicker}</span>
