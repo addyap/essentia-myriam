@@ -2,10 +2,11 @@
 // vector path so the hero mark is drawn (inline SVG) rather than a raster image.
 // fill=currentColor lets callers set the gold via CSS color; existing
 // .hero-mark-bg / .brand .mark filters style the glow and depth.
-export function LogoMark({ className, title }) {
+export function LogoMark({ className, title, style }) {
   return (
     <svg
       className={className}
+      style={style}
       viewBox="0 0 681 842"
       xmlns="http://www.w3.org/2000/svg"
       role={title ? 'img' : undefined}

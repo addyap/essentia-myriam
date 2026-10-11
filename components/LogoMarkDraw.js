@@ -1,3 +1,5 @@
+'use client';
+import { useEffect, useRef } from 'react';
 // Animated hero monogram, drawn on as if by hand from start to finish. A
 // hand-authored "pen" skeleton is split into sub-strokes (figure, head,
 // flourish, stem, M, D, B, tail); each inks in with its own stroke-dashoffset
@@ -6,9 +8,66 @@
 // the filled logo so the real gold calligraphy appears behind the nib; hd-fill
 // fades in at the very end to complete any missed sliver. Keyframes:
 // app/globals.css (heroStroke / heroPenFill). Honors prefers-reduced-motion.
-export function LogoMarkDraw({ className }) {
+export function LogoMarkDraw({ className, onComplete }) {
+  const ref = useRef(null);
+  const complete = useRef(onComplete);
+  complete.current = onComplete;
+  useEffect(() => {
+    const svg = ref.current;
+    const strokes = [...svg.querySelectorAll('.hd-s')];
+    const nibs = [...svg.querySelectorAll('.hd-nib')];
+    const paths = [...svg.querySelectorAll('defs > path')];
+    const fill = svg.querySelector('.hd-fill');
+    const lengths = paths.map(path => path.getTotalLength());
+    const total = lengths.reduce((a, b) => a + b, 0);
+    const motion = matchMedia('(prefers-reduced-motion: reduce)');
+    let elapsed = 0, last = null, frame, finished = false;
+    const finish = () => {
+      finished = true;
+      strokes.forEach(stroke => { stroke.style.strokeDashoffset = 0; });
+      nibs.forEach(nib => nib.setAttribute('opacity', '0'));
+      fill.style.opacity = 1;
+      complete.current?.();
+    };
+    const tick = time => {
+      if (last !== null) elapsed += Math.min(time - last, 50);
+      last = time;
+      const progress = Math.max(0, (elapsed - 300) / 6800);
+      let consumed = 0;
+      strokes.forEach((stroke, i) => {
+        const distance = Math.max(0, Math.min(lengths[i], progress * total - consumed));
+        stroke.style.strokeDasharray = `${lengths[i] + 1}`;
+        stroke.style.strokeDashoffset = `${lengths[i] + 1 - distance}`;
+        const active = distance > 0 && distance < lengths[i];
+        nibs[i].setAttribute('opacity', active ? '1' : '0');
+        if (active) {
+          const point = paths[i].getPointAtLength(distance);
+          nibs[i].setAttribute('transform', `translate(${point.x} ${point.y})`);
+        }
+        consumed += lengths[i];
+      });
+      fill.style.opacity = Math.max(0, Math.min(1, (elapsed - 7100) / 180));
+      if (elapsed >= 7280) finish();
+      else frame = requestAnimationFrame(tick);
+    };
+    const visibility = () => {
+      cancelAnimationFrame(frame); last = null;
+      if (!document.hidden && !finished) frame = requestAnimationFrame(tick);
+    };
+    const preference = () => { if (motion.matches) { cancelAnimationFrame(frame); finish(); } };
+    document.addEventListener('visibilitychange', visibility);
+    motion.addEventListener('change', preference);
+    if (motion.matches) finish();
+    else if (!document.hidden) frame = requestAnimationFrame(tick);
+    return () => {
+      cancelAnimationFrame(frame);
+      document.removeEventListener('visibilitychange', visibility);
+      motion.removeEventListener('change', preference);
+    };
+  }, []);
   return (
     <svg
+      ref={ref}
       className={className}
       viewBox="0 0 681 842"
       xmlns="http://www.w3.org/2000/svg"
@@ -34,27 +93,27 @@ export function LogoMarkDraw({ className }) {
         <mask id="heroDrawMask" maskUnits="userSpaceOnUse" x="0" y="0" width="681" height="842">
           <g filter="url(#heroPenSoft)">
             <use href="#hpen0" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 447, strokeDashoffset: 447, animation: 'heroStroke 0.644s linear 0.3s forwards' }} />
+              style={{ strokeDasharray: 447, strokeDashoffset: 447 }} />
             <use href="#hpen1" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 54, strokeDashoffset: 54, animation: 'heroStroke 0.075s linear 0.944s forwards' }} />
+              style={{ strokeDasharray: 54, strokeDashoffset: 54 }} />
             <use href="#hpen2" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 629, strokeDashoffset: 629, animation: 'heroStroke 0.908s linear 1.02s forwards' }} />
+              style={{ strokeDasharray: 629, strokeDashoffset: 629 }} />
             <use href="#hpen3" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 204, strokeDashoffset: 204, animation: 'heroStroke 0.292s linear 1.927s forwards' }} />
+              style={{ strokeDasharray: 204, strokeDashoffset: 204 }} />
             <use href="#hpen4" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 794, strokeDashoffset: 794, animation: 'heroStroke 1.147s linear 2.22s forwards' }} />
+              style={{ strokeDasharray: 794, strokeDashoffset: 794 }} />
             <use href="#hpen5" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 174, strokeDashoffset: 174, animation: 'heroStroke 0.249s linear 3.366s forwards' }} />
+              style={{ strokeDasharray: 174, strokeDashoffset: 174 }} />
             <use href="#hpen6" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 356, strokeDashoffset: 356, animation: 'heroStroke 0.513s linear 3.615s forwards' }} />
+              style={{ strokeDasharray: 356, strokeDashoffset: 356 }} />
             <use href="#hpen7" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 282, strokeDashoffset: 282, animation: 'heroStroke 0.405s linear 4.128s forwards' }} />
+              style={{ strokeDasharray: 282, strokeDashoffset: 282 }} />
             <use href="#hpen8" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 582, strokeDashoffset: 582, animation: 'heroStroke 0.84s linear 4.533s forwards' }} />
+              style={{ strokeDasharray: 582, strokeDashoffset: 582 }} />
             <use href="#hpen9" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
-              style={{ strokeDasharray: 366, strokeDashoffset: 366, animation: 'heroStroke 0.527s linear 5.373s forwards' }} />
+              style={{ strokeDasharray: 366, strokeDashoffset: 366 }} />
             <rect className="hd-fill" x="0" y="0" width="681" height="842" fill="#fff"
-              style={{ opacity: 0, animation: 'heroPenFill .5s linear 5.65s forwards' }} />
+              style={{ opacity: 0 }} />
           </g>
         </mask>
       </defs>
@@ -67,84 +126,44 @@ export function LogoMarkDraw({ className }) {
       />
       <g className="hd-nibs">
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="0.3s" dur="0.644s" values="1;1" fill="remove" />
-          <animateMotion begin="0.3s" dur="0.644s" fill="remove" rotate="auto">
-            <mpath href="#hpen0" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="0.944s" dur="0.075s" values="1;1" fill="remove" />
-          <animateMotion begin="0.944s" dur="0.075s" fill="remove" rotate="auto">
-            <mpath href="#hpen1" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="1.02s" dur="0.908s" values="1;1" fill="remove" />
-          <animateMotion begin="1.02s" dur="0.908s" fill="remove" rotate="auto">
-            <mpath href="#hpen2" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="1.927s" dur="0.292s" values="1;1" fill="remove" />
-          <animateMotion begin="1.927s" dur="0.292s" fill="remove" rotate="auto">
-            <mpath href="#hpen3" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="2.22s" dur="1.147s" values="1;1" fill="remove" />
-          <animateMotion begin="2.22s" dur="1.147s" fill="remove" rotate="auto">
-            <mpath href="#hpen4" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="3.366s" dur="0.249s" values="1;1" fill="remove" />
-          <animateMotion begin="3.366s" dur="0.249s" fill="remove" rotate="auto">
-            <mpath href="#hpen5" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="3.615s" dur="0.513s" values="1;1" fill="remove" />
-          <animateMotion begin="3.615s" dur="0.513s" fill="remove" rotate="auto">
-            <mpath href="#hpen6" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="4.128s" dur="0.405s" values="1;1" fill="remove" />
-          <animateMotion begin="4.128s" dur="0.405s" fill="remove" rotate="auto">
-            <mpath href="#hpen7" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="4.533s" dur="0.84s" values="1;1" fill="remove" />
-          <animateMotion begin="4.533s" dur="0.84s" fill="remove" rotate="auto">
-            <mpath href="#hpen8" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
         <g className="hd-nib" opacity="0">
-          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
-          <circle r="9" fill="#FFFaef" />
-          <animate attributeName="opacity" begin="5.373s" dur="0.527s" values="1;1" fill="remove" />
-          <animateMotion begin="5.373s" dur="0.527s" fill="remove" rotate="auto">
-            <mpath href="#hpen9" />
-          </animateMotion>
+          <circle r="12" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="4" fill="#FFFaef" />
         </g>
       </g>
     </svg>

@@ -413,3 +413,56 @@ footer ul a:hover{color:var(--gold-soft)}
   .hero-cine-copy,.hero-cine-crest{transform:none!important;opacity:1!important}
   .hero-cine-motes,.hero-cine-rays,.hero-cine-scroll-line::after{display:none!important}
 }
+
+/* Shared motion system: the signature crest is the only extended sequence. */
+:root{--motion-fast:140ms;--motion-control:220ms;--motion-reveal:650ms;--ease-out:cubic-bezier(.22,1,.36,1)}
+.crest-experience{width:100%;position:relative}
+.crest-stage{position:relative;width:100%;aspect-ratio:681/842;perspective:1000px;color:#FCC200}
+.crest-ink,.crest-relief{position:absolute;inset:0}
+.crest-stage svg{display:block;width:100%;height:100%}
+.crest-ink{transition:opacity 900ms var(--ease-out);filter:drop-shadow(0 8px 18px #5a3c1433)}
+.crest-relief{opacity:0;transform-style:preserve-3d;transform:rotateX(0deg) rotateY(0deg);transition:opacity 900ms var(--ease-out),transform 650ms var(--ease-out);filter:none}
+.crest-relief > svg,.crest-highlight{position:absolute;inset:0}
+.crest-side{color:#A47609}
+.crest-face{color:#FCC200;filter:drop-shadow(0 -1px 0 #fff2af88) drop-shadow(0 10px 16px #0005)}
+.crest-highlight{color:#fff5c5;opacity:0;pointer-events:none;clip-path:polygon(-60% 0,-40% 0,-70% 100%,-90% 100%)}
+.crest-stage[data-phase="gold"] .crest-ink,.crest-stage[data-phase="static"] .crest-ink{opacity:0}
+.crest-stage[data-phase="gold"] .crest-relief,.crest-stage[data-phase="static"] .crest-relief{opacity:1;transform:rotateX(var(--tilt-x,-3deg)) rotateY(var(--tilt-y,5deg))}
+.crest-stage[data-phase="gold"] .crest-highlight{animation:crestLight 900ms ease-in-out 200ms both}
+@keyframes crestLight{0%{opacity:0}25%,70%{opacity:.4}100%{opacity:0;clip-path:polygon(140% 0,160% 0,130% 100%,110% 100%)}}
+.crest-replay{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:38px;background:transparent;border:0;color:#e5d9b9;font:inherit;font-size:11px;padding:12px;white-space:nowrap;cursor:pointer;opacity:.8}
+.crest-replay:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
+.crest-replay:disabled{opacity:.35;cursor:default}
+.hero-cine-bg{transform:translate3d(calc(var(--mx)*-6px),calc(var(--my)*-6px),0)}
+.hero-cine-crest{transform:translate3d(calc(var(--mx)*10px),calc(var(--my)*8px),0);opacity:1}
+.hero-cine-copy{transform:none;opacity:1}
+.hero-cine-photo{animation:cineKen 800ms var(--ease-out) both}
+@keyframes cineKen{from{transform:scale(1.025)}to{transform:scale(1)}}
+.hero-cine-rays span{animation:rayIn 900ms ease forwards}
+.hero-cine-motes span{animation-iteration-count:1;animation-duration:7s;animation-delay:0s}
+.hero-cine-scroll-line::after{animation-iteration-count:2}
+.hero-cine-kicker{animation:cineRise 650ms var(--ease-out) 100ms both}
+.hero-cine-title{animation:cineRise 650ms var(--ease-out) 180ms both}
+.hero-cine-sub{animation:cineRise 650ms var(--ease-out) 240ms both}
+.hero-cine-cta{animation:cineRise 650ms var(--ease-out) 250ms both}
+@keyframes cineRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.motion-reveal{transition:opacity var(--motion-reveal) var(--ease-out),transform var(--motion-reveal) var(--ease-out)}
+.motion-pending{opacity:0;transform:translateY(12px)}
+.btn:active,.hero-btn:active{transform:scale(.98);transition-duration:100ms}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #486F8E;outline-offset:4px}
+.hero-cine a:focus-visible,.crest-replay:focus-visible{outline-color:#FCC200}
+@media(max-width:900px){
+ .hero-cine-crest{transform:none;opacity:.2}
+ .crest-relief{transform:none!important}
+ .crest-replay{display:none}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto}
+ .crest-ink{opacity:0!important}
+ .crest-relief{opacity:1!important;transform:none!important;transition:none!important}
+ .crest-highlight,.crest-replay{display:none!important}
+ .motion-reveal{opacity:1;transform:none;transition:none}
+ .btn,.hero-btn,.hero-btn svg,.hero-btn::after{transition:none!important}
+ .hero-cine-copy,.hero-cine-crest,.hero-cine-bg{transform:none!important}
+ .hero-cine-crest{opacity:1}
+}

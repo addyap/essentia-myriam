@@ -3,7 +3,8 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
-import { LogoMarkDraw } from '@/components/LogoMarkDraw';
+import { HeroCrest } from '@/components/HeroCrest';
+import { MotionSystem } from '@/components/MotionSystem';
 import { ROUTES } from '@/lib/routes';
 
 // "Clairière" — the art-directed home hero. A cinematic forest-at-golden-hour
@@ -33,19 +34,19 @@ export function HomeHero() {
     const el = ref.current;
     if (!el) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    if (window.matchMedia('(hover: none)').matches) {
-      // touch: keep scroll depth, skip pointer parallax
-    }
+
 
     let mx = 0, my = 0, tmx = 0, tmy = 0, raf = 0, ticking = false;
 
     const onMove = (e) => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const r = el.getBoundingClientRect();
       tmx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1..1
       tmy = ((e.clientY - r.top) / r.height - 0.5) * 2;
       schedule();
     };
     const onScroll = () => {
+      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
       const r = el.getBoundingClientRect();
       const p = Math.min(1, Math.max(0, -r.top / (r.height || 1)));
       el.style.setProperty('--sp', p.toFixed(4));
@@ -61,7 +62,7 @@ export function HomeHero() {
     };
     const schedule = () => { if (!ticking) { ticking = true; raf = requestAnimationFrame(tick); } };
 
-    el.addEventListener('pointermove', onMove, { passive: true });
+    if (matchMedia('(hover: hover) and (pointer: fine)').matches) el.addEventListener('pointermove', onMove, { passive: true });
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
     return () => {
@@ -75,13 +76,14 @@ export function HomeHero() {
 
   return (
     <section className="hero-cine" ref={ref} aria-label="Essentia">
+      <MotionSystem />
       <div className="hero-cine-bg" aria-hidden="true">
         <Image src="/images/nature/home.webp" alt="" fill priority sizes="100vw" className="hero-cine-photo" />
       </div>
       <div className="hero-cine-grade" aria-hidden="true" />
       <div className="hero-cine-rays" aria-hidden="true"><span /><span /></div>
       <div className="hero-cine-motes" aria-hidden="true">
-        {MOTES.map((m, i) => (
+        {MOTES.slice(0, 3).map((m, i) => (
           <span key={i} style={{
             left: m.l, top: m.t, width: m.s, height: m.s,
             '--mdur': `${m.dur}s`, '--mdelay': `${m.delay}s`, '--mdepth': m.d,
@@ -107,9 +109,9 @@ export function HomeHero() {
           </div>
         </div>
 
-        <div className="hero-cine-crest" aria-hidden="true">
-          <div className="hero-cine-halo" />
-          <div className="hero-mark-bg hero-cine-mark"><LogoMarkDraw /></div>
+        <div className="hero-cine-crest">
+          <div className="hero-cine-halo" aria-hidden="true" />
+          <div className="hero-cine-mark"><HeroCrest /></div>
           <span className="hero-cine-sign">Myriam Diougoan Blanch</span>
         </div>
       </div>
