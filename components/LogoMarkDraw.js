@@ -1,11 +1,11 @@
-// Animated hero variant of the MDB monogram, drawn on in one continuous
-// handwritten motion. Each hand-authored "pen" sub-stroke (hd-s) draws with its
-// own stroke-dashoffset pass, sequenced back-to-back at constant pen speed, in
-// writing order — figure, head, central flourish, M, D, B, then the long tail
-// flourish. The strokes form a thick mask over the filled logo, so the real
-// gold calligraphy inks in as the pen moves. hd-fill fades in at the very end so
-// any sliver the pen misses still completes. Keyframes: app/globals.css
-// (heroStroke / heroPenFill). Honors prefers-reduced-motion. Static: LogoMark.
+// Animated hero monogram, drawn on as if by hand from start to finish. A
+// hand-authored "pen" skeleton is split into sub-strokes (figure, head,
+// flourish, stem, M, D, B, tail); each inks in with its own stroke-dashoffset
+// pass, sequenced back-to-back at constant pen speed, and a glowing nib rides
+// each stroke at the ink frontier so the eye follows the hand. The strokes mask
+// the filled logo so the real gold calligraphy appears behind the nib; hd-fill
+// fades in at the very end to complete any missed sliver. Keyframes:
+// app/globals.css (heroStroke / heroPenFill). Honors prefers-reduced-motion.
 export function LogoMarkDraw({ className }) {
   return (
     <svg
@@ -18,27 +18,40 @@ export function LogoMarkDraw({ className }) {
         <filter id="heroPenSoft" x="-15%" y="-15%" width="130%" height="130%">
           <feGaussianBlur stdDeviation="4" />
         </filter>
+        <filter id="heroNibGlow" x="-120%" y="-120%" width="340%" height="340%">
+          <feGaussianBlur stdDeviation="6" />
+        </filter>
+          <path id="hpen0" d="M 298 42 C 330 120, 360 195, 382 236 C 430 165, 500 105, 545 70" />
+          <path id="hpen1" d="M 352 115 L 404 115" />
+          <path id="hpen2" d="M 400 235 C 400 255, 402 275, 408 292 C 470 185, 545 182, 540 220 C 534 260, 465 258, 442 292 C 405 340, 350 370, 344 412 C 340 445, 362 465, 405 480" />
+          <path id="hpen3" d="M 405 410 C 415 470, 425 540, 430 610" />
+          <path id="hpen4" d="M 30 655 C 55 690, 60 640, 95 610 C 130 580, 150 468, 168 468 C 186 468, 188 612, 212 622 C 236 632, 252 498, 300 494 C 334 491, 330 622, 348 688" />
+          <path id="hpen5" d="M 292 520 C 300 600, 300 650, 300 692" />
+          <path id="hpen6" d="M 296 523 C 374 518, 444 560, 432 616 C 420 674, 350 694, 300 692" />
+          <path id="hpen7" d="M 500 412 C 505 520, 505 610, 505 692" />
+          <path id="hpen8" d="M 500 418 C 562 413, 620 445, 612 482 C 606 518, 546 527, 505 527 C 564 527, 628 557, 620 602 C 612 655, 544 694, 505 692" />
+          <path id="hpen9" d="M 430 610 C 438 685, 420 740, 378 778 C 320 818, 255 822, 205 812" />
         <mask id="heroDrawMask" maskUnits="userSpaceOnUse" x="0" y="0" width="681" height="842">
           <g filter="url(#heroPenSoft)">
-            <path className="hd-s" d="M 298 42 C 330 120, 360 195, 382 236 C 430 165, 500 105, 545 70" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen0" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 447, strokeDashoffset: 447, animation: 'heroStroke 0.644s linear 0.3s forwards' }} />
-            <path className="hd-s" d="M 352 115 L 404 115" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen1" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 54, strokeDashoffset: 54, animation: 'heroStroke 0.075s linear 0.944s forwards' }} />
-            <path className="hd-s" d="M 400 235 C 400 255, 402 275, 408 292 C 470 185, 545 182, 540 220 C 534 260, 465 258, 442 292 C 405 340, 350 370, 344 412 C 340 445, 362 465, 405 480" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen2" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 629, strokeDashoffset: 629, animation: 'heroStroke 0.908s linear 1.02s forwards' }} />
-            <path className="hd-s" d="M 405 410 C 415 470, 425 540, 430 610" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen3" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 204, strokeDashoffset: 204, animation: 'heroStroke 0.292s linear 1.927s forwards' }} />
-            <path className="hd-s" d="M 30 655 C 55 690, 60 640, 95 610 C 130 580, 150 468, 168 468 C 186 468, 188 612, 212 622 C 236 632, 252 498, 300 494 C 334 491, 330 622, 348 688" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen4" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 794, strokeDashoffset: 794, animation: 'heroStroke 1.147s linear 2.22s forwards' }} />
-            <path className="hd-s" d="M 292 520 C 300 600, 300 650, 300 692" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen5" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 174, strokeDashoffset: 174, animation: 'heroStroke 0.249s linear 3.366s forwards' }} />
-            <path className="hd-s" d="M 296 523 C 374 518, 444 560, 432 616 C 420 674, 350 694, 300 692" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen6" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 356, strokeDashoffset: 356, animation: 'heroStroke 0.513s linear 3.615s forwards' }} />
-            <path className="hd-s" d="M 500 412 C 505 520, 505 610, 505 692" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen7" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 282, strokeDashoffset: 282, animation: 'heroStroke 0.405s linear 4.128s forwards' }} />
-            <path className="hd-s" d="M 500 418 C 562 413, 620 445, 612 482 C 606 518, 546 527, 505 527 C 564 527, 628 557, 620 602 C 612 655, 544 694, 505 692" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen8" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 582, strokeDashoffset: 582, animation: 'heroStroke 0.84s linear 4.533s forwards' }} />
-            <path className="hd-s" d="M 430 610 C 438 685, 420 740, 378 778 C 320 818, 255 822, 205 812" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+            <use href="#hpen9" className="hd-s" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
               style={{ strokeDasharray: 366, strokeDashoffset: 366, animation: 'heroStroke 0.527s linear 5.373s forwards' }} />
             <rect className="hd-fill" x="0" y="0" width="681" height="842" fill="#fff"
               style={{ opacity: 0, animation: 'heroPenFill .5s linear 5.65s forwards' }} />
@@ -52,6 +65,88 @@ export function LogoMarkDraw({ className }) {
         mask="url(#heroDrawMask)"
         d="M 310.592 21.851 C 309.615 23.431, 305.214 53.124, 304.048 66 C 302.635 81.611, 302.732 90.224, 304.494 105.286 C 309.306 146.417, 320.345 173.198, 346.009 206 C 358.793 222.339, 375.781 240.039, 378.659 240.017 C 380.909 239.999, 385.274 235.346, 404.500 212.470 C 446.033 163.050, 465.851 141.705, 494 116.071 C 509.868 101.620, 527.727 88.220, 540.750 80.991 C 544.836 78.723, 546.433 76, 543.677 76 C 542.950 76, 538.256 77.995, 533.247 80.433 C 504.824 94.267, 459.628 129.400, 402.105 182.375 C 389.787 193.719, 379.377 203, 378.969 203 C 378.118 203, 368.653 192.996, 361.907 184.967 C 348.735 169.290, 340.687 157.367, 333.241 142.500 C 319.592 115.247, 314.192 89.372, 313.308 47 C 312.837 24.402, 312.268 19.139, 310.592 21.851 M 368.734 81.088 C 359.290 83.313, 350.725 89.924, 346.174 98.500 C 343.817 102.943, 343.520 104.615, 343.511 113.500 C 343.498 125.364, 345.523 130.605, 353.016 138.107 C 365.005 150.108, 386.476 150.118, 399.294 138.128 C 405.261 132.546, 407.612 128.141, 408.905 120.111 C 411.830 101.948, 401.573 86.166, 383.764 81.425 C 377.886 79.860, 374.288 79.780, 368.734 81.088 M 532 191.020 C 465.673 197.934, 402.674 230.726, 366.178 277.333 C 347.618 301.035, 334.650 327.346, 329.298 352.164 C 326.891 363.324, 326.909 385.629, 329.334 395.500 C 334.527 416.644, 344.195 431.776, 361.304 445.539 C 379.297 460.012, 399.221 465.615, 419.566 461.923 C 426.320 460.698, 430.755 458.355, 429.222 456.822 C 428.567 456.167, 425.698 456.256, 420.761 457.086 C 414.857 458.078, 411.741 458.088, 405.895 457.133 C 397.654 455.786, 385.096 450.504, 386.588 449.012 C 389.042 446.558, 439.509 427.176, 440.601 428.268 C 441.356 429.023, 447.337 462.711, 448.987 475.500 C 465.130 600.652, 429.778 703.589, 347 772.460 C 324.507 791.174, 298.265 805.448, 275 811.623 C 245.210 819.530, 218.151 812.956, 208.928 795.570 C 207.594 793.057, 205.926 791, 205.220 791 C 200.825 791, 204.406 800.248, 211.577 807.420 C 230.768 826.610, 270.798 825.475, 313.500 804.530 C 386.380 768.782, 446.626 685.714, 464.376 596.500 C 474.011 548.073, 473.877 496.067, 463.979 443 C 460.977 426.905, 460.602 423.364, 461.820 422.611 C 462.398 422.254, 469.538 420.793, 477.686 419.364 C 489.756 417.248, 495.927 416.745, 511 416.650 C 534.071 416.504, 546.220 418.333, 563.683 424.583 L 570.866 427.154 558.127 439.827 C 524.687 473.096, 496.925 523.205, 482.961 575.500 C 479.792 587.370, 477.015 603.852, 477.006 610.853 C 477.001 614.588, 476.373 615.904, 472.586 620.116 C 459.498 634.673, 455.765 648.779, 461.847 660.701 C 464.667 666.229, 472.042 672.482, 478.853 675.121 C 485.825 677.823, 506.105 678.868, 516.674 677.071 C 542.896 672.611, 570.138 658.124, 588.411 638.923 C 605.790 620.660, 615.922 599.466, 615.983 581.250 L 616 576 623.369 576 C 632.757 576, 646.834 578.443, 653.182 581.174 C 656.706 582.690, 658.414 582.986, 659.187 582.213 C 663.780 577.620, 647.918 572.054, 625.814 570.503 L 616.128 569.823 615.057 564.832 C 611.896 550.093, 601.981 537.195, 587.589 529.100 C 584.790 527.526, 580.813 525.699, 578.750 525.041 C 576.688 524.383, 575.013 523.542, 575.030 523.172 C 575.046 522.803, 577.859 520.925, 581.280 519 C 584.820 517.008, 591.408 511.622, 596.569 506.500 C 610.384 492.790, 615.916 479.971, 614.696 464.500 C 613.440 448.576, 606.638 438.827, 587.656 425.744 C 585.951 424.569, 586.146 424.234, 590.256 421.283 C 597.277 416.241, 607.955 411.145, 613.974 409.965 C 622.208 408.351, 622.441 408.236, 620.990 406.488 C 617.328 402.075, 598.302 407.961, 584.539 417.766 C 579.948 421.037, 579.313 421.219, 576.039 420.215 C 574.092 419.618, 568.900 418.025, 564.500 416.675 C 548.641 411.808, 538.295 410.553, 514.500 410.610 C 496.537 410.654, 489.839 411.088, 478 412.977 C 470.025 414.249, 462.468 415.338, 461.207 415.395 C 459.040 415.494, 458.591 414.238, 453.033 392.500 C 441.845 348.746, 431.923 321.072, 412.963 280.739 L 403.204 259.978 408.852 254.907 C 427.734 237.953, 459.380 219.165, 485.109 209.633 C 508.033 201.140, 522.332 198.021, 541.641 197.303 C 555.138 196.800, 557.529 196.966, 563.664 198.829 C 578.927 203.465, 587.210 216.467, 584.110 230.923 C 580.780 246.449, 569.636 258.904, 548.750 270.443 C 542.120 274.106, 540.033 277, 544.022 277 C 546.424 277, 560.628 270.007, 567 265.688 C 575.272 260.080, 582.145 253.655, 586.698 247.275 C 592.898 238.587, 595 232.604, 595 223.649 C 595 207.948, 585.494 197.259, 567.267 192.467 C 560.003 190.558, 543.094 189.864, 532 191.020 M 381.327 283.247 C 371.779 296.187, 367.262 303.573, 360.992 316.500 C 349.039 341.141, 343.208 369.692, 345.981 390 C 347.529 401.337, 352.414 415.784, 357.207 423.199 C 361.822 430.339, 370.017 439.229, 374.588 442.055 L 377.850 444.070 390.175 438.883 C 396.954 436.029, 410.557 430.844, 420.404 427.360 C 430.251 423.876, 438.480 420.853, 438.691 420.642 C 439.733 419.600, 429.073 382.272, 420.904 358.361 C 412.497 333.748, 393.072 285.099, 388.119 276.249 C 387.663 275.433, 385.284 277.884, 381.327 283.247 M 569.459 440.750 C 540.286 473.938, 512.992 525.459, 497.489 576.607 C 493.228 590.662, 489.929 605, 490.955 605 C 491.361 605, 495.474 602.748, 500.096 599.995 C 522.980 586.364, 559.060 575.328, 593.250 571.500 C 599.989 570.745, 600.132 570.326, 596.922 560.718 C 592.878 548.615, 583.564 537.869, 572.371 532.393 C 565.336 528.951, 562.608 529.010, 552.034 532.829 C 542.858 536.144, 533.125 537.621, 527.462 536.559 C 520.418 535.237, 517.824 529.393, 522.380 525.112 C 526.632 521.118, 533.263 519.750, 549 519.620 L 563.500 519.500 568.137 516.280 C 585.604 504.149, 596.953 487.313, 598.658 471.001 C 599.865 459.450, 594.698 446.832, 584.956 437.539 C 581.762 434.493, 578.699 432, 578.149 432 C 577.600 432, 573.689 435.938, 569.459 440.750 M 315.946 453.869 C 310.604 457.317, 293.189 475.047, 282.913 487.500 C 256.991 518.912, 229.393 561.380, 205.091 607.250 C 201.667 613.712, 198.715 619, 198.531 619 C 198.346 619, 198.850 616.862, 199.651 614.250 C 200.451 611.638, 203.799 596, 207.091 579.500 C 210.383 563, 214.621 543.091, 216.509 535.259 C 221.169 515.921, 229.902 490.159, 236.504 476.269 C 242.644 463.353, 242.660 461, 236.606 461 C 230.482 461, 220.731 471.710, 207.016 493.500 C 203.554 499, 191.511 520.375, 180.253 541 C 149.289 597.727, 135.603 619.608, 117.139 641.910 C 92.664 671.474, 69.675 683.976, 49.248 678.832 C 45.900 677.989, 43.172 676.252, 39.433 672.582 C 32.560 665.837, 30 659.033, 30 647.514 C 30 616.970, 56.661 587.513, 87.194 584.322 C 91.626 583.859, 94.518 584.237, 99.991 585.997 C 103.880 587.248, 107.370 587.963, 107.746 587.587 C 109.037 586.296, 106.379 583.497, 101.574 581.087 C 91.801 576.185, 72.761 578.811, 58.500 587.028 C 46.292 594.062, 34.679 606.587, 28.550 619.330 C 23.184 630.485, 21.718 637.586, 22.229 649.932 C 22.779 663.198, 25.166 669.832, 32.130 677.452 C 38.892 684.851, 45.894 688.097, 56.448 688.726 C 80.313 690.149, 104.087 674.993, 129.202 642.344 C 141.393 626.497, 159.185 597.766, 172.763 572 C 201.699 517.092, 214.392 494, 215.637 494 C 215.851 494, 215.289 495.688, 214.388 497.750 C 206.785 515.146, 198.456 545.176, 191.991 578.500 C 182.918 625.265, 178.937 642.032, 173.384 656.869 C 170.493 664.593, 170.491 664.657, 173.049 666.026 C 176.041 667.627, 181.323 665.586, 184.245 661.699 C 187.413 657.485, 195.049 643.706, 203.475 627 C 211.685 610.723, 227.523 582.101, 237.783 565 C 252.907 539.790, 278.322 503.521, 288.992 491.920 L 293.057 487.500 288.500 494.718 C 276.233 514.152, 261.105 546.630, 252.970 570.995 C 226.323 650.809, 232.212 719.937, 268.224 750.028 C 275.241 755.891, 280.790 758.905, 290.586 762.176 C 296.473 764.141, 299.432 764.471, 310.500 764.396 C 321.874 764.319, 324.501 763.968, 331.500 761.590 C 347.582 756.128, 360.560 746.686, 370.998 732.854 C 377.320 724.477, 384 712.108, 384 708.778 C 384 707.750, 383.262 707.002, 382.250 707.005 C 381.072 707.008, 379.106 709.703, 376.233 715.255 C 362.762 741.286, 339.218 756.938, 313.460 756.985 C 298.727 757.012, 288.238 752.843, 277.237 742.586 C 266.225 732.318, 258.938 717.468, 254.870 697 C 250.814 676.594, 251.916 642.674, 257.583 613.500 C 266.575 567.209, 287.998 516.151, 315.853 474.628 C 329.900 453.688, 329.249 454.932, 327.298 452.777 C 324.974 450.209, 321.030 450.588, 315.946 453.869 M 362.500 507.072 C 330.115 511.466, 302.537 528.987, 290.832 552.605 C 286.547 561.253, 286.500 561.461, 286.500 571.923 C 286.500 580.895, 286.833 583.121, 288.691 586.595 C 291.123 591.139, 297.248 597, 299.566 597 C 302.690 597, 302.245 593.912, 298.595 590.261 C 291.975 583.642, 290.551 573.157, 294.620 561 C 299.602 546.119, 313.638 531.980, 332.500 522.846 C 344.580 516.995, 355.307 514.118, 368 513.325 C 380.846 512.523, 390.201 514.216, 399.988 519.114 C 416.202 527.229, 424 541.732, 424 563.771 C 424 584.847, 416.915 605.555, 402.173 627.571 C 386.468 651.023, 366.839 668.157, 342.664 679.514 C 327.658 686.563, 319.647 688.444, 304.500 688.474 C 292.140 688.499, 291.273 688.366, 286.887 685.788 C 274.831 678.701, 279.267 666.287, 297.188 656.963 L 305.280 652.753 304.645 655.626 C 301.359 670.499, 301.493 673.356, 305.565 675.211 C 309.212 676.873, 310.270 675.350, 315.080 661.500 C 317.372 654.900, 319.692 649.218, 320.235 648.873 C 321.712 647.933, 334.339 646.124, 344.246 645.432 C 353.285 644.801, 354.453 644.351, 353.032 642.052 C 352.365 640.973, 349.239 640.810, 337.598 641.245 C 329.569 641.546, 323 641.445, 323 641.022 C 323 640.208, 327.783 629.006, 336.246 610 C 347.463 584.809, 365.972 550.812, 373.632 541.332 C 378.490 535.319, 377.743 532, 371.532 532 C 362.507 532, 351.095 548.323, 331.329 589.500 C 323.328 606.169, 312.455 632.234, 309.907 640.858 C 308.993 643.951, 307.875 645.510, 306.059 646.228 C 281.790 655.820, 270.481 667.930, 273.907 680.656 C 275.215 685.511, 280.879 691.156, 287.500 694.201 C 292.061 696.298, 293.860 696.494, 308 696.431 C 321.527 696.370, 324.723 696.025, 333.107 693.721 C 383.628 679.836, 425.915 636.017, 437.062 586 C 440.916 568.711, 438.970 548.218, 432.285 535.675 C 428.550 528.667, 417.820 518.139, 410.493 514.294 C 398.064 507.771, 378.756 504.866, 362.500 507.072 M 535.500 526.921 C 533.300 527.289, 530.600 528.119, 529.500 528.765 C 527.759 529.787, 528.082 529.942, 532 529.958 C 536.283 529.975, 546.573 527.760, 547.770 526.563 C 548.502 525.831, 540.635 526.060, 535.500 526.921 M 588.500 577.488 C 572.437 579.715, 557.806 583.092, 542.500 588.105 C 519.351 595.686, 492.425 609.827, 489.265 616.063 C 488.571 617.432, 488.023 622.304, 488.015 627.183 C 488.001 635.049, 487.807 635.926, 485.951 636.516 C 483.011 637.449, 479.384 634.694, 477.990 630.470 C 476.824 626.935, 476.764 626.903, 474.760 628.685 C 471.074 631.962, 467.002 641.989, 467.001 647.790 C 466.999 660.564, 475.734 667.706, 492.651 668.761 C 533.619 671.317, 582.686 637.197, 595.849 597 C 599.068 587.168, 600.338 575.729, 598.167 576.120 C 597.800 576.186, 593.450 576.802, 588.500 577.488"
       />
+      <g className="hd-nibs">
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="0.3s" dur="0.644s" values="1;1" fill="remove" />
+          <animateMotion begin="0.3s" dur="0.644s" fill="remove" rotate="auto">
+            <mpath href="#hpen0" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="0.944s" dur="0.075s" values="1;1" fill="remove" />
+          <animateMotion begin="0.944s" dur="0.075s" fill="remove" rotate="auto">
+            <mpath href="#hpen1" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="1.02s" dur="0.908s" values="1;1" fill="remove" />
+          <animateMotion begin="1.02s" dur="0.908s" fill="remove" rotate="auto">
+            <mpath href="#hpen2" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="1.927s" dur="0.292s" values="1;1" fill="remove" />
+          <animateMotion begin="1.927s" dur="0.292s" fill="remove" rotate="auto">
+            <mpath href="#hpen3" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="2.22s" dur="1.147s" values="1;1" fill="remove" />
+          <animateMotion begin="2.22s" dur="1.147s" fill="remove" rotate="auto">
+            <mpath href="#hpen4" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="3.366s" dur="0.249s" values="1;1" fill="remove" />
+          <animateMotion begin="3.366s" dur="0.249s" fill="remove" rotate="auto">
+            <mpath href="#hpen5" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="3.615s" dur="0.513s" values="1;1" fill="remove" />
+          <animateMotion begin="3.615s" dur="0.513s" fill="remove" rotate="auto">
+            <mpath href="#hpen6" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="4.128s" dur="0.405s" values="1;1" fill="remove" />
+          <animateMotion begin="4.128s" dur="0.405s" fill="remove" rotate="auto">
+            <mpath href="#hpen7" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="4.533s" dur="0.84s" values="1;1" fill="remove" />
+          <animateMotion begin="4.533s" dur="0.84s" fill="remove" rotate="auto">
+            <mpath href="#hpen8" />
+          </animateMotion>
+        </g>
+        <g className="hd-nib" opacity="0">
+          <circle r="21" fill="#FBE59A" opacity="0.55" filter="url(#heroNibGlow)" />
+          <circle r="9" fill="#FFFaef" />
+          <animate attributeName="opacity" begin="5.373s" dur="0.527s" values="1;1" fill="remove" />
+          <animateMotion begin="5.373s" dur="0.527s" fill="remove" rotate="auto">
+            <mpath href="#hpen9" />
+          </animateMotion>
+        </g>
+      </g>
     </svg>
   );
 }
