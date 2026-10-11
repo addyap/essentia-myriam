@@ -6,7 +6,7 @@ const { transform, loadBindings } = require('next/dist/build/swc');
 
 // Exercise the real component effects with a deterministic clock and host mocks.
 // GPU appearance and browser focus are checked separately in the built site.
-async function mount(file, name, { reduced = false, host = {}, modules = {}, props = {} } = {}) {
+async function mount(file, name, { reduced = false, host = {}, modules = {}, props = {}, environment = {} } = {}) {
   const hooks = [], effects = [], listeners = new Set(), frames = new Map();
   let cursor = 0, dirty = false, tree, frameId = 0, now = 0;
   const media = { matches: reduced, addEventListener: (_, fn) => listeners.add(fn), removeEventListener: (_, fn) => listeners.delete(fn) };
@@ -39,6 +39,7 @@ async function mount(file, name, { reduced = false, host = {}, modules = {}, pro
   const compiled = await transform(fs.readFileSync(file, 'utf8'), { filename: file, jsc: { parser: { syntax:'ecmascript', jsx:true }, target:'es2020', transform:{ react:{runtime:'automatic'} } }, module:{type:'commonjs'} });
   const exports = {};
   vm.runInNewContext(compiled.code, {
+    navigator: {}, ...environment,
     exports, require: id => { if (!(id in stubs)) throw Error(`Unexpected import: ${id}`); return stubs[id]; },
     localStorage: { getItem: () => null, setItem() {} },
     matchMedia: () => media, document, devicePixelRatio: 1,

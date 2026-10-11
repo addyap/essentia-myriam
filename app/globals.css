@@ -379,8 +379,8 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* Shared interaction rhythm and controls outside the decorative crest. */
 .hero-logo-controls{min-height:44px;margin-top:12px}
 .crest-controls{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center}
-.crest-replay,.crest-pause{position:static;transform:none;margin:0;min-height:44px;padding:8px 0;background:none;border:0;color:#e5d9b9;font:inherit;font-size:11px;cursor:pointer}
-.crest-replay:hover,.crest-pause:hover{text-decoration:underline;text-underline-offset:4px}
+.crest-replay,.crest-pause,.hero-video-control{position:static;transform:none;margin:0;min-height:44px;padding:8px 0;background:none;border:0;color:#e5d9b9;font:inherit;font-size:11px;cursor:pointer}
+.crest-replay:hover,.crest-pause:hover,.hero-video-control:hover{text-decoration:underline;text-underline-offset:4px}
 .crest-replay:disabled{opacity:.4;cursor:default}
 .btn,.hero-btn,.chip,.tab,.wa-float{transition:transform var(--motion-control) var(--ease-out),background-color var(--motion-control),color var(--motion-control),border-color var(--motion-control)}
 .card:not(.motion-reveal){transition:border-color var(--motion-control)}
@@ -495,7 +495,7 @@ section[id],main[id]{scroll-margin-top:150px}
 @media(prefers-reduced-motion:reduce){.editorial-link:hover span{transform:none}}
 
 /* Focus remains visible on dark surfaces; text links have a non-colour cue. */
-footer a:focus-visible,.crest-pause:focus-visible{outline-color:#FCC200}
+footer a:focus-visible,.crest-pause:focus-visible,.hero-video-control:focus-visible{outline-color:#FCC200}
 .prose a{text-decoration:underline;text-underline-offset:3px}
 @media(max-width:560px){.wa-float{bottom:max(16px,env(safe-area-inset-bottom))}}
 
@@ -509,3 +509,10 @@ footer a:focus-visible,.crest-pause:focus-visible{outline-color:#FCC200}
 .pending-details dt{font-weight:600;color:var(--ink)}
 .pending-details dd{color:var(--muted);overflow-wrap:anywhere}
 @media(max-width:560px){.pending-details{padding:20px}.pending-details dl>div{grid-template-columns:1fr;gap:4px}}
+
+/* The poster remains visible until the local, silent video really plays. */
+.hero-cine-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;filter:brightness(.65) saturate(.75);transition:opacity 800ms var(--ease-out)}
+.hero-cine-video[data-ready="true"]{opacity:1}
+.hero-logo-controls{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center}
+.hero-logo-controls .crest-controls{display:contents}
+@media(prefers-reduced-motion:reduce){.hero-cine-video{display:none}}

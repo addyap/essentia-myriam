@@ -22,6 +22,10 @@
       "replay": "Repetir el dibujo del logo",
       "resume": "Reanudar el movimiento",
       "pause": "Pausar el movimiento"
+    },
+    "backgroundVideo": {
+      "pause": "Pausar el vídeo",
+      "resume": "Reanudar el vídeo"
     }
   },
   "nav": {

@@ -22,6 +22,10 @@
       "replay": "Replay the logo drawing",
       "resume": "Resume motion",
       "pause": "Pause motion"
+    },
+    "backgroundVideo": {
+      "pause": "Pause background video",
+      "resume": "Resume background video"
     }
   },
   "nav": {

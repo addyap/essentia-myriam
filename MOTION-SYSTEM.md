@@ -173,3 +173,11 @@ Vercel confirmed production deployment dpl_7c4bvA7rH4fczm4sNmMEA5cZcWLE is READY
 ### Mobile logo visibility refinement
 
 At widths up to 900px, the crest now occupies its own centred row above the hero copy at full opacity, rather than a faded watermark behind text. Responsive width is 120–150px; compact padding and a 16px row gap keep the primary CTA reachable. Handwriting, 3D takeover, pause/replay, and reduced-motion static fallback retain their existing behaviour. Verified at 390×844 and 320×700; at 390px the primary CTA ends around 635px from the viewport top.
+
+### Forest video background
+
+The home hero now layers a local, muted 9.92-second Pexels forest clip over the existing responsive poster image. Source and licence are recorded in `public/videos/credits.json`. The 1280×720 H.264 file is 2,104,972 bytes, has no audio track and uses fast-start metadata. A darkened, desaturated grade preserves text and gold-logo contrast. Image rendering never waits for video readiness.
+
+`HeroVideo` attaches its source only after hydration when reduced motion and browser data saving are off. Successful playback reveals the video; rejected autoplay or media errors retain the poster. IntersectionObserver and document visibility pause hidden playback. A translated, keyboard-accessible pause/resume button controls the background separately from the logo. With JavaScript disabled, the original image remains and no video source is attached. No third-party player or video request is embedded.
+
+Verification: 16 regression tests pass, including four video lifecycle tests. Production build passes; in-app Chromium confirms muted playback, pause/resume and 390px mobile reflow with the primary CTA ending around 635px. Physical Safari/iOS autoplay and battery/network behaviour remain release-device checks.

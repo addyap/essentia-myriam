@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
+import { HeroVideo } from '@/components/HeroVideo';
 import { HeroCrest } from '@/components/HeroCrest';
 import { ROUTES } from '@/lib/routes';
 
@@ -74,6 +75,7 @@ export function HomeHero() {
     <section className="hero-cine" ref={ref} aria-label="Essentia">
       <div className="hero-cine-bg" aria-hidden="true">
         <Image src="/images/nature/home.webp" alt="" fill priority sizes="100vw" className="hero-cine-photo" />
+        <HeroVideo labels={t.ui.backgroundVideo} />
       </div>
       <div className="hero-cine-grade" aria-hidden="true" />
       <div className="hero-cine-rays" aria-hidden="true"><span /><span /></div>
