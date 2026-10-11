@@ -4,7 +4,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
-import { Logo } from '@/components/Logo';
 import { LogoMark } from '@/components/LogoMark';
 import { ROUTES } from '@/lib/routes';
 
@@ -92,7 +91,7 @@ export default function HomePage() {
       <section>
         <div className="wrap">
           <div className="band">
-            <div className="mark-lg"><Logo sizes="64px" /></div>
+            <div className="mark-lg"><LogoMark /></div>
             <span className="script" style={{ fontSize: 26 }}>{t.ui.discover}</span>
             <h2>{h.bandTitle}</h2>
             <p>{h.bandText}</p>

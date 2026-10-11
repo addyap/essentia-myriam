@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useApp } from './Providers';
-import { Logo } from './Logo';
+import { LogoMark } from './LogoMark';
 import { Icon } from './Icon';
 import { ROUTES, NAV } from '@/lib/routes';
 import { ENABLED_LANGS } from '@/lib/config';
@@ -64,7 +64,7 @@ export function Header() {
       <header className="site">
         <div className="wrap nav">
           <Link href="/" className="brand" onClick={() => setOpen(false)}>
-            <span className="mark"><Logo sizes="(max-width: 1080px) 44px, 62px" priority /></span>
+            <span className="mark"><LogoMark /></span>
             <span className="words">
               <span className="name">{brand.name}</span>
               <span className="byline">{brand.byline}</span>
