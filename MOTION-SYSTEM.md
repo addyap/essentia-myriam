@@ -169,3 +169,7 @@ Consolidated hero base rules, responsive overrides and reduced-motion rules; rem
 `npm run test:motion` runs nine deterministic component-effect checks: late model readiness, failed model/replay fallback, initial and live reduced motion, interrupted handwriting, crossfade timing, wider yaw and settling, pause/resume rendering, and WebGL initialization failure. These host/GPU mocks test lifecycle logic, not physical rendering quality. Production build passed. Browser checks verified 390px layout, menu focus after opening, Escape focus restoration, pause state feedback and 44px controls, plus no horizontal overflow at 640×422 (the reflow size corresponding to a 1280×844 viewport at 200% zoom). Actual browser zoom and physical-phone performance were not measured.
 
 Vercel confirmed production deployment dpl_7c4bvA7rH4fczm4sNmMEA5cZcWLE is READY for bf9abbb3919966200c3dc68ab558b21af77ab075 and assigned to www.essentiademdb.com. This confirmation precedes the latest cleanup/pivot commit, which needs a separate push to deploy.
+
+### Mobile logo visibility refinement
+
+At widths up to 900px, the crest now occupies its own centred row above the hero copy at full opacity, rather than a faded watermark behind text. Responsive width is 120–150px; compact padding and a 16px row gap keep the primary CTA reachable. Handwriting, 3D takeover, pause/replay, and reduced-motion static fallback retain their existing behaviour. Verified at 390×844 and 320×700; at 390px the primary CTA ends around 635px from the viewport top.
