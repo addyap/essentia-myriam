@@ -98,7 +98,6 @@ export function Header() {
             <span className="words">
               <span className="name">{brand.name}</span>
               <span className="byline">{brand.byline}</span>
-              <span className="sub">{brand.sub}</span>
             </span>
           </Link>
 
