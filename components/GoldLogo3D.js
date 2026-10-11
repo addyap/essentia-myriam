@@ -29,8 +29,10 @@ export function GoldLogo3D({ source, animate, onReady, onFailure }) {
       const light = new T.DirectionalLight(0xfff4d4, 1.5);
       light.position.set(-300, 500, 800); scene.add(light);
       scene.add(new T.AmbientLight(0xffffff, .35));
-      const material = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .65, roughness: .38, side: T.DoubleSide });
-      materials.push(material);
+      // Keep the front face exactly brand gold; lighting affects only the bevel and sides.
+      const face = new T.MeshBasicMaterial({ color: '#FCC200', toneMapped: false, side: T.DoubleSide });
+      const edge = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .65, roughness: .38, side: T.DoubleSide });
+      materials.push(face, edge);
       const group = new T.Group(); scene.add(group);
       const data = new SVGLoader().parse(source.replaceAll('currentColor', '#FCC200'));
       for (const path of data.paths) {
@@ -38,19 +40,19 @@ export function GoldLogo3D({ source, animate, onReady, onFailure }) {
           const geometry = new T.ExtrudeGeometry(shape, { depth: 14, bevelEnabled: true, bevelThickness: 1.1, bevelSize: .65, bevelSegments: 2, curveSegments: 20, steps: 1 });
           geometry.translate(-340.5, -421, -7);
           geometry.scale(1, -1, 1);
-          geometries.push(geometry); group.add(new T.Mesh(geometry, material));
+          geometries.push(geometry); group.add(new T.Mesh(geometry, [face, edge]));
         }
       }
       let elapsed = 0, last = null, visible = true, px = 0, py = 0;
-      const duration = animate ? 4200 : 0;
+      const duration = animate ? 5600 : 0;
       const draw = now => {
         frame = null;
         if (disposed || !visible || document.hidden) { last = null; return; }
         if (last !== null) elapsed += Math.min(now - last, 50);
         last = now;
         const p = duration ? Math.min(1, elapsed / duration) : 1;
-        const excursion = Math.sin(p * Math.PI) * .38;
-        const targetX = p * -.045 + py;
+        const excursion = Math.sin(p * Math.PI * 2) * .65 * Math.sin(p * Math.PI);
+        const targetX = p * -.045 + Math.sin(p * Math.PI) * -.08 + py;
         const targetY = excursion + p * .075 + px;
         group.rotation.x += (targetX - group.rotation.x) * .12;
         group.rotation.y += (targetY - group.rotation.y) * .12;
@@ -62,8 +64,8 @@ export function GoldLogo3D({ source, animate, onReady, onFailure }) {
       const move = event => {
         if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
         const r = el.getBoundingClientRect();
-        px = ((event.clientX - r.left) / r.width - .5) * .1;
-        py = ((event.clientY - r.top) / r.height - .5) * .08;
+        px = ((event.clientX - r.left) / r.width - .5) * .28;
+        py = ((event.clientY - r.top) / r.height - .5) * .14;
         schedule();
       };
       const leave = () => { px = py = 0; schedule(); };
