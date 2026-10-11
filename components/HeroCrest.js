@@ -11,6 +11,7 @@ export function HeroCrest() {
   const [source, setSource] = useState('');
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(true);
   const onReady = useCallback(() => setReady(true), []);
   const onFailure = useCallback(() => { setReady(false); setFailed(true); }, []);
@@ -20,16 +21,13 @@ export function HeroCrest() {
     setReduced(preference.matches);
     const svg = ref.current.querySelector('.crest-face');
     setSource(svg.outerHTML);
-    let seen = false;
-    try { seen = sessionStorage.getItem('essentia-crest') === 'seen'; } catch {}
-    if (!preference.matches && !seen) setPhase('drawing');
+    if (!preference.matches) setPhase('drawing');
     const change = () => { setReduced(preference.matches); if (preference.matches) setPhase('static'); };
     preference.addEventListener('change', change);
     return () => preference.removeEventListener('change', change);
   }, []);
   const finish = () => {
     setPhase('gold');
-    try { sessionStorage.setItem('essentia-crest', 'seen'); } catch {}
   };
   const move = event => {
     if (ready || phase === 'drawing' || !matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -49,10 +47,13 @@ export function HeroCrest() {
         <LogoMark className="crest-face" />
         <div className="crest-highlight"><LogoMark /></div>
       </div>
-      {!reduced && !failed && source && phase !== 'drawing' && <GoldLogo3D key={run} source={source} animate={phase === 'gold'} onReady={onReady} onFailure={onFailure} />}
+      {!reduced && !failed && source && phase !== 'drawing' && <GoldLogo3D key={run} source={source} animate={phase === 'gold'} paused={paused} onReady={onReady} onFailure={onFailure} />}
     </div>
-    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>
+    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>
       Rejouer le dessin du logo
     </button>
+    {ready && !reduced && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
+      {paused ? 'Reprendre le mouvement' : 'Mettre le mouvement en pause'}
+    </button>}
   </div>;
 }

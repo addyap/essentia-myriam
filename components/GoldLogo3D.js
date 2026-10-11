@@ -2,8 +2,10 @@
 import { useEffect, useRef } from 'react';
 
 // Loaded only after the handwriting. SVG remains the fallback until first render.
-export function GoldLogo3D({ source, animate, onReady, onFailure }) {
+export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure }) {
   const host = useRef(null);
+  const pause = useRef(paused);
+  useEffect(() => { pause.current = paused; }, [paused]);
   useEffect(() => {
     let disposed = false, renderer, frame, observer, resizeObserver, cleanup = () => {};
     const geometries = [], materials = [];
@@ -44,15 +46,17 @@ export function GoldLogo3D({ source, animate, onReady, onFailure }) {
         }
       }
       let elapsed = 0, last = null, visible = true, px = 0, py = 0;
-      const duration = animate ? 5600 : 0;
+      const duration = animate ? 24000 : 0;
       const draw = now => {
         frame = null;
         if (disposed || !visible || document.hidden) { last = null; return; }
-        if (last !== null) elapsed += Math.min(now - last, 50);
+        if (last !== null && !pause.current) elapsed += Math.min(now - last, 50);
         last = now;
         const p = duration ? Math.min(1, elapsed / duration) : 1;
-        const excursion = Math.sin(p * Math.PI * 2) * .65 * Math.sin(p * Math.PI);
-        const targetX = p * -.045 + Math.sin(p * Math.PI) * -.08 + py;
+        // Three broad, slow pivots; ease into the first and out of the last.
+        const envelope = Math.min(1, p / .08, (1 - p) / .08);
+        const excursion = Math.sin(p * Math.PI * 6) * .72 * Math.max(0, envelope);
+        const targetX = p * -.045 + Math.sin(p * Math.PI * 3) * -.1 + py;
         const targetY = excursion + p * .075 + px;
         group.rotation.x += (targetX - group.rotation.x) * .12;
         group.rotation.y += (targetY - group.rotation.y) * .12;

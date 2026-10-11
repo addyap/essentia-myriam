@@ -485,3 +485,10 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .hero-cine-inner{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
 .hero-cine-title{font-size:clamp(36px,4.2vw,56px)}
 @media(max-width:900px){.hero-cine-inner{grid-template-columns:1fr}.hero-cine-title{font-size:clamp(32px,8vw,48px)}}
+.crest-pause{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:68px;background:transparent;border:0;color:#e5d9b9;font:inherit;font-size:11px;padding:10px;white-space:nowrap;cursor:pointer}
+.crest-pause:hover{text-decoration:underline;text-underline-offset:4px}
+.hero-cine .crest-pause:focus-visible{outline-color:#FCC200}
+@media(max-width:900px){
+ .crest-pause{top:auto;bottom:-24px;margin:0;background:#111c;border-radius:20px;pointer-events:auto}
+}
+@media(prefers-reduced-motion:reduce){.crest-pause{display:none}}
