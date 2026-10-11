@@ -1,18 +1,29 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { LogoMark } from './LogoMark';
 import { LogoMarkDraw } from './LogoMarkDraw';
+import dynamic from 'next/dynamic';
+const GoldLogo3D = dynamic(() => import('./GoldLogo3D').then(m => m.GoldLogo3D), { ssr: false });
 
 export function HeroCrest() {
   const [phase, setPhase] = useState('static');
   const [run, setRun] = useState(0);
+  const [source, setSource] = useState('');
+  const [ready, setReady] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const [reduced, setReduced] = useState(true);
+  const onReady = useCallback(() => setReady(true), []);
+  const onFailure = useCallback(() => { setReady(false); setFailed(true); }, []);
   const ref = useRef(null);
   useEffect(() => {
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    setReduced(preference.matches);
+    const svg = ref.current.querySelector('.crest-face');
+    setSource(svg.outerHTML);
     let seen = false;
     try { seen = sessionStorage.getItem('essentia-crest') === 'seen'; } catch {}
     if (!preference.matches && !seen) setPhase('drawing');
-    const change = () => { if (preference.matches) setPhase('static'); };
+    const change = () => { setReduced(preference.matches); if (preference.matches) setPhase('static'); };
     preference.addEventListener('change', change);
     return () => preference.removeEventListener('change', change);
   }, []);
@@ -21,7 +32,7 @@ export function HeroCrest() {
     try { sessionStorage.setItem('essentia-crest', 'seen'); } catch {}
   };
   const move = event => {
-    if (phase === 'drawing' || !matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    if (ready || phase === 'drawing' || !matchMedia('(hover: hover) and (pointer: fine)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const box = ref.current.getBoundingClientRect();
     ref.current.style.setProperty('--tilt-x', `${-3 - ((event.clientY - box.top) / box.height - .5) * 6}deg`);
     ref.current.style.setProperty('--tilt-y', `${5 + ((event.clientX - box.left) / box.width - .5) * 6}deg`);
@@ -31,15 +42,16 @@ export function HeroCrest() {
     ref.current.style.removeProperty('--tilt-y');
   };
   return <div className="crest-experience">
-    <div className="crest-stage" ref={ref} data-phase={phase} onPointerMove={move} onPointerLeave={reset}>
+    <div className="crest-stage" ref={ref} data-phase={phase} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
       <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw key={run} onComplete={finish} /> : <LogoMark />}</div>
       <div className="crest-relief" aria-hidden="true">
         {[4, 3, 2, 1].map(layer => <LogoMark key={layer} className="crest-side" style={{ transform: `translateZ(${-layer * 1.5}px)` }} />)}
         <LogoMark className="crest-face" />
         <div className="crest-highlight"><LogoMark /></div>
       </div>
+      {!reduced && !failed && source && phase !== 'drawing' && <GoldLogo3D key={run} source={source} animate={phase === 'gold'} onReady={onReady} onFailure={onFailure} />}
     </div>
-    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setRun(value => value + 1); setPhase('drawing'); }}>
+    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>
       Rejouer le dessin du logo
     </button>
   </div>;

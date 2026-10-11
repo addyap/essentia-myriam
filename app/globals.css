@@ -466,3 +466,22 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
  .hero-cine-copy,.hero-cine-crest,.hero-cine-bg{transform:none!important}
  .hero-cine-crest{opacity:1}
 }
+
+/* Compact hero, with a progressively enhanced extruded gold crest. */
+.hero-cine{min-height:clamp(540px,78svh,760px);padding:56px 0 78px}
+.hero-cine-crest .hero-cine-mark{width:min(300px,28vw)}
+.crest-webgl{position:absolute;inset:0;opacity:0;transition:opacity 900ms var(--ease-out)}
+.crest-webgl canvas{display:block;width:100%;height:100%}
+.crest-stage[data-webgl="true"] .crest-webgl{opacity:1}
+.crest-stage[data-webgl="true"] .crest-relief{opacity:0}
+@media(max-width:900px){
+ .hero-cine{min-height:0;padding:54px 0 48px}
+ .hero-cine-crest .hero-cine-mark{width:min(300px,70vw)}
+ .hero-cine-scroll{display:none}
+ .hero-cine-title{font-size:clamp(32px,8vw,48px)}
+ .hero-cine-sub{margin:18px 0 24px}
+}
+@media(prefers-reduced-motion:reduce){.crest-webgl{display:none}}
+.hero-cine-inner{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
+.hero-cine-title{font-size:clamp(36px,4.2vw,56px)}
+@media(max-width:900px){.hero-cine-inner{grid-template-columns:1fr}.hero-cine-title{font-size:clamp(32px,8vw,48px)}}
