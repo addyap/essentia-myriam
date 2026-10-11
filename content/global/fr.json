@@ -17,7 +17,12 @@
     "send": "Envoyer",
     "menu": "Menu",
     "formUnavailable": "Ce formulaire n'est pas encore connecté — merci de nous contacter directement par WhatsApp, téléphone ou email en attendant.",
-    "legalFrenchOnly": "Ce document légal n'est disponible qu'en français."
+    "legalFrenchOnly": "Ce document légal n'est disponible qu'en français.",
+    "logoMotion": {
+      "replay": "Rejouer le dessin du logo",
+      "resume": "Reprendre le mouvement",
+      "pause": "Mettre le mouvement en pause"
+    }
   },
   "nav": {
     "home": "Accueil",

@@ -45,6 +45,8 @@ export const metadata = {
   metadataBase: new URL(SITE_URL),
   alternates: { canonical: '/' },
   openGraph: {
+    url: SITE_URL,
+    locale: 'fr_FR',
     title,
     description: 'Coaching, psychothérapie et conseil RH multilingue.',
     type: 'website',
@@ -86,6 +88,7 @@ export default function RootLayout({ children }) {
     // full-site audit report for the URL-based-routing fix if this changes.
     <html lang="fr" className={`${headlineSerif.variable} ${mulish.variable} ${parisienne.variable}`}>
       <head>
+        <noscript><style>{`.topbar,.menu-toggle,.switch,.tabs,.hero-logo-controls{display:none!important}nav.main{position:static!important;height:auto!important;visibility:visible!important;opacity:1!important;transform:none!important}header.site{position:relative!important}.motion-pending{opacity:1!important;transform:none!important}`}</style></noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -96,7 +99,7 @@ export default function RootLayout({ children }) {
         <Providers>
           <Header />
           <MotionSystem />
-          <main id="main-content">{children}</main>
+          <main id="main-content" tabIndex={-1}>{children}</main>
           <Footer />
           <WhatsAppButton />
         </Providers>

@@ -17,7 +17,12 @@
     "send": "Invia",
     "menu": "Menu",
     "formUnavailable": "Questo modulo non è ancora collegato — nel frattempo contattaci direttamente via WhatsApp, telefono o email.",
-    "legalFrenchOnly": "Questo documento legale è disponibile solo in francese."
+    "legalFrenchOnly": "Questo documento legale è disponibile solo in francese.",
+    "logoMotion": {
+      "replay": "Riproduci il disegno del logo",
+      "resume": "Riprendi il movimento",
+      "pause": "Metti in pausa il movimento"
+    }
   },
   "nav": {
     "home": "Home",
@@ -40,13 +45,13 @@
     "rights": "© {year} {name} di Myriam Diougoan Blanch"
   },
   "home": {
-    "heroKicker": "Benvenuti",
+    "heroKicker": "COACHING · PSICOTERAPIA · CONSULENZA HR",
     "heroTitle": [
       "Un viaggio sospeso dove il tempo sussurra alla tua vera ",
       "essenza",
       ""
     ],
-    "heroSub": "Coaching, psicoterapia e consulenza HR. Da oltre 15 anni accompagno persone e organizzazioni verso una vita allineata, appagata e ricca di senso.",
+    "heroSub": "Un accompagnamento umano e concreto per ritrovare chiarezza, senso e autenticità.",
     "heroCta1": "Prenota un incontro",
     "heroCta2": "Scopri il mio approccio",
     "introEyebrow": "Un approccio umano",

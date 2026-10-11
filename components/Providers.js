@@ -1,5 +1,5 @@
 'use client';
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
 import fr from '@/content/global/fr.json';
 import { ENABLED_LANGS } from '@/lib/config';
 
@@ -25,62 +25,39 @@ export function Providers({ children }) {
   const [lang, setLangState] = useState('fr'); // French-first; persisted choice loads after mount
   const [t, setT] = useState(fr); // always starts populated — never renders with missing content
 
-  useEffect(() => {
-    let cancelled = false;
+  const request = useRef(0);
+  const [languageError, setLanguageError] = useState(false);
+  const setLang = useCallback(async (next) => {
+    if (!LOADERS[next]) return;
+    const ticket = ++request.current;
+    setLanguageError(false);
     try {
-      const saved = localStorage.getItem(LANG_KEY);
-      if (saved && saved !== 'fr' && LOADERS[saved]) {
-        LOADERS[saved]().then((content) => {
-          if (!cancelled) {
-            setT(content);
-            setLangState(saved);
-          }
-        });
-      }
+      const content = await LOADERS[next]();
+      if (ticket !== request.current) return;
+      setT(content);
+      setLangState(next);
+      try { localStorage.setItem(LANG_KEY, next); } catch {}
     } catch {
-      // localStorage unavailable (private browsing, sandboxed iframe, etc.) —
-      // fall back to the in-memory French default rather than crashing the app.
+      if (ticket === request.current) setLanguageError(true);
     }
-    return () => {
-      cancelled = true;
-    };
   }, []);
 
   useEffect(() => {
-    document.documentElement.lang = lang;
-  }, [lang]);
+    try {
+      const saved = localStorage.getItem(LANG_KEY);
+      if (saved && saved !== 'fr') setLang(saved);
+    } catch {}
+    return () => { request.current++; };
+  }, [setLang]);
 
-  const setLang = (l) => {
-    if (l === lang) return;
-    if (l === 'fr') {
-      // French is bundled and ready to use.
-      setT(fr);
-      setLangState('fr');
-      try {
-        localStorage.setItem(LANG_KEY, 'fr');
-      } catch {
-        // Non-fatal: language just won't persist across sessions.
-      }
-      return;
-    }
-    // Only swap lang + content together once the new locale has actually
-    // loaded, so the UI never flashes missing/undefined strings mid-switch.
-    LOADERS[l]().then((content) => {
-      setT(content);
-      setLangState(l);
-      try {
-        localStorage.setItem(LANG_KEY, l);
-      } catch {
-        // Non-fatal: language just won't persist across sessions.
-      }
-    });
-  };
+  useEffect(() => { document.documentElement.lang = lang; }, [lang]);
 
   // The brand direction is fixed to "essentia" for the live site.
   const brand = t.brand.essentia;
   return (
     <AppContext.Provider value={{ lang, setLang, t, brand }}>
       {children}
+      {languageError && <p role="alert" className="notice" lang="fr">Cette langue n’a pas pu être chargée. Veuillez réessayer.</p>}
     </AppContext.Provider>
   );
 }

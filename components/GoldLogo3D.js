@@ -41,7 +41,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       const group = new T.Group(); scene.add(group);
       const data = new SVGLoader().parse(source.replaceAll('currentColor', '#FCC200'));
       for (const path of data.paths) {
-        for (const shape of SVGLoader.createShapes(path)) {
+        for (const shape of path.toShapes()) {
           const geometry = new T.ExtrudeGeometry(shape, { depth: 14, bevelEnabled: true, bevelThickness: 1.1, bevelSize: .65, bevelSegments: 2, curveSegments: 20, steps: 1 });
           geometry.translate(-340.5, -421, -7);
           geometry.scale(1, -1, 1);
@@ -87,7 +87,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       renderer.domElement.addEventListener('webglcontextlost', lost);
       document.addEventListener('visibilitychange', visibility);
       resizeObserver = new ResizeObserver(resize); resizeObserver.observe(el);
-      observer = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; last = null; schedule(); }); observer.observe(el);
+      observer = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(entries => { visible = entries[0].isIntersecting; last = null; schedule(); }); observer?.observe(el);
       cleanup = () => {
         el.removeEventListener('pointermove', move); el.removeEventListener('pointerleave', leave);
         renderer.domElement.removeEventListener('webglcontextlost', lost);

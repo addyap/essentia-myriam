@@ -59,15 +59,15 @@ export function LogoMarkDraw({ className, onComplete, paused = false }) {
       if (!document.hidden && visible && !pause.current && !finished) frame = requestAnimationFrame(tick);
     };
     wake.current = visibility;
-    const observer = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; visibility(); });
-    observer.observe(svg);
+    const observer = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(entries => { visible = entries[0].isIntersecting; visibility(); });
+    observer?.observe(svg);
     const preference = () => { if (motion.matches) { cancelAnimationFrame(frame); finish(); } };
     document.addEventListener('visibilitychange', visibility);
     motion.addEventListener('change', preference);
     if (motion.matches) finish();
     else if (!document.hidden) frame = requestAnimationFrame(tick);
     return () => {
-      cancelAnimationFrame(frame); observer.disconnect(); wake.current = null;
+      cancelAnimationFrame(frame); observer?.disconnect(); wake.current = null;
       document.removeEventListener('visibilitychange', visibility);
       motion.removeEventListener('change', preference);
     };

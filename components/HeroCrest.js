@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { createPortal } from 'react-dom';
 const GoldLogo3D = dynamic(() => import('./GoldLogo3D').then(m => m.GoldLogo3D), { ssr: false });
 
-export function HeroCrest() {
+export function HeroCrest({ labels = { replay: 'Rejouer le dessin du logo', resume: 'Reprendre le mouvement', pause: 'Mettre le mouvement en pause' } } = {}) {
   const [controls, setControls] = useState(null);
   const [phase, setPhase] = useState('static');
   const [run, setRun] = useState(0);
@@ -54,10 +54,10 @@ export function HeroCrest() {
     </div>
     {controls && !reduced && createPortal(<div className="crest-controls">
     <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setFailed(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>
-      Rejouer le dessin du logo
+      {labels.replay}
     </button>
     {!reduced && (phase === 'drawing' || (ready && phase === 'gold')) && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
-      {paused ? 'Reprendre le mouvement' : 'Mettre le mouvement en pause'}
+      {paused ? labels.resume : labels.pause}
     </button>}
     </div>, controls)}
   </div>;

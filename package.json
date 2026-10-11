@@ -2,23 +2,24 @@
   "name": "essentia",
   "version": "0.1.0",
   "private": true,
-  "description": "Essentia — Myriam Diougoan Blanch. Coaching, therapy & HR consulting.",
+  "description": "Essentia \u2014 Myriam Diougoan Blanch. Coaching, therapy & HR consulting.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "test:motion": "node --test tests/motion-lifecycle.test.cjs"
+    "test:motion": "node --test tests/motion-lifecycle.test.cjs",
+    "check": "node scripts/check.mjs",
+    "test": "node --test tests/*.test.cjs"
   },
   "dependencies": {
-    "next": "^16.2.12",
+    "next": "^16.4.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "sharp": "^0.35.3",
+    "sharp": "^0.35.5",
     "three": "^0.186.1"
   },
   "overrides": {
-    "postcss": "^8.5.10",
-    "sharp": "^0.35.3"
+    "postcss": "^8.5.29",
+    "sharp": "^0.35.5"
   }
 }

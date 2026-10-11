@@ -50,18 +50,18 @@ export function HomeHero() {
       el.style.setProperty('--mx', '0'); el.style.setProperty('--my', '0');
     };
     const visibility = () => { last = null; schedule(); };
-    const observer = new IntersectionObserver(entries => {
+    const observer = typeof IntersectionObserver === 'undefined' ? null : new IntersectionObserver(entries => {
       visible = entries[0].isIntersecting;
       if (!visible) { cancelAnimationFrame(raf); raf = 0; last = null; }
       else schedule();
     });
-    observer.observe(el);
+    observer?.observe(el);
     el.addEventListener('pointermove', onMove, { passive: true });
     el.addEventListener('pointerleave', leave);
     preference.addEventListener('change', reset);
     document.addEventListener('visibilitychange', visibility);
     return () => {
-      reset(); observer.disconnect();
+      reset(); observer?.disconnect();
       el.removeEventListener('pointermove', onMove); el.removeEventListener('pointerleave', leave);
       preference.removeEventListener('change', reset);
       document.removeEventListener('visibilitychange', visibility);
@@ -99,7 +99,7 @@ export function HomeHero() {
 
         <div className="hero-cine-crest">
           <div className="hero-cine-halo" aria-hidden="true" />
-          <div className="hero-cine-mark"><HeroCrest /></div>
+          <div className="hero-cine-mark"><HeroCrest labels={t.ui.logoMotion} /></div>
           <span className="hero-cine-sign">Myriam Diougoan Blanch</span>
         </div>
       </div>
