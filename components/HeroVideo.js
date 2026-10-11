@@ -15,10 +15,14 @@ export function HeroVideo({ labels }) {
     const video = ref.current;
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
     const connection = navigator.connection;
+    // Choose once: rotating/resizing must not trigger a second video download.
+    const source = matchMedia('(max-width: 600px)').matches
+      ? '/videos/forest-sunlight-mobile.mp4'
+      : '/videos/forest-sunlight.mp4';
     let visible = true, failed = false, disposed = false;
     setControls(document.getElementById('hero-logo-controls'));
-    const permitted = () => !preference.matches && !connection?.saveData;
-    const fail = () => { if (!disposed) { failed = true; setReady(false); video.pause(); } };
+    const permitted = () => !preference.matches && !connection?.saveData && !['slow-2g', '2g'].includes(connection?.effectiveType);
+    const fail = () => { if (!disposed) { failed = true; setReady(false); video.pause(); video.removeAttribute('src'); video.load(); } };
     const playing = () => {
       if (!permitted() || !visible || document.hidden || pausedRef.current) video.pause();
       else setReady(true);
@@ -31,7 +35,7 @@ export function HeroVideo({ labels }) {
         return;
       }
       if (failed || !visible || document.hidden || pausedRef.current) { video.pause(); return; }
-      if (!video.getAttribute('src')) { video.src = '/videos/forest-sunlight.mp4'; video.load(); }
+      if (!video.getAttribute('src')) { video.src = source; video.load(); }
       video.play()?.catch(error => { if (error.name !== 'AbortError') fail(); });
     };
     wake.current = sync;

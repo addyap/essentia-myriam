@@ -181,3 +181,9 @@ The home hero now layers a local, muted 9.92-second Pexels forest clip over the 
 `HeroVideo` attaches its source only after hydration when reduced motion and browser data saving are off. Successful playback reveals the video; rejected autoplay or media errors retain the poster. IntersectionObserver and document visibility pause hidden playback. A translated, keyboard-accessible pause/resume button controls the background separately from the logo. With JavaScript disabled, the original image remains and no video source is attached. No third-party player or video request is embedded.
 
 Verification: 16 regression tests pass, including four video lifecycle tests. Production build passes; in-app Chromium confirms muted playback, pause/resume and 390px mobile reflow with the primary CTA ending around 635px. Physical Safari/iOS autoplay and battery/network behaviour remain release-device checks.
+
+### Mobile video delivery
+
+On initial viewports at or below 600px, `HeroVideo` selects `forest-sunlight-mobile.mp4`: 480×854 portrait crop, H.264, 20fps, no audio, fast-start, 697,411 bytes (about 67% less than the desktop payload). Selection is stable for the component lifetime, so orientation changes and pause/resume do not fetch a second rendition. Larger screens keep the 1280×720 desktop file. Network Information API `slow-2g`/`2g` connections use the poster, alongside Save-Data and reduced-motion preferences; browsers without that API still work normally. Media failure releases the source and retains the poster.
+
+Verified initial 390px load requests the mobile file, plays muted, responds to pause and has no horizontal overflow; the primary CTA ends near 635px. Tests cover mobile source selection, retention on resume, slow-link fallback and a <1MB mobile asset budget. This does not substitute for physical iPhone/Android or field performance testing.

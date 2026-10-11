@@ -17,7 +17,7 @@ const labels = { pause: 'Pause video', resume: 'Resume video' };
 const start = (host, options = {}) => mount('components/HeroVideo.js', 'HeroVideo', { host, props: { labels }, ...options });
 const ready = app => find(app.tree, n => n.type === 'video').props['data-ready'];
 test('reduced motion and data saving do not attach or download the video source', async () => {
-  for (const options of [{ reduced: true }, { environment: { navigator: { connection: { saveData: true } } } }]) {
+  for (const options of [{ reduced: true }, { environment: { navigator: { connection: { effectiveType: '2g' } } } }, { environment: { navigator: { connection: { saveData: true } } } }]) {
     const host = videoHost(), app = await start(host, options);
     assert.equal(host.src, ''); assert.equal(host.plays, 0); assert.equal(ready(app), false);
     app.unmount();
@@ -46,5 +46,21 @@ test('autoplay rejection preserves the image fallback without a broken pause con
   const host = videoHost(Object.assign(Error('blocked'), { name: 'NotAllowedError' }));
   const app = await start(host); await Promise.resolve(); app.flush();
   assert.equal(ready(app), false); assert.equal(find(app.tree, n => n.type === 'button'), null);
+  assert.equal(host.src, '');
   app.unmount();
+});
+
+test('phones select only the portrait mobile asset and retain it on resume', async () => {
+  const host = videoHost(), app = await start(host, { mobile: true });
+  assert.equal(host.src, '/videos/forest-sunlight-mobile.mp4');
+  host.emit('playing'); app.flush();
+  find(app.tree, n => n.type === 'button').props.onClick(); app.flush();
+  find(app.tree, n => n.type === 'button').props.onClick(); app.flush();
+  assert.equal(host.src, '/videos/forest-sunlight-mobile.mp4');
+  app.unmount();
+});
+
+test('mobile video stays within its one-megabyte payload budget', () => {
+  const { statSync } = require('node:fs');
+  assert.ok(statSync('public/videos/forest-sunlight-mobile.mp4').size < 1000000);
 });

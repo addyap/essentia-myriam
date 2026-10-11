@@ -7,5 +7,14 @@
     "retrieved": "2026-10-11",
     "modifications": "1280x720, H.264, 24fps, audio removed, web fast-start; subdued via site CSS",
     "bytes": 2104972
+  },
+  "forest-sunlight-mobile.mp4": {
+    "title": "Sunlight in Forest",
+    "creator": "dabatepatvideos",
+    "source": "https://www.pexels.com/video/sunlight-in-forest-11347964/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-11",
+    "modifications": "Portrait centre crop, 480x854, H.264, 20fps, capped bitrate, audio removed, web fast-start; subdued via site CSS",
+    "bytes": 697411
   }
 }
