@@ -135,15 +135,15 @@ section{padding:82px 0}
    peu plus" (a little more) prominent and "plus foncé" (darker), not overdone. */
 .hero-mark-bg{position:absolute;z-index:1;right:8%;top:50%;transform:translateY(-50%);width:300px;height:392px;color:#FCC200}
 .hero-mark-bg svg,.hero-mark-bg img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 19px 39px rgba(90,60,20,.35)) drop-shadow(0 0 34px rgba(224,180,104,.55))}
-/* Cinematic draw-on for the hero monogram: the figure reveals top-down, then
-   an ink-flow wipe sweeps left->right to draw M, D, then B. The reveal is done
-   with mask rects (LogoMarkDraw) so the gold fill + glow follow the draw. */
-.hero-mark-bg .hd-fig,.hero-mark-bg .hd-low{transform-box:fill-box}
-.hero-mark-bg .hd-fig{transform-origin:center top;transform:scaleY(0);animation:heroDrawFig .9s cubic-bezier(.4,0,.2,1) .2s forwards}
-.hero-mark-bg .hd-low{transform-origin:left center;transform:scaleX(0);animation:heroDrawLow 2.2s cubic-bezier(.45,0,.25,1) .9s forwards}
-@keyframes heroDrawFig{to{transform:scaleY(1)}}
-@keyframes heroDrawLow{to{transform:scaleX(1)}}
-@media(prefers-reduced-motion:reduce){.hero-mark-bg .hd-fig{transform:scaleY(1);animation:none}.hero-mark-bg .hd-low{transform:scaleX(1);animation:none}}
+/* Cinematic handwritten draw-on for the hero monogram: each "pen" sub-stroke
+   (hd-s, mask paths in LogoMarkDraw) draws with its own stroke-dashoffset pass,
+   sequenced back-to-back at constant pen speed in writing order — figure, then
+   M, D, B, finishing with the tail flourish — inking in the real gold
+   calligraphy. hd-fill fades in at the very end so any sliver the pen misses
+   still completes. Per-stroke delays/durations are set inline in the JSX. */
+@keyframes heroStroke{to{stroke-dashoffset:0}}
+@keyframes heroPenFill{to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.hero-mark-bg .hd-s{stroke-dashoffset:0!important;animation:none!important}.hero-mark-bg .hd-fill{opacity:1!important;animation:none!important}}
 
 /* ---------- cards ---------- */
 .grid{display:grid;gap:24px}

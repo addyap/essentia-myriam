@@ -1,9 +1,11 @@
-// Animated hero variant of the MDB monogram. A feathered SVG mask draws the
-// logo on, cinematic-style: the figure reveals top-down first, then an
-// ink-flow wipe sweeps left -> right across the lower monogram, which draws
-// M, then D, then B in order (they sit left, center and right). Keyframes and
-// timing live in app/globals.css (.hero-mark-bg .hd-*). Falls back to the
-// fully-drawn logo under prefers-reduced-motion. Static copies use LogoMark.
+// Animated hero variant of the MDB monogram, drawn on in one continuous
+// handwritten motion. Each hand-authored "pen" sub-stroke (hd-s) draws with its
+// own stroke-dashoffset pass, sequenced back-to-back at constant pen speed, in
+// writing order — figure, head, central flourish, M, D, B, then the long tail
+// flourish. The strokes form a thick mask over the filled logo, so the real
+// gold calligraphy inks in as the pen moves. hd-fill fades in at the very end so
+// any sliver the pen misses still completes. Keyframes: app/globals.css
+// (heroStroke / heroPenFill). Honors prefers-reduced-motion. Static: LogoMark.
 export function LogoMarkDraw({ className }) {
   return (
     <svg
@@ -13,15 +15,33 @@ export function LogoMarkDraw({ className }) {
       aria-hidden="true"
     >
       <defs>
-        <filter id="heroDrawFeather" x="-20%" y="-20%" width="140%" height="140%">
-          <feGaussianBlur stdDeviation="9" />
+        <filter id="heroPenSoft" x="-15%" y="-15%" width="130%" height="130%">
+          <feGaussianBlur stdDeviation="4" />
         </filter>
         <mask id="heroDrawMask" maskUnits="userSpaceOnUse" x="0" y="0" width="681" height="842">
-          <g filter="url(#heroDrawFeather)">
-            {/* figure region — revealed top-down first */}
-            <rect className="hd-fig" x="262" y="-24" width="330" height="300" fill="#fff" />
-            {/* lower monogram — swept left to right (draws M, D, then B) */}
-            <rect className="hd-low" x="-24" y="168" width="730" height="700" fill="#fff" />
+          <g filter="url(#heroPenSoft)">
+            <path className="hd-s" d="M 298 42 C 330 120, 360 195, 382 236 C 430 165, 500 105, 545 70" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 447, strokeDashoffset: 447, animation: 'heroStroke 0.644s linear 0.3s forwards' }} />
+            <path className="hd-s" d="M 352 115 L 404 115" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 54, strokeDashoffset: 54, animation: 'heroStroke 0.075s linear 0.944s forwards' }} />
+            <path className="hd-s" d="M 400 235 C 400 255, 402 275, 408 292 C 470 185, 545 182, 540 220 C 534 260, 465 258, 442 292 C 405 340, 350 370, 344 412 C 340 445, 362 465, 405 480" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 629, strokeDashoffset: 629, animation: 'heroStroke 0.908s linear 1.02s forwards' }} />
+            <path className="hd-s" d="M 405 410 C 415 470, 425 540, 430 610" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 204, strokeDashoffset: 204, animation: 'heroStroke 0.292s linear 1.927s forwards' }} />
+            <path className="hd-s" d="M 30 655 C 55 690, 60 640, 95 610 C 130 580, 150 468, 168 468 C 186 468, 188 612, 212 622 C 236 632, 252 498, 300 494 C 334 491, 330 622, 348 688" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 794, strokeDashoffset: 794, animation: 'heroStroke 1.147s linear 2.22s forwards' }} />
+            <path className="hd-s" d="M 292 520 C 300 600, 300 650, 300 692" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 174, strokeDashoffset: 174, animation: 'heroStroke 0.249s linear 3.366s forwards' }} />
+            <path className="hd-s" d="M 296 523 C 374 518, 444 560, 432 616 C 420 674, 350 694, 300 692" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 356, strokeDashoffset: 356, animation: 'heroStroke 0.513s linear 3.615s forwards' }} />
+            <path className="hd-s" d="M 500 412 C 505 520, 505 610, 505 692" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 282, strokeDashoffset: 282, animation: 'heroStroke 0.405s linear 4.128s forwards' }} />
+            <path className="hd-s" d="M 500 418 C 562 413, 620 445, 612 482 C 606 518, 546 527, 505 527 C 564 527, 628 557, 620 602 C 612 655, 544 694, 505 692" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 582, strokeDashoffset: 582, animation: 'heroStroke 0.84s linear 4.533s forwards' }} />
+            <path className="hd-s" d="M 430 610 C 438 685, 420 740, 378 778 C 320 818, 255 822, 205 812" fill="none" stroke="#fff" strokeWidth="100" strokeLinecap="round" strokeLinejoin="round"
+              style={{ strokeDasharray: 366, strokeDashoffset: 366, animation: 'heroStroke 0.527s linear 5.373s forwards' }} />
+            <rect className="hd-fill" x="0" y="0" width="681" height="842" fill="#fff"
+              style={{ opacity: 0, animation: 'heroPenFill .5s linear 5.65s forwards' }} />
           </g>
         </mask>
       </defs>
