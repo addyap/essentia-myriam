@@ -133,7 +133,7 @@ section{padding:82px 0}
 /* Sized up and darkened per Myriam's feedback (2026-08-14): the watermark
    read as barely visible against the hero photo — asked for "un tout petit
    peu plus" (a little more) prominent and "plus foncé" (darker), not overdone. */
-.hero-mark-bg{position:absolute;z-index:1;right:8%;top:50%;transform:translateY(-50%);width:300px;height:392px;color:#FCC200}
+.hero-mark-bg{position:absolute;z-index:1;right:8%;top:50%;transform:translateY(-50%);width:300px;height:392px;color:#FCC200;opacity:.3}
 .hero-mark-bg svg,.hero-mark-bg img{position:relative;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 19px 39px rgba(90,60,20,.35)) drop-shadow(0 0 34px rgba(224,180,104,.55))}
 
 /* ---------- cards ---------- */
