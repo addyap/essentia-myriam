@@ -265,7 +265,7 @@ footer ul a:hover{color:var(--gold-soft)}
      fixed slide-down overlay, so the wrapper must not reserve any space */
   .nav-row{display:contents}
   /* .brand's desktop `flex:none` refuses to shrink, so a long byline/tagline
-     (both edited freely through Tina — length isn't guaranteed) pushes the
+     (content length can vary across languages) pushes the
      header wider than the screen instead of wrapping. min-width:0 lets it
      shrink to the row's available space; the .words children then truncate
      with an ellipsis instead of overflowing, keeping the header's height
