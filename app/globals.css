@@ -415,13 +415,13 @@ footer ul a:hover{color:var(--gold-soft)}
 }
 
 /* Shared motion system: the signature crest is the only extended sequence. */
-:root{--motion-fast:140ms;--motion-control:220ms;--motion-reveal:650ms;--ease-out:cubic-bezier(.22,1,.36,1)}
+:root{--motion-response:100ms;--motion-fast:140ms;--motion-control:220ms;--motion-panel:320ms;--motion-reveal:600ms;--motion-image:800ms;--motion-handoff:900ms;--ease-out:cubic-bezier(.22,1,.36,1);--ease-in-out:cubic-bezier(.45,0,.55,1)}
 .crest-experience{width:100%;position:relative}
 .crest-stage{position:relative;width:100%;aspect-ratio:681/842;perspective:1000px;color:#FCC200}
 .crest-ink,.crest-relief{position:absolute;inset:0}
 .crest-stage svg{display:block;width:100%;height:100%}
-.crest-ink{transition:opacity 900ms var(--ease-out);filter:drop-shadow(0 8px 18px #5a3c1433)}
-.crest-relief{opacity:0;transform-style:preserve-3d;transform:rotateX(0deg) rotateY(0deg);transition:opacity 900ms var(--ease-out),transform 650ms var(--ease-out);filter:none}
+.crest-ink{transition:opacity var(--motion-handoff) var(--ease-out);filter:drop-shadow(0 8px 18px #5a3c1433)}
+.crest-relief{opacity:0;transform-style:preserve-3d;transform:rotateX(0deg) rotateY(0deg);transition:opacity var(--motion-handoff) var(--ease-out),transform 650ms var(--ease-out);filter:none}
 .crest-relief > svg,.crest-highlight{position:absolute;inset:0}
 .crest-side{color:#A47609}
 .crest-face{color:#FCC200;filter:drop-shadow(0 -1px 0 #fff2af88) drop-shadow(0 10px 16px #0005)}
@@ -430,31 +430,27 @@ footer ul a:hover{color:var(--gold-soft)}
 .crest-stage[data-fallback="true"][data-phase="gold"] .crest-relief,.crest-stage[data-phase="static"] .crest-relief{opacity:1;transform:rotateX(var(--tilt-x,-3deg)) rotateY(var(--tilt-y,5deg))}
 .crest-stage[data-phase="gold"] .crest-highlight{animation:crestLight 900ms ease-in-out 200ms both}
 @keyframes crestLight{0%{opacity:0}25%,70%{opacity:.4}100%{opacity:0;clip-path:polygon(140% 0,160% 0,130% 100%,110% 100%)}}
-.crest-replay{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:38px;background:transparent;border:0;color:#e5d9b9;font:inherit;font-size:11px;padding:12px;white-space:nowrap;cursor:pointer;opacity:.8}
-.crest-replay:hover{opacity:1;text-decoration:underline;text-underline-offset:4px}
-.crest-replay:disabled{opacity:.35;cursor:default}
 .hero-cine-bg{transform:translate3d(calc(var(--mx)*-6px),calc(var(--my)*-6px),0)}
 .hero-cine-crest{transform:translate3d(calc(var(--mx)*10px),calc(var(--my)*8px),0);opacity:1}
 .hero-cine-copy{transform:none;opacity:1}
 .hero-cine-photo{animation:cineKen 800ms var(--ease-out) both}
 @keyframes cineKen{from{transform:scale(1.025)}to{transform:scale(1)}}
 .hero-cine-rays span{animation:rayIn 900ms ease forwards}
-.hero-cine-motes span{animation-iteration-count:1;animation-duration:7s;animation-delay:0s}
-.hero-cine-scroll-line::after{animation-iteration-count:2}
+.hero-cine-motes{display:none}
+.hero-cine-scroll-line::after{animation:none}
 .hero-cine-kicker{animation:cineRise 650ms var(--ease-out) 100ms both}
 .hero-cine-title{animation:cineRise 650ms var(--ease-out) 180ms both}
 .hero-cine-sub{animation:cineRise 650ms var(--ease-out) 240ms both}
 .hero-cine-cta{animation:cineRise 650ms var(--ease-out) 250ms both}
 @keyframes cineRise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.motion-reveal{transition:opacity var(--motion-reveal) var(--ease-out),transform var(--motion-reveal) var(--ease-out)}
-.motion-pending{opacity:0;transform:translateY(12px)}
+.motion-reveal{transition:opacity var(--motion-reveal) var(--ease-out),transform var(--motion-reveal) var(--ease-out);transition-delay:var(--reveal-delay,0ms)}
+.motion-pending{opacity:0;transform:translateY(14px)}
 .btn:active,.hero-btn:active{transform:scale(.98);transition-duration:100ms}
 a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible{outline:2px solid #486F8E;outline-offset:4px}
 .hero-cine a:focus-visible,.crest-replay:focus-visible{outline-color:#FCC200}
 @media(max-width:900px){
  .hero-cine-crest{transform:none;opacity:.2}
  .crest-relief{transform:none!important}
- .crest-replay{display:none}
 }
 @media(prefers-reduced-motion:reduce){
  html{scroll-behavior:auto}
@@ -470,7 +466,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 /* Compact hero, with a progressively enhanced extruded gold crest. */
 .hero-cine{min-height:clamp(440px,64svh,610px);padding:36px 0 58px}
 .hero-cine-crest .hero-cine-mark{width:min(250px,24vw)}
-.crest-webgl{position:absolute;inset:0;opacity:0;transition:opacity 900ms var(--ease-out)}
+.crest-webgl{position:absolute;inset:0;opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
 .crest-webgl canvas{display:block;width:100%;height:100%}
 .crest-stage[data-webgl="true"] .crest-webgl{opacity:1}
 .crest-stage[data-webgl="true"] .crest-relief{opacity:0}
@@ -485,10 +481,39 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .hero-cine-inner{grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
 .hero-cine-title{font-size:clamp(34px,3.8vw,50px)}
 @media(max-width:900px){.hero-cine-inner{grid-template-columns:1fr}.hero-cine-title{font-size:clamp(30px,7.5vw,42px)}}
-.crest-pause{position:absolute;top:100%;left:50%;transform:translateX(-50%);margin-top:68px;background:transparent;border:0;color:#e5d9b9;font:inherit;font-size:11px;padding:10px;white-space:nowrap;cursor:pointer}
-.crest-pause:hover{text-decoration:underline;text-underline-offset:4px}
-.hero-cine .crest-pause:focus-visible{outline-color:#FCC200}
-@media(max-width:900px){
- .crest-pause{top:auto;bottom:-24px;margin:0;background:#111c;border-radius:20px;pointer-events:auto}
+/* Shared interaction rhythm and controls outside the decorative crest. */
+.hero-logo-controls{min-height:44px;margin-top:12px}
+.crest-controls{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center}
+.crest-replay,.crest-pause{position:static;transform:none;margin:0;min-height:44px;padding:8px 0;background:none;border:0;color:#e5d9b9;font:inherit;font-size:11px;cursor:pointer}
+.crest-replay:hover,.crest-pause:hover{text-decoration:underline;text-underline-offset:4px}
+.crest-replay:disabled{opacity:.4;cursor:default}
+.btn,.hero-btn,.chip,.tab,.wa-float{transition:transform var(--motion-control) var(--ease-out),background-color var(--motion-control),color var(--motion-control),border-color var(--motion-control)}
+.card{transition:border-color var(--motion-control)}
+.card:hover,.res:hover{transform:none}
+.res{cursor:default}
+@media(hover:hover) and (pointer:fine){
+ .btn:hover,.hero-btn:hover,.wa-float:hover{transform:translateY(-2px)}
+ .hero-btn-gold:hover svg{transform:translateX(3px)}
+ a.card:hover,button.card:hover{transform:translateY(-3px)}
 }
-@media(prefers-reduced-motion:reduce){.crest-pause{display:none}}
+.btn:active,.hero-btn:active{transform:scale(.98);transition-duration:var(--motion-response)}
+.hero-btn-gold::after{display:none}
+.hero-btn svg,nav.main a::after{transition:transform var(--motion-control) var(--ease-out)}
+.motion-filter{animation:filterArrival 160ms var(--ease-out)}
+@keyframes filterArrival{from{opacity:.3}to{opacity:1}}
+main h1:not(.hero-cine-title){animation:pageArrival 280ms var(--ease-out)}
+@keyframes pageArrival{from{opacity:.5;transform:translateY(6px)}to{opacity:1;transform:none}}
+.portrait.motion-reveal,.about-nature.motion-reveal{transition-duration:var(--motion-image)}
+.portrait.motion-pending,.about-nature.motion-pending{transform:scale(1.025)}
+input,textarea,select{transition:border-color var(--motion-fast),background-color var(--motion-fast)}
+@media(max-width:1080px){
+ nav.main{opacity:0;visibility:hidden;transform:translateY(-8px);transition:opacity 180ms var(--ease-out),transform 180ms var(--ease-out),visibility 180ms}
+ nav.main.open{opacity:1;visibility:visible;transform:none;transition-duration:var(--motion-panel)}
+}
+@media(prefers-reduced-motion:reduce){
+ html{scroll-behavior:auto!important}
+ *,*::before,*::after{animation:none!important;transition:none!important}
+ .motion-reveal,.motion-pending{opacity:1!important;transform:none!important}
+ .hero-logo-controls{display:none}
+ .btn:hover,.hero-btn:hover,.wa-float:hover,a.card:hover,button.card:hover,.hero-btn svg{transform:none!important}
+}

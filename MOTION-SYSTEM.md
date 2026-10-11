@@ -155,3 +155,9 @@ Keep model readiness separate from drawing completion. Start the handoff clock w
 5. Verify motion, interruptions, accessibility and device performance before release.
 
 Code-review assessment: 6/10 provisionally. Clear triggers and a recognizable signature exist, but feedback timing is inconsistent, repeat/interruption behavior needs explicit coordination, and mobile motion controls are not reliably discoverable. Shared timing tokens, the handoff state machine and controls outside the watermark layer address those gaps. This is a design review, not a completed interactive accessibility audit.
+
+## Implementation status
+
+Implemented shared route-aware reveals, heading/intro timing, portrait entrances, bounded card staggering, control timing, reduced-motion overrides, finite decorative motion, time-based hero parallax, synchronized 900ms logo handoff, pointer ramp, handwriting/pivot pause controls outside the mobile watermark, offscreen/hidden-tab suspension, and mobile keyboard menu handling. The hero remains compact and the front-face gold remains #FCC200. Native navigation and scroll remain intact. Placeholder forms retain their honest unavailable messaging.
+
+Validation: production build passes; desktop and 390px mobile layouts inspected; mobile overflow, WebGL takeover and Escape dismissal checked. Reduced-motion runtime changes, slow-connection fallback and real-device frame-rate profiling still need dedicated interactive verification.

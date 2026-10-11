@@ -4,7 +4,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
 import { HeroCrest } from '@/components/HeroCrest';
-import { MotionSystem } from '@/components/MotionSystem';
 import { ROUTES } from '@/lib/routes';
 
 // "Clairière" — the art-directed home hero. A cinematic forest-at-golden-hour
@@ -33,42 +32,52 @@ export function HomeHero() {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
 
-    let mx = 0, my = 0, tmx = 0, tmy = 0, raf = 0, ticking = false;
 
-    const onMove = (e) => {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const r = el.getBoundingClientRect();
-      tmx = ((e.clientX - r.left) / r.width - 0.5) * 2;   // -1..1
-      tmy = ((e.clientY - r.top) / r.height - 0.5) * 2;
-      schedule();
-    };
-    const onScroll = () => {
-      if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-      const r = el.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, -r.top / (r.height || 1)));
-      el.style.setProperty('--sp', p.toFixed(4));
-      schedule();
-    };
-    const tick = () => {
-      ticking = false;
-      mx += (tmx - mx) * 0.08;
-      my += (tmy - my) * 0.08;
+    const preference = matchMedia('(prefers-reduced-motion: reduce)');
+    const fine = matchMedia('(hover: hover) and (pointer: fine)');
+    let mx = 0, my = 0, tmx = 0, tmy = 0, raf = 0, last = null, visible = true;
+    const tick = now => {
+      raf = 0;
+      if (!visible || document.hidden || preference.matches) { last = null; return; }
+      const blend = 1 - Math.exp(-Math.min(last === null ? 16 : now - last, 50) / 160);
+      last = now;
+      mx += (tmx - mx) * blend; my += (tmy - my) * blend;
       el.style.setProperty('--mx', mx.toFixed(4));
       el.style.setProperty('--my', my.toFixed(4));
-      if (Math.abs(tmx - mx) > 0.001 || Math.abs(tmy - my) > 0.001) schedule();
+      if (Math.abs(tmx - mx) > .001 || Math.abs(tmy - my) > .001) schedule();
     };
-    const schedule = () => { if (!ticking) { ticking = true; raf = requestAnimationFrame(tick); } };
-
-    if (matchMedia('(hover: hover) and (pointer: fine)').matches) el.addEventListener('pointermove', onMove, { passive: true });
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
+    const schedule = () => { if (!raf && visible && !document.hidden && !preference.matches) raf = requestAnimationFrame(tick); };
+    const onMove = event => {
+      if (!fine.matches || preference.matches || !visible) return;
+      const r = el.getBoundingClientRect();
+      tmx = ((event.clientX - r.left) / r.width - .5) * 2;
+      tmy = ((event.clientY - r.top) / r.height - .5) * 2;
+      schedule();
+    };
+    const leave = () => { tmx = tmy = 0; schedule(); };
+    const reset = () => {
+      cancelAnimationFrame(raf); raf = 0; last = null;
+      mx = my = tmx = tmy = 0;
+      el.style.setProperty('--mx', '0'); el.style.setProperty('--my', '0');
+    };
+    const visibility = () => { last = null; schedule(); };
+    const observer = new IntersectionObserver(entries => {
+      visible = entries[0].isIntersecting;
+      if (!visible) { cancelAnimationFrame(raf); raf = 0; last = null; }
+      else schedule();
+    });
+    observer.observe(el);
+    el.addEventListener('pointermove', onMove, { passive: true });
+    el.addEventListener('pointerleave', leave);
+    preference.addEventListener('change', reset);
+    document.addEventListener('visibilitychange', visibility);
     return () => {
-      el.removeEventListener('pointermove', onMove);
-      window.removeEventListener('scroll', onScroll);
-      cancelAnimationFrame(raf);
+      reset(); observer.disconnect();
+      el.removeEventListener('pointermove', onMove); el.removeEventListener('pointerleave', leave);
+      preference.removeEventListener('change', reset);
+      document.removeEventListener('visibilitychange', visibility);
     };
   }, []);
 
@@ -76,7 +85,6 @@ export function HomeHero() {
 
   return (
     <section className="hero-cine" ref={ref} aria-label="Essentia">
-      <MotionSystem />
       <div className="hero-cine-bg" aria-hidden="true">
         <Image src="/images/nature/home.webp" alt="" fill priority sizes="100vw" className="hero-cine-photo" />
       </div>
@@ -107,6 +115,7 @@ export function HomeHero() {
             </Link>
             <Link className="hero-btn hero-btn-ghost" href={ROUTES.about}>{h.heroCta2}</Link>
           </div>
+          <div id="hero-logo-controls" className="hero-logo-controls" />
         </div>
 
         <div className="hero-cine-crest">

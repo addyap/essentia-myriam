@@ -37,6 +37,7 @@ export default function ResourcesPage() {
               return (
                 <button
                   key={i}
+                  aria-pressed={filter === f}
                   className={'tab' + (filter === f ? ' on' : '')}
                   onClick={() => setFilter(f)}
                 >
@@ -45,9 +46,9 @@ export default function ResourcesPage() {
               );
             })}
           </div>
-          <div className="res-grid">
+          <div className="res-grid motion-filter" key={filter}>
             {visible.map((x, i) => (
-              <div className="res" key={i}>
+              <div className="res" key={`${x.cat}-${x.t}`}>
                 <div className="thumb" style={{ backgroundImage: `url(${THUMB[x.cat]})`, backgroundSize: 'cover', backgroundPosition: 'center' }} />
                 <div className="body">
                   <span className="tag">{x.cat}</span>

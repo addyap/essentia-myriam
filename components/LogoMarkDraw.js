@@ -8,8 +8,11 @@ import { useEffect, useRef } from 'react';
 // the filled logo so the real gold calligraphy appears behind the nib; hd-fill
 // fades in at the very end to complete any missed sliver. Keyframes:
 // app/globals.css (heroStroke / heroPenFill). Honors prefers-reduced-motion.
-export function LogoMarkDraw({ className, onComplete }) {
+export function LogoMarkDraw({ className, onComplete, paused = false }) {
   const ref = useRef(null);
+  const pause = useRef(paused);
+  const wake = useRef(null);
+  useEffect(() => { pause.current = paused; wake.current?.(); }, [paused]);
   const complete = useRef(onComplete);
   complete.current = onComplete;
   useEffect(() => {
@@ -21,7 +24,7 @@ export function LogoMarkDraw({ className, onComplete }) {
     const lengths = paths.map(path => path.getTotalLength());
     const total = lengths.reduce((a, b) => a + b, 0);
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
-    let elapsed = 0, last = null, frame, finished = false;
+    let elapsed = 0, last = null, frame, finished = false, visible = true;
     const finish = () => {
       finished = true;
       strokes.forEach(stroke => { stroke.style.strokeDashoffset = 0; });
@@ -30,6 +33,7 @@ export function LogoMarkDraw({ className, onComplete }) {
       complete.current?.();
     };
     const tick = time => {
+      if (document.hidden || !visible || pause.current) { last = null; return; }
       if (last !== null) elapsed += Math.min(time - last, 50);
       last = time;
       const progress = Math.max(0, (elapsed - 300) / 6800);
@@ -52,15 +56,18 @@ export function LogoMarkDraw({ className, onComplete }) {
     };
     const visibility = () => {
       cancelAnimationFrame(frame); last = null;
-      if (!document.hidden && !finished) frame = requestAnimationFrame(tick);
+      if (!document.hidden && visible && !pause.current && !finished) frame = requestAnimationFrame(tick);
     };
+    wake.current = visibility;
+    const observer = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; visibility(); });
+    observer.observe(svg);
     const preference = () => { if (motion.matches) { cancelAnimationFrame(frame); finish(); } };
     document.addEventListener('visibilitychange', visibility);
     motion.addEventListener('change', preference);
     if (motion.matches) finish();
     else if (!document.hidden) frame = requestAnimationFrame(tick);
     return () => {
-      cancelAnimationFrame(frame);
+      cancelAnimationFrame(frame); observer.disconnect(); wake.current = null;
       document.removeEventListener('visibilitychange', visibility);
       motion.removeEventListener('change', preference);
     };

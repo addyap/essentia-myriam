@@ -3,9 +3,11 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { LogoMark } from './LogoMark';
 import { LogoMarkDraw } from './LogoMarkDraw';
 import dynamic from 'next/dynamic';
+import { createPortal } from 'react-dom';
 const GoldLogo3D = dynamic(() => import('./GoldLogo3D').then(m => m.GoldLogo3D), { ssr: false });
 
 export function HeroCrest() {
+  const [controls, setControls] = useState(null);
   const [phase, setPhase] = useState('static');
   const [run, setRun] = useState(0);
   const [source, setSource] = useState('');
@@ -17,6 +19,7 @@ export function HeroCrest() {
   const onFailure = useCallback(() => { setReady(false); setFailed(true); }, []);
   const ref = useRef(null);
   useEffect(() => {
+    setControls(document.getElementById('hero-logo-controls'));
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
     setReduced(preference.matches);
     const svg = ref.current.querySelector('.crest-face');
@@ -41,7 +44,7 @@ export function HeroCrest() {
   };
   return <div className="crest-experience">
     <div className="crest-stage" ref={ref} data-phase={phase} data-fallback={failed || reduced} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
-      <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw key={run} onComplete={finish} /> : <LogoMark />}</div>
+      <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw key={run} paused={paused} onComplete={finish} /> : <LogoMark />}</div>
       <div className="crest-relief" aria-hidden="true">
         {[4, 3, 2, 1].map(layer => <LogoMark key={layer} className="crest-side" style={{ transform: `translateZ(${-layer * 1.5}px)` }} />)}
         <LogoMark className="crest-face" />
@@ -49,11 +52,13 @@ export function HeroCrest() {
       </div>
       {!reduced && !failed && source && <GoldLogo3D key={run} source={source} animate={phase === 'gold'} paused={paused} onReady={onReady} onFailure={onFailure} />}
     </div>
-    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>
+    {controls && !reduced && createPortal(<div className="crest-controls">
+    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setFailed(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>
       Rejouer le dessin du logo
     </button>
-    {ready && !reduced && phase === 'gold' && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
+    {!reduced && (phase === 'drawing' || (ready && phase === 'gold')) && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
       {paused ? 'Reprendre le mouvement' : 'Mettre le mouvement en pause'}
     </button>}
+    </div>, controls)}
   </div>;
 }

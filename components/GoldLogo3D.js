@@ -8,7 +8,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
   const playing = useRef(animate);
   const wake = useRef(null);
   useEffect(() => { playing.current = animate; wake.current?.(); }, [animate]);
-  useEffect(() => { pause.current = paused; }, [paused]);
+  useEffect(() => { pause.current = paused; wake.current?.(); }, [paused]);
   useEffect(() => {
     let disposed = false, renderer, frame, observer, resizeObserver, cleanup = () => {};
     const geometries = [], materials = [];
@@ -50,22 +50,25 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       }
       let elapsed = 0, last = null, visible = true, px = 0, py = 0;
       const duration = 24000;
-      const handoff = 850;
+      const handoff = 900;
       const draw = now => {
         frame = null;
         if (disposed || !visible || document.hidden) { last = null; return; }
+        const dt = Math.min(last === null ? 16 : now - last, 50);
         if (last !== null && playing.current && !pause.current) elapsed += Math.min(now - last, 50);
         last = now;
         const p = Math.min(1, Math.max(0, elapsed - handoff) / duration);
         // Three broad, slow pivots; ease into the first and out of the last.
         const envelope = Math.min(1, p / .08, (1 - p) / .08);
         const excursion = Math.sin(p * Math.PI * 6) * .72 * Math.max(0, envelope);
-        const targetX = p * -.045 + Math.sin(p * Math.PI * 3) * -.1 + py;
-        const targetY = excursion + p * .075 + px;
-        group.rotation.x += (targetX - group.rotation.x) * .12;
-        group.rotation.y += (targetY - group.rotation.y) * .12;
+        const pointerBlend = Math.min(1, Math.max(0, elapsed - handoff) / 250);
+        const targetX = p * -.045 + Math.sin(p * Math.PI * 3) * -.1 + py * pointerBlend;
+        const targetY = excursion + p * .075 + px * pointerBlend;
+        const blend = 1 - Math.exp(-dt / 130);
+        group.rotation.x += (targetX - group.rotation.x) * blend;
+        group.rotation.y += (targetY - group.rotation.y) * blend;
         renderer.render(scene, camera);
-        if ((playing.current && p < 1) || Math.abs(targetX - group.rotation.x) > .0001 || Math.abs(targetY - group.rotation.y) > .0001) frame = requestAnimationFrame(draw);
+        if ((playing.current && !pause.current && p < 1) || Math.abs(targetX - group.rotation.x) > .0001 || Math.abs(targetY - group.rotation.y) > .0001) frame = requestAnimationFrame(draw);
       };
       const schedule = () => { if (!frame && visible && !document.hidden) frame = requestAnimationFrame(draw); };
       wake.current = () => { last = null; schedule(); };

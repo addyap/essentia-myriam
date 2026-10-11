@@ -4,6 +4,7 @@ import { Providers } from '@/components/Providers';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
 import { WhatsAppButton } from '@/components/WhatsAppButton';
+import { MotionSystem } from '@/components/MotionSystem';
 import { SITE_URL } from '@/lib/config';
 
 // Requested: Didot, per the specimen comparison Myriam reviewed. The real
@@ -94,6 +95,7 @@ export default function RootLayout({ children }) {
         <a href="#main-content" className="skip-link">Aller au contenu</a>
         <Providers>
           <Header />
+          <MotionSystem />
           <main id="main-content">{children}</main>
           <Footer />
           <WhatsAppButton />
