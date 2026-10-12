@@ -96,7 +96,7 @@ export function Header() {
           <Link href="/" className="brand" onClick={() => setOpen(false)}>
             <span className="mark"><LogoMark /></span>
             <span className="words">
-              <span className="name">{brand.name}</span>
+              <span className="name">{brand.name.toLowerCase() === 'essentia' ? 'Essentia' : brand.name}</span>
               <span className="byline">{brand.byline}</span>
             </span>
           </Link>
