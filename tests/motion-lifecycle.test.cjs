@@ -100,9 +100,9 @@ test('3D waits for handwriting, holds the crossfade, pivots gently within readab
   for(let i=0;i<18;i++)app.frame();
   assert.equal(rotations.at(-1).y,0);
   for(let i=0;i<550;i++)app.frame();
-  assert.ok(Math.max(...rotations.map(r=>r.y))>.34, 'A visible, shallow pivot remains');
-  assert.ok(rotations.every(r=>Math.abs(r.y)<=.42), 'Yaw stays below 25 degrees');
-  assert.ok(Math.min(...rotations.map(r=>r.y))<-.30, 'The gentle pivot reaches both sides');
+  assert.ok(Math.max(...rotations.map(r=>r.y))>.47, 'The fuller pivot is visible');
+  assert.ok(rotations.every(r=>Math.abs(r.y)<=.52), 'Yaw stays below 30 degrees');
+  assert.ok(Math.min(...rotations.map(r=>r.y))<-.43, 'The fuller pivot reaches both sides');
   assert.ok(Math.abs(rotations.at(-1).y-.05)<.001,'Returns to the rest angle');
   assert.equal(ready,1,'Starting animation does not recreate the renderer');
   app.unmount();

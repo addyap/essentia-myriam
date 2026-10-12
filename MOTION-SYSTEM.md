@@ -202,3 +202,6 @@ Validation: 20 passing tests, including viewport gating and local pause propagat
 
 ### Hero-only logo placement
 The handwriting-to-gold-pivot animation belongs only in the homepage hero and each inner-page PageHeader. Content sections have no repeated logo signatures. Existing CTA band marks remain static.
+
+### Fuller readable pivot
+Hero logos use a 0.48 radian excursion with a hard yaw cap of 0.52 radians (29.8 degrees), including pointer input. The 24-second sequence, small vertical tilt, gold colour and handwriting handoff remain unchanged.
