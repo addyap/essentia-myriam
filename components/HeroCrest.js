@@ -43,8 +43,8 @@ export function HeroCrest({ controlsTarget = 'hero-logo-controls', labels = { re
     ref.current.style.removeProperty('--tilt-y');
   };
   const buttons = <div className="crest-controls">
-    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setFailed(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>{labels.replay}</button>
-    {(phase === 'drawing' || (ready && phase === 'gold')) && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>{paused ? labels.resume : labels.pause}</button>}
+    <button className="crest-replay" type="button" aria-label={labels.replay} disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setFailed(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}><span aria-hidden="true">↺</span></button>
+    {(phase === 'drawing' || (ready && phase === 'gold')) && <button className="crest-pause" type="button" aria-label={paused ? labels.resume : labels.pause} aria-pressed={paused} onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▶' : 'Ⅱ'}</span></button>}
   </div>;
   return <div className="crest-experience">
     <div className="crest-stage" ref={ref} data-phase={phase} data-fallback={failed || reduced} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>

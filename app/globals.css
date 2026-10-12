@@ -530,3 +530,11 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
 .section-logo-still::after{content:"";display:block;height:96px}
 .section-logo .crest-controls{min-height:88px;align-content:flex-start}
 @media(prefers-reduced-motion:reduce){.section-logo-still::after{display:none}}
+
+/* Quiet icon controls keep logo motion accessible without instructional copy. */
+.crest-replay,.crest-pause{width:44px;min-width:44px;padding:8px;font-size:20px;line-height:1}
+.section-logo .crest-replay,.section-logo .crest-pause{font-size:20px}
+.section-logo .crest-controls{width:100%;left:0;transform:none;min-height:44px;gap:4px;justify-content:center}
+.section-logo-still{padding-bottom:52px}
+@media(max-width:560px){.page-monogram .section-logo .crest-controls,.page-heading--quiet .section-logo .crest-controls{width:100%;justify-content:center}}
+@media(prefers-reduced-motion:reduce){.section-logo-still{padding-bottom:0}}
