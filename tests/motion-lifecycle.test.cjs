@@ -18,15 +18,14 @@ test('late 3D readiness keeps the completed SVG visible and starts one takeover'
   assert.equal(stage(app)['data-webgl'], true);
   app.unmount();
 });
-test('failed 3D uses the SVG fallback, and replay retries the model', async () => {
+test('failed 3D uses the SVG fallback without visible logo controls', async () => {
   const app = await mount('components/HeroCrest.js', 'HeroCrest', { host });
   model(app).props.onFailure(); app.flush();
   pen(app).props.onComplete(); app.flush();
   assert.equal(stage(app)['data-fallback'], true);
   assert.equal(model(app), null);
-  find(app.tree, node => node.props.className === 'crest-replay').props.onClick(); app.flush();
-  assert.equal(stage(app)['data-phase'], 'drawing');
-  assert.ok(model(app)); app.unmount();
+  assert.equal(find(app.tree, node => node.type === 'button'), null);
+  app.unmount();
 });
 test('live reduced-motion changes remove the canvas and retain a static SVG', async () => {
   const app = await mount('components/HeroCrest.js', 'HeroCrest', { host });
@@ -133,15 +132,16 @@ test('section logos keep a still preview until entering the viewport', async () 
   app.intersections[0].fn([{ isIntersecting: false }]); app.flush();
   assert.equal(find(app.tree, node => node.type === 'HeroCrest'), null);
   app.intersections[0].fn([{ isIntersecting: true }]); app.flush();
-  assert.equal(find(app.tree, node => node.type === 'HeroCrest').props.controlsTarget, null);
+  assert.ok(find(app.tree, node => node.type === 'HeroCrest'));
   app.unmount();
 });
 
-test('section logo controls work locally without the homepage portal', async () => {
-  const app = await mount('components/HeroCrest.js', 'HeroCrest', { host, props: { controlsTarget: null } });
-  assert.ok(find(app.tree, node => node.props.className === 'crest-controls'));
-  find(app.tree, node => node.props.className === 'crest-pause').props.onClick(); app.flush();
-  assert.equal(pen(app).props.paused, true);
-  assert.equal(model(app).props.paused, true);
+test('hero logos render no controls during drawing or pivoting', async () => {
+  const app = await mount('components/HeroCrest.js', 'HeroCrest', { host });
+  assert.equal(find(app.tree, node => node.type === 'button'), null);
+  pen(app).props.onComplete(); app.flush();
+  model(app).props.onReady(); app.flush();
+  assert.equal(stage(app)['data-webgl'], true);
+  assert.equal(find(app.tree, node => node.type === 'button'), null);
   app.unmount();
 });

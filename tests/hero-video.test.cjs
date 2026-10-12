@@ -66,7 +66,7 @@ test('mobile video stays within its one-megabyte payload budget', () => {
 });
 
 test('section headers select their own mobile video and keep pause controls local', async () => {
-  for (const clip of ['sunrise-valley', 'golden-sea']) {
+  for (const clip of ['sunrise-valley', 'golden-sea', 'misty-lake', 'sunlit-leaves', 'quiet-shore', 'mountain-clouds']) {
     const host = videoHost();
     const app = await mount('components/HeroVideo.js', 'HeroVideo', { host, mobile: true,
       props: { labels, desktopSource: `/videos/${clip}.mp4`, mobileSource: `/videos/${clip}-mobile.mp4`, controlsTarget: null },
@@ -85,7 +85,7 @@ test('section headers select their own mobile video and keep pause controls loca
 
 test('each new header has a matching poster and a mobile video below one megabyte', () => {
   const { statSync } = require('node:fs');
-  for (const clip of ['sunrise-valley', 'golden-sea']) {
+  for (const clip of ['sunrise-valley', 'golden-sea', 'misty-lake', 'sunlit-leaves', 'quiet-shore', 'mountain-clouds']) {
     assert.ok(statSync(`public/videos/${clip}-mobile.mp4`).size < 1000000);
     assert.ok(statSync(`public/images/nature/${clip}.webp`).size > 0);
   }

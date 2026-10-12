@@ -1,12 +1,10 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import { useApp } from './Providers';
 import { HeroCrest } from './HeroCrest';
 import { LogoMark } from './LogoMark';
 
 // Each instance starts once on entry; the shared motion engine pauses offscreen.
 export function SectionLogo({ banner = false }) {
-  const { t } = useApp();
   const host = useRef(null);
   const [entered, setEntered] = useState(false);
   useEffect(() => {
@@ -18,6 +16,6 @@ export function SectionLogo({ banner = false }) {
     return () => observer.disconnect();
   }, []);
   return <div ref={host} className={`section-logo${banner ? ' section-logo--banner' : ''}`}>
-    {entered ? <HeroCrest controlsTarget={null} labels={t.ui.logoMotion} /> : <div className="section-logo-still" aria-hidden="true"><LogoMark /></div>}
+    {entered ? <HeroCrest /> : <div className="section-logo-still" aria-hidden="true"><LogoMark /></div>}
   </div>;
 }

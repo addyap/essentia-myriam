@@ -3,23 +3,18 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { LogoMark } from './LogoMark';
 import { LogoMarkDraw } from './LogoMarkDraw';
 import dynamic from 'next/dynamic';
-import { createPortal } from 'react-dom';
 const GoldLogo3D = dynamic(() => import('./GoldLogo3D').then(m => m.GoldLogo3D), { ssr: false });
 
-export function HeroCrest({ controlsTarget = 'hero-logo-controls', labels = { replay: 'Rejouer le dessin du logo', resume: 'Reprendre le mouvement', pause: 'Mettre le mouvement en pause' } } = {}) {
-  const [controls, setControls] = useState(null);
+export function HeroCrest() {
   const [phase, setPhase] = useState('static');
-  const [run, setRun] = useState(0);
   const [source, setSource] = useState('');
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
-  const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(true);
   const onReady = useCallback(() => setReady(true), []);
   const onFailure = useCallback(() => { setReady(false); setFailed(true); }, []);
   const ref = useRef(null);
   useEffect(() => {
-    if (controlsTarget) setControls(document.getElementById(controlsTarget));
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
     setReduced(preference.matches);
     const svg = ref.current.querySelector('.crest-face');
@@ -28,7 +23,7 @@ export function HeroCrest({ controlsTarget = 'hero-logo-controls', labels = { re
     const change = () => { setReduced(preference.matches); if (preference.matches) setPhase('static'); };
     preference.addEventListener('change', change);
     return () => preference.removeEventListener('change', change);
-  }, [controlsTarget]);
+  }, []);
   const finish = () => {
     setPhase(matchMedia('(prefers-reduced-motion: reduce)').matches ? 'static' : 'gold');
   };
@@ -42,20 +37,15 @@ export function HeroCrest({ controlsTarget = 'hero-logo-controls', labels = { re
     ref.current.style.removeProperty('--tilt-x');
     ref.current.style.removeProperty('--tilt-y');
   };
-  const buttons = <div className="crest-controls">
-    <button className="crest-replay" type="button" aria-label={labels.replay} disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setFailed(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}><span aria-hidden="true">↺</span></button>
-    {(phase === 'drawing' || (ready && phase === 'gold')) && <button className="crest-pause" type="button" aria-label={paused ? labels.resume : labels.pause} aria-pressed={paused} onClick={() => setPaused(value => !value)}><span aria-hidden="true">{paused ? '▶' : 'Ⅱ'}</span></button>}
-  </div>;
   return <div className="crest-experience">
     <div className="crest-stage" ref={ref} data-phase={phase} data-fallback={failed || reduced} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
-      <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw key={run} paused={paused} onComplete={finish} /> : <LogoMark />}</div>
+      <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw onComplete={finish} /> : <LogoMark />}</div>
       <div className="crest-relief" aria-hidden="true">
         {[4, 3, 2, 1].map(layer => <LogoMark key={layer} className="crest-side" style={{ transform: `translateZ(${-layer * 1.5}px)` }} />)}
         <LogoMark className="crest-face" />
         <div className="crest-highlight"><LogoMark /></div>
       </div>
-      {!reduced && !failed && source && <GoldLogo3D key={run} source={source} animate={phase === 'gold'} paused={paused} onReady={onReady} onFailure={onFailure} />}
+      {!reduced && !failed && source && <GoldLogo3D source={source} animate={phase === 'gold'} onReady={onReady} onFailure={onFailure} />}
     </div>
-    {!reduced && (controlsTarget ? controls && createPortal(buttons, controls) : buttons)}
   </div>;
 }

@@ -101,7 +101,7 @@ export function HomeHero() {
 
         <div className="hero-cine-crest">
           <div className="hero-cine-halo" aria-hidden="true" />
-          <div className="hero-cine-mark"><HeroCrest labels={t.ui.logoMotion} /></div>
+          <div className="hero-cine-mark"><HeroCrest /></div>
           <span className="hero-cine-sign">Myriam Diougoan Blanch</span>
         </div>
       </div>

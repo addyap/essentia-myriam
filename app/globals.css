@@ -496,45 +496,28 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
  .pending-details{padding:24px}
 }
 
-/* Reusable handwriting → gold pivot, with controls local to each signature. */
-.section-logo{width:132px;color:#FCC200;flex:none}
+/* Prominent hero signatures without logo controls or reserved control space. */
+.section-logo{width:190px;color:#FCC200;flex:none}
 .section-logo-still{aspect-ratio:681/842}
 .section-logo-still svg{display:block;width:100%;height:100%}
-.page-monogram{pointer-events:auto}
-.page-monogram .section-logo{width:132px}
-.page-monogram .section-logo svg,.band .section-logo svg{width:100%;height:100%;max-height:none;filter:none}
-.section-logo .crest-controls{display:flex;justify-content:center;gap:0 12px;margin-top:8px;width:220px;position:relative;left:50%;transform:translateX(-50%)}
-.section-logo .crest-replay,.section-logo .crest-pause{color:var(--gold-deep);font-size:12px;line-height:1.4;text-align:center;min-height:44px}
-.page-hero .section-logo .crest-replay,.page-hero .section-logo .crest-pause,.band .section-logo .crest-replay,.band .section-logo .crest-pause,.philosophy .section-logo .crest-replay,.philosophy .section-logo .crest-pause{color:#E8D8A6}
-.section-logo--banner{width:96px;margin:0 auto 24px}
-.page-heading--quiet .section-logo{width:76px}
-.page-heading--quiet .section-logo .crest-controls{width:150px;gap:0}
-@media(max-width:900px){.page-monogram .section-logo{width:92px}}
-@media(max-width:560px){
- .page-monogram .section-logo{width:72px}
- .page-monogram .section-logo .crest-controls{width:260px;left:0;transform:none;justify-content:flex-start}
- .page-heading--quiet{grid-template-columns:minmax(0,1fr)}
- .page-heading--quiet .page-monogram{grid-row:1;align-items:flex-start}
- .page-heading--quiet .section-logo{width:60px}
- .page-heading--quiet .section-logo .crest-controls{width:260px;justify-content:flex-start;gap:12px}
+.page-monogram .section-logo{width:190px}
+.page-monogram .section-logo svg{width:100%;height:100%;max-height:none;filter:none}
+.page-heading{grid-template-columns:minmax(0,1fr) 220px}
+.page-heading--quiet{grid-template-columns:minmax(0,1fr) 100px}
+.page-heading--quiet .section-logo{width:90px}
+.hero-cine-crest .hero-cine-mark{width:min(280px,26vw)}
+@media(max-width:900px){
+ .page-heading{grid-template-columns:minmax(0,1fr) 150px}
+ .page-monogram .section-logo{width:140px}
+ .page-heading--quiet{grid-template-columns:minmax(0,1fr) 100px}
 }
-@media(prefers-reduced-motion:reduce){.section-logo .crest-controls{display:none}}
-.page-monogram .section-logo .crest-controls{width:100%;left:0;transform:none}
-@media(max-width:560px){.page-monogram .section-logo .crest-controls{width:260px}}
-/* Reserve the control space before entry, preventing a jump when drawing starts. */
-.section-logo-still{aspect-ratio:auto}
-.section-logo-still svg{aspect-ratio:681/842;height:auto}
-.section-logo-still::after{content:"";display:block;height:96px}
-.section-logo .crest-controls{min-height:88px;align-content:flex-start}
-@media(prefers-reduced-motion:reduce){.section-logo-still::after{display:none}}
-
-/* Quiet icon controls keep logo motion accessible without instructional copy. */
-.crest-replay,.crest-pause{width:44px;min-width:44px;padding:8px;font-size:20px;line-height:1}
-.section-logo .crest-replay,.section-logo .crest-pause{font-size:20px}
-.section-logo .crest-controls{width:100%;left:0;transform:none;min-height:44px;gap:4px;justify-content:center}
-.section-logo-still{padding-bottom:52px}
-@media(max-width:560px){.page-monogram .section-logo .crest-controls,.page-heading--quiet .section-logo .crest-controls{width:100%;justify-content:center}}
-@media(prefers-reduced-motion:reduce){.section-logo-still{padding-bottom:0}}
+@media(max-width:560px){
+ .page-heading,.page-heading--quiet{grid-template-columns:minmax(0,1fr)}
+ .page-monogram .section-logo{width:112px}
+ .page-heading--quiet .page-monogram{grid-row:1;align-items:flex-start}
+ .page-heading--quiet .section-logo{width:76px}
+}
+@media(max-width:700px){.hero-cine-crest .hero-cine-mark{width:clamp(140px,36vw,170px)}}
 
 /* Local video headers retain readable copy and a quiet, reachable pause control. */
 .page-hero .hero-scene{z-index:auto}

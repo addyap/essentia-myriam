@@ -52,5 +52,77 @@
     "retrieved": "2026-10-12",
     "modifications": "First 10 seconds, H.264, audio removed, fast-start; 20fps, mobile crop, capped bitrate",
     "bytes": 873330
+  },
+  "misty-lake.mp4": {
+    "title": "Serene Morning Mist Over Tranquil Lake",
+    "creator": "Nikola Tomašić",
+    "source": "https://www.pexels.com/video/serene-morning-mist-over-tranquil-lake-31742394/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 1280x720, 24fps, capped bitrate",
+    "bytes": 360313
+  },
+  "misty-lake-mobile.mp4": {
+    "title": "Serene Morning Mist Over Tranquil Lake",
+    "creator": "Nikola Tomašić",
+    "source": "https://www.pexels.com/video/serene-morning-mist-over-tranquil-lake-31742394/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 640x360, 20fps, capped bitrate",
+    "bytes": 78787
+  },
+  "sunlit-leaves.mp4": {
+    "title": "Sunlight Through Tree Branches and Leaves",
+    "creator": "Ruslan Sikunov",
+    "source": "https://www.pexels.com/video/sunlight-through-tree-branches-and-leaves-5683377/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 1280x720, 24fps, capped bitrate",
+    "bytes": 1664797
+  },
+  "sunlit-leaves-mobile.mp4": {
+    "title": "Sunlight Through Tree Branches and Leaves",
+    "creator": "Ruslan Sikunov",
+    "source": "https://www.pexels.com/video/sunlight-through-tree-branches-and-leaves-5683377/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 640x360, 20fps, capped bitrate",
+    "bytes": 490572
+  },
+  "quiet-shore.mp4": {
+    "title": "Waves Rushing To The Shore",
+    "creator": "Damon Hall",
+    "source": "https://www.pexels.com/video/waves-rushing-to-the-shore-1321208/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 1280x720, 24fps, capped bitrate",
+    "bytes": 1695832
+  },
+  "quiet-shore-mobile.mp4": {
+    "title": "Waves Rushing To The Shore",
+    "creator": "Damon Hall",
+    "source": "https://www.pexels.com/video/waves-rushing-to-the-shore-1321208/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 640x360, 20fps, capped bitrate",
+    "bytes": 787987
+  },
+  "mountain-clouds.mp4": {
+    "title": "Drone Footage of Low Clouds Surrounding a Mountain Top",
+    "creator": "ROMAN ODINTSOV",
+    "source": "https://www.pexels.com/video/drone-footage-of-low-clouds-surrounding-a-mountain-top-11759797/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 1280x720, 24fps, capped bitrate",
+    "bytes": 423975
+  },
+  "mountain-clouds-mobile.mp4": {
+    "title": "Drone Footage of Low Clouds Surrounding a Mountain Top",
+    "creator": "ROMAN ODINTSOV",
+    "source": "https://www.pexels.com/video/drone-footage-of-low-clouds-surrounding-a-mountain-top-11759797/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 640x360, 20fps, capped bitrate",
+    "bytes": 99886
   }
 }
