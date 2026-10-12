@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
-export function HeroVideo({ labels }) {
+export function HeroVideo({ labels, desktopSource = '/videos/forest-sunlight.mp4', mobileSource = '/videos/forest-sunlight-mobile.mp4', controlsTarget = 'hero-logo-controls' }) {
   const ref = useRef(null);
   const wake = useRef(null);
   const pausedRef = useRef(false);
@@ -17,10 +17,10 @@ export function HeroVideo({ labels }) {
     const connection = navigator.connection;
     // Choose once: rotating/resizing must not trigger a second video download.
     const source = matchMedia('(max-width: 600px)').matches
-      ? '/videos/forest-sunlight-mobile.mp4'
-      : '/videos/forest-sunlight.mp4';
+      ? mobileSource
+      : desktopSource;
     let visible = true, failed = false, disposed = false;
-    setControls(document.getElementById('hero-logo-controls'));
+    if (controlsTarget) setControls(document.getElementById(controlsTarget));
     const permitted = () => !preference.matches && !connection?.saveData && !['slow-2g', '2g'].includes(connection?.effectiveType);
     const fail = () => { if (!disposed) { failed = true; setReady(false); video.pause(); video.removeAttribute('src'); video.load(); } };
     const playing = () => {
@@ -57,13 +57,13 @@ export function HeroVideo({ labels }) {
       document.removeEventListener('visibilitychange', sync);
       video.pause(); video.removeAttribute('src'); video.load();
     };
-  }, []);
+  }, [desktopSource, mobileSource, controlsTarget]);
 
+  const button = <button className="hero-video-control" type="button" aria-label={paused ? labels.resume : labels.pause} aria-pressed={paused} onClick={() => setPaused(value => !value)}>
+    <span aria-hidden="true">{paused ? '▶' : 'Ⅱ'}</span>
+  </button>;
   return <>
     <video ref={ref} className="hero-cine-video" data-ready={ready} muted loop playsInline preload="none" aria-hidden="true" tabIndex={-1} />
-    {controls && ready && createPortal(
-      <button className="hero-video-control" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
-        {paused ? labels.resume : labels.pause}
-      </button>, controls)}
+    {ready && (controlsTarget ? controls && createPortal(button, controls) : button)}
   </>;
 }

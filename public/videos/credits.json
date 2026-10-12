@@ -16,5 +16,41 @@
     "retrieved": "2026-10-11",
     "modifications": "Portrait centre crop, 480x854, H.264, 20fps, capped bitrate, audio removed, web fast-start; subdued via site CSS",
     "bytes": 697411
+  },
+  "sunrise-valley.mp4": {
+    "title": "The sun rises over a valley with mist in the air",
+    "creator": "Marius Manzat",
+    "source": "https://www.pexels.com/video/the-sun-rises-over-a-valley-with-mist-in-the-air-28303675/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 24fps, 1280x720 crop, capped bitrate",
+    "bytes": 688877
+  },
+  "sunrise-valley-mobile.mp4": {
+    "title": "The sun rises over a valley with mist in the air",
+    "creator": "Marius Manzat",
+    "source": "https://www.pexels.com/video/the-sun-rises-over-a-valley-with-mist-in-the-air-28303675/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 20fps, mobile crop, capped bitrate",
+    "bytes": 145271
+  },
+  "golden-sea.mp4": {
+    "title": "Golden Sunlight Reflecting on Gentle Ocean Waves",
+    "creator": "Ahmed",
+    "source": "https://www.pexels.com/video/golden-sunlight-reflecting-on-gentle-ocean-waves-30416944/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 24fps, 1280x720 crop, capped bitrate",
+    "bytes": 1747309
+  },
+  "golden-sea-mobile.mp4": {
+    "title": "Golden Sunlight Reflecting on Gentle Ocean Waves",
+    "creator": "Ahmed",
+    "source": "https://www.pexels.com/video/golden-sunlight-reflecting-on-gentle-ocean-waves-30416944/",
+    "license": "https://www.pexels.com/license/",
+    "retrieved": "2026-10-12",
+    "modifications": "First 10 seconds, H.264, audio removed, fast-start; 20fps, mobile crop, capped bitrate",
+    "bytes": 873330
   }
 }

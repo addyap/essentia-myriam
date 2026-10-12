@@ -538,3 +538,8 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
 .section-logo-still{padding-bottom:52px}
 @media(max-width:560px){.page-monogram .section-logo .crest-controls,.page-heading--quiet .section-logo .crest-controls{width:100%;justify-content:center}}
 @media(prefers-reduced-motion:reduce){.section-logo-still{padding-bottom:0}}
+
+/* Local video headers retain readable copy and a quiet, reachable pause control. */
+.page-hero .hero-scene{z-index:auto}
+.page-hero .hero-scene .hero-cine-video{filter:saturate(.7)}
+.page-hero .hero-scene .hero-video-control{position:absolute;right:16px;bottom:12px;z-index:3;pointer-events:auto;width:44px;height:44px;padding:8px;border-radius:50%;background:rgba(10,25,17,.75);color:#fff;font-size:18px}

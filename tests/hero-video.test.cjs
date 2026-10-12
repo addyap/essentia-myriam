@@ -64,3 +64,29 @@ test('mobile video stays within its one-megabyte payload budget', () => {
   const { statSync } = require('node:fs');
   assert.ok(statSync('public/videos/forest-sunlight-mobile.mp4').size < 1000000);
 });
+
+test('section headers select their own mobile video and keep pause controls local', async () => {
+  for (const clip of ['sunrise-valley', 'golden-sea']) {
+    const host = videoHost();
+    const app = await mount('components/HeroVideo.js', 'HeroVideo', { host, mobile: true,
+      props: { labels, desktopSource: `/videos/${clip}.mp4`, mobileSource: `/videos/${clip}-mobile.mp4`, controlsTarget: null },
+      modules: { 'react-dom': { createPortal() { throw Error('Section controls must stay local'); } } },
+    });
+    assert.equal(host.src, `/videos/${clip}-mobile.mp4`);
+    host.emit('playing'); app.flush();
+    const button = find(app.tree, n => n.type === 'button');
+    assert.equal(button.props['aria-label'], labels.pause);
+    button.props.onClick(); app.flush();
+    assert.equal(find(app.tree, n => n.type === 'button').props['aria-label'], labels.resume);
+    app.reduce(true); assert.equal(host.src, '');
+    app.unmount();
+  }
+});
+
+test('each new header has a matching poster and a mobile video below one megabyte', () => {
+  const { statSync } = require('node:fs');
+  for (const clip of ['sunrise-valley', 'golden-sea']) {
+    assert.ok(statSync(`public/videos/${clip}-mobile.mp4`).size < 1000000);
+    assert.ok(statSync(`public/images/nature/${clip}.webp`).size > 0);
+  }
+});
