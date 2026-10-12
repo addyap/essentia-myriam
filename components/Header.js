@@ -97,7 +97,7 @@ export function Header() {
             <span className="mark"><LogoMark /></span>
             <span className="words">
               <span className="name">{brand.name.toLowerCase() === 'essentia' ? 'Essentia' : brand.name}</span>
-              <span className="byline">{brand.byline}</span>
+              <span className="byline">{brand.byline.replace(/ Diougoan Blanch$/, '')}<span className="brand-surname">{brand.byline.endsWith(' Diougoan Blanch') ? ' Diougoan Blanch' : ''}</span></span>
             </span>
           </Link>
 

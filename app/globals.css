@@ -523,3 +523,16 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
 .page-hero .hero-scene{z-index:auto}
 .page-hero .hero-scene .hero-cine-video{filter:saturate(.7)}
 .page-hero .hero-scene .hero-video-control{position:absolute;right:16px;bottom:12px;z-index:3;pointer-events:auto;width:44px;height:44px;padding:8px;border-radius:50%;background:rgba(10,25,17,.75);color:#fff;font-size:18px}
+
+/* One flowing line; the full surname is retained in the mobile link label. */
+.brand .words{display:flex;flex-direction:row;align-items:baseline;gap:10px;flex:0 1 auto;white-space:nowrap}
+.brand .byline{font-size:26px;line-height:1.2;margin-top:0;overflow:visible;text-overflow:clip;max-width:none}
+@media(max-width:1080px){.brand .name{font-size:34px}.brand .byline{font-size:24px}}
+@media(max-width:560px){
+ .brand{gap:8px}
+ .brand .words{gap:6px}
+ .brand .name{font-size:28px}
+ .brand .byline{font-size:22px}
+ .brand-surname{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+}
+@media(max-width:345px){.brand .name{font-size:26px}.brand .byline{font-size:20px}}
