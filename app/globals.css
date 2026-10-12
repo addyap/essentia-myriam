@@ -641,3 +641,13 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
  .menu-languages-list .chip.on{border-color:var(--gold-deep);background:var(--gold-tint);font-weight:700}
 }
 @media(prefers-reduced-motion:reduce){.site nav.main,.menu-toggle-lines i,.site nav.main a::after,.header-languages button{transition:none}}
+
+/* Keep the signature on the screen's centre line throughout its drawing and pivot. */
+@media(max-width:900px){
+ .hero-cine-crest{width:100%;justify-self:center;align-items:center}
+ .hero-cine-crest .hero-cine-mark{margin-inline:auto}
+}
+@media(max-width:560px){
+ .page-heading .page-monogram,.page-heading--quiet .page-monogram{width:100%;justify-self:center;align-items:center}
+ .page-monogram .section-logo{margin-inline:auto}
+}
