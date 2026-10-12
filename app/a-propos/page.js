@@ -1,4 +1,5 @@
 'use client';
+import { SectionLogo } from '@/components/SectionLogo';
 import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { PendingDetails } from '@/components/PendingDetails';
@@ -11,7 +12,7 @@ export default function AboutPage() {
   return (
     <>
       <section className="page-hero"><PageHeader eyebrow={a.eyebrow} title={a.title} lead={a.lead} scene="about" /></section>
-      <section className="about-introduction">
+      <section className="about-introduction"><div className="wrap section-signature"><SectionLogo /></div>
         <div className="wrap split">
           <div className="portrait">
             <Image src="/myriam.jpg" alt={a.title} fill priority sizes="(max-width: 900px) 100vw, 480px" style={{ objectFit: 'cover' }} />
@@ -25,11 +26,11 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section-soft">
+      <section className="section-soft"><div className="wrap section-signature"><SectionLogo /></div>
         <div className="wrap"><PendingDetails title={t.launchDetails.credentials.title} status={t.launchDetails.status} note={t.launchDetails.note} fields={t.launchDetails.credentials.fields} /></div>
       </section>
 
-      <section>
+      <section><div className="wrap section-signature"><SectionLogo /></div>
         <div className="wrap split">
           <div>
             <span className="kicker">{a.eyebrow}</span>
@@ -42,7 +43,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section>
+      <section><div className="wrap section-signature"><SectionLogo /></div>
         <div className="wrap">
           <div className="center" style={{ marginBottom: 30 }}>
             <span className="kicker">{a.eyebrow}</span>
@@ -62,7 +63,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="section-accent">
+      <section className="section-accent"><div className="wrap section-signature"><SectionLogo /></div>
         <div className="wrap split">
           <div>
             <span className="kicker">{a.eyebrow}</span>

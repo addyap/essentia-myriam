@@ -1,4 +1,5 @@
 'use client';
+import { SectionLogo } from '@/components/SectionLogo';
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
@@ -14,7 +15,7 @@ export default function CoachingPage() {
         <PageHeader eyebrow={c.eyebrow} title={c.title} lead={c.lead} scene="coaching" />
       </section>
 
-      <section className="section-soft">
+      <section className="section-soft"><div className="wrap section-signature"><SectionLogo /></div>
         <div className="wrap">
           <h2 className="kicker">{c.listTitle}</h2>
           <div className="grid g-2" style={{ marginTop: 22 }}>
@@ -30,7 +31,7 @@ export default function CoachingPage() {
         </div>
       </section>
 
-      <section>
+      <section><div className="wrap section-signature"><SectionLogo /></div>
         <div className="wrap center">
           <span className="eyebrow">{c.methodsEyebrow}</span>
           <h2 className="big">{c.methodsTitle}</h2>
@@ -41,7 +42,7 @@ export default function CoachingPage() {
         </div>
       </section>
 
-      <section className="section-accent">
+      <section className="section-accent"><div className="wrap section-signature"><SectionLogo /></div>
         <div className="wrap">
           <div className="center" style={{ marginBottom: 20 }}>
             <span className="eyebrow">{c.pricingEyebrow}</span>

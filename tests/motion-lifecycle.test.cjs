@@ -124,3 +124,24 @@ test('WebGL initialization failure calls fallback without reporting readiness', 
   const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{source:'<svg/>',animate:true,onReady:()=>assert.fail('Failed renderer cannot be ready'),onFailure:()=>failed++}});
   await importsReady(); assert.equal(failed,1); app.unmount();
 });
+
+test('section logos keep a still preview until entering the viewport', async () => {
+  const app = await mount('components/SectionLogo.js', 'SectionLogo', {
+    host: {}, modules: { './Providers': { useApp: () => ({ t: { ui: { logoMotion: {} } } }) }, './HeroCrest': { HeroCrest: 'HeroCrest' } },
+  });
+  assert.equal(find(app.tree, node => node.type === 'HeroCrest'), null);
+  app.intersections[0].fn([{ isIntersecting: false }]); app.flush();
+  assert.equal(find(app.tree, node => node.type === 'HeroCrest'), null);
+  app.intersections[0].fn([{ isIntersecting: true }]); app.flush();
+  assert.equal(find(app.tree, node => node.type === 'HeroCrest').props.controlsTarget, null);
+  app.unmount();
+});
+
+test('section logo controls work locally without the homepage portal', async () => {
+  const app = await mount('components/HeroCrest.js', 'HeroCrest', { host, props: { controlsTarget: null } });
+  assert.ok(find(app.tree, node => node.props.className === 'crest-controls'));
+  find(app.tree, node => node.props.className === 'crest-pause').props.onClick(); app.flush();
+  assert.equal(pen(app).props.paused, true);
+  assert.equal(model(app).props.paused, true);
+  app.unmount();
+});

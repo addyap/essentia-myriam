@@ -191,3 +191,11 @@ Verified initial 390px load requests the mobile file, plays muted, responds to p
 ### Logo legibility adjustment
 
 Following feedback that the logo turns too obliquely, yaw amplitude is now 0.35 radians (about 20°), with a hard ±0.42-radian cap (24°) including pointer movement. Pointer influence is halved and the resting yaw is 0.05 radians (about 3°). The 24-second rhythm, handwriting handoff and exact gold face colour remain unchanged. The motion regression test now checks a visible two-sided pivot bounded below 25° and the new rest angle.
+
+## Shared section signatures — 12 October 2026
+
+Page headers, legal headings, all content sections and CTA banners now use `SectionLogo`, sharing the homepage's continuous handwriting → gold 3D pivot through `HeroCrest`. Gold remains #FCC200 and the established shallow pivot stays unchanged.
+
+A static server-rendered preview reserves the drawing/control space. Each signature mounts its motion engine once on entering the viewport (15% intersection); unopened sections do not initialize WebGL. Each instance has local translated replay/pause controls, independent from the homepage portal. Existing offscreen/hidden-tab suspension and reduced-motion static fallback remain active. Inner signatures add no video. Header navigation logo stays a stable orientation landmark.
+
+Validation: 20 passing tests, including viewport gating and local pause propagation; production build and route checker pass. At 320 px, the four service sections each have a signature without horizontal overflow; legal-page controls also fit. Physical-device rendering and battery use remain unmeasured.

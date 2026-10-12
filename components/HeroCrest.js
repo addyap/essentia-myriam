@@ -6,7 +6,7 @@ import dynamic from 'next/dynamic';
 import { createPortal } from 'react-dom';
 const GoldLogo3D = dynamic(() => import('./GoldLogo3D').then(m => m.GoldLogo3D), { ssr: false });
 
-export function HeroCrest({ labels = { replay: 'Rejouer le dessin du logo', resume: 'Reprendre le mouvement', pause: 'Mettre le mouvement en pause' } } = {}) {
+export function HeroCrest({ controlsTarget = 'hero-logo-controls', labels = { replay: 'Rejouer le dessin du logo', resume: 'Reprendre le mouvement', pause: 'Mettre le mouvement en pause' } } = {}) {
   const [controls, setControls] = useState(null);
   const [phase, setPhase] = useState('static');
   const [run, setRun] = useState(0);
@@ -19,7 +19,7 @@ export function HeroCrest({ labels = { replay: 'Rejouer le dessin du logo', resu
   const onFailure = useCallback(() => { setReady(false); setFailed(true); }, []);
   const ref = useRef(null);
   useEffect(() => {
-    setControls(document.getElementById('hero-logo-controls'));
+    if (controlsTarget) setControls(document.getElementById(controlsTarget));
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
     setReduced(preference.matches);
     const svg = ref.current.querySelector('.crest-face');
@@ -28,7 +28,7 @@ export function HeroCrest({ labels = { replay: 'Rejouer le dessin du logo', resu
     const change = () => { setReduced(preference.matches); if (preference.matches) setPhase('static'); };
     preference.addEventListener('change', change);
     return () => preference.removeEventListener('change', change);
-  }, []);
+  }, [controlsTarget]);
   const finish = () => {
     setPhase(matchMedia('(prefers-reduced-motion: reduce)').matches ? 'static' : 'gold');
   };
@@ -42,6 +42,10 @@ export function HeroCrest({ labels = { replay: 'Rejouer le dessin du logo', resu
     ref.current.style.removeProperty('--tilt-x');
     ref.current.style.removeProperty('--tilt-y');
   };
+  const buttons = <div className="crest-controls">
+    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setFailed(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>{labels.replay}</button>
+    {(phase === 'drawing' || (ready && phase === 'gold')) && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>{paused ? labels.resume : labels.pause}</button>}
+  </div>;
   return <div className="crest-experience">
     <div className="crest-stage" ref={ref} data-phase={phase} data-fallback={failed || reduced} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
       <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw key={run} paused={paused} onComplete={finish} /> : <LogoMark />}</div>
@@ -52,13 +56,6 @@ export function HeroCrest({ labels = { replay: 'Rejouer le dessin du logo', resu
       </div>
       {!reduced && !failed && source && <GoldLogo3D key={run} source={source} animate={phase === 'gold'} paused={paused} onReady={onReady} onFailure={onFailure} />}
     </div>
-    {controls && !reduced && createPortal(<div className="crest-controls">
-    <button className="crest-replay" type="button" disabled={phase === 'drawing'} onClick={() => { reset(); setPaused(false); setFailed(false); setReady(false); setRun(value => value + 1); setPhase('drawing'); }}>
-      {labels.replay}
-    </button>
-    {!reduced && (phase === 'drawing' || (ready && phase === 'gold')) && <button className="crest-pause" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
-      {paused ? labels.resume : labels.pause}
-    </button>}
-    </div>, controls)}
+    {!reduced && (controlsTarget ? controls && createPortal(buttons, controls) : buttons)}
   </div>;
 }
