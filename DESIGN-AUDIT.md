@@ -59,3 +59,11 @@ The browser language check also exposed outdated English, Italian and Spanish br
 Nine existing motion regression checks passed after the changes. Production build passed. Browser visual and responsive checks are recorded in the final task response; these do not establish a full WCAG audit or real-device performance certification.
 
 Browser verification: desktop homepage, 390px founder/audience stacking, appointment page in French and English, correct mailto/WhatsApp/international telephone destinations, and absence of horizontal overflow. Desktop masthead measured approximately 143px (previously 165px), compact hero approximately 512px at the inspected 1280px viewport. No messages were sent.
+
+## Inner-page identity — 12 October 2026
+
+All ten inner routes now share a prominent #FCC200 monogram, independent of the header logo. Service/contact/booking/resource headers use compact dark photographic compositions with ivory type and gold details. About uses the same introduction before its portrait and biography. Legal pages use a smaller monogram on ivory, readable line lengths and separated sections; 404 also carries the monogram.
+
+Service and values grids now use the homepage's numbered editorial treatment. Contact information, appointment steps and pending owner details follow the same spacing and border language. Pending information remains explicitly labelled; this pass changes presentation, not business claims. Homepage motion remains unchanged. Inner-page marks are static SVG, with no additional WebGL, video or repeated drawing wait.
+
+Verified: production build, 18 tests, translation parity, 11-route HTTP checker, server-rendered monograms on all ten inner routes, desktop/mobile service header, mobile legal layout and About at 320 px without horizontal overflow. Physical-device and screen-reader checks remain separate launch requirements.

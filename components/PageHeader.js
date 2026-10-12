@@ -1,19 +1,18 @@
-'use client';
 import { HeroScene } from './HeroScene';
+import { LogoMark } from './LogoMark';
 
-// Shared eyebrow/h1/divider/lead block used at the top of every page. Centralizing
-// it means a page can no longer accidentally reuse the same content key for both
-// the eyebrow and the title (as accompagnement's methods/pricing sections once did).
-export function PageHeader({ eyebrow, title, lead, center = false, scene }) {
-  return (
-    <>
-      {scene ? <><HeroScene scene={scene} /><div className="page-scrim" /></> : null}
-    <div className={center ? 'wrap center' : 'wrap'}>
-      <span className="eyebrow">{eyebrow}</span>
-      <h1 className="big">{title}</h1>
-      <div className="divider" />
-      {lead ? <p className="lead">{lead}</p> : null}
+// One compact visual language for every inner page; no additional WebGL or video.
+export function PageHeader({ eyebrow, title, lead, scene, quiet = false }) {
+  return <>
+    {scene ? <><HeroScene scene={scene} /><div className="page-scrim" /></> : null}
+    <div className={`wrap page-heading${quiet ? ' page-heading--quiet' : ''}`}>
+      <div className="page-heading-copy">
+        <span className="eyebrow">{eyebrow}</span>
+        <h1 className="big">{title}</h1>
+        <div className="divider" />
+        {lead ? <p className="lead">{lead}</p> : null}
+      </div>
+      <div className="page-monogram" aria-hidden="true"><LogoMark /><span>Myriam Diougoan Blanch</span></div>
     </div>
-    </>
-  );
+  </>;
 }

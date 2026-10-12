@@ -2,6 +2,7 @@
 import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { PendingDetails } from '@/components/PendingDetails';
+import { PageHeader } from '@/components/PageHeader';
 import { Icon } from '@/components/Icon';
 
 export default function AboutPage() {
@@ -9,15 +10,13 @@ export default function AboutPage() {
   const a = t.about;
   return (
     <>
-      <section>
+      <section className="page-hero"><PageHeader eyebrow={a.eyebrow} title={a.title} lead={a.lead} scene="about" /></section>
+      <section className="about-introduction">
         <div className="wrap split">
           <div className="portrait">
             <Image src="/myriam.jpg" alt={a.title} fill priority sizes="(max-width: 900px) 100vw, 480px" style={{ objectFit: 'cover' }} />
           </div>
           <div>
-            <span className="eyebrow">{a.eyebrow}</span>
-            <h1 className="big">{a.title}</h1>
-            <p className="lead" style={{ margin: '10px 0 18px' }}>{a.lead}</p>
             <p className="prose" style={{ marginBottom: 14 }}>{a.p1}</p>
             <p className="prose">{a.p2}</p>
             <span className="kicker" style={{ marginTop: 18, display: 'block' }}>{a.langsTitle}</span>
@@ -52,7 +51,8 @@ export default function AboutPage() {
           </div>
           <div className="grid g-2">
             {a.values.map((v, i) => (
-              <div className="card" key={i}>
+              <div className="card editorial-card" key={i}>
+                <span className="editorial-number">0{i + 1}</span>
                 <div className="ic"><Icon name={v.ic} /></div>
                 <h3>{v.t}</h3>
                 <p>{v.d}</p>

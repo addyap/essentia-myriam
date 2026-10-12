@@ -1,6 +1,6 @@
 import Image from 'next/image';
 
-const scenes = new Set(['home', 'coaching', 'rh', 'resources', 'contact', 'booking']);
+const scenes = new Set(['home', 'about', 'coaching', 'rh', 'resources', 'contact', 'booking']);
 
 export function HeroScene({ scene = 'home' }) {
   if (!scenes.has(scene)) return null;

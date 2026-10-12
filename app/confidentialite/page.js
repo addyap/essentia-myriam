@@ -1,4 +1,5 @@
 'use client';
+import { PageHeader } from '@/components/PageHeader';
 import { useApp } from '@/components/Providers';
 import { RevealContact } from '@/components/RevealContact';
 import { PendingDetails } from '@/components/PendingDetails';
@@ -8,11 +9,9 @@ import { CONTACT } from '@/lib/contact';
 export default function ConfidentialitePage() {
   const { lang, t } = useApp();
   return (
-    <section lang="fr">
+    <section lang="fr" className="legal-page">
       <div className="wrap" style={{ maxWidth: 780 }}>
-        <span className="eyebrow">Informations</span>
-        <h1 className="big">Politique de confidentialité</h1>
-        <div className="divider" />
+        <PageHeader eyebrow="Informations" title="Politique de confidentialité" quiet />
         {lang !== 'fr' ? <p className="notice" role="status">{t.ui.legalFrenchOnly}</p> : null}
         <p className="lead" style={{ margin: '10px 0 0' }}>
           Comment vos données personnelles sont collectées et utilisées sur ce site.

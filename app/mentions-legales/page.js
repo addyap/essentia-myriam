@@ -1,4 +1,5 @@
 'use client';
+import { PageHeader } from '@/components/PageHeader';
 import { useApp } from '@/components/Providers';
 import { RevealContact } from '@/components/RevealContact';
 import placeholders from '@/content/launch-placeholders.json';
@@ -7,11 +8,9 @@ import { CONTACT } from '@/lib/contact';
 export default function MentionsLegalesPage() {
   const { lang, t } = useApp();
   return (
-    <section lang="fr">
+    <section lang="fr" className="legal-page">
       <div className="wrap" style={{ maxWidth: 780 }}>
-        <span className="eyebrow">Informations</span>
-        <h1 className="big">Mentions légales</h1>
-        <div className="divider" />
+        <PageHeader eyebrow="Informations" title="Mentions légales" quiet />
         {lang !== 'fr' ? <p className="notice" role="status">{t.ui.legalFrenchOnly}</p> : null}
 
         <h2 className="legal-h3">Éditeur du site</h2>

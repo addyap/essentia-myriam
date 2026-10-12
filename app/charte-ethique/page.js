@@ -1,14 +1,13 @@
 'use client';
+import { PageHeader } from '@/components/PageHeader';
 import { useApp } from '@/components/Providers';
 
 export default function CharteEthiquePage() {
   const { lang, t } = useApp();
   return (
-    <section lang="fr">
+    <section lang="fr" className="legal-page">
       <div className="wrap" style={{ maxWidth: 780 }}>
-        <span className="eyebrow">Informations</span>
-        <h1 className="big">Charte éthique</h1>
-        <div className="divider" />
+        <PageHeader eyebrow="Informations" title="Charte éthique" quiet />
         {lang !== 'fr' ? <p className="notice" role="status">{t.ui.legalFrenchOnly}</p> : null}
         <p className="lead" style={{ margin: '10px 0 0' }}>
           Les principes qui encadrent chaque accompagnement, inspirés des standards

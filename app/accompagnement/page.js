@@ -16,12 +16,12 @@ export default function CoachingPage() {
 
       <section className="section-soft">
         <div className="wrap">
-          <span className="kicker">{c.listTitle}</span>
+          <h2 className="kicker">{c.listTitle}</h2>
           <div className="grid g-2" style={{ marginTop: 22 }}>
             {c.items.map((it, i) => (
-              <div className="card" key={i}>
+              <div className="card editorial-card" key={i}>
                 <div className="ic"><Icon name={it.ic} /></div>
-                <span className="num">0{i + 1}</span>
+                <span className="editorial-number">0{i + 1}</span>
                 <h3>{it.t}</h3>
                 <p>{it.d}</p>
               </div>

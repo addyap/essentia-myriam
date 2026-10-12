@@ -19,7 +19,8 @@ export default function RhPage() {
         <div className="wrap">
           <div className="grid g-2">
             {r.items.map((it, i) => (
-              <div className="card" key={i}>
+              <div className="card editorial-card" key={i}>
+                <span className="editorial-number">0{i + 1}</span>
                 <div className="ic"><Icon name={it.ic} /></div>
                 <h3>{it.t}</h3>
                 <p>{it.d}</p>
