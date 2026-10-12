@@ -26,7 +26,10 @@
     "backgroundVideo": {
       "pause": "Metti in pausa il video",
       "resume": "Riprendi il video"
-    }
+    },
+    "skip": "Vai al contenuto",
+    "scroll": "Esplora la sezione successiva",
+    "explore": "Esplora"
   },
   "nav": {
     "home": "Home",
@@ -206,39 +209,8 @@
     ],
     "pricingEyebrow": "Investimento",
     "pricingTitle": "Tariffe & modalità",
-    "pricingSub": "Sessioni in presenza o in videoconferenza. Pagamento online disponibile.",
-    "prices": [
-      {
-        "t": "Sessione conoscitiva",
-        "amt": "Gratis",
-        "per": "30 min",
-        "feat": [
-          "Un primo colloquio",
-          "Chiarire il tuo bisogno",
-          "Senza impegno"
-        ]
-      },
-      {
-        "t": "Sessione individuale",
-        "amt": "90€",
-        "per": "a sessione",
-        "feat": [
-          "60-75 minuti",
-          "In studio o online",
-          "Follow-up personalizzato"
-        ]
-      },
-      {
-        "t": "Percorso guidato",
-        "amt": "Su preventivo",
-        "per": "",
-        "feat": [
-          "Programma su misura",
-          "Supporto tra le sessioni",
-          "Tariffa agevolata"
-        ]
-      }
-    ]
+    "pricingSub": "Contatta Myriam per confermare tariffe, durata e modalità adatte alla tua richiesta.",
+    "prices": []
   },
   "rh": {
     "eyebrow": "Organizzazioni & imprese",
@@ -290,7 +262,7 @@
     "send": "Invia la richiesta",
     "calTitle": "Disponibilità",
     "calNote": "Orari indicativi — l’agenda online sincronizzata sarà integrata nel sito finale.",
-    "payNote": "Pagamento online sicuro disponibile",
+    "payNote": "Contatta Myriam per confermare tariffe, durata e modalità adatte alla tua richiesta.",
     "coordsTitle": "Contattami",
     "weekdays": [
       "L",
@@ -303,12 +275,18 @@
     ],
     "address": "Sessioni in studio & in videoconferenza",
     "waGreeting": "Buongiorno Myriam, la contatto dal suo sito Essentia riguardo a…",
-    "directLead": "Contatta direttamente Myriam per concordare insieme un primo appuntamento."
+    "directLead": "Contatta direttamente Myriam per concordare insieme un primo appuntamento.",
+    "stepsTitle": "Preparare il primo colloquio",
+    "steps": [
+      "Comunica le tue esigenze e disponibilità via WhatsApp, e-mail o telefono.",
+      "Chiedi conferma della tariffa, della durata, del luogo e delle condizioni di cancellazione.",
+      "Attendi la conferma di Myriam prima di considerare prenotato l’appuntamento."
+    ]
   },
   "resources": {
     "eyebrow": "Risorse",
-    "title": "Blog, video, podcast & newsletter",
-    "lead": "Articoli, riflessioni e strumenti per nutrire il tuo cammino, tra profondità psichica e sviluppo umano.",
+    "title": "Risorse in preparazione",
+    "lead": "Le nuove pubblicazioni saranno presentate qui quando saranno disponibili.",
     "tabs": [
       "Tutto",
       "Blog",

@@ -516,3 +516,7 @@ footer a:focus-visible,.crest-pause:focus-visible,.hero-video-control:focus-visi
 .hero-logo-controls{display:flex;flex-wrap:wrap;gap:4px 18px;align-items:center}
 .hero-logo-controls .crest-controls{display:contents}
 @media(prefers-reduced-motion:reduce){.hero-cine-video{display:none}}
+
+/* Booking expectations remain readable without resembling a reservation form. */
+.booking-steps{padding-left:1.4em;max-width:65ch;line-height:1.8}
+.booking-steps li+li{margin-top:14px}

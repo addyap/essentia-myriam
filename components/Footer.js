@@ -26,7 +26,6 @@ export function Footer() {
               <li><Link href={ROUTES.about}>{t.nav.about}</Link></li>
               <li><Link href={ROUTES.coaching}>{t.nav.coaching}</Link></li>
               <li><Link href={ROUTES.rh}>{t.nav.rh}</Link></li>
-              <li><Link href={ROUTES.resources}>{t.nav.resources}</Link></li>
             </ul>
           </div>
           <div>
@@ -35,6 +34,7 @@ export function Footer() {
               <li><Link href={ROUTES.booking}>{t.ui.book}</Link></li>
               <li><Link href={ROUTES.contact}>{t.nav.contact}</Link></li>
               <li><RevealContact enc={CONTACT.email} kind="email" /></li>
+              <li><RevealContact enc={CONTACT.wa} kind="wa" waText={t.booking.waGreeting}>{t.contact.whatsapp}</RevealContact></li>
             </ul>
           </div>
           <div>

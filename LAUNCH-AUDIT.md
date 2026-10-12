@@ -1,3 +1,5 @@
+> **État au 12 octobre 2026** — Le rapport ci-dessous décrit un audit historique. Les chiffres et observations de cette photographie ne sont pas tous l’état actuel du site. Voir `LAUNCH-RECORD.md` pour le suivi et `MYRIAM-LAUNCH-QUESTIONS.md` pour les informations encore attendues. Le dernier contrôle automatisé comprend 18 tests, tous réussis.
+
 # Essentia: launch audit and remediation
 
 Audit date: 11 October 2026. Scope: actual Next.js implementation, four-language content, eleven public routes, assets and production-build behaviour. This report distinguishes fixes made in this pass from earlier design work and outstanding owner/device checks. It does not certify legal compliance or complete WCAG conformance.

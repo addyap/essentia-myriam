@@ -26,7 +26,10 @@
     "backgroundVideo": {
       "pause": "Mettre la vidéo en pause",
       "resume": "Reprendre la vidéo"
-    }
+    },
+    "skip": "Aller au contenu",
+    "scroll": "Explorer la suite",
+    "explore": "Explorer"
   },
   "nav": {
     "home": "Accueil",
@@ -122,7 +125,7 @@
   "about": {
     "eyebrow": "À propos",
     "title": "Je m'appelle Myriam Diougoan Blanch",
-    "lead": "Je suis coach, psychothérapeute, formatrice et conseillère en ressources humaines.\n\n\n\n",
+    "lead": "Je suis coach, psychothérapeute, formatrice et conseillère en ressources humaines.",
     "photoCaption": "Photo professionnelle — chaleureuse & naturelle",
     "p1": "Depuis l’enfance, je suis habitée par le désir profond de comprendre l’être humain dans toute sa richesse et sa complexité.\nCette curiosité m’a conduite à me former aux sciences sociales et humaines, et à exercer auprès de personnes et d’organisations dans différents pays.",
     "p2": "Depuis le début des années 2000, j’accompagne les personnes et les organisations qui aspirent à plus de cohérence, d’alignement et de sens, et qui souhaitent avoir un impact constructif et durable.\n",
@@ -206,39 +209,8 @@
     ],
     "pricingEyebrow": "Investissement",
     "pricingTitle": "Tarifs & modalités",
-    "pricingSub": "Séances en présentiel ou en visioconférence. Paiement en ligne disponible.",
-    "prices": [
-      {
-        "t": "Séance découverte",
-        "amt": "Offert",
-        "per": "30 min",
-        "feat": [
-          "Premier échange",
-          "Clarifier votre besoin",
-          "Sans engagement"
-        ]
-      },
-      {
-        "t": "Séance individuelle",
-        "amt": "90€",
-        "per": "la séance",
-        "feat": [
-          "60 à 75 minutes",
-          "En cabinet ou en ligne",
-          "Suivi personnalisé"
-        ]
-      },
-      {
-        "t": "Parcours accompagné",
-        "amt": "Sur devis",
-        "per": "",
-        "feat": [
-          "Programme sur mesure",
-          "Suivi entre les séances",
-          "Tarif dégressif"
-        ]
-      }
-    ]
+    "pricingSub": "Contactez Myriam pour connaître les tarifs, la durée et les modalités adaptés à votre demande.",
+    "prices": []
   },
   "rh": {
     "eyebrow": "Organisations & entreprises",
@@ -290,7 +262,7 @@
     "send": "Envoyer ma demande",
     "calTitle": "Disponibilités",
     "calNote": "Créneaux indicatifs — l'agenda en ligne synchronisé sera intégré au site final.",
-    "payNote": "Paiement en ligne sécurisé disponible",
+    "payNote": "Contactez Myriam pour connaître les tarifs, la durée et les modalités adaptés à votre demande.",
     "coordsTitle": "Me contacter",
     "weekdays": [
       "L",
@@ -303,12 +275,18 @@
     ],
     "address": "Consultations en cabinet & en visioconférence",
     "waGreeting": "Bonjour Myriam, je vous contacte depuis votre site Essentia à propos de…",
-    "directLead": "Contactez Myriam directement pour convenir ensemble d’un premier rendez-vous."
+    "directLead": "Contactez Myriam directement pour convenir ensemble d’un premier rendez-vous.",
+    "stepsTitle": "Préparer votre premier échange",
+    "steps": [
+      "Indiquez votre besoin et vos disponibilités par WhatsApp, e-mail ou téléphone.",
+      "Demandez confirmation du tarif, de la durée, du lieu et des conditions d’annulation.",
+      "Attendez la confirmation de Myriam avant de considérer le rendez-vous comme réservé."
+    ]
   },
   "resources": {
     "eyebrow": "Ressources",
-    "title": "Blog, vidéos, podcasts & newsletter",
-    "lead": "Des articles, réflexions et outils pour nourrir votre cheminement, entre profondeur psychique et développement humain.",
+    "title": "Ressources en préparation",
+    "lead": "Les prochaines publications seront présentées ici lorsqu’elles seront disponibles.",
     "tabs": [
       "Tout",
       "Blog",

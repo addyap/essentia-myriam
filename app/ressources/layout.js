@@ -1,11 +1,12 @@
 const pageMetadata = {
-  title: 'Ressources — Blog, vidéos & podcasts | Essentia de Myriam Diougoan Blanch',
-  description: "Articles, vidéos et podcasts pour nourrir votre cheminement personnel et professionnel, entre profondeur psychique et développement humain.",
+  title: 'Ressources en préparation | Essentia de Myriam Diougoan Blanch',
+  description: "Les prochaines ressources Essentia seront publiées ici lorsqu’elles seront disponibles.",
   alternates: { canonical: '/ressources' },
 };
 
 export const metadata = {
   ...pageMetadata,
+  robots: { index: false, follow: true },
   openGraph: { title: pageMetadata.title, description: pageMetadata.description,
     url: pageMetadata.alternates.canonical, type: 'website',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630 }] },

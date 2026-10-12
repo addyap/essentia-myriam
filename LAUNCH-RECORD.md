@@ -68,3 +68,18 @@ Public placeholder locations: legal and privacy details in `content/launch-place
 | Multilingual SEO decision | [SHARED FRENCH URLS / FUTURE LOCALE ROUTES] |
 | Previous known-good deployment / rollback | [DEPLOYMENT ID / SHA / PROCEDURE] |
 | Final release approval | [OWNER / DATE / REMAINING EXCEPTIONS] |
+
+
+## Passe de finition — 12 octobre 2026
+
+- Retrait des tarifs/durées non confirmés et de la promesse de paiement en ligne dans les quatre langues. Aucun paiement n’est implémenté.
+- Rendez-vous : étapes explicites de prise de contact, demande des conditions et confirmation humaine ; aucun créneau réservé automatiquement.
+- Ressources sans contenu publié : retrait des liens de navigation/footer et du sitemap, page conservée pour les anciens liens avec état de préparation honnête et directive noindex.
+- Accès rapide WhatsApp replacé dans le footer plutôt qu’en superposition fixe ; contacts directs conservés sur les pages dédiées.
+- Lien d’évitement et invitation à défiler traduits dans les quatre langues ; correction de la description erronée de l’encodage des contacts.
+- Logo mobile, tracé et pivot 3D conservés ; aucune régression intentionnelle de l’identité visuelle.
+- Questionnaire propriétaire : MYRIAM-LAUNCH-QUESTIONS.md. Identité, qualifications, conditions et pratiques de données restent à confirmer ; encarts explicites conservés, aucune conformité prétendue.
+- Contrôles : vérification syntaxe/contenu et 18 tests automatisés réussis. Tests matériels iPhone/Android, Safari/Firefox, lecteur d’écran et mesure terrain des performances restent à réaliser.
+- Référencement multilingue par URL non implémenté : français indexable, changement de langue côté client. Une extension des marchés cibles doit précéder cette migration.
+
+- Vérification complémentaire : build de production réussi (avertissement existant de dépréciation React 18), page rendez-vous FR/EN vérifiée dans Chromium, accueil à 375 px sans débordement horizontal, lien d’évitement traduit et aucun contact flottant superposé.

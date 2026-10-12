@@ -106,8 +106,8 @@ export function HomeHero() {
         </div>
       </div>
 
-      <a className="hero-cine-scroll" href="#essence" aria-label="Défiler">
-        <span className="hero-cine-scroll-word">Explorer</span>
+      <a className="hero-cine-scroll" href="#essence" aria-label={t.ui.scroll}>
+        <span className="hero-cine-scroll-word">{t.ui.explore}</span>
         <span className="hero-cine-scroll-line" />
       </a>
     </section>

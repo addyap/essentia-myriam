@@ -26,7 +26,10 @@
     "backgroundVideo": {
       "pause": "Pause background video",
       "resume": "Resume background video"
-    }
+    },
+    "skip": "Skip to content",
+    "scroll": "Explore the next section",
+    "explore": "Explore"
   },
   "nav": {
     "home": "Home",
@@ -206,39 +209,8 @@
     ],
     "pricingEyebrow": "Investment",
     "pricingTitle": "Rates & practicalities",
-    "pricingSub": "Sessions in person or by video. Online payment available.",
-    "prices": [
-      {
-        "t": "Discovery session",
-        "amt": "Free",
-        "per": "30 min",
-        "feat": [
-          "A first conversation",
-          "Clarify your need",
-          "No commitment"
-        ]
-      },
-      {
-        "t": "Individual session",
-        "amt": "€90",
-        "per": "per session",
-        "feat": [
-          "60 to 75 minutes",
-          "In office or online",
-          "Personalised follow-up"
-        ]
-      },
-      {
-        "t": "Guided journey",
-        "amt": "On quote",
-        "per": "",
-        "feat": [
-          "Bespoke programme",
-          "Support between sessions",
-          "Reduced rate"
-        ]
-      }
-    ]
+    "pricingSub": "Contact Myriam to confirm fees, session length and arrangements for your request.",
+    "prices": []
   },
   "rh": {
     "eyebrow": "Organisations & companies",
@@ -290,7 +262,7 @@
     "send": "Send my request",
     "calTitle": "Availability",
     "calNote": "Indicative slots — the synchronised online calendar will be built into the final site.",
-    "payNote": "Secure online payment available",
+    "payNote": "Contact Myriam to confirm fees, session length and arrangements for your request.",
     "coordsTitle": "Get in touch",
     "weekdays": [
       "M",
@@ -303,12 +275,18 @@
     ],
     "address": "Sessions in office & by video",
     "waGreeting": "Hello Myriam, I’m reaching out from your Essentia website about…",
-    "directLead": "Contact Myriam directly to arrange your first appointment together."
+    "directLead": "Contact Myriam directly to arrange your first appointment together.",
+    "stepsTitle": "Prepare for your first conversation",
+    "steps": [
+      "Share your needs and availability by WhatsApp, email or phone.",
+      "Ask for confirmation of the fee, session length, location and cancellation terms.",
+      "Wait for Myriam’s confirmation before considering your appointment booked."
+    ]
   },
   "resources": {
     "eyebrow": "Resources",
-    "title": "Blog, videos, podcasts & newsletter",
-    "lead": "Articles, reflections and tools to nourish your journey, between psychological depth and human development.",
+    "title": "Resources in preparation",
+    "lead": "New publications will appear here when they are available.",
     "tabs": [
       "All",
       "Blog",

@@ -20,6 +20,7 @@ export default function BookingPage() {
         </aside>
       </div>
     </section>
+    <section><div className="wrap" style={{ maxWidth: 780 }}><h2>{t.booking.stepsTitle}</h2><ol className="booking-steps">{t.booking.steps.map(step => <li key={step}>{step}</li>)}</ol></div></section>
     <section><div className="wrap"><PendingDetails title={t.launchDetails.booking.title} status={t.launchDetails.status} note={t.launchDetails.note} fields={t.launchDetails.booking.fields} /></div></section>
   </>;
 }

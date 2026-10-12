@@ -3,7 +3,7 @@ import './globals.css';
 import { Providers } from '@/components/Providers';
 import { Header } from '@/components/Header';
 import { Footer } from '@/components/Footer';
-import { WhatsAppButton } from '@/components/WhatsAppButton';
+import { SkipLink } from '@/components/SkipLink';
 import { MotionSystem } from '@/components/MotionSystem';
 import { SITE_URL } from '@/lib/config';
 
@@ -95,13 +95,12 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <a href="#main-content" className="skip-link">Aller au contenu</a>
         <Providers>
+          <SkipLink />
           <Header />
           <MotionSystem />
           <main id="main-content" tabIndex={-1}>{children}</main>
           <Footer />
-          <WhatsAppButton />
         </Providers>
       </body>
     </html>

@@ -48,22 +48,8 @@ export default function CoachingPage() {
             <h2 className="big">{c.pricingTitle}</h2>
             <p className="lead">{c.pricingSub}</p>
           </div>
-          <div className="price-grid">
-            {c.prices.map((p, i) => (
-              <div className="price" key={i}>
-                <h3>{p.t}</h3>
-                <div className="amt">{p.amt} {p.per ? <small>/ {p.per}</small> : null}</div>
-                <ul>
-                  {p.feat.map((f, j) => (
-                    <li key={j}><span className="tick">✦</span> {f}</li>
-                  ))}
-                </ul>
-                <Link className="btn btn-ghost" href={ROUTES.booking}
-                  style={{ marginTop: 16, width: '100%', justifyContent: 'center' }}>
-                  {t.ui.book}
-                </Link>
-              </div>
-            ))}
+          <div className="center">
+            <Link className="btn btn-gold" href={ROUTES.booking}>{t.ui.book}</Link>
           </div>
         </div>
       </section>
