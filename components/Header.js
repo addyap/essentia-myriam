@@ -22,10 +22,10 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    // Mirrors the @media(max-width:1280px) breakpoint in globals.css — below it,
+    // Mirrors the @media(max-width:1320px) breakpoint in globals.css — below it,
     // nav.main is visually hidden off-screen via transform (not display:none),
     // so its links must be pulled out of the tab order by hand when closed.
-    const mq = window.matchMedia('(max-width: 1280px)');
+    const mq = window.matchMedia('(max-width: 1320px)');
     const update = () => setIsMobile(mq.matches);
     update();
     mq.addEventListener('change', update);
@@ -82,7 +82,7 @@ export function Header() {
       {/* main header */}
       <header className="site">
         <div className="wrap nav">
-          <Link href="/" className="brand" onClick={() => setOpen(false)}>
+          <Link href="/" className="brand" aria-label={`${brand.name} ${brand.byline}`} onClick={() => setOpen(false)}>
             <span className="mark"><LogoMark /></span>
             <span className="words">
               <span className="name">{brand.name.toLowerCase() === 'essentia' ? 'Essentia' : brand.name}</span>
@@ -98,7 +98,7 @@ export function Header() {
             aria-expanded={open}
             onClick={() => setOpen((v) => !v)}
           >
-            {open ? '✕' : '☰'}
+            <span className="menu-toggle-lines" aria-hidden="true"><i /><i /></span>
           </button>
           <nav ref={nav} id="main-navigation" className={'main' + (open ? ' open' : '')} aria-hidden={navHidden}>
             {NAV.map((key) => {
