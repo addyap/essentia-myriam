@@ -88,7 +88,7 @@ export default function RootLayout({ children }) {
     // full-site audit report for the URL-based-routing fix if this changes.
     <html lang="fr" className={`${headlineSerif.variable} ${mulish.variable} ${parisienne.variable}`}>
       <head>
-        <noscript><style>{`.topbar,.menu-toggle,.switch,.tabs,.hero-logo-controls{display:none!important}nav.main{position:static!important;height:auto!important;visibility:visible!important;opacity:1!important;transform:none!important}header.site{position:relative!important}.motion-pending{opacity:1!important;transform:none!important}`}</style></noscript>
+        <noscript><style>{`.topbar,.menu-toggle,.switch,.menu-languages,.header-languages,.tabs,.hero-logo-controls{display:none!important}nav.main{position:static!important;height:auto!important;visibility:visible!important;opacity:1!important;transform:none!important}header.site{position:relative!important}.motion-pending{opacity:1!important;transform:none!important}`}</style></noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

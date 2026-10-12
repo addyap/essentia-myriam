@@ -8,6 +8,9 @@ import { Icon } from './Icon';
 import { ROUTES, NAV } from '@/lib/routes';
 import { ENABLED_LANGS } from '@/lib/config';
 
+// Each language is named in itself, so a visitor can always find their own.
+const LANG_NAMES = { fr: 'Français', en: 'English', it: 'Italiano', es: 'Español' };
+
 export function Header() {
   const { lang, setLang, t, brand } = useApp();
   const pathname = usePathname();
@@ -22,9 +25,9 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    // Mirrors the @media(max-width:1320px) breakpoint in globals.css — below it,
-    // nav.main is visually hidden off-screen via transform (not display:none),
-    // so its links must be pulled out of the tab order by hand when closed.
+    // Mirrors the @media(max-width:1320px) navigation breakpoint in globals.css —
+    // below it, nav.main is visually hidden off-screen via transform (not
+    // display:none), so its links must be pulled out of the tab order by hand.
     const mq = window.matchMedia('(max-width: 1320px)');
     const update = () => setIsMobile(mq.matches);
     update();
@@ -64,16 +67,20 @@ export function Header() {
   // Switcher only makes sense once a second language is actually reachable
   // again (see lib/config.js ENABLED_LANGS) — a lone "FR" chip does nothing.
   const showSwitcher = ENABLED_LANGS.length > 1;
-  const langChips = ENABLED_LANGS.map((l) => (
+  // Short codes in the desktop row, full native names in the roomier mobile menu.
+  const langButtons = (full) => ENABLED_LANGS.map((l) => (
     <button
       key={l}
-      className={'chip' + (lang === l ? ' on' : '')}
+      type="button"
+      lang={l}
+      className={full ? 'chip' + (lang === l ? ' on' : '') : (lang === l ? 'on' : undefined)}
       onClick={() => setLang(l)}
-      tabIndex={navHidden ? -1 : undefined}
-      aria-label={l.toUpperCase()}
+      tabIndex={full && navHidden ? -1 : undefined}
+      aria-label={full ? undefined : LANG_NAMES[l]}
+      title={full ? undefined : LANG_NAMES[l]}
       aria-pressed={lang === l}
     >
-      {l.toUpperCase()}
+      {full ? LANG_NAMES[l] : l.toUpperCase()}
     </button>
   ));
 
@@ -121,16 +128,16 @@ export function Header() {
               {t.ui.book}
             </Link>
             {showSwitcher && (
-              <div className="menu-languages switch" role="group" aria-label={t.ui.language}>
+              <div className="menu-languages" role="group" aria-label={t.ui.language}>
                 <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
-                {langChips}
+                <div className="menu-languages-list">{langButtons(true)}</div>
               </div>
             )}
           </nav>
           {showSwitcher && (
-            <select className="header-language" aria-label={t.ui.language} value={lang} onChange={event => setLang(event.target.value)}>
-              {ENABLED_LANGS.map(code => <option key={code} value={code}>{code.toUpperCase()}</option>)}
-            </select>
+            <div className="header-languages" role="group" aria-label={t.ui.language}>
+              {langButtons(false)}
+            </div>
           )}
         </div>
       </header>
