@@ -22,10 +22,10 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    // Mirrors the @media(max-width:1080px) breakpoint in globals.css — below it,
+    // Mirrors the @media(max-width:1280px) breakpoint in globals.css — below it,
     // nav.main is visually hidden off-screen via transform (not display:none),
     // so its links must be pulled out of the tab order by hand when closed.
-    const mq = window.matchMedia('(max-width: 1080px)');
+    const mq = window.matchMedia('(max-width: 1280px)');
     const update = () => setIsMobile(mq.matches);
     update();
     mq.addEventListener('change', update);
@@ -69,6 +69,7 @@ export function Header() {
       key={l}
       className={'chip' + (lang === l ? ' on' : '')}
       onClick={() => setLang(l)}
+      tabIndex={navHidden ? -1 : undefined}
       aria-label={l.toUpperCase()}
       aria-pressed={lang === l}
     >
@@ -78,18 +79,6 @@ export function Header() {
 
   return (
     <>
-      {/* language bar — mobile/tablet only; on desktop the switch lives in the header row */}
-      {showSwitcher && (
-        <div className="topbar">
-          <div className="wrap">
-            <div className="switch">
-              <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
-              {langChips}
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* main header */}
       <header className="site">
         <div className="wrap nav">
@@ -101,13 +90,6 @@ export function Header() {
             </span>
           </Link>
 
-          {showSwitcher && (
-            <div className="lang-side switch">
-              <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
-              {langChips}
-            </div>
-          )}
-
           <button
             ref={toggle}
             aria-controls="main-navigation"
@@ -118,11 +100,6 @@ export function Header() {
           >
             {open ? '✕' : '☰'}
           </button>
-        </div>
-
-        {/* desktop: centred menu row under the brand row; mobile: display:contents
-            wrapper so nav.main keeps working as the fixed slide-down overlay */}
-        <div className="nav-row">
           <nav ref={nav} id="main-navigation" className={'main' + (open ? ' open' : '')} aria-hidden={navHidden}>
             {NAV.map((key) => {
               const href = ROUTES[key];
@@ -143,7 +120,18 @@ export function Header() {
             <Link className="btn btn-gold" href={ROUTES.booking} tabIndex={navHidden ? -1 : undefined} onClick={() => setOpen(false)}>
               {t.ui.book}
             </Link>
+            {showSwitcher && (
+              <div className="menu-languages switch" role="group" aria-label={t.ui.language}>
+                <span className="lbl"><Icon name="globe" />{t.ui.language}</span>
+                {langChips}
+              </div>
+            )}
           </nav>
+          {showSwitcher && (
+            <select className="header-language" aria-label={t.ui.language} value={lang} onChange={event => setLang(event.target.value)}>
+              {ENABLED_LANGS.map(code => <option key={code} value={code}>{code.toUpperCase()}</option>)}
+            </select>
+          )}
         </div>
       </header>
     </>
