@@ -199,3 +199,6 @@ Page headers, legal headings, all content sections and CTA banners now use `Sect
 A static server-rendered preview reserves the drawing/control space. Each signature mounts its motion engine once on entering the viewport (15% intersection); unopened sections do not initialize WebGL. Each instance has local translated replay/pause controls, independent from the homepage portal. Existing offscreen/hidden-tab suspension and reduced-motion static fallback remain active. Inner signatures add no video. Header navigation logo stays a stable orientation landmark.
 
 Validation: 20 passing tests, including viewport gating and local pause propagation; production build and route checker pass. At 320 px, the four service sections each have a signature without horizontal overflow; legal-page controls also fit. Physical-device rendering and battery use remain unmeasured.
+
+### Hero-only logo placement
+The handwriting-to-gold-pivot animation belongs only in the homepage hero and each inner-page PageHeader. Content sections have no repeated logo signatures. Existing CTA band marks remain static.

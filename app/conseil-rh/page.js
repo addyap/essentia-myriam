@@ -1,8 +1,8 @@
 'use client';
+import { LogoMark } from '@/components/LogoMark';
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
-import { SectionLogo } from '@/components/SectionLogo';
 import { PageHeader } from '@/components/PageHeader';
 import { ROUTES } from '@/lib/routes';
 
@@ -15,7 +15,7 @@ export default function RhPage() {
         <PageHeader eyebrow={r.eyebrow} title={r.title} lead={r.lead} scene="rh" />
       </section>
 
-      <section className="section-soft"><div className="wrap section-signature"><SectionLogo /></div>
+      <section className="section-soft">
         <div className="wrap">
           <div className="grid g-2">
             {r.items.map((it, i) => (
@@ -30,7 +30,7 @@ export default function RhPage() {
         </div>
       </section>
 
-      <section><div className="wrap section-signature"><SectionLogo /></div>
+      <section>
         <div className="wrap split">
           <div>
             <span className="kicker">{r.eyebrow}</span>
@@ -44,7 +44,7 @@ export default function RhPage() {
       <section>
         <div className="wrap">
           <div className="band">
-            <div className="mark-lg"><SectionLogo banner /></div>
+            <div className="mark-lg"><LogoMark /></div>
             <span className="script" style={{ fontSize: 26 }}>{t.ui.discover}</span>
             <h2>{r.ctaTitle}</h2>
             <Link className="btn btn-gold" href={ROUTES.booking}>{r.ctaBtn}</Link>

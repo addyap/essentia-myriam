@@ -506,8 +506,6 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
 .section-logo .crest-controls{display:flex;justify-content:center;gap:0 12px;margin-top:8px;width:220px;position:relative;left:50%;transform:translateX(-50%)}
 .section-logo .crest-replay,.section-logo .crest-pause{color:var(--gold-deep);font-size:12px;line-height:1.4;text-align:center;min-height:44px}
 .page-hero .section-logo .crest-replay,.page-hero .section-logo .crest-pause,.band .section-logo .crest-replay,.band .section-logo .crest-pause,.philosophy .section-logo .crest-replay,.philosophy .section-logo .crest-pause{color:#E8D8A6}
-.section-signature{display:flex;justify-content:flex-end;margin-bottom:24px}
-.section-signature .section-logo{width:72px;margin-right:72px}
 .section-logo--banner{width:96px;margin:0 auto 24px}
 .page-heading--quiet .section-logo{width:76px}
 .page-heading--quiet .section-logo .crest-controls{width:150px;gap:0}
@@ -519,7 +517,6 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
  .page-heading--quiet .page-monogram{grid-row:1;align-items:flex-start}
  .page-heading--quiet .section-logo{width:60px}
  .page-heading--quiet .section-logo .crest-controls{width:260px;justify-content:flex-start;gap:12px}
- .section-signature .section-logo{width:60px}
 }
 @media(prefers-reduced-motion:reduce){.section-logo .crest-controls{display:none}}
 .page-monogram .section-logo .crest-controls{width:100%;left:0;transform:none}

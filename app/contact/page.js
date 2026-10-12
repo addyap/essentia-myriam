@@ -1,5 +1,4 @@
 'use client';
-import { SectionLogo } from '@/components/SectionLogo';
 import { useApp } from '@/components/Providers';
 import { PageHeader } from '@/components/PageHeader';
 import { ContactOptions } from '@/components/ContactOptions';
@@ -8,7 +7,7 @@ export default function ContactPage() {
   const { t } = useApp();
   return <>
     <section className="page-hero"><PageHeader eyebrow={t.contact.eyebrow} title={t.contact.title} lead={t.contact.lead} scene="contact" /></section>
-    <section className="section-soft"><div className="wrap section-signature"><SectionLogo /></div>
+    <section className="section-soft">
       <div className="wrap contact-layout">
         <ContactOptions />
         <aside className="contact-aside">

@@ -1,9 +1,9 @@
 'use client';
+import { LogoMark } from '@/components/LogoMark';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useApp } from '@/components/Providers';
 import { Icon } from '@/components/Icon';
-import { SectionLogo } from '@/components/SectionLogo';
 import { HomeHero } from '@/components/HomeHero';
 import { ROUTES } from '@/lib/routes';
 
@@ -14,7 +14,7 @@ export default function HomePage() {
     <>
       <HomeHero />
 
-      <section id="essence" className="home-intro"><div className="wrap section-signature"><SectionLogo /></div>
+      <section id="essence" className="home-intro">
         <div className="wrap intro-grid">
           <div className="intro-portrait">
             <Image src="/myriam.jpg" alt="Myriam Diougoan Blanch" fill sizes="(max-width: 900px) 80vw, 360px" style={{ objectFit: 'cover' }} />
@@ -29,7 +29,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-soft home-pillars"><div className="wrap section-signature"><SectionLogo /></div>
+      <section className="section-soft home-pillars">
         <div className="wrap">
           <div className="center" style={{ marginBottom: 44 }}>
             <h2 className="eyebrow">{h.pillarsEyebrow}</h2>
@@ -47,7 +47,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="home-audience"><div className="wrap section-signature"><SectionLogo /></div>
+      <section className="home-audience">
         <div className="wrap">
           <div className="center" style={{ marginBottom: 44 }}>
             <span className="eyebrow">{h.forEyebrow}</span>
@@ -66,7 +66,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-accent section-photo philosophy"><div className="wrap section-signature"><SectionLogo /></div>
+      <section className="section-accent section-photo philosophy">
         <Image src="/images/nature/testimonials.webp" alt="" fill sizes="100vw" style={{ objectFit: 'cover' }} className="section-bg-photo" />
         <div className="section-scrim" />
         <div className="wrap">
@@ -81,7 +81,7 @@ export default function HomePage() {
       <section>
         <div className="wrap">
           <div className="band">
-            <div className="mark-lg"><SectionLogo banner /></div>
+            <div className="mark-lg"><LogoMark /></div>
             <span className="script" style={{ fontSize: 26 }}>{t.ui.discover}</span>
             <h2>{h.bandTitle}</h2>
             <p>{h.bandText}</p>

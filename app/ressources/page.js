@@ -1,5 +1,4 @@
 'use client';
-import { SectionLogo } from '@/components/SectionLogo';
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
 import { PageHeader } from '@/components/PageHeader';
@@ -9,6 +8,6 @@ export default function ResourcesPage() {
   const { t } = useApp();
   return <>
     <section className="page-hero"><PageHeader eyebrow={t.resources.eyebrow} title={t.resources.title} lead={t.resources.lead} scene="resources" /></section>
-    <section className="section-soft"><div className="wrap section-signature"><SectionLogo /></div><div className="wrap"><Link className="btn btn-gold" href={ROUTES.contact}>{t.nav.contact}</Link></div></section>
+    <section className="section-soft"><div className="wrap"><Link className="btn btn-gold" href={ROUTES.contact}>{t.nav.contact}</Link></div></section>
   </>;
 }
