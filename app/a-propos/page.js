@@ -21,9 +21,7 @@ export default function AboutPage() {
             <p className="prose" style={{ marginBottom: 14 }}>{a.p1}</p>
             <p className="prose">{a.p2}</p>
             <span className="kicker" style={{ marginTop: 18, display: 'block' }}>{a.langsTitle}</span>
-            <div className="chips-langs">
-              <span>Français</span><span>English</span><span>Italiano</span><span>Español</span>
-            </div>
+            <p className="spoken-languages">Français · English · Italiano · Español</p>
           </div>
         </div>
       </section>

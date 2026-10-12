@@ -83,3 +83,16 @@ Public placeholder locations: legal and privacy details in `content/launch-place
 - Référencement multilingue par URL non implémenté : français indexable, changement de langue côté client. Une extension des marchés cibles doit précéder cette migration.
 
 - Vérification complémentaire : build de production réussi (avertissement existant de dépréciation React 18), page rendez-vous FR/EN vérifiée dans Chromium, accueil à 375 px sans débordement horizontal, lien d’évitement traduit et aucun contact flottant superposé.
+
+## Nettoyage technique — 12 octobre 2026
+
+- React et React DOM 19.3.0 validés ensemble ; build exécuté avec Node 24.21.0, aligné sur Node 24.x configuré dans Vercel. `.nvmrc` et `engines` explicitent le runtime.
+- Suppression de 16 images sans référence (3 623 559 octets), de deux composants obsolètes et des anciens styles de formulaire, agenda, tarifs, newsletter et catalogue fictif. Les fichiers retirés restent récupérables dans Git.
+- CSS : 40 580 → 34 137 octets. Chaque fichier de traduction perd environ 2,6 Ko de contenu obsolète ; contrôle automatique de parité des clés ajouté.
+- Footer : vrais boutons de changement de langue, état sélectionné et cibles de 44 px. À propos : langues de travail affichées comme texte informatif.
+- Petits libellés et commandes du logo/vidéo agrandis. Logo mobile conservé : ratio de pixels plafonné à 1,25 au lieu de 1,5, courbes à 12 segments au lieu de 20 sur téléphone. Ces plafonds réduisent le budget de rendu ; aucune mesure de fluidité sur téléphone réel n’est prétendue.
+- Vérification du sitemap corrigée : ressources en préparation exclues et noindex contrôlé.
+- Contrôles réussis : 18 tests, syntaxe/contenu, parité des traductions, build Node 24 sans avertissement React 18, 0 vulnérabilité de production connue, HTTP sur 11 routes (métadonnées, en-têtes, contacts, 404, robots/sitemap et assets).
+- Vérification Chromium : changement de langue depuis le footer ; page À propos et accueil à 375 px sans débordement horizontal.
+- Restent à valider : détails métier/qualifications/mentions légales avec Myriam, téléphones et navigateurs réels, lecteur d’écran, mesures de performance terrain. Les URL multilingues sont une évolution distincte non réalisée dans ce nettoyage.
+- Vercel : dernière production 0103baa READY ; la présence de deux déploiements du même commit ne prouve pas à elle seule la fiabilité du déclenchement Git. Vérifier le prochain push plutôt que modifier les accès ou ajouter un pipeline concurrent sans diagnostic.

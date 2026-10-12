@@ -4,7 +4,7 @@ Next.js App Router website for coaching, psychotherapy and HR consulting. French
 
 ## Development and verification
 
-Use Node.js 22 LTS and the committed lockfile.
+Use Node.js 24 LTS (matching Vercel and `.nvmrc`) and the committed lockfile.
 
 ```sh
 npm ci
@@ -17,7 +17,7 @@ npm start
 node scripts/verify-site.mjs http://localhost:3000
 ```
 
-`check` validates JavaScript syntax and JSON content; it is not ESLint. `test:motion` remains available for motion lifecycle tests alone. The production build currently warns that React 18 support is deprecated; plan a separately tested React 19 migration before Next.js 17.
+`check` validates JavaScript syntax and JSON content; it is not ESLint. `test:motion` remains available for motion lifecycle tests alone. React and React DOM are pinned together to React 19; validate upgrades with the complete test suite and production build.
 
 ## Editing
 
@@ -36,7 +36,7 @@ Contact and appointment pages use real email, phone and WhatsApp links. There is
 
 ## Release
 
-GitHub repository: `addyap/essentia-myriam`. Production origin: `https://www.essentiademdb.com`. The existing Vercel Git integration deploys pushes to `main`. Review the generated deployment and test its public alias after release; a successful local build alone does not confirm production health.
+GitHub repository: `addyap/essentia-myriam`. Production origin: `https://www.essentiademdb.com`. The production branch is `main`. Check Vercel after each push: recent releases needed a manual deployment, so automatic delivery must not be assumed. Review the generated deployment and test its public alias after release; a successful local build alone does not confirm production health.
 
 See **LAUNCH-AUDIT.md** for ranked findings, verification evidence and the release checklist. **DESIGN-AUDIT.md** and **MOTION-SYSTEM.md** describe the visual direction and motion specification. Missing legal business details and owner validation of claims remain release gates. Multilingual SEO needs distinct locale URLs; current translations are a visitor feature at shared French URLs.
 

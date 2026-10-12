@@ -17,7 +17,9 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       if (disposed) return;
       const el = host.current;
       renderer = new T.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 1.5));
+      // The crest is small on phones: cap raster work without removing 3D.
+      const compact = matchMedia('(max-width: 600px)').matches;
+      renderer.setPixelRatio(Math.min(devicePixelRatio, compact ? 1.25 : 1.5));
       renderer.setClearColor(0x000000, 0);
       renderer.outputColorSpace = T.SRGBColorSpace;
       renderer.toneMapping = T.ACESFilmicToneMapping;
@@ -42,7 +44,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       const data = new SVGLoader().parse(source.replaceAll('currentColor', '#FCC200'));
       for (const path of data.paths) {
         for (const shape of path.toShapes()) {
-          const geometry = new T.ExtrudeGeometry(shape, { depth: 14, bevelEnabled: true, bevelThickness: 1.1, bevelSize: .65, bevelSegments: 2, curveSegments: 20, steps: 1 });
+          const geometry = new T.ExtrudeGeometry(shape, { depth: 14, bevelEnabled: true, bevelThickness: 1.1, bevelSize: .65, bevelSegments: 2, curveSegments: compact ? 12 : 20, steps: 1 });
           geometry.translate(-340.5, -421, -7);
           geometry.scale(1, -1, 1);
           geometries.push(geometry); group.add(new T.Mesh(geometry, [face, edge]));

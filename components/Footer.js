@@ -3,10 +3,11 @@ import Link from 'next/link';
 import { useApp } from './Providers';
 import { ROUTES } from '@/lib/routes';
 import { RevealContact } from './RevealContact';
+import { ENABLED_LANGS } from '@/lib/config';
 import { CONTACT } from '@/lib/contact';
 
 export function Footer() {
-  const { t, brand } = useApp();
+  const { t, brand, lang, setLang } = useApp();
   return (
     <footer className="site">
       <div className="wrap">
@@ -16,8 +17,8 @@ export function Footer() {
             <div className="byline">{brand.byline}</div>
             <div className="sub">{brand.sub}</div>
             <p style={{ marginTop: 14, fontSize: 14, maxWidth: 280 }}>{t.footer.blurb}</p>
-            <div className="chips-langs" style={{ marginTop: 16 }}>
-              <span>Français</span><span>English</span><span>Italiano</span><span>Español</span>
+            <div className="footer-languages" role="group" aria-label={t.ui.language}>
+              {ENABLED_LANGS.map(code => <button type="button" key={code} lang={code} aria-pressed={lang === code} onClick={() => setLang(code)}>{{ fr: 'Français', en: 'English', it: 'Italiano', es: 'Español' }[code]}</button>)}
             </div>
           </div>
           <div>

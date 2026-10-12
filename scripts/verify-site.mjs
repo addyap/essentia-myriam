@@ -21,7 +21,10 @@ for (const path of paths) {
 }
 assert.equal((await fetch(new URL('/this-page-does-not-exist', origin))).status, 404);
 const sitemap = await (await fetch(new URL('/sitemap.xml', origin))).text();
-for (const path of paths) assert.ok(sitemap.includes(`https://www.essentiademdb.com${path === '/' ? '' : path}`));
+for (const path of paths.filter(path => path !== '/ressources')) assert.ok(sitemap.includes(`https://www.essentiademdb.com${path === '/' ? '' : path}`));
+assert.ok(!sitemap.includes('/ressources'), 'unpublished resources excluded from sitemap');
+const resources = await (await fetch(new URL('/ressources', origin))).text();
+assert.match(resources, /name="robots" content="noindex, follow"/);
 assert.match(await (await fetch(new URL('/robots.txt', origin))).text(), /Sitemap: https:\/\/www.essentiademdb.com\/sitemap.xml/);
 for (const path of ['/og-image.jpg', '/favicon.png', '/images/nature/home.webp']) assert.equal((await fetch(new URL(path, origin))).status, 200);
 console.log(`Passed: ${paths.length} routes, metadata, headers, server-rendered contacts, 404, robots, sitemap and key assets.`);

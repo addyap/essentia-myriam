@@ -4,19 +4,13 @@
       "name": "Essentia",
       "sub": "A suspended journey where time whispers to your true essence",
       "byline": "by Myriam Diougoan Blanch"
-    },
-    "aletheias": {
-      "name": "Aletheias",
-      "sub": "the clarity that reveals"
     }
   },
   "ui": {
     "language": "Language",
     "book": "Book a session",
     "discover": "Discover",
-    "send": "Send",
     "menu": "Menu",
-    "formUnavailable": "This form isn't connected yet — please reach us directly via WhatsApp, phone or email in the meantime.",
     "legalFrenchOnly": "This legal document is only available in French.",
     "logoMotion": {
       "replay": "Replay the logo drawing",
@@ -101,22 +95,7 @@
         "d": "Skills development, talent management, stress prevention and an inclusive culture."
       }
     ],
-    "testiEyebrow": "Client voices",
     "testiTitle": "Support is not a trend — it is a path",
-    "testi": [
-      {
-        "q": "A warm, safe space where I finally dared to explore and reinvent myself.",
-        "w": "Claire M. — Career change"
-      },
-      {
-        "q": "A rare quality of listening and structure that carried me through a difficult transition.",
-        "w": "Marc D. — Executive"
-      },
-      {
-        "q": "Myriam blends human depth with pragmatism. Our teams came out transformed.",
-        "w": "HR Director — International SME"
-      }
-    ],
     "bandTitle": "Ready to free your potential?",
     "bandText": "Together, we co-create a tailored path, aligned with your values and ambitions.",
     "bandBtn": "Book a first conversation",
@@ -209,8 +188,7 @@
     ],
     "pricingEyebrow": "Investment",
     "pricingTitle": "Rates & practicalities",
-    "pricingSub": "Contact Myriam to confirm fees, session length and arrangements for your request.",
-    "prices": []
+    "pricingSub": "Contact Myriam to confirm fees, session length and arrangements for your request."
   },
   "rh": {
     "eyebrow": "Organisations & companies",
@@ -246,33 +224,7 @@
   "booking": {
     "eyebrow": "Book a session",
     "title": "Reserve your first conversation",
-    "lead": "Choose a slot, leave me a word, and together we’ll define the right support.",
-    "fName": "Full name",
-    "fEmail": "Email address",
-    "fType": "Type of support",
-    "fMsg": "Your message",
-    "opt": [
-      "Discovery session (free)",
-      "Individual coaching",
-      "Team coaching",
-      "Psychotherapy session",
-      "Workshops & training",
-      "HR consulting & training"
-    ],
-    "send": "Send my request",
-    "calTitle": "Availability",
-    "calNote": "Indicative slots — the synchronised online calendar will be built into the final site.",
-    "payNote": "Contact Myriam to confirm fees, session length and arrangements for your request.",
     "coordsTitle": "Get in touch",
-    "weekdays": [
-      "M",
-      "T",
-      "W",
-      "T",
-      "F",
-      "S",
-      "S"
-    ],
     "address": "Sessions in office & by video",
     "waGreeting": "Hello Myriam, I’m reaching out from your Essentia website about…",
     "directLead": "Contact Myriam directly to arrange your first appointment together.",
@@ -286,66 +238,12 @@
   "resources": {
     "eyebrow": "Resources",
     "title": "Resources in preparation",
-    "lead": "New publications will appear here when they are available.",
-    "tabs": [
-      "All",
-      "Blog",
-      "Vlog",
-      "Podcast"
-    ],
-    "items": [
-      {
-        "cat": "Blog",
-        "ic": "book",
-        "t": "Daring a career change: where to begin?",
-        "d": "Three keys to turning uncertainty into an aligned project."
-      },
-      {
-        "cat": "Vlog",
-        "ic": "play",
-        "t": "Taming the gaze of others",
-        "d": "A video to free yourself from the weight of outside judgement."
-      },
-      {
-        "cat": "Podcast",
-        "ic": "mic",
-        "t": "Resilience is cultivated",
-        "d": "A conversation on grief, change and renewal."
-      },
-      {
-        "cat": "Blog",
-        "ic": "book",
-        "t": "Self-esteem: beyond self-sabotage",
-        "d": "Understanding the beliefs that trap us, to better let them go."
-      },
-      {
-        "cat": "Podcast",
-        "ic": "mic",
-        "t": "Leading without losing yourself",
-        "d": "Embodying aligned, human leadership every day."
-      },
-      {
-        "cat": "Vlog",
-        "ic": "play",
-        "t": "Transitions: crossing the in-between",
-        "d": "How to inhabit thresholds without fleeing them."
-      }
-    ],
-    "newsTitle": "Receive the newsletter",
-    "newsSub": "Resources and inspiration, once a month. No overload.",
-    "newsBtn": "Sign up",
-    "newsPlace": "Your email address",
-    "comingSoon": "Coming soon"
+    "lead": "New publications will appear here when they are available."
   },
   "contact": {
     "eyebrow": "Contact",
     "title": "Let’s connect",
     "lead": "A question, a project, the wish for a first conversation? Write to me — I reply personally.",
-    "fName": "Full name",
-    "fEmail": "Email address",
-    "fSubject": "Subject",
-    "fMsg": "Your message",
-    "send": "Send",
     "infoTitle": "Contact details",
     "hoursTitle": "Availability",
     "hours": "Monday to Friday, 9am – 7pm (CET)",

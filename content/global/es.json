@@ -4,19 +4,13 @@
       "name": "Essentia",
       "sub": "Un viaje suspendido donde el tiempo susurra a tu verdadera esencia",
       "byline": "de Myriam Diougoan Blanch"
-    },
-    "aletheias": {
-      "name": "Aletheias",
-      "sub": "la claridad que revela"
     }
   },
   "ui": {
     "language": "Idioma",
     "book": "Reservar una cita",
     "discover": "Descubrir",
-    "send": "Enviar",
     "menu": "Menú",
-    "formUnavailable": "Este formulario todavía no está conectado — mientras tanto, contáctanos directamente por WhatsApp, teléfono o email.",
     "legalFrenchOnly": "Este documento legal solo está disponible en francés.",
     "logoMotion": {
       "replay": "Repetir el dibujo del logo",
@@ -101,22 +95,7 @@
         "d": "Desarrollo de competencias, gestión del talento, prevención del estrés y cultura inclusiva."
       }
     ],
-    "testiEyebrow": "La voz de los clientes",
     "testiTitle": "El acompañamiento no es una moda, es un camino",
-    "testi": [
-      {
-        "q": "Un espacio cálido y seguro donde por fin me atreví a explorar y reinventarme.",
-        "w": "Claire M. — Reconversión"
-      },
-      {
-        "q": "Una escucha poco común y una estructura que me sostuvieron en una transición difícil.",
-        "w": "Marc D. — Directivo"
-      },
-      {
-        "q": "Myriam une profundidad humana y pragmatismo. Nuestros equipos salieron transformados.",
-        "w": "Dir. RRHH — Pyme internacional"
-      }
-    ],
     "bandTitle": "¿List@ para liberar tu potencial?",
     "bandText": "Juntos co-creamos un camino a medida, alineado con tus valores y ambiciones.",
     "bandBtn": "Reservar un primer encuentro",
@@ -209,8 +188,7 @@
     ],
     "pricingEyebrow": "Inversión",
     "pricingTitle": "Tarifas & modalidades",
-    "pricingSub": "Contacta con Myriam para confirmar las tarifas, la duración y las modalidades adecuadas a tu solicitud.",
-    "prices": []
+    "pricingSub": "Contacta con Myriam para confirmar las tarifas, la duración y las modalidades adecuadas a tu solicitud."
   },
   "rh": {
     "eyebrow": "Organizaciones & empresas",
@@ -246,33 +224,7 @@
   "booking": {
     "eyebrow": "Reservar una cita",
     "title": "Reserva tu primer encuentro",
-    "lead": "Elige un horario, déjame un mensaje y definamos juntos el acompañamiento adecuado.",
-    "fName": "Nombre y apellidos",
-    "fEmail": "Correo electrónico",
-    "fType": "Tipo de acompañamiento",
-    "fMsg": "Tu mensaje",
-    "opt": [
-      "Sesión de descubrimiento (gratis)",
-      "Coaching individual",
-      "Coaching de equipo",
-      "Sesión de psicoterapia",
-      "Talleres & formaciones",
-      "Consultoría RRHH & formación"
-    ],
-    "send": "Enviar mi solicitud",
-    "calTitle": "Disponibilidad",
-    "calNote": "Horarios indicativos — la agenda en línea sincronizada se integrará en el sitio final.",
-    "payNote": "Contacta con Myriam para confirmar las tarifas, la duración y las modalidades adecuadas a tu solicitud.",
     "coordsTitle": "Contáctame",
-    "weekdays": [
-      "L",
-      "M",
-      "M",
-      "J",
-      "V",
-      "S",
-      "D"
-    ],
     "address": "Sesiones en consulta & por videoconferencia",
     "waGreeting": "Hola Myriam, le escribo desde su sitio Essentia sobre…",
     "directLead": "Contacta directamente con Myriam para acordar una primera cita.",
@@ -286,66 +238,12 @@
   "resources": {
     "eyebrow": "Recursos",
     "title": "Recursos en preparación",
-    "lead": "Las nuevas publicaciones aparecerán aquí cuando estén disponibles.",
-    "tabs": [
-      "Todo",
-      "Blog",
-      "Vlog",
-      "Podcast"
-    ],
-    "items": [
-      {
-        "cat": "Blog",
-        "ic": "book",
-        "t": "Atreverse a la reconversión: ¿por dónde empezar?",
-        "d": "Tres claves para transformar la incertidumbre en un proyecto alineado."
-      },
-      {
-        "cat": "Vlog",
-        "ic": "play",
-        "t": "Domar la mirada del Otro",
-        "d": "Un vídeo para liberarte del peso del juicio ajeno."
-      },
-      {
-        "cat": "Podcast",
-        "ic": "mic",
-        "t": "La resiliencia se cultiva",
-        "d": "Una conversación sobre el duelo, el cambio y el renacimiento."
-      },
-      {
-        "cat": "Blog",
-        "ic": "book",
-        "t": "Autoestima: más allá del autosabotaje",
-        "d": "Comprender las creencias que aprisionan para poder soltarlas."
-      },
-      {
-        "cat": "Podcast",
-        "ic": "mic",
-        "t": "Liderar sin perderte",
-        "d": "Encarnar un liderazgo alineado y humano cada día."
-      },
-      {
-        "cat": "Vlog",
-        "ic": "play",
-        "t": "Transiciones: atravesar el entremedio",
-        "d": "Cómo habitar los umbrales sin huir de ellos."
-      }
-    ],
-    "newsTitle": "Recibe la newsletter",
-    "newsSub": "Recursos e inspiración, una vez al mes. Sin saturación.",
-    "newsBtn": "Suscribirme",
-    "newsPlace": "Tu correo electrónico",
-    "comingSoon": "Próximamente"
+    "lead": "Las nuevas publicaciones aparecerán aquí cuando estén disponibles."
   },
   "contact": {
     "eyebrow": "Contacto",
     "title": "Conectemos",
     "lead": "¿Una pregunta, un proyecto, el deseo de un primer encuentro? Escríbeme — respondo personalmente.",
-    "fName": "Nombre y apellidos",
-    "fEmail": "Correo electrónico",
-    "fSubject": "Asunto",
-    "fMsg": "Tu mensaje",
-    "send": "Enviar",
     "infoTitle": "Datos de contacto",
     "hoursTitle": "Disponibilidad",
     "hours": "De lunes a viernes, 9 – 19 h (CET)",
