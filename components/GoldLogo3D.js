@@ -50,15 +50,25 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       clayTexture.minFilter = T.LinearMipmapLinearFilter;
       clayTexture.generateMipmaps = true;
       clayTexture.needsUpdate = true;
-      // Keep the front exactly brand gold; tactile clay lighting belongs to the dimensional edges.
+      // Preserve the brand-gold base, while a restrained surface light gives the face volume at rest.
       const face = new T.MeshBasicMaterial({ color: '#FCC200', toneMapped: false, side: T.DoubleSide });
+      // Static object-space lighting: no extra texture, animation loop or colour-changing sweep.
+      face.onBeforeCompile = shader => {
+        shader.vertexShader = shader.vertexShader.replace('#include <common>', '#include <common>\nvarying vec2 crestPosition;')
+          .replace('#include <begin_vertex>', '#include <begin_vertex>\ncrestPosition = position.xy;');
+        shader.fragmentShader = shader.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec2 crestPosition;')
+          .replace('#include <color_fragment>', `#include <color_fragment>
+            float surfaceLight = smoothstep(-421.0, 421.0, crestPosition.y - crestPosition.x * 0.35);
+            diffuseColor.rgb *= mix(0.84, 1.04, surfaceLight);`);
+      };
+      face.customProgramCacheKey = () => 'crest-resting-relief-v1';
       const edge = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .76, bumpMap: clayTexture, bumpScale: .3, toneMapped: false, side: T.DoubleSide });
       materials.push(face, edge);
       const group = new T.Group(); scene.add(group);
       const data = new SVGLoader().parse(source.replaceAll('currentColor', '#FCC200'));
       for (const path of data.paths) {
         for (const shape of path.toShapes()) {
-          const geometry = new T.ExtrudeGeometry(shape, { depth: 40, bevelEnabled: true, bevelThickness: 2, bevelSize: .65, bevelSegments: 3, curveSegments: compact ? 12 : 20, steps: 1 });
+          const geometry = new T.ExtrudeGeometry(shape, { depth: 40, bevelEnabled: true, bevelThickness: 2, bevelSize: 1.6, bevelSegments: 4, curveSegments: compact ? 12 : 20, steps: 1 });
           // Grow backwards: preserve the original front face during the handwriting handoff.
           geometry.translate(-340.5, -421, -33);
           geometry.scale(1, -1, 1);
