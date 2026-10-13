@@ -28,7 +28,9 @@ export default function ConfidentialitePage() {
           Évitez de transmettre des informations de santé sensibles lors du premier contact.
           Le choix de langue est mémorisé dans votre navigateur. L’hébergeur peut traiter
           des données techniques de connexion pour assurer le fonctionnement et la sécurité
-          du site. Aucun outil de mesure d’audience n’est intégré à cette version du site.
+          du site. Vercel Web Analytics mesure la fréquentation et les pages consultées
+          afin d’améliorer le site, sans cookies de mesure d’audience. Aucun contenu
+          de vos échanges avec Myriam n’est transmis à cet outil.
         </p>
 
         <h2 className="legal-h3">Pourquoi ces données sont utilisées</h2>

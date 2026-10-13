@@ -6,6 +6,7 @@ import { Footer } from '@/components/Footer';
 import { SkipLink } from '@/components/SkipLink';
 import { MotionSystem } from '@/components/MotionSystem';
 import { SITE_URL } from '@/lib/config';
+import { Analytics } from '@vercel/analytics/next';
 
 // Requested: Didot, per the specimen comparison Myriam reviewed. The real
 // Linotype Didot is only licensed for local/system use (it ships with
@@ -102,6 +103,7 @@ export default function RootLayout({ children }) {
           <main id="main-content" tabIndex={-1}>{children}</main>
           <Footer />
         </Providers>
+        <Analytics />
       </body>
     </html>
   );
