@@ -18,7 +18,13 @@
         tree[parts[0]] = { path, content };
       }
     } else {
-      await load('https://cdn.jsdelivr.net/npm/netlify-identity-widget@2.0.3/build/netlify-identity-widget.js');
+      // The browser distribution auto-initializes on load with Netlify defaults.
+      // Hold its container ID until we can initialize explicitly against DecapBridge.
+      const identityPlaceholder = document.createElement('div');
+      identityPlaceholder.id = 'netlify-identity-widget'; identityPlaceholder.hidden = true;
+      document.body.appendChild(identityPlaceholder);
+      try { await load('https://cdn.jsdelivr.net/npm/netlify-identity-widget@2.0.3/build/netlify-identity-widget.js'); }
+      finally { identityPlaceholder.remove(); }
       // Decap may call init again after its timeout. Keep every init on the Bridge endpoint.
       const initIdentity = window.netlifyIdentity.init.bind(window.netlifyIdentity);
       window.netlifyIdentity.init = (options = {}) => initIdentity({ ...options, APIUrl: data.config.backend.identity_url, locale: 'fr', logo: false });
