@@ -41,7 +41,7 @@ export function HeroCrest() {
     <div className="crest-stage" ref={ref} data-phase={phase} data-fallback={failed || reduced} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
       <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw onComplete={finish} /> : <LogoMark />}</div>
       <div className="crest-relief" aria-hidden="true">
-        {[4, 3, 2, 1].map(layer => <LogoMark key={layer} className="crest-side" style={{ transform: `translateZ(${-layer * 1.5}px)` }} />)}
+        {[4, 3, 2, 1].map(layer => <LogoMark key={layer} className="crest-side" style={{ transform: `translate3d(${layer * .45}px,${layer * .6}px,${-layer * 1.5}px)` }} />)}
         <LogoMark className="crest-face" />
         <div className="crest-highlight"><LogoMark /></div>
       </div>

@@ -225,3 +225,6 @@ Clay now uses direct side/fill/ambient lighting without constructing or convolvi
 
 ### Restore exact front-face gold
 The front face uses an unlit #FCC200 material again so side lighting cannot mute the brand colour. Clay microtexture and directional shading remain on the extruded sides and bevels. Depth, pivot limits and the handwritten takeover are unchanged.
+
+### Persistent relief at rest
+After pivoting, the hero model settles at 0.26 radians yaw (14.9 degrees) and −0.10 radians pitch (−5.7 degrees). The added yaw eases in only during the final tenth of the sequence, retaining the existing two-sided excursions and 30-degree hard cap. SVG fallbacks have a small physical layer offset so the static logo retains visible depth even without WebGL. Brand gold is unchanged.
