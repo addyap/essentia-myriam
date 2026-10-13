@@ -213,3 +213,6 @@ Logo replay/pause controls have been removed at the user's request. Hero signatu
 
 ### Longer dimensional pivot
 The shared hero logo now makes three return trips over 32 seconds after the unchanged 900ms handwriting handoff. A softened sine curve holds each turn longer, with a 0.50-radian excursion and the existing hard 0.52-radian yaw cap, including pointer input. Pitch adds depth but is capped at 0.20 radians. Gold remains #FCC200; reduced-motion, offscreen suspension and static fallbacks remain unchanged. This supersedes the older pivot timing and angle specifications above.
+
+### Golden clay material
+The shared WebGL logo retains its SVG contours, extrusion, handwriting handoff and bounded 32-second pivot. Its #FCC200 pigment now uses a rough non-metallic clay material, a deterministic 128px procedural bump texture and neutral side/fill lighting. The texture is generated in memory, mipmapped and disposed with the renderer; no new runtime image download is introduced. Reduced-motion and failure fallbacks retain the original SVG. The studio concept image is in design/logo-clay-studio.png and is not loaded by the website. This supersedes the older unlit-front-face material specification.

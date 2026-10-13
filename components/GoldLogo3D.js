@@ -12,7 +12,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
   useEffect(() => {
     let disposed = false, renderer, frame, observer, resizeObserver, cleanup = () => {};
     const geometries = [], materials = [];
-    let environment, pmrem;
+    let environment, pmrem, clayTexture;
     Promise.all([import('three'), import('three/addons/loaders/SVGLoader.js'), import('three/addons/environments/RoomEnvironment.js')]).then(([T, { SVGLoader }, { RoomEnvironment }]) => {
       if (disposed) return;
       const el = host.current;
@@ -33,12 +33,30 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       environment = pmrem.fromScene(room, .04);
       room.dispose();
       scene.environment = environment.texture;
-      const light = new T.DirectionalLight(0xfff4d4, 1.5);
-      light.position.set(-300, 500, 800); scene.add(light);
-      scene.add(new T.AmbientLight(0xffffff, .35));
-      // Keep the front face exactly brand gold; lighting affects only the bevel and sides.
-      const face = new T.MeshBasicMaterial({ color: '#FCC200', toneMapped: false, side: T.DoubleSide });
-      const edge = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .65, roughness: .38, side: T.DoubleSide });
+      const light = new T.DirectionalLight(0xffffff, 2.2);
+      light.position.set(-600, 350, 650); scene.add(light);
+      const fill = new T.DirectionalLight(0xffffff, .55);
+      fill.position.set(450, -100, 900); scene.add(fill);
+      scene.add(new T.AmbientLight(0xffffff, .8));
+      // Procedural microtexture adds tactile relief without downloading an image or changing contours.
+      const grain = new Uint8Array(128 * 128 * 4);
+      let seed = 719;
+      for (let i = 0; i < grain.length; i += 4) {
+        seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
+        const value = 112 + (seed >>> 27);
+        grain[i] = grain[i + 1] = grain[i + 2] = value;
+        grain[i + 3] = 255;
+      }
+      clayTexture = new T.DataTexture(grain, 128, 128, T.RGBAFormat);
+      clayTexture.wrapS = clayTexture.wrapT = T.RepeatWrapping;
+      clayTexture.repeat.set(.008, .008);
+      clayTexture.magFilter = T.LinearFilter;
+      clayTexture.minFilter = T.LinearMipmapLinearFilter;
+      clayTexture.generateMipmaps = true;
+      clayTexture.needsUpdate = true;
+      // Brand pigment stays #FCC200; physical side lighting provides the soft clay shading.
+      const face = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .88, bumpMap: clayTexture, bumpScale: .24, envMapIntensity: .3, toneMapped: false, side: T.DoubleSide });
+      const edge = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .92, bumpMap: clayTexture, bumpScale: .3, envMapIntensity: .3, toneMapped: false, side: T.DoubleSide });
       materials.push(face, edge);
       const group = new T.Group(); scene.add(group);
       const data = new SVGLoader().parse(source.replaceAll('currentColor', '#FCC200'));
@@ -100,7 +118,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
     }).catch(() => { if (!disposed) onFailure(); });
     return () => {
       disposed = true; wake.current = null; cancelAnimationFrame(frame); cleanup(); observer?.disconnect(); resizeObserver?.disconnect();
-      geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); environment?.dispose(); pmrem?.dispose();
+      geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); clayTexture?.dispose(); environment?.dispose(); pmrem?.dispose();
       renderer?.dispose(); renderer?.domElement.remove();
     };
   }, [source, onReady, onFailure]);

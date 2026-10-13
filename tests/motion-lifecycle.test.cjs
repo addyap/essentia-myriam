@@ -79,6 +79,7 @@ function gpu() {
     render(scene) { rotations.push({...scene.group.rotation}); }
   }
   const T = { WebGLRenderer:Renderer, Scene:Item, Group:Item, OrthographicCamera:Item, DirectionalLight:Item, AmbientLight:Item, MeshBasicMaterial:Item, MeshStandardMaterial:Item,
+    DataTexture:class {constructor(){this.repeat={set(){}}}dispose(){}},
     PMREMGenerator:class {fromScene(){return {texture:{},dispose(){}}}dispose(){}},
   };
   // No geometry required to exercise the production animation clock.
