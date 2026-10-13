@@ -16,7 +16,7 @@ export function makeCmsConfig(definitions, french, legalDetails, siteId, demo = 
     backend: demo ? { name: 'essentia-demo' } : { name: 'git-gateway', repo: 'addyap/essentia-myriam', branch: 'main', auth_type: 'pkce', base_url: 'https://auth.decapbridge.com', auth_endpoint: `/sites/${siteId}/pkce`, auth_token_endpoint: `/sites/${siteId}/token`, gateway_url: 'https://gateway.decapbridge.com' },
     auth: { email_claim: 'email', first_name_claim: 'first_name', last_name_claim: 'last_name', avatar_url_claim: 'avatar_url' },
     locale: 'fr', publish_mode: demo ? 'simple' : 'editorial_workflow',
-    site_url: 'https://www.essentiademdb.com', display_url: 'https://www.essentiademdb.com', logo_url: '/favicon.png',
+    site_url: 'https://www.essentiademdb.com', display_url: 'https://www.essentiademdb.com', logo: { src: '/cms/logo.svg', show_in_header: false },
     media_folder: 'public/uploads', public_folder: '/uploads',
     collections: Object.entries(groups).map(([name, keys]) => ({ name, label: { pages: 'Pages du site', shared: 'Informations partagées', labels: 'Libellés et accessibilité' }[name], delete: false,
       files: keys.map(key => ({ name: key, label: definitions[key].label, file: key === 'legalDetails' ? 'content/launch-placeholders.json' : `content/fr/${key}.json`, format: 'json',
