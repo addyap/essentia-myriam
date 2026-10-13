@@ -8,6 +8,6 @@ import { MotionSystem } from './MotionSystem';
 import { Analytics } from '@vercel/analytics/next';
 export function SiteShell({ children }) {
   const path = usePathname();
-  if (path === '/admin' || path === '/cms-preview' || path.startsWith('/keystatic')) return children;
+  if (path === '/admin' || path === '/cms-preview') return children;
   return <><Providers><SkipLink /><Header /><MotionSystem /><main id="main-content" tabIndex={-1}>{children}</main><Footer /></Providers><Analytics /></>;
 }

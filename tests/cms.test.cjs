@@ -2,42 +2,36 @@ const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const definitions = require('../cms/schema.json');
-test('CMS local writes are disabled in production and every Vercel environment', async () => {
-  const { cmsEnvironment } = await import('../cms/environment.js');
-  for (const env of [ { NODE_ENV: 'production', NEXT_PUBLIC_KEYSTATIC_LOCAL: 'true' }, { NODE_ENV: 'development', VERCEL: '1', NEXT_PUBLIC_KEYSTATIC_LOCAL: 'true' } ]) {
-    assert.equal(cmsEnvironment(env).local, false);
-    assert.equal(cmsEnvironment(env).available, false);
-  }
-  assert.equal(cmsEnvironment({ NODE_ENV: 'development', NEXT_PUBLIC_KEYSTATIC_LOCAL: 'true' }).local, true);
-  assert.equal(cmsEnvironment({ KEYSTATIC_GITHUB_CLIENT_ID: 'id', KEYSTATIC_GITHUB_CLIENT_SECRET: 'secret', NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG: 'app', KEYSTATIC_SECRET: 'short' }).available, false);
+const french = Object.fromEntries(fs.readdirSync('content/fr').map(name => [name.slice(0,-5), require('../content/fr/'+name)]));
+test('Live CMS access requires a valid bridge ID', async () => {
+  const { cmsEnvironment, EDITOR_EMAIL } = await import('../cms/environment.js');
+  assert.equal(EDITOR_EMAIL,'mdbchandale@gmail.com');
+  assert.equal(cmsEnvironment({ DECAPBRIDGE_SITE_ID:'../bad' }).configured,false);
+  assert.equal(cmsEnvironment({ DECAPBRIDGE_SITE_ID:'00000000-0000-0000-0000-000000000001' }).configured,true);
 });
-test('French-only editor schema covers every existing text and preserves section sizes', () => {
-  function validate(schema, value) {
-    if (schema.type === 'ignored') return;
-    if (schema.type === 'text') { assert.equal(typeof value, 'string'); return; }
-    if (schema.type === 'array') { assert.equal(schema.length, value.length); value.forEach(item => validate(schema.element, item)); return; }
-    assert.deepEqual(Object.keys(schema.fields).sort(), Object.keys(value).sort());
-    for (const [key, child] of Object.entries(schema.fields)) validate(child, value[key]);
-  }
-  const names = fs.readdirSync('content/fr').map(name => name.slice(0,-5));
-  assert.deepEqual(names.sort(), Object.keys(definitions).filter(name => name !== 'legalDetails').sort());
-  for (const name of names) validate(definitions[name], require('../content/fr/'+name+'.json'));
-  validate(definitions.legalDetails, require('../content/launch-placeholders.json'));
-  assert.equal(definitions.home.fields.pillars.element.fields.ic.type, 'ignored');
-  assert.equal(definitions.home.fields.heroTitle.length, 3);
+test('French editor schema covers every text without exposing translations', async () => {
+  const { makeCmsConfig } = await import('../cms/config.js');
+  const config = makeCmsConfig(definitions,french,require('../content/launch-placeholders.json'),'00000000-0000-0000-0000-000000000001');
+  assert.equal(config.locale,'fr'); assert.equal(config.publish_mode,'editorial_workflow');
+  assert.equal(config.backend.name,'git-gateway');
+  assert.ok(config.backend.identity_url.startsWith('https://auth.decapbridge.com/sites/'));
+  const files=config.collections.flatMap(c=>c.files);
+  assert.equal(files.length,Object.keys(french).length+1);
+  assert.ok(files.every(f=>f.file.startsWith('content/fr/') || f.file==='content/launch-placeholders.json'));
+  const home=files.find(f=>f.name==='home');
+  const title=home.fields.find(f=>f.name==='heroTitle');assert.equal(title.min,3);assert.equal(title.max,3);assert.equal(title.allow_add,false);assert.equal(title.field.required,false);
+  assert.equal(home.fields.find(f=>f.name==='pillars').fields.find(f=>f.name==='ic').widget,'hidden');
 });
-test('Draft preview rejects unsafe refs, keeps icons and ignores structural replacement', async () => {
-  const { mergePreview, validBranch } = await import('../cms/preview.js');
-  for (const ref of ['main', 'myriam/corrections', 'draft-123']) assert.ok(validBranch(ref));
-  for (const ref of ['../secrets', 'https://evil.test', 'x?token=y', 'x//y', 'x\ny']) assert.equal(validBranch(ref), false);
-  const base = { title: 'Avant', items: [{ ic: 'heart', t: 'Écoute' }] };
-  assert.deepEqual(mergePreview(base, { title: 'Après', items: [{ ic: 'bad', t: 'Respect' }], extra: 'ignored' }), { title: 'Après', items: [{ ic: 'heart', t: 'Respect' }] });
-  assert.deepEqual(mergePreview(base, { items: [] }), base);
+test('Draft preview applies only known text and preserves icons and section sizes', async () => {
+  const { mergePreview } = await import('../cms/preview.js');
+  const base={title:'Avant',items:[{ic:'heart',t:'Écoute'}]};
+  assert.deepEqual(mergePreview(base,{title:'Après',items:[{ic:'bad',t:'Respect'}],extra:'ignored'}),{title:'Après',items:[{ic:'heart',t:'Respect'}]});
+  assert.deepEqual(mergePreview(base,{items:[]}),base);
 });
 
-test("CMS serialization preserves intentionally empty text", async () => {
-  const { textField } = await import("../cms/fields.js");
-  const field = textField({ label: "Texte" });
-  assert.deepEqual(field.serialize(""), { value: "" });
-  assert.deepEqual(field.serialize(" texte avec espace "), { value: " texte avec espace " });
+test('Demonstration config has no gateway or identity endpoint and uses only browser memory', async () => {
+  const { makeCmsConfig } = await import('../cms/config.js');
+  const demo = makeCmsConfig(definitions, french, require('../content/launch-placeholders.json'), null, true);
+  assert.deepEqual(demo.backend, {name:'essentia-demo'});
+  assert.equal(demo.locale,'fr');
 });

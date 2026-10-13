@@ -1,32 +1,40 @@
-# Édition des textes français — Essentia
+# Édition française — Essentia
 
 ## Pour Myriam
 
-Ouvrez `/admin`, puis « Ouvrir l’éditeur ». Connectez-vous avec le compte GitHub autorisé par Antony. L’interface et les champs sont en français.
+Ouvrez `/admin`, puis « Ouvrir l’éditeur ». Votre compte personnel utilise **mdbchandale@gmail.com** et le mot de passe que vous choisissez lors de l’invitation. Vous n’avez pas besoin de compte GitHub et vous n’utilisez jamais le mot de passe d’Antony.
 
-Choisissez une page dans « Pages du site ». Modifiez uniquement les textes souhaités. Les trois parties du grand titre de l’accueil sont le texte avant le mot doré, le mot doré, puis la suite éventuelle : conservez les espaces nécessaires. Le nombre d’éléments des listes est fixé pour préserver la composition.
+Choisissez une page dans « Pages du site ». Modifiez les textes et vérifiez l’aperçu français. Les trois parties du grand titre de l’accueil sont le texte avant le mot doré, le mot doré et la suite éventuelle ; conservez les espaces et laissez la dernière partie vide si nécessaire. Les listes gardent leur nombre d’éléments.
 
-Pour vérifier avant publication, créez une branche de brouillon dans le sélecteur de branches, enregistrez, puis cliquez sur l’aperçu de la page. L’aperçu montre les modifications **enregistrées sur cette branche**, pas les frappes non enregistrées. Il force le français et ne mesure aucune visite Analytics. Demandez ensuite la fusion du brouillon vers `main` ; Vercel reconstruit le site automatiquement. Pour les petites corrections validées, enregistrer sur `main` publie directement après le déploiement.
+Enregistrez le brouillon. Quand il est prêt, passez-le en révision puis choisissez « Publier ». Le texte est enregistré dans GitHub et Vercel reconstruit le site. Les changements apparaissent après un déploiement réussi. Si vous préférez une validation par Antony, laissez le contenu en brouillon ou en révision.
 
-Les autres langues, les photographies, les vidéos, les animations et les liens de contact techniques ne sont pas modifiables ici. Les modèles de textes légaux restent dans le code ; leurs informations à compléter sont éditables dans « Informations légales ». Le CMS ne vérifie pas les qualifications ou les affirmations juridiques : leur validation reste celle de la responsable du site.
+Les autres langues, les images et les animations ne font pas partie des champs d’édition. Les modèles légaux restent dans le code ; les informations à compléter sont dans « Informations partagées ». Toute affirmation juridique ou professionnelle doit être validée par la responsable du site.
 
-Pour annuler une erreur publiée, Antony restaure la version du texte dans l’historique GitHub. Aucun contenu n’est stocké dans une base de données.
+## Activation par Antony
 
-## Activation initiale par Antony
+1. Créez le compte propriétaire DecapBridge avec **antony@antonyaddy.com**. Choisissez vous-même son mot de passe et validez l’adresse email. Le tableau de bord du fournisseur est actuellement en anglais ; il est réservé au propriétaire. Le CMS et le widget de connexion sur le site sont configurés en français.
+2. Ajoutez un site : dépôt `addyap/essentia-myriam`, URL de connexion `https://www.essentiademdb.com/cms/index.html`, type d’authentification **Classic** pour une connexion email/mot de passe directement sur le site.
+3. Dans GitHub, créez un token à portée fine, limité à ce seul dépôt : Contents lecture/écriture et Pull requests lecture/écriture. Saisissez-le uniquement dans le tableau de bord sécurisé DecapBridge. Ne le mettez ni dans le site, ni dans un commit, ni dans une conversation. Cette délégation de droit doit être autorisée par le propriétaire. Ne réutilisez pas un token donnant accès à tous vos dépôts.
+4. Copiez uniquement l’identifiant public du site fourni par DecapBridge dans `DECAPBRIDGE_SITE_ID` sur Vercel. Aucun secret n’est nécessaire dans le code du site. Redéployez.
+5. Invitez **mdbchandale@gmail.com** comme collaboratrice de ce seul site. Elle choisit elle-même son mot de passe. N’activez pas d’inscription ouverte. Le serveur DecapBridge contrôle réellement les droits ; afficher une adresse dans l’interface ne crée pas un compte ni une autorisation.
+6. Vérifiez que Myriam peut se connecter, récupérer son mot de passe, enregistrer un brouillon, vérifier l’aperçu et publier. Les emails automatiques sont émis par DecapBridge : vérifiez leur langue dans le compte fournisseur avant de promettre des emails intégralement français. Ne souscrivez pas d’option payante sans accord.
 
-1. En local, copiez `.env.example` vers `.env.local`. Pour tester sans GitHub, gardez `NEXT_PUBLIC_KEYSTATIC_LOCAL=true` et lancez `npm run dev -- -H 127.0.0.1`. Ouvrez `http://127.0.0.1:3000/admin`. Ce mode est interdit sur Vercel et dans tous les builds de production.
-2. Pour connecter GitHub, passez `NEXT_PUBLIC_KEYSTATIC_LOCAL=false` et redémarrez le serveur. Ouvrez `/keystatic`, puis suivez le créateur officiel de GitHub App. Indiquez le site déployé `https://www.essentiademdb.com`. Autorisez seulement le dépôt `addyap/essentia-myriam` lors de l’installation.
-3. Le créateur ajoute `KEYSTATIC_GITHUB_CLIENT_ID`, `KEYSTATIC_GITHUB_CLIENT_SECRET`, `KEYSTATIC_SECRET` et `NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG` dans l’environnement local. Ne copiez pas leurs valeurs dans une conversation ou un commit.
-4. Ajoutez ces quatre variables dans les environnements Vercel concernés et redéployez. `KEYSTATIC_SECRET` doit compter au moins 32 caractères aléatoires. N’activez jamais le mode local sur Vercel. Vérifiez que le callback GitHub inclut `https://www.essentiademdb.com/api/keystatic/github/oauth/callback` (et le callback local utilisé par le créateur).
-5. Invitez le compte GitHub de Myriam avec le droit d’écriture sur ce dépôt uniquement. Ce droit porte sur le dépôt, pas uniquement sur les textes : seuls les comptes de confiance doivent le recevoir. La connexion ne nécessite ni mot de passe partagé, ni token personnel saisi dans le navigateur.
-6. Vérifiez la connexion, l’aperçu d’un brouillon, le commit des changements vers `main` et un déploiement Vercel Ready. Sans les quatre variables, l’API de production renvoie 503 et ne bascule jamais vers l’édition du disque.
+Le forfait gratuit annoncé par DecapBridge couvre actuellement 3 sites et 10 collaborateurs par site ; vérifier les conditions du fournisseur au moment de l’activation. Aucune base de données à créer ou administrer pour Essentia. L’identité est gérée par le service hébergé, les textes restent dans GitHub.
 
-## Architecture et contrôle
+## Architecture
 
-Les textes français se trouvent dans `content/fr/*.json`. `lib/french-content.js` recompose exactement l’ancien objet français pour le site. Les fichiers anglais, italien et espagnol restent dans `content/global`. `cms/schema.json` définit les champs et les tailles de listes ; `keystatic.config.js` raccorde les fichiers à des entrées uniques. Les identifiants d’icônes sont préservés mais masqués.
+`content/fr/*.json` contient les textes français inchangés. `lib/french-content.js` les recompose pour le site. Les traductions restent dans `content/global`. `cms/schema.json` définit les champs. `/api/cms-config` fournit uniquement une configuration publique et les chemins français autorisés ; il n’expose aucun token et ne réalise aucune écriture.
 
-Les routes d’édition sont isolées du header public et exclues de l’indexation. Les API et aperçus sont dynamiques, non mis en cache ; les pages publiques restent prérendues. Les modules Keystatic ne sont importés que par les routes d’édition. Le watcher local utilise Chokidar 4 car les chemins observés sont des dossiers explicites, sans globs ; cela retire la dépendance vulnérable `braces` de Chokidar 3.
+Le CMS officiel Decap 3.16.3 et le widget d’identité 2.0.3 sont chargés depuis leurs distributions npm épinglées, seulement sur `/cms/index.html`. Le widget utilise le service DecapBridge (pas Netlify Identity hébergé) avec `locale: fr`. Le CMS utilise également `locale: fr`. Le site public ne charge aucun de ces scripts.
 
-Contrôles : `npm run check`, `npm test`, `npm run build`, `npm audit --omit=dev`, puis un test d’enregistrement local et restauration du texte. La publication GitHub/Vercel nécessite l’autorisation initiale de l’App ; elle ne peut pas être annoncée comme opérationnelle avant ce test.
+L’aperçu est un iframe de même origine. Il reçoit les modifications du parent, en vérifiant origine, fenêtre source, type de message, nonce et section autorisée. Il affiche uniquement les champs français connus, conserve les identifiants d’icônes et n’exécute aucun HTML provenant des textes. Aucun brouillon n’est lu depuis GitHub par une route publique. L’aperçu ne mesure aucune visite Analytics. Les autres pages gardent l’interdiction d’être intégrées dans un iframe ; seule `/cms-preview` accepte la même origine.
 
-Documentation officielle : https://keystatic.com/docs/github-mode et https://keystatic.com/docs/installation-next-js.
+En développement, `/cms/index.html?demo=1` active le backend de test officiel en mémoire avec les textes existants. Il ne change aucun fichier et ne publie rien. Cette démonstration est refusée en production et sur Vercel. Sans identifiant DecapBridge valide, la connexion de production affiche un message français d’accès en préparation.
+
+Contrôles : `npm run check`, `npm test`, `npm run build`, puis essais du brouillon et de sa publication après activation du fournisseur. L’enregistrement GitHub, la récupération de mot de passe et les emails ne peuvent pas être déclarés vérifiés avant que le service soit connecté.
+
+Documentation : https://decapbridge.com/docs/getting-started et https://decapcms.org/docs/editorial-workflows/.
+
+## Essai sur le site
+
+Depuis `/admin`, « Essayer la démonstration » ouvre un éditeur isolé. Les modifications restent en mémoire dans le navigateur, sans connexion GitHub ni publication réelle. Recharger rétablit les textes publics. Le mode réel exige toujours la connexion DecapBridge et une invitation personnelle.

@@ -25,6 +25,8 @@ export function Providers({ children, previewContent }) {
   const [lang, setLangState] = useState('fr'); // French-first; persisted choice loads after mount
   const [t, setT] = useState(previewContent || fr); // always starts populated — never renders with missing content
 
+  useEffect(() => { if (previewContent) setT(previewContent); }, [previewContent]);
+
   const request = useRef(0);
   const [languageError, setLanguageError] = useState(false);
   const setLang = useCallback(async (next) => {

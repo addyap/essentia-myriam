@@ -46,4 +46,4 @@ Visible, explicitly marked placeholders now appear on About, Appointment, Legal 
 
 ## French text editor
 
-The database-free Keystatic editor is available at `/admin` once GitHub authentication is connected. French page content now lives in `content/fr/*.json`; other languages are unchanged. See [CMS-GUIDE.md](CMS-GUIDE.md) for Myriam’s editing workflow and the one-time owner setup. Never deploy local filesystem editing or commit CMS credentials.
+The database-free Decap editor is available at `/admin` once DecapBridge email/password authentication is connected. French page content now lives in `content/fr/*.json`; other languages are unchanged. See [CMS-GUIDE.md](CMS-GUIDE.md) for Myriam’s editing workflow and the one-time owner setup. Never deploy local filesystem editing or commit CMS credentials.

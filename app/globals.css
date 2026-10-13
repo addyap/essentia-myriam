@@ -660,3 +660,5 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
 .cms-welcome a:not(.btn){text-decoration:underline;text-underline-offset:4px}
 .cms-preview-notice{position:relative;z-index:45;padding:14px 24px;background:#26382E;color:#fff;font:14px/1.5 var(--sans);display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
 .cms-preview-notice a{text-decoration:underline;text-underline-offset:4px}
+
+.cms-preview-notice~header .header-languages,.cms-preview-notice~header .menu-languages,.cms-preview-notice~footer .footer-languages{display:none}
