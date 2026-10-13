@@ -210,3 +210,6 @@ Hero logos use a 0.48 radian excursion with a hard yaw cap of 0.52 radians (29.8
 Each main page has its own Pexels video: home forest sunlight; About sunrise valley; Accompaniment golden sea; HR misty lake; Resources sunlit leaves; Contact quiet shore; Booking mountain clouds. Four new clips have matching WebP stills, silent 10-second H.264 desktop/mobile files, and mobile payloads below 1 MB. Source and creator credits are in public/videos/credits.json.
 
 Logo replay/pause controls have been removed at the user's request. Hero signatures are 190 px desktop, 140 px tablet and 112 px phone; quiet legal headers stay compact. The homepage crest is enlarged modestly. Reduced-motion, offscreen suspension, finite pivot duration and SVG failure fallback remain. Video pause controls are retained separately.
+
+### Longer dimensional pivot
+The shared hero logo now makes three return trips over 32 seconds after the unchanged 900ms handwriting handoff. A softened sine curve holds each turn longer, with a 0.50-radian excursion and the existing hard 0.52-radian yaw cap, including pointer input. Pitch adds depth but is capped at 0.20 radians. Gold remains #FCC200; reduced-motion, offscreen suspension and static fallbacks remain unchanged. This supersedes the older pivot timing and angle specifications above.

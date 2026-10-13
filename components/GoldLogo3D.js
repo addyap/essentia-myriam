@@ -51,7 +51,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
         }
       }
       let elapsed = 0, last = null, visible = true, px = 0, py = 0;
-      const duration = 24000;
+      const duration = 32000;
       const handoff = 900;
       const draw = now => {
         frame = null;
@@ -60,11 +60,12 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
         if (last !== null && playing.current && !pause.current) elapsed += Math.min(now - last, 50);
         last = now;
         const p = Math.min(1, Math.max(0, elapsed - handoff) / duration);
-        // Three slow pivots capped at 30 degrees keep the monogram readable throughout.
+        // Broader, lingering turns add presence without exceeding the readable yaw limit.
         const envelope = Math.min(1, p / .08, (1 - p) / .08);
-        const excursion = Math.sin(p * Math.PI * 6) * .48 * Math.max(0, envelope);
+        const wave = Math.sin(p * Math.PI * 6);
+        const excursion = Math.sign(wave) * Math.pow(Math.abs(wave), .8) * .50 * Math.max(0, envelope);
         const pointerBlend = Math.min(1, Math.max(0, elapsed - handoff) / 250);
-        const targetX = p * -.045 + Math.sin(p * Math.PI * 3) * -.1 + py * pointerBlend;
+        const targetX = Math.max(-.20, Math.min(.20, p * -.045 + Math.sin(p * Math.PI * 3) * -.14 + py * pointerBlend));
         const targetY = Math.max(-.52, Math.min(.52, excursion + p * .05 + px * pointerBlend));
         const blend = 1 - Math.exp(-dt / 130);
         group.rotation.x += (targetX - group.rotation.x) * blend;
