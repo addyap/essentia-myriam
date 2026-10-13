@@ -17,7 +17,7 @@ export default function HomePage() {
       <section id="essence" className="home-intro">
         <div className="wrap intro-grid">
           <div className="intro-portrait">
-            <Image src="/myriam.jpg" alt="Myriam Diougoan Blanch" fill sizes="(max-width: 900px) 80vw, 360px" style={{ objectFit: 'cover' }} />
+            <Image src="/myriam-natural.jpg" alt="Myriam Diougoan Blanch" fill sizes="(max-width: 900px) 80vw, 360px" style={{ objectFit: 'cover' }} />
           </div>
           <div className="intro-copy">
             <span className="eyebrow">{h.introEyebrow}</span>
