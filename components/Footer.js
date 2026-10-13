@@ -50,6 +50,7 @@ export function Footer() {
         </div>
         <div className="foot-bottom">
           <span>{t.footer.rights.replace('{year}', new Date().getFullYear()).replace('{name}', brand.name)}</span>
+          <a href="/cms/index.html" className="footer-editor-link" rel="nofollow" lang="fr">Espace d’édition</a>
           <span className="script" style={{ fontSize: 15 }}>{t.footer.tagline}</span>
         </div>
       </div>

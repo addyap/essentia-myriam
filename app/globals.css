@@ -662,3 +662,5 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
 .cms-preview-notice a{text-decoration:underline;text-underline-offset:4px}
 
 .cms-preview-notice~header .header-languages,.cms-preview-notice~header .menu-languages,.cms-preview-notice~footer .footer-languages{display:none}
+
+.footer-editor-link{font-size:12px;color:#b8c1b7;text-decoration:none;text-underline-offset:3px}.footer-editor-link:hover,.footer-editor-link:focus-visible{color:#FCC200;text-decoration:underline}
