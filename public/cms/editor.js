@@ -17,20 +17,8 @@
         while (parts.length > 1) { const key = parts.shift(); tree = tree[key] || (tree[key] = {}); }
         tree[parts[0]] = { path, content };
       }
-    } else {
-      // The browser distribution auto-initializes on load with Netlify defaults.
-      // Hold its container ID until we can initialize explicitly against DecapBridge.
-      const identityPlaceholder = document.createElement('div');
-      identityPlaceholder.id = 'netlify-identity-widget'; identityPlaceholder.hidden = true;
-      document.body.appendChild(identityPlaceholder);
-      try { await load('https://cdn.jsdelivr.net/npm/netlify-identity-widget@2.0.3/build/netlify-identity-widget.js'); }
-      finally { identityPlaceholder.remove(); }
-      // Decap may call init again after its timeout. Keep every init on the Bridge endpoint.
-      const initIdentity = window.netlifyIdentity.init.bind(window.netlifyIdentity);
-      window.netlifyIdentity.init = (options = {}) => initIdentity({ ...options, APIUrl: data.config.backend.identity_url, locale: 'fr', logo: false });
     }
     await load('https://cdn.jsdelivr.net/npm/decap-cms@3.16.3/dist/decap-cms.js');
-    if (!data.demoFiles) window.netlifyIdentity.init();
     if (data.demoFiles) {
       // Deliberately isolated: no network mutations, gateway, token or persistent storage.
       const files = { ...data.demoFiles };
@@ -73,8 +61,19 @@
       });
       window.CMS.registerPreviewTemplate(section, Preview);
     }
+    // The built-in Classic form uses GoTrue directly with backend.identity_url.
+    // Localize its two otherwise hardcoded placeholders and accessible names.
+    if (!data.demoFiles) {
+      const localizeLogin = () => {
+        for (const [name, label] of [['email', 'Adresse email'], ['password', 'Mot de passe']]) {
+          const input = document.querySelector('input[name="' + name + '"]');
+          if (input) { input.placeholder = label; input.setAttribute('aria-label', label); }
+        }
+      };
+      new MutationObserver(localizeLogin).observe(document.body, {childList:true,subtree:true});
+      localizeLogin();
+    }
     await window.CMS.init({ config: data.config });
-    if (!data.demoFiles) window.netlifyIdentity.setLocale('fr');
     status.hidden = true;
     if (data.demoFiles) { const banner = document.createElement('p'); banner.textContent = 'Démonstration : les modifications restent dans ce navigateur et ne sont jamais publiées.'; banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;margin:0;padding:8px;z-index:999;background:#26382e;color:white;text-align:center'; document.body.appendChild(banner); }
   } catch {
