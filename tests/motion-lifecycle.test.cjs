@@ -100,14 +100,14 @@ test('3D waits for handwriting, holds the crossfade, pivots gently within readab
   for(let i=0;i<18;i++)app.frame();
   assert.equal(rotations.at(-1).y,0);
   for(let i=0;i<550;i++)app.frame();
-  assert.ok(Math.abs(rotations.at(-1).y-.05)>.01,'The longer choreography is still moving after 27 seconds');
+  assert.ok(Math.abs(rotations.at(-1).y-.18)>.01,'The longer choreography is still moving after 27 seconds');
   for(let i=0;i<200;i++)app.frame();
   assert.ok(Math.max(...rotations.map(r=>r.y))>.47, 'The fuller pivot is visible');
   assert.ok(rotations.every(r=>Math.abs(r.y)<=.52), 'Yaw stays below 30 degrees');
   assert.ok(rotations.every(r=>Math.abs(r.x)<=.20), 'Pitch stays within its readable limit');
   assert.ok(Math.min(...rotations.map(r=>r.x))<-.15, 'Forward and backward tilt adds visible depth');
   assert.ok(Math.min(...rotations.map(r=>r.y))<-.43, 'The fuller pivot reaches both sides');
-  assert.ok(Math.abs(rotations.at(-1).y-.05)<.001,'Returns to the rest angle');
+  assert.ok(Math.abs(rotations.at(-1).y-.18)<.001,'Settles at a shallow angle that still shows the extrusion');
   assert.equal(ready,1,'Starting animation does not recreate the renderer');
   app.unmount();
 });

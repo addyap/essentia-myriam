@@ -216,3 +216,6 @@ The shared hero logo now makes three return trips over 32 seconds after the unch
 
 ### Golden clay material
 The shared WebGL logo retains its SVG contours, extrusion, handwriting handoff and bounded 32-second pivot. Its #FCC200 pigment now uses a rough non-metallic clay material, a deterministic 128px procedural bump texture and neutral side/fill lighting. The texture is generated in memory, mipmapped and disposed with the renderer; no new runtime image download is introduced. Reduced-motion and failure fallbacks retain the original SVG. The studio concept image is in design/logo-clay-studio.png and is not loaded by the website. This supersedes the older unlit-front-face material specification.
+
+### Visible dimensional edges
+The model now extrudes 40 SVG units backwards from its unchanged front plane, with deeper bevel shading and lower ambient fill. It settles at 0.18 radians (10.3 degrees) yaw so sidewalls remain visible after the finite pivot. The hard 0.52-radian maximum, gold pigment, silhouette and handwriting sequence remain unchanged.

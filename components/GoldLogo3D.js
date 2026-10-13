@@ -37,7 +37,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       light.position.set(-600, 350, 650); scene.add(light);
       const fill = new T.DirectionalLight(0xffffff, .55);
       fill.position.set(450, -100, 900); scene.add(fill);
-      scene.add(new T.AmbientLight(0xffffff, .8));
+      scene.add(new T.AmbientLight(0xffffff, .45));
       // Procedural microtexture adds tactile relief without downloading an image or changing contours.
       const grain = new Uint8Array(128 * 128 * 4);
       let seed = 719;
@@ -56,14 +56,15 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       clayTexture.needsUpdate = true;
       // Brand pigment stays #FCC200; physical side lighting provides the soft clay shading.
       const face = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .88, bumpMap: clayTexture, bumpScale: .24, envMapIntensity: .3, toneMapped: false, side: T.DoubleSide });
-      const edge = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .92, bumpMap: clayTexture, bumpScale: .3, envMapIntensity: .3, toneMapped: false, side: T.DoubleSide });
+      const edge = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .76, bumpMap: clayTexture, bumpScale: .3, envMapIntensity: .08, toneMapped: false, side: T.DoubleSide });
       materials.push(face, edge);
       const group = new T.Group(); scene.add(group);
       const data = new SVGLoader().parse(source.replaceAll('currentColor', '#FCC200'));
       for (const path of data.paths) {
         for (const shape of path.toShapes()) {
-          const geometry = new T.ExtrudeGeometry(shape, { depth: 14, bevelEnabled: true, bevelThickness: 1.1, bevelSize: .65, bevelSegments: 2, curveSegments: compact ? 12 : 20, steps: 1 });
-          geometry.translate(-340.5, -421, -7);
+          const geometry = new T.ExtrudeGeometry(shape, { depth: 40, bevelEnabled: true, bevelThickness: 2, bevelSize: .65, bevelSegments: 3, curveSegments: compact ? 12 : 20, steps: 1 });
+          // Grow backwards: preserve the original front face during the handwriting handoff.
+          geometry.translate(-340.5, -421, -33);
           geometry.scale(1, -1, 1);
           geometries.push(geometry); group.add(new T.Mesh(geometry, [face, edge]));
         }
@@ -84,7 +85,7 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
         const excursion = Math.sign(wave) * Math.pow(Math.abs(wave), .8) * .50 * Math.max(0, envelope);
         const pointerBlend = Math.min(1, Math.max(0, elapsed - handoff) / 250);
         const targetX = Math.max(-.20, Math.min(.20, p * -.045 + Math.sin(p * Math.PI * 3) * -.14 + py * pointerBlend));
-        const targetY = Math.max(-.52, Math.min(.52, excursion + p * .05 + px * pointerBlend));
+        const targetY = Math.max(-.52, Math.min(.52, excursion + p * .18 + px * pointerBlend));
         const blend = 1 - Math.exp(-dt / 130);
         group.rotation.x += (targetX - group.rotation.x) * blend;
         group.rotation.y += (targetY - group.rotation.y) * blend;
