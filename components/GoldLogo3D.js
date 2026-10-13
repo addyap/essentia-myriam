@@ -50,8 +50,8 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       clayTexture.minFilter = T.LinearMipmapLinearFilter;
       clayTexture.generateMipmaps = true;
       clayTexture.needsUpdate = true;
-      // Brand pigment stays #FCC200; physical side lighting provides the soft clay shading.
-      const face = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .88, bumpMap: clayTexture, bumpScale: .24, toneMapped: false, side: T.DoubleSide });
+      // Keep the front exactly brand gold; tactile clay lighting belongs to the dimensional edges.
+      const face = new T.MeshBasicMaterial({ color: '#FCC200', toneMapped: false, side: T.DoubleSide });
       const edge = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .76, bumpMap: clayTexture, bumpScale: .3, toneMapped: false, side: T.DoubleSide });
       materials.push(face, edge);
       const group = new T.Group(); scene.add(group);

@@ -222,3 +222,6 @@ The model now extrudes 40 SVG units backwards from its unchanged front plane, wi
 
 ### Matte rendering cost
 Clay now uses direct side/fill/ambient lighting without constructing or convolving a room reflection map. The 128px texture, mobile pixel-ratio cap, offscreen/tab suspension and stop-after-settle lifecycle remain. Tests explicitly confirm zero idle renders once settled. Device frame-rate and GPU-memory measurements remain to be completed on physical phones.
+
+### Restore exact front-face gold
+The front face uses an unlit #FCC200 material again so side lighting cannot mute the brand colour. Clay microtexture and directional shading remain on the extruded sides and bevels. Depth, pivot limits and the handwritten takeover are unchanged.
