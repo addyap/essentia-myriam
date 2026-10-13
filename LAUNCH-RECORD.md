@@ -26,7 +26,7 @@ Every bracketed value is a placeholder, not an approved fact or a successful tes
 | Translations approved | [FR / EN / IT / ES REVIEWERS AND DATES] |
 | Resources launch decision | [PUBLISH REAL CONTENT / DEFER NAVIGATION ENTRY] |
 
-Public placeholder locations: legal and privacy details in `content/launch-placeholders.json`; qualifications and appointment details in `content/global/{fr,en,it,es}.json` under `launchDetails`. Replace each placeholder in all relevant languages when approved. Remove the “details to be completed” notice when a whole block is confirmed, rather than displaying approved facts under a draft label.
+Public placeholder locations: legal and privacy details in `content/launch-placeholders.json`; qualifications and appointment details in `content/fr/launchDetails.json` for French and `content/global/{en,it,es}.json` under `launchDetails` for translations. Replace each placeholder in all relevant languages when approved. Remove the “details to be completed” notice when a whole block is confirmed, rather than displaying approved facts under a draft label.
 
 ## Browser and accessibility evidence
 

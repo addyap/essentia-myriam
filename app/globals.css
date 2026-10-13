@@ -651,3 +651,12 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
  .page-heading .page-monogram,.page-heading--quiet .page-monogram{width:100%;justify-self:center;align-items:center}
  .page-monogram .section-logo{margin-inline:auto}
 }
+
+/* The editor has its own shell, separate from the public navigation. */
+.cms-welcome{min-height:100dvh;display:grid;place-items:center;padding:32px 20px;background:var(--cream)}
+.cms-welcome-card{width:min(100%,640px);padding:clamp(24px,5vw,48px);border:1px solid var(--line);background:var(--paper)}
+.cms-welcome h1{font-family:var(--serif);font-size:clamp(30px,5vw,44px);margin:14px 0 24px}
+.cms-welcome p{line-height:1.7;margin:18px 0}
+.cms-welcome a:not(.btn){text-decoration:underline;text-underline-offset:4px}
+.cms-preview-notice{position:relative;z-index:45;padding:14px 24px;background:#26382E;color:#fff;font:14px/1.5 var(--sans);display:flex;gap:16px;flex-wrap:wrap;justify-content:space-between}
+.cms-preview-notice a{text-decoration:underline;text-underline-offset:4px}

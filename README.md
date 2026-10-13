@@ -42,4 +42,8 @@ See **LAUNCH-AUDIT.md** for ranked findings, verification evidence and the relea
 
 ## Details awaiting owner confirmation
 
-Visible, explicitly marked placeholders now appear on About, Appointment, Legal Notice and Privacy pages. Edit legal/privacy values in `content/launch-placeholders.json` and translated credentials/appointment fields under `launchDetails` in the four locale files. `LAUNCH-RECORD.md` contains fill-in fields for business approvals, browser/accessibility testing, performance, analytics and deployment evidence. Placeholders do not close launch gates.
+Visible, explicitly marked placeholders now appear on About, Appointment, Legal Notice and Privacy pages. Edit legal/privacy values in `content/launch-placeholders.json` and French credentials/appointment fields in `content/fr/launchDetails.json` and translated `launchDetails` fields in `content/global/{en,it,es}.json`. `LAUNCH-RECORD.md` contains fill-in fields for business approvals, browser/accessibility testing, performance, analytics and deployment evidence. Placeholders do not close launch gates.
+
+## French text editor
+
+The database-free Keystatic editor is available at `/admin` once GitHub authentication is connected. French page content now lives in `content/fr/*.json`; other languages are unchanged. See [CMS-GUIDE.md](CMS-GUIDE.md) for Myriam’s editing workflow and the one-time owner setup. Never deploy local filesystem editing or commit CMS credentials.

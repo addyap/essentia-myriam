@@ -1,0 +1,1043 @@
+{
+  "brand": {
+    "type": "object",
+    "label": "Identité",
+    "fields": {
+      "essentia": {
+        "type": "object",
+        "label": "Essentia",
+        "fields": {
+          "name": {
+            "type": "text",
+            "label": "Nom",
+            "multiline": false,
+            "required": false
+          },
+          "sub": {
+            "type": "text",
+            "label": "Signature",
+            "multiline": false,
+            "required": false
+          },
+          "byline": {
+            "type": "text",
+            "label": "Nom de Myriam",
+            "multiline": false,
+            "required": false
+          }
+        }
+      }
+    }
+  },
+  "ui": {
+    "type": "object",
+    "label": "Boutons et accessibilité",
+    "fields": {
+      "language": {
+        "type": "text",
+        "label": "Langue",
+        "multiline": false,
+        "required": false
+      },
+      "book": {
+        "type": "text",
+        "label": "Bouton de rendez-vous",
+        "multiline": false,
+        "required": false
+      },
+      "discover": {
+        "type": "text",
+        "label": "Découvrir",
+        "multiline": false,
+        "required": false
+      },
+      "menu": {
+        "type": "text",
+        "label": "Menu",
+        "multiline": false,
+        "required": false
+      },
+      "legalFrenchOnly": {
+        "type": "text",
+        "label": "Message des pages légales",
+        "multiline": false,
+        "required": false
+      },
+      "logoMotion": {
+        "type": "object",
+        "label": "Animation du logo",
+        "fields": {
+          "replay": {
+            "type": "text",
+            "label": "Rejouer",
+            "multiline": false,
+            "required": false
+          },
+          "resume": {
+            "type": "text",
+            "label": "Reprendre",
+            "multiline": false,
+            "required": false
+          },
+          "pause": {
+            "type": "text",
+            "label": "Mettre en pause",
+            "multiline": false,
+            "required": false
+          }
+        }
+      },
+      "backgroundVideo": {
+        "type": "object",
+        "label": "Vidéo de fond",
+        "fields": {
+          "pause": {
+            "type": "text",
+            "label": "Mettre en pause",
+            "multiline": false,
+            "required": false
+          },
+          "resume": {
+            "type": "text",
+            "label": "Reprendre",
+            "multiline": false,
+            "required": false
+          }
+        }
+      },
+      "skip": {
+        "type": "text",
+        "label": "Lien d’évitement",
+        "multiline": false,
+        "required": false
+      },
+      "scroll": {
+        "type": "text",
+        "label": "Défiler",
+        "multiline": false,
+        "required": false
+      },
+      "explore": {
+        "type": "text",
+        "label": "Explorer",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "nav": {
+    "type": "object",
+    "label": "Navigation",
+    "fields": {
+      "home": {
+        "type": "text",
+        "label": "Accueil",
+        "multiline": false,
+        "required": false
+      },
+      "about": {
+        "type": "text",
+        "label": "À propos",
+        "multiline": false,
+        "required": false
+      },
+      "coaching": {
+        "type": "text",
+        "label": "Accompagnement",
+        "multiline": false,
+        "required": false
+      },
+      "rh": {
+        "type": "text",
+        "label": "Conseil RH",
+        "multiline": false,
+        "required": false
+      },
+      "resources": {
+        "type": "text",
+        "label": "Ressources",
+        "multiline": false,
+        "required": false
+      },
+      "contact": {
+        "type": "text",
+        "label": "Contact",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "footer": {
+    "type": "object",
+    "label": "Pied de page",
+    "fields": {
+      "explore": {
+        "type": "text",
+        "label": "Explorer",
+        "multiline": false,
+        "required": false
+      },
+      "contact": {
+        "type": "text",
+        "label": "Contact",
+        "multiline": false,
+        "required": false
+      },
+      "legal": {
+        "type": "text",
+        "label": "Informations légales",
+        "multiline": false,
+        "required": false
+      },
+      "legalNotice": {
+        "type": "text",
+        "label": "Mentions légales",
+        "multiline": false,
+        "required": false
+      },
+      "privacy": {
+        "type": "text",
+        "label": "Confidentialité",
+        "multiline": false,
+        "required": false
+      },
+      "rgpd": {
+        "type": "text",
+        "label": "Protection des données",
+        "multiline": false,
+        "required": false
+      },
+      "ethics": {
+        "type": "text",
+        "label": "Charte éthique",
+        "multiline": false,
+        "required": false
+      },
+      "blurb": {
+        "type": "text",
+        "label": "Présentation courte",
+        "multiline": true,
+        "required": false
+      },
+      "tagline": {
+        "type": "text",
+        "label": "Signature courte",
+        "multiline": false,
+        "required": false
+      },
+      "rights": {
+        "type": "text",
+        "label": "Copyright — conserver {year} et {name}",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "home": {
+    "type": "object",
+    "label": "Accueil",
+    "fields": {
+      "heroKicker": {
+        "type": "text",
+        "label": "Sur-titre du grand visuel",
+        "multiline": false,
+        "required": true
+      },
+      "heroTitle": {
+        "type": "array",
+        "label": "Grand titre — avant / mot doré / après",
+        "length": 3,
+        "element": {
+          "type": "text",
+          "label": "Texte",
+          "multiline": true,
+          "required": false
+        },
+        "hero": true
+      },
+      "heroSub": {
+        "type": "text",
+        "label": "Sous-titre du grand visuel",
+        "multiline": false,
+        "required": false
+      },
+      "heroCta1": {
+        "type": "text",
+        "label": "Bouton principal",
+        "multiline": false,
+        "required": false
+      },
+      "heroCta2": {
+        "type": "text",
+        "label": "Bouton secondaire",
+        "multiline": false,
+        "required": false
+      },
+      "introEyebrow": {
+        "type": "text",
+        "label": "Sur-titre de présentation",
+        "multiline": false,
+        "required": false
+      },
+      "introTitle": {
+        "type": "text",
+        "label": "Titre de présentation",
+        "multiline": false,
+        "required": true
+      },
+      "introBody": {
+        "type": "text",
+        "label": "Texte de présentation",
+        "multiline": true,
+        "required": false
+      },
+      "pillarsEyebrow": {
+        "type": "text",
+        "label": "Sur-titre des thèmes",
+        "multiline": false,
+        "required": false
+      },
+      "pillars": {
+        "type": "array",
+        "label": "Thèmes explorés",
+        "length": 3,
+        "element": {
+          "type": "object",
+          "label": "Accompagnements",
+          "fields": {
+            "ic": {
+              "type": "ignored"
+            },
+            "t": {
+              "type": "text",
+              "label": "Titre",
+              "multiline": false,
+              "required": true
+            },
+            "d": {
+              "type": "text",
+              "label": "Description",
+              "multiline": false,
+              "required": false
+            }
+          }
+        },
+        "hero": false
+      },
+      "forEyebrow": {
+        "type": "text",
+        "label": "Sur-titre des publics",
+        "multiline": false,
+        "required": false
+      },
+      "forTitle": {
+        "type": "text",
+        "label": "Titre des publics",
+        "multiline": false,
+        "required": false
+      },
+      "forWho": {
+        "type": "array",
+        "label": "Publics accompagnés",
+        "length": 3,
+        "element": {
+          "type": "object",
+          "label": "Accompagnements",
+          "fields": {
+            "ic": {
+              "type": "ignored"
+            },
+            "t": {
+              "type": "text",
+              "label": "Titre",
+              "multiline": false,
+              "required": true
+            },
+            "d": {
+              "type": "text",
+              "label": "Description",
+              "multiline": true,
+              "required": false
+            }
+          }
+        },
+        "hero": false
+      },
+      "testiTitle": {
+        "type": "text",
+        "label": "Phrase de philosophie",
+        "multiline": false,
+        "required": false
+      },
+      "bandTitle": {
+        "type": "text",
+        "label": "Titre de l’invitation",
+        "multiline": false,
+        "required": false
+      },
+      "bandText": {
+        "type": "text",
+        "label": "Texte de l’invitation",
+        "multiline": false,
+        "required": false
+      },
+      "bandBtn": {
+        "type": "text",
+        "label": "Bouton de l’invitation",
+        "multiline": false,
+        "required": false
+      },
+      "pauseEyebrow": {
+        "type": "text",
+        "label": "Sur-titre de philosophie",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "about": {
+    "type": "object",
+    "label": "À propos",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "lead": {
+        "type": "text",
+        "label": "Introduction",
+        "multiline": false,
+        "required": false
+      },
+      "photoCaption": {
+        "type": "text",
+        "label": "Légende de la photo",
+        "multiline": false,
+        "required": false
+      },
+      "p1": {
+        "type": "text",
+        "label": "Premier paragraphe",
+        "multiline": true,
+        "required": false
+      },
+      "p2": {
+        "type": "text",
+        "label": "Deuxième paragraphe",
+        "multiline": true,
+        "required": false
+      },
+      "journeyTitle": {
+        "type": "text",
+        "label": "Titre du parcours",
+        "multiline": false,
+        "required": false
+      },
+      "journeyBody": {
+        "type": "text",
+        "label": "Texte du parcours",
+        "multiline": true,
+        "required": false
+      },
+      "valuesTitle": {
+        "type": "text",
+        "label": "Titre des valeurs",
+        "multiline": false,
+        "required": false
+      },
+      "valuesSub": {
+        "type": "text",
+        "label": "Introduction des valeurs",
+        "multiline": false,
+        "required": false
+      },
+      "values": {
+        "type": "array",
+        "label": "Valeurs",
+        "length": 4,
+        "element": {
+          "type": "object",
+          "label": "Accompagnements",
+          "fields": {
+            "ic": {
+              "type": "ignored"
+            },
+            "t": {
+              "type": "text",
+              "label": "Titre",
+              "multiline": false,
+              "required": true
+            },
+            "d": {
+              "type": "text",
+              "label": "Description",
+              "multiline": false,
+              "required": false
+            }
+          }
+        },
+        "hero": false
+      },
+      "whyTitle": {
+        "type": "text",
+        "label": "Titre de l’approche",
+        "multiline": false,
+        "required": false
+      },
+      "whyBody": {
+        "type": "text",
+        "label": "Texte de l’approche",
+        "multiline": true,
+        "required": false
+      },
+      "langsTitle": {
+        "type": "text",
+        "label": "Titre des langues",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "coaching": {
+    "type": "object",
+    "label": "Accompagnement",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "lead": {
+        "type": "text",
+        "label": "Introduction",
+        "multiline": true,
+        "required": false
+      },
+      "listTitle": {
+        "type": "text",
+        "label": "Titre de la liste",
+        "multiline": false,
+        "required": false
+      },
+      "items": {
+        "type": "array",
+        "label": "Accompagnements",
+        "length": 6,
+        "element": {
+          "type": "object",
+          "label": "Accompagnements",
+          "fields": {
+            "ic": {
+              "type": "ignored"
+            },
+            "t": {
+              "type": "text",
+              "label": "Titre",
+              "multiline": false,
+              "required": true
+            },
+            "d": {
+              "type": "text",
+              "label": "Description",
+              "multiline": false,
+              "required": false
+            }
+          }
+        },
+        "hero": false
+      },
+      "methodsEyebrow": {
+        "type": "text",
+        "label": "Sur-titre des méthodes",
+        "multiline": false,
+        "required": false
+      },
+      "methodsTitle": {
+        "type": "text",
+        "label": "Titre des méthodes",
+        "multiline": false,
+        "required": false
+      },
+      "methodsSub": {
+        "type": "text",
+        "label": "Introduction des méthodes",
+        "multiline": false,
+        "required": false
+      },
+      "methods": {
+        "type": "array",
+        "label": "Méthodes",
+        "length": 6,
+        "element": {
+          "type": "text",
+          "label": "Texte",
+          "multiline": false,
+          "required": false
+        },
+        "hero": false
+      },
+      "pricingEyebrow": {
+        "type": "text",
+        "label": "Sur-titre des modalités",
+        "multiline": false,
+        "required": false
+      },
+      "pricingTitle": {
+        "type": "text",
+        "label": "Titre des modalités",
+        "multiline": false,
+        "required": false
+      },
+      "pricingSub": {
+        "type": "text",
+        "label": "Texte des modalités",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "rh": {
+    "type": "object",
+    "label": "Conseil RH",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "lead": {
+        "type": "text",
+        "label": "Introduction",
+        "multiline": false,
+        "required": false
+      },
+      "items": {
+        "type": "array",
+        "label": "Accompagnements",
+        "length": 4,
+        "element": {
+          "type": "object",
+          "label": "Accompagnements",
+          "fields": {
+            "ic": {
+              "type": "ignored"
+            },
+            "t": {
+              "type": "text",
+              "label": "Titre",
+              "multiline": false,
+              "required": true
+            },
+            "d": {
+              "type": "text",
+              "label": "Description",
+              "multiline": false,
+              "required": false
+            }
+          }
+        },
+        "hero": false
+      },
+      "approachTitle": {
+        "type": "text",
+        "label": "Titre de l’expertise",
+        "multiline": false,
+        "required": false
+      },
+      "approachBody": {
+        "type": "text",
+        "label": "Texte de l’expertise",
+        "multiline": true,
+        "required": false
+      },
+      "ctaTitle": {
+        "type": "text",
+        "label": "Titre de prise de contact",
+        "multiline": false,
+        "required": false
+      },
+      "ctaBtn": {
+        "type": "text",
+        "label": "Bouton de prise de contact",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "booking": {
+    "type": "object",
+    "label": "Rendez-vous",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "coordsTitle": {
+        "type": "text",
+        "label": "Titre des coordonnées",
+        "multiline": false,
+        "required": false
+      },
+      "address": {
+        "type": "text",
+        "label": "Lieu et format des consultations",
+        "multiline": false,
+        "required": false
+      },
+      "waGreeting": {
+        "type": "text",
+        "label": "Message initial WhatsApp",
+        "multiline": false,
+        "required": false
+      },
+      "directLead": {
+        "type": "text",
+        "label": "Introduction de prise de contact",
+        "multiline": false,
+        "required": false
+      },
+      "stepsTitle": {
+        "type": "text",
+        "label": "Titre des étapes",
+        "multiline": false,
+        "required": false
+      },
+      "steps": {
+        "type": "array",
+        "label": "Étapes",
+        "length": 3,
+        "element": {
+          "type": "text",
+          "label": "Texte",
+          "multiline": false,
+          "required": false
+        },
+        "hero": false
+      }
+    }
+  },
+  "resources": {
+    "type": "object",
+    "label": "Ressources",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "lead": {
+        "type": "text",
+        "label": "Introduction",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "contact": {
+    "type": "object",
+    "label": "Contact",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "lead": {
+        "type": "text",
+        "label": "Introduction",
+        "multiline": true,
+        "required": false
+      },
+      "infoTitle": {
+        "type": "text",
+        "label": "Titre des coordonnées",
+        "multiline": false,
+        "required": false
+      },
+      "hoursTitle": {
+        "type": "text",
+        "label": "Titre des disponibilités",
+        "multiline": false,
+        "required": false
+      },
+      "hours": {
+        "type": "text",
+        "label": "Disponibilités",
+        "multiline": false,
+        "required": false
+      },
+      "whatsapp": {
+        "type": "text",
+        "label": "Bouton WhatsApp",
+        "multiline": false,
+        "required": false
+      },
+      "directTitle": {
+        "type": "text",
+        "label": "Titre de prise de contact",
+        "multiline": false,
+        "required": false
+      },
+      "directLead": {
+        "type": "text",
+        "label": "Introduction de prise de contact",
+        "multiline": false,
+        "required": false
+      },
+      "emailAction": {
+        "type": "text",
+        "label": "Bouton email",
+        "multiline": false,
+        "required": false
+      },
+      "phoneAction": {
+        "type": "text",
+        "label": "Bouton téléphone",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "notFound": {
+    "type": "object",
+    "label": "Page introuvable",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "text": {
+        "type": "text",
+        "label": "Texte",
+        "multiline": false,
+        "required": false
+      },
+      "backBtn": {
+        "type": "text",
+        "label": "Bouton de retour",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "launchDetails": {
+    "type": "object",
+    "label": "Informations pratiques",
+    "fields": {
+      "status": {
+        "type": "text",
+        "label": "État des informations",
+        "multiline": false,
+        "required": false
+      },
+      "note": {
+        "type": "text",
+        "label": "Note explicative",
+        "multiline": false,
+        "required": false
+      },
+      "booking": {
+        "type": "object",
+        "label": "Rendez-vous",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre",
+            "multiline": false,
+            "required": true
+          },
+          "fields": {
+            "type": "array",
+            "label": "Informations",
+            "length": 5,
+            "element": {
+              "type": "object",
+              "label": "Accompagnements",
+              "fields": {
+                "label": {
+                  "type": "text",
+                  "label": "Intitulé",
+                  "multiline": false,
+                  "required": false
+                },
+                "value": {
+                  "type": "text",
+                  "label": "Valeur",
+                  "multiline": false,
+                  "required": false
+                }
+              }
+            },
+            "hero": false
+          }
+        }
+      },
+      "credentials": {
+        "type": "object",
+        "label": "Qualifications",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre",
+            "multiline": false,
+            "required": true
+          },
+          "fields": {
+            "type": "array",
+            "label": "Informations",
+            "length": 4,
+            "element": {
+              "type": "object",
+              "label": "Accompagnements",
+              "fields": {
+                "label": {
+                  "type": "text",
+                  "label": "Intitulé",
+                  "multiline": false,
+                  "required": false
+                },
+                "value": {
+                  "type": "text",
+                  "label": "Valeur",
+                  "multiline": false,
+                  "required": false
+                }
+              }
+            },
+            "hero": false
+          }
+        }
+      }
+    }
+  },
+  "legalDetails": {
+    "type": "object",
+    "label": "Informations légales",
+    "fields": {
+      "legal": {
+        "type": "object",
+        "label": "Informations légales",
+        "fields": {
+          "status": {
+            "type": "text",
+            "label": "État des informations",
+            "multiline": false,
+            "required": false
+          },
+          "address": {
+            "type": "text",
+            "label": "Lieu et format des consultations",
+            "multiline": false,
+            "required": false
+          },
+          "siret": {
+            "type": "text",
+            "label": "Numéro SIRET",
+            "multiline": false,
+            "required": false
+          }
+        }
+      },
+      "privacy": {
+        "type": "object",
+        "label": "Confidentialité",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre",
+            "multiline": false,
+            "required": true
+          },
+          "status": {
+            "type": "text",
+            "label": "État des informations",
+            "multiline": false,
+            "required": false
+          },
+          "note": {
+            "type": "text",
+            "label": "Note explicative",
+            "multiline": true,
+            "required": false
+          },
+          "fields": {
+            "type": "array",
+            "label": "Informations",
+            "length": 6,
+            "element": {
+              "type": "object",
+              "label": "Accompagnements",
+              "fields": {
+                "label": {
+                  "type": "text",
+                  "label": "Intitulé",
+                  "multiline": false,
+                  "required": false
+                },
+                "value": {
+                  "type": "text",
+                  "label": "Valeur",
+                  "multiline": false,
+                  "required": false
+                }
+              }
+            },
+            "hero": false
+          }
+        }
+      }
+    }
+  }
+}

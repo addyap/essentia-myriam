@@ -1,0 +1,31 @@
+{
+  "eyebrow": "Organisations & entreprises",
+  "title": "Conseil RH & formation",
+  "lead": "Valoriser le potentiel de vos salariés au service d'une croissance humaine et durable.",
+  "items": [
+    {
+      "ic": "target",
+      "t": "Développement des compétences",
+      "d": "Conception, animation et pilotage de projets de formation professionnelle sur mesure."
+    },
+    {
+      "ic": "users",
+      "t": "Gestion des talents",
+      "d": "Mise en place de politiques d'attraction, de développement et de fidélisation des talents."
+    },
+    {
+      "ic": "shield",
+      "t": "Prévention du stress",
+      "d": "Diagnostic et dispositifs de prévention des risques psychosociaux et de qualité de vie au travail."
+    },
+    {
+      "ic": "briefcase",
+      "t": "Accompagnement du changement",
+      "d": "Restructurations, prises de poste et transformations, accompagnées avec méthode et humanité."
+    }
+  ],
+  "approachTitle": "Une expertise internationale",
+  "approachBody": "Plus de 15 ans au service des politiques de l'emploi, de la formation professionnelle et du développement économique des entreprises à l'international — de la gestion de fonds européens à l'enseignement du management RH en école de commerce. Une culture inclusive et performante, au service de l'humain.",
+  "ctaTitle": "Un projet pour vos équipes ?",
+  "ctaBtn": "Échangeons sur vos besoins"
+}

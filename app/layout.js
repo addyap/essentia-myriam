@@ -1,12 +1,7 @@
 import { GFS_Didot, Mulish, Parisienne } from 'next/font/google';
 import './globals.css';
-import { Providers } from '@/components/Providers';
-import { Header } from '@/components/Header';
-import { Footer } from '@/components/Footer';
-import { SkipLink } from '@/components/SkipLink';
-import { MotionSystem } from '@/components/MotionSystem';
+import { SiteShell } from '@/components/SiteShell';
 import { SITE_URL } from '@/lib/config';
-import { Analytics } from '@vercel/analytics/next';
 
 // Requested: Didot, per the specimen comparison Myriam reviewed. The real
 // Linotype Didot is only licensed for local/system use (it ships with
@@ -96,14 +91,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        <Providers>
-          <SkipLink />
-          <Header />
-          <MotionSystem />
-          <main id="main-content" tabIndex={-1}>{children}</main>
-          <Footer />
-        </Providers>
-        <Analytics />
+        <SiteShell>{children}</SiteShell>
       </body>
     </html>
   );

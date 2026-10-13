@@ -2,7 +2,7 @@ import { SITE_URL as BASE_URL } from '@/lib/config';
 
 export default function robots() {
   return {
-    rules: { userAgent: '*', allow: '/' },
+    rules: { userAgent: '*', allow: '/', disallow: ['/admin', '/keystatic', '/api/keystatic', '/cms-preview'] },
     sitemap: `${BASE_URL}/sitemap.xml`,
   };
 }

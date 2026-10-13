@@ -1,0 +1,56 @@
+{
+  "heroKicker": "Coaching · Psychothérapie · Conseil RH",
+  "heroTitle": [
+    "Un voyage suspendu où le temps\nmurmure à votre véritable ",
+    "essence",
+    ""
+  ],
+  "heroSub": "Un accompagnement humain et pragmatique pour vous réaligner avec clarté, sens et authenticité.",
+  "heroCta1": "Prendre rendez-vous",
+  "heroCta2": "Découvrir mon approche",
+  "introEyebrow": "Une approche humaine",
+  "introTitle": "Transformer vos défis en opportunités d'évolution",
+  "introBody": "Intuitive et observatrice, dotée d'une écoute attentive, je propose aux personnes et aux groupes de s'engager dans l'aventure de la découverte de soi — pour créer un parcours en cohérence avec leurs aspirations et leurs valeurs.",
+  "pillarsEyebrow": "Ce que nous explorons ensemble",
+  "pillars": [
+    {
+      "ic": "spark",
+      "t": "Confiance & estime de soi",
+      "d": "(Re)découvrir vos forces et les valoriser au quotidien, à travers des outils personnalisés."
+    },
+    {
+      "ic": "compass",
+      "t": "Transitions de vie",
+      "d": "Prise de poste, reconversion, création d'entreprise ou expatriation : transformer l'incertitude en levier."
+    },
+    {
+      "ic": "heart",
+      "t": "Relations & émotions",
+      "d": "Apaiser l'anxiété, les conflits et les dynamiques complexes, se libérer des autosabotages."
+    }
+  ],
+  "forEyebrow": "À qui je m’adresse",
+  "forTitle": "Un accompagnement sur mesure",
+  "forWho": [
+    {
+      "ic": "user",
+      "t": "Particuliers",
+      "d": "En quête de sens, de confiance et d'équilibre, ou traversant une transition personnelle ou professionnelle."
+    },
+    {
+      "ic": "briefcase",
+      "t": "Dirigeants & cadres",
+      "d": "Pour piloter la performance avec justesse, sans se perdre, et incarner un leadership aligné."
+    },
+    {
+      "ic": "users",
+      "t": "Organisations",
+      "d": "Développement des compétences, gestion des talents, prévention du stress et culture inclusive."
+    }
+  ],
+  "testiTitle": "L'accompagnement n'est pas une mode, c'est un chemin",
+  "bandTitle": "Prêt(e) à libérer votre potentiel ?",
+  "bandText": "Ensemble, nous co-créons un chemin sur mesure, aligné sur vos valeurs et vos ambitions.",
+  "bandBtn": "Réserver un premier échange",
+  "pauseEyebrow": "Une philosophie"
+}

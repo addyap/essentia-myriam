@@ -1,0 +1,52 @@
+{
+  "eyebrow": "Accompagnement individuel & collectif",
+  "title": "Coaching, psychothérapie & ateliers",
+  "lead": "Une approche holistique et bienveillante, mêlant coaching, dynamique des groupes et compréhension des spécificités multiculturelles.",
+  "listTitle": "Les accompagnements",
+  "items": [
+    {
+      "ic": "user",
+      "t": "Coaching individuel",
+      "d": "Un cheminement sur mesure pour clarifier vos aspirations et avancer avec confiance."
+    },
+    {
+      "ic": "users",
+      "t": "Coaching d’équipe & de groupe",
+      "d": "Cohésion, communication et intelligence collective au service d'un objectif commun."
+    },
+    {
+      "ic": "leaf",
+      "t": "Psychothérapie & gestion du stress",
+      "d": "Apaiser l'anxiété, réguler les émotions et retrouver un équilibre durable."
+    },
+    {
+      "ic": "spark",
+      "t": "Confiance & estime de soi",
+      "d": "Dépasser les croyances limitantes et les autosabotages, révéler vos forces."
+    },
+    {
+      "ic": "compass",
+      "t": "Transitions & accidents de vie",
+      "d": "Traverser les changements, les ruptures et les deuils avec justesse et douceur."
+    },
+    {
+      "ic": "book",
+      "t": "Ateliers & formations",
+      "d": "Des temps collectifs pour explorer, expérimenter et intégrer de nouvelles ressources."
+    }
+  ],
+  "methodsEyebrow": "Notre approche",
+  "methodsTitle": "Des méthodes multidisciplinaires",
+  "methodsSub": "Inspirées des meilleures pratiques internationales.",
+  "methods": [
+    "Coaching",
+    "TCC",
+    "EMDR",
+    "PNL",
+    "Approche de Rogers",
+    "Dynamique des groupes"
+  ],
+  "pricingEyebrow": "Investissement",
+  "pricingTitle": "Tarifs & modalités",
+  "pricingSub": "Contactez Myriam pour connaître les tarifs, la durée et les modalités adaptés à votre demande."
+}

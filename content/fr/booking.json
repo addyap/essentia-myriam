@@ -1,0 +1,14 @@
+{
+  "eyebrow": "Prendre rendez-vous",
+  "title": "Réservez votre premier échange",
+  "coordsTitle": "Me contacter",
+  "address": "Consultations en cabinet & en visioconférence",
+  "waGreeting": "Bonjour Myriam, je vous contacte depuis votre site Essentia à propos de…",
+  "directLead": "Contactez Myriam directement pour convenir ensemble d’un premier rendez-vous.",
+  "stepsTitle": "Préparer votre premier échange",
+  "steps": [
+    "Indiquez votre besoin et vos disponibilités par WhatsApp, e-mail ou téléphone.",
+    "Demandez confirmation du tarif, de la durée, du lieu et des conditions d’annulation.",
+    "Attendez la confirmation de Myriam avant de considérer le rendez-vous comme réservé."
+  ]
+}

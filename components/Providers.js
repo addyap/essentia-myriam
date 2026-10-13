@@ -1,9 +1,9 @@
 'use client';
 import { createContext, useContext, useState, useEffect, useRef, useCallback } from 'react';
-import fr from '@/content/global/fr.json';
+import fr from '@/lib/french-content';
 import { ENABLED_LANGS } from '@/lib/config';
 
-// Content lives in content/global/*.json.
+// French lives in content/fr/*.json; translations remain in content/global/*.json.
 // Only French is bundled synchronously (it's the SSR/first-paint default);
 // other locales are fetched on demand so a visitor's browser never downloads
 // content for languages they don't use.
@@ -21,14 +21,14 @@ const LOADERS = Object.fromEntries(ENABLED_LANGS.map((l) => [l, ALL_LOADERS[l]])
 const AppContext = createContext(null);
 const LANG_KEY = 'essentia-lang';
 
-export function Providers({ children }) {
+export function Providers({ children, previewContent }) {
   const [lang, setLangState] = useState('fr'); // French-first; persisted choice loads after mount
-  const [t, setT] = useState(fr); // always starts populated — never renders with missing content
+  const [t, setT] = useState(previewContent || fr); // always starts populated — never renders with missing content
 
   const request = useRef(0);
   const [languageError, setLanguageError] = useState(false);
   const setLang = useCallback(async (next) => {
-    if (!LOADERS[next]) return;
+    if (previewContent || !LOADERS[next]) return;
     const ticket = ++request.current;
     setLanguageError(false);
     try {
@@ -40,15 +40,16 @@ export function Providers({ children }) {
     } catch {
       if (ticket === request.current) setLanguageError(true);
     }
-  }, []);
+  }, [previewContent]);
 
   useEffect(() => {
+    if (previewContent) return;
     try {
       const saved = localStorage.getItem(LANG_KEY);
       if (saved && saved !== 'fr') setLang(saved);
     } catch {}
     return () => { request.current++; };
-  }, [setLang]);
+  }, [setLang, previewContent]);
 
   useEffect(() => { document.documentElement.lang = lang; }, [lang]);
 

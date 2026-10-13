@@ -1,7 +1,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { mount, find } = require('./helpers/mount.cjs');
-const fr = require('../content/global/fr.json');
+const fs = require('node:fs');
+const fr = Object.fromEntries(fs.readdirSync('content/fr').map(name => [name.slice(0,-5), require('../content/fr/'+name)]));
 const en = require('../content/global/en.json');
 function deferred() {
   let resolve, reject;
@@ -11,7 +12,7 @@ function deferred() {
 async function provider(pending) {
   return mount('components/Providers.js', 'Providers', { modules: {
     '@/lib/config': { ENABLED_LANGS: ['fr', 'en', 'it', 'es'] },
-    '@/content/global/fr.json': fr,
+    '@/lib/french-content': fr,
     '@/content/global/en.json': { __esModule: true, default: pending.promise },
   } });
 }

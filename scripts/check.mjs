@@ -16,7 +16,7 @@ for (const dir of ['app', 'components', 'lib', 'content']) await check(dir);
 console.log(`Syntax and content check passed: ${count} JavaScript files. This is not an ESLint audit.`);
 
 // Every enabled locale must expose the same content shape.
-const french = JSON.parse(await readFile('content/global/fr.json', 'utf8'));
+const french = Object.fromEntries(await Promise.all((await readdir('content/fr')).filter(name => name.endsWith('.json')).map(async name => [name.slice(0, -5), JSON.parse(await readFile(`content/fr/${name}`, 'utf8'))])));
 const keys = (value, prefix = '') => Object.entries(value).flatMap(([key, child]) => {
   const path = prefix ? `${prefix}.${key}` : key;
   return child && typeof child === 'object' && !Array.isArray(child) ? keys(child, path) : [path];

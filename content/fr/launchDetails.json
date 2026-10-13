@@ -1,0 +1,50 @@
+{
+  "status": "Informations à compléter",
+  "note": "Ces informations seront précisées après validation par Myriam.",
+  "booking": {
+    "title": "Votre premier échange",
+    "fields": [
+      {
+        "label": "Durée de l’échange",
+        "value": "À compléter"
+      },
+      {
+        "label": "Format et lieu des séances",
+        "value": "À compléter"
+      },
+      {
+        "label": "Tarif et modalités de paiement",
+        "value": "À compléter"
+      },
+      {
+        "label": "Conditions d’annulation et de report",
+        "value": "À compléter"
+      },
+      {
+        "label": "Confirmation du rendez-vous",
+        "value": "À compléter"
+      }
+    ]
+  },
+  "credentials": {
+    "title": "Qualifications et cadre professionnel",
+    "fields": [
+      {
+        "label": "Diplômes et organismes de formation",
+        "value": "À compléter"
+      },
+      {
+        "label": "Certifications et dates d’obtention",
+        "value": "À compléter"
+      },
+      {
+        "label": "Titres professionnels et inscriptions applicables",
+        "value": "À compléter"
+      },
+      {
+        "label": "Expérience professionnelle vérifiée",
+        "value": "À compléter"
+      }
+    ]
+  }
+}
