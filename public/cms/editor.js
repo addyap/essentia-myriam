@@ -19,10 +19,12 @@
       }
     } else {
       await load('https://cdn.jsdelivr.net/npm/netlify-identity-widget@2.0.3/build/netlify-identity-widget.js');
-      window.netlifyIdentity.init({ APIUrl: data.config.backend.identity_url, locale: 'fr', logo: false });
-      window.netlifyIdentity.setLocale('fr');
+      // Decap may call init again after its timeout. Keep every init on the Bridge endpoint.
+      const initIdentity = window.netlifyIdentity.init.bind(window.netlifyIdentity);
+      window.netlifyIdentity.init = (options = {}) => initIdentity({ ...options, APIUrl: data.config.backend.identity_url, locale: 'fr', logo: false });
     }
     await load('https://cdn.jsdelivr.net/npm/decap-cms@3.16.3/dist/decap-cms.js');
+    if (!data.demoFiles) window.netlifyIdentity.init();
     if (data.demoFiles) {
       // Deliberately isolated: no network mutations, gateway, token or persistent storage.
       const files = { ...data.demoFiles };
