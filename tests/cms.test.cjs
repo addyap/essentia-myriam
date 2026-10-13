@@ -14,7 +14,11 @@ test('French editor schema covers every text without exposing translations', asy
   const config = makeCmsConfig(definitions,french,require('../content/launch-placeholders.json'),'00000000-0000-0000-0000-000000000001');
   assert.equal(config.locale,'fr'); assert.equal(config.publish_mode,'editorial_workflow');
   assert.equal(config.backend.name,'git-gateway');
-  assert.ok(config.backend.identity_url.startsWith('https://auth.decapbridge.com/sites/'));
+  assert.equal(config.backend.auth_type,'pkce');
+  assert.equal(config.backend.base_url,'https://auth.decapbridge.com');
+  assert.equal(config.backend.auth_endpoint,'/sites/00000000-0000-0000-0000-000000000001/pkce');
+  assert.equal(config.backend.auth_token_endpoint,'/sites/00000000-0000-0000-0000-000000000001/token');
+  assert.equal(config.backend.identity_url,undefined);
   const files=config.collections.flatMap(c=>c.files);
   assert.equal(files.length,Object.keys(french).length+1);
   assert.ok(files.every(f=>f.file.startsWith('content/fr/') || f.file==='content/launch-placeholders.json'));

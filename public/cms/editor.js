@@ -61,18 +61,6 @@
       });
       window.CMS.registerPreviewTemplate(section, Preview);
     }
-    // The built-in Classic form uses GoTrue directly with backend.identity_url.
-    // Localize its two otherwise hardcoded placeholders and accessible names.
-    if (!data.demoFiles) {
-      const localizeLogin = () => {
-        for (const [name, label] of [['email', 'Adresse email'], ['password', 'Mot de passe']]) {
-          const input = document.querySelector('input[name="' + name + '"]');
-          if (input) { input.placeholder = label; input.setAttribute('aria-label', label); }
-        }
-      };
-      new MutationObserver(localizeLogin).observe(document.body, {childList:true,subtree:true});
-      localizeLogin();
-    }
     await window.CMS.init({ config: data.config });
     status.hidden = true;
     if (data.demoFiles) { const banner = document.createElement('p'); banner.textContent = 'Démonstration : les modifications restent dans ce navigateur et ne sont jamais publiées.'; banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;margin:0;padding:8px;z-index:999;background:#26382e;color:white;text-align:center'; document.body.appendChild(banner); }

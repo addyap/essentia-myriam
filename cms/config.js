@@ -13,7 +13,8 @@ export function makeCmsConfig(definitions, french, legalDetails, siteId, demo = 
   const groups = { pages: ['home', 'about', 'coaching', 'rh', 'booking', 'contact', 'resources'], shared: ['brand', 'nav', 'footer', 'launchDetails', 'legalDetails'], labels: ['ui', 'notFound'] };
   return {
     load_config_file: false,
-    backend: demo ? { name: 'essentia-demo' } : { name: 'git-gateway', repo: 'addyap/essentia-myriam', branch: 'main', identity_url: `https://auth.decapbridge.com/sites/${siteId}`, gateway_url: 'https://gateway.decapbridge.com' },
+    backend: demo ? { name: 'essentia-demo' } : { name: 'git-gateway', repo: 'addyap/essentia-myriam', branch: 'main', auth_type: 'pkce', base_url: 'https://auth.decapbridge.com', auth_endpoint: `/sites/${siteId}/pkce`, auth_token_endpoint: `/sites/${siteId}/token`, gateway_url: 'https://gateway.decapbridge.com' },
+    auth: { email_claim: 'email', first_name_claim: 'first_name', last_name_claim: 'last_name', avatar_url_claim: 'avatar_url' },
     locale: 'fr', publish_mode: demo ? 'simple' : 'editorial_workflow',
     site_url: 'https://www.essentiademdb.com', display_url: 'https://www.essentiademdb.com', logo_url: '/favicon.png',
     media_folder: 'public/uploads', public_folder: '/uploads',
