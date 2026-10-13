@@ -108,6 +108,9 @@ test('3D waits for handwriting, holds the crossfade, pivots gently within readab
   assert.ok(Math.min(...rotations.map(r=>r.x))<-.15, 'Forward and backward tilt adds visible depth');
   assert.ok(Math.min(...rotations.map(r=>r.y))<-.43, 'The fuller pivot reaches both sides');
   assert.ok(Math.abs(rotations.at(-1).y-.18)<.001,'Settles at a shallow angle that still shows the extrusion');
+  const settledFrames = rotations.length;
+  for(let i=0;i<40;i++)app.frame();
+  assert.equal(rotations.length,settledFrames,'Settled logos perform no idle rendering');
   assert.equal(ready,1,'Starting animation does not recreate the renderer');
   app.unmount();
 });

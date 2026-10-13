@@ -219,3 +219,6 @@ The shared WebGL logo retains its SVG contours, extrusion, handwriting handoff a
 
 ### Visible dimensional edges
 The model now extrudes 40 SVG units backwards from its unchanged front plane, with deeper bevel shading and lower ambient fill. It settles at 0.18 radians (10.3 degrees) yaw so sidewalls remain visible after the finite pivot. The hard 0.52-radian maximum, gold pigment, silhouette and handwriting sequence remain unchanged.
+
+### Matte rendering cost
+Clay now uses direct side/fill/ambient lighting without constructing or convolving a room reflection map. The 128px texture, mobile pixel-ratio cap, offscreen/tab suspension and stop-after-settle lifecycle remain. Tests explicitly confirm zero idle renders once settled. Device frame-rate and GPU-memory measurements remain to be completed on physical phones.
