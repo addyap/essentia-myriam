@@ -709,3 +709,6 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
 .btn-whatsapp{background:#167640;color:#fff}
 .btn-whatsapp:hover{background:#125E34;color:#fff}
 .btn-whatsapp svg{color:#fff}
+.contact-line .contact-line-text{display:flex;flex-direction:column;line-height:1.35}
+.contact-line .contact-line-text span{margin-left:0}
+.contact-line-detail{font-size:14px;color:var(--muted);letter-spacing:.02em}
