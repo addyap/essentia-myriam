@@ -9,5 +9,24 @@
   "directTitle": "Faisons connaissance",
   "directLead": "Choisissez le moyen de contact qui vous convient pour échanger avec Myriam.",
   "emailAction": "Écrire un email",
-  "phoneAction": "Appeler Myriam"
+  "phoneAction": "Appeler Myriam",
+  "form": {
+    "eyebrow": "Message",
+    "title": "Écrire à Myriam",
+    "lead": "Laissez un message : il arrive directement dans la boîte de réception de Myriam, qui vous répond personnellement.",
+    "name": "Nom et prénom",
+    "email": "Adresse e-mail",
+    "message": "Votre message",
+    "messageHint": "Merci de ne pas détailler d’informations de santé dans ce premier message.",
+    "send": "Envoyer le message",
+    "sending": "Envoi en cours…",
+    "success": "Merci, votre message a bien été envoyé. Myriam vous répondra par e-mail.",
+    "error": "Le message n’a pas pu être envoyé. Réessayez dans un instant, ou écrivez à Myriam par e-mail ou WhatsApp ci-dessous.",
+    "busy": "Plusieurs messages viennent d’être envoyés depuis votre connexion. Merci de réessayer dans quelques minutes.",
+    "privacy": "Vos coordonnées servent uniquement à vous répondre.",
+    "privacyLink": "Politique de confidentialité",
+    "errorName": "Indiquez votre nom.",
+    "errorEmail": "Indiquez une adresse e-mail valide.",
+    "errorMessage": "Écrivez un message d’au moins 10 caractères."
+  }
 }

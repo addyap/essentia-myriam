@@ -251,7 +251,26 @@
     "directTitle": "Let’s get acquainted",
     "directLead": "Choose the contact method that suits you to speak with Myriam.",
     "emailAction": "Send an email",
-    "phoneAction": "Call Myriam"
+    "phoneAction": "Call Myriam",
+    "form": {
+      "eyebrow": "Message",
+      "title": "Write to Myriam",
+      "lead": "Leave a message: it goes straight to Myriam’s inbox, and she replies personally.",
+      "name": "Full name",
+      "email": "Email address",
+      "message": "Your message",
+      "messageHint": "Please don’t include detailed health information in this first message.",
+      "send": "Send message",
+      "sending": "Sending…",
+      "success": "Thank you, your message has been sent. Myriam will reply by email.",
+      "error": "Your message could not be sent. Please try again shortly, or reach Myriam by email or WhatsApp below.",
+      "busy": "Several messages have just been sent from your connection. Please try again in a few minutes.",
+      "privacy": "Your details are used only to reply to you.",
+      "privacyLink": "Privacy policy",
+      "errorName": "Please enter your name.",
+      "errorEmail": "Please enter a valid email address.",
+      "errorMessage": "Please write a message of at least 10 characters."
+    }
   },
   "notFound": {
     "eyebrow": "404",

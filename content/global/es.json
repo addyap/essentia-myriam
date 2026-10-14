@@ -251,7 +251,26 @@
     "directTitle": "Conozcámonos",
     "directLead": "Elige la forma de contacto que prefieras para hablar con Myriam.",
     "emailAction": "Escribir un email",
-    "phoneAction": "Llamar a Myriam"
+    "phoneAction": "Llamar a Myriam",
+    "form": {
+      "eyebrow": "Mensaje",
+      "title": "Escribir a Myriam",
+      "lead": "Deja un mensaje: llega directamente a la bandeja de entrada de Myriam, que te responderá personalmente.",
+      "name": "Nombre y apellidos",
+      "email": "Correo electrónico",
+      "message": "Tu mensaje",
+      "messageHint": "Por favor, no incluyas información detallada sobre tu salud en este primer mensaje.",
+      "send": "Enviar el mensaje",
+      "sending": "Enviando…",
+      "success": "Gracias, tu mensaje se ha enviado. Myriam te responderá por correo electrónico.",
+      "error": "No se ha podido enviar el mensaje. Inténtalo de nuevo en un momento, o escribe a Myriam por correo o WhatsApp más abajo.",
+      "busy": "Se acaban de enviar varios mensajes desde tu conexión. Inténtalo de nuevo en unos minutos.",
+      "privacy": "Tus datos solo se usan para responderte.",
+      "privacyLink": "Política de privacidad",
+      "errorName": "Indica tu nombre.",
+      "errorEmail": "Indica un correo electrónico válido.",
+      "errorMessage": "Escribe un mensaje de al menos 10 caracteres."
+    }
   },
   "notFound": {
     "eyebrow": "404",

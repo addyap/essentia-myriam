@@ -21,7 +21,10 @@ export default function ConfidentialitePage() {
 
         <h2 className="legal-h3">Quelles données sont collectées</h2>
         <p className="prose">
-          Ce site ne propose ni formulaire de collecte ni inscription à une newsletter.
+          Le formulaire de la page Contact recueille votre nom, votre adresse e-mail et
+          votre message. Ils sont transmis par e-mail à Myriam au moyen du service d’envoi
+          Resend (Resend, Inc., États-Unis) et ne sont pas enregistrés sur le site. Ce site
+          ne propose pas d’inscription à une newsletter.
           Lorsque vous contactez Myriam par email, téléphone ou WhatsApp, vous transmettez
           directement les informations nécessaires à votre demande. WhatsApp et votre
           fournisseur de messagerie appliquent leurs propres politiques de confidentialité.

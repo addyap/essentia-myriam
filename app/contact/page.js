@@ -2,6 +2,7 @@
 import { useApp } from '@/components/Providers';
 import { PageHeader } from '@/components/PageHeader';
 import { ContactOptions } from '@/components/ContactOptions';
+import { ContactForm } from '@/components/ContactForm';
 
 export default function ContactPage() {
   const { t } = useApp();
@@ -9,7 +10,10 @@ export default function ContactPage() {
     <section className="page-hero"><PageHeader eyebrow={t.contact.eyebrow} title={t.contact.title} lead={t.contact.lead} scene="contact" /></section>
     <section className="section-soft">
       <div className="wrap contact-layout">
-        <ContactOptions />
+        <div className="contact-main">
+          <ContactForm />
+          <ContactOptions />
+        </div>
         <aside className="contact-aside">
           <span className="eyebrow">{t.contact.hoursTitle}</span>
           <p>{t.contact.hours}</p>

@@ -839,6 +839,114 @@
         "label": "Bouton téléphone",
         "multiline": false,
         "required": false
+      },
+      "form": {
+        "type": "object",
+        "label": "Formulaire de contact",
+        "fields": {
+          "eyebrow": {
+            "type": "text",
+            "label": "Sur-titre",
+            "multiline": false,
+            "required": false
+          },
+          "title": {
+            "type": "text",
+            "label": "Titre",
+            "multiline": false,
+            "required": true
+          },
+          "lead": {
+            "type": "text",
+            "label": "Introduction",
+            "multiline": true,
+            "required": false
+          },
+          "name": {
+            "type": "text",
+            "label": "Libellé du nom",
+            "multiline": false,
+            "required": true
+          },
+          "email": {
+            "type": "text",
+            "label": "Libellé de l’e-mail",
+            "multiline": false,
+            "required": true
+          },
+          "message": {
+            "type": "text",
+            "label": "Libellé du message",
+            "multiline": false,
+            "required": true
+          },
+          "messageHint": {
+            "type": "text",
+            "label": "Conseil sous le message",
+            "multiline": true,
+            "required": false
+          },
+          "send": {
+            "type": "text",
+            "label": "Bouton d’envoi",
+            "multiline": false,
+            "required": true
+          },
+          "sending": {
+            "type": "text",
+            "label": "Bouton pendant l’envoi",
+            "multiline": false,
+            "required": false
+          },
+          "success": {
+            "type": "text",
+            "label": "Message de confirmation",
+            "multiline": true,
+            "required": false
+          },
+          "error": {
+            "type": "text",
+            "label": "Message d’échec",
+            "multiline": true,
+            "required": false
+          },
+          "busy": {
+            "type": "text",
+            "label": "Message en cas d’envois trop fréquents",
+            "multiline": true,
+            "required": false
+          },
+          "privacy": {
+            "type": "text",
+            "label": "Note de confidentialité",
+            "multiline": false,
+            "required": false
+          },
+          "privacyLink": {
+            "type": "text",
+            "label": "Lien vers la confidentialité",
+            "multiline": false,
+            "required": false
+          },
+          "errorName": {
+            "type": "text",
+            "label": "Erreur : nom manquant",
+            "multiline": false,
+            "required": false
+          },
+          "errorEmail": {
+            "type": "text",
+            "label": "Erreur : e-mail invalide",
+            "multiline": false,
+            "required": false
+          },
+          "errorMessage": {
+            "type": "text",
+            "label": "Erreur : message trop court",
+            "multiline": false,
+            "required": false
+          }
+        }
       }
     }
   },
