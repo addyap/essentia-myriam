@@ -3,7 +3,9 @@
   const message = document.getElementById('cms-message');
   const status = document.getElementById('cms-status');
   const origin = location.origin;
-  function load(src) { return new Promise((resolve, reject) => { const script = document.createElement('script'); script.src = src; script.onload = resolve; script.onerror = reject; document.head.appendChild(script); }); }
+  // The editor holds the login, so its code must be exactly the pinned release:
+  // the browser refuses a file whose fingerprint differs.
+  function load(src, integrity) { return new Promise((resolve, reject) => { const script = document.createElement('script'); script.src = src; script.integrity = integrity; script.crossOrigin = 'anonymous'; script.onload = resolve; script.onerror = reject; document.head.appendChild(script); }); }
   try {
     const demo = new URLSearchParams(location.search).get('demo') === '1';
     const response = await fetch('/api/cms-config' + (demo ? '?demo=1' : ''), { cache: 'no-store' });
@@ -18,7 +20,7 @@
         tree[parts[0]] = { path, content };
       }
     }
-    await load('https://cdn.jsdelivr.net/npm/decap-cms@3.16.3/dist/decap-cms.js');
+    await load('https://cdn.jsdelivr.net/npm/decap-cms@3.16.3/dist/decap-cms.js', 'sha384-A/Gdn928CNLufmnGWGs9RM4Q9o8bSNLeJERqBFrBjwzL7FRpoLT3MPF8Tl0+Wd2p');
     if (data.demoFiles) {
       // Deliberately isolated: no network mutations, gateway, token or persistent storage.
       const files = { ...data.demoFiles };

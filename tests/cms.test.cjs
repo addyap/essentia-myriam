@@ -61,3 +61,14 @@ test('every page has editable search text, and every CMS field is used by the si
     for (const key of Object.keys(value)) assert.match(code, new RegExp(`\\b${key}\\b`), `${section}.${key} is shown somewhere`);
   }
 });
+
+test('uploaded files cannot run script and the editor code is fingerprinted', async () => {
+  const { default: config } = await import('../next.config.mjs');
+  const rules = await config.headers();
+  const uploads = rules.find(rule => rule.source === '/uploads/:path*');
+  const csp = uploads.headers.find(header => header.key === 'Content-Security-Policy').value;
+  assert.match(csp, /\bsandbox\b/); assert.match(csp, /default-src 'none'/); assert.match(csp, /frame-ancestors 'none'/);
+  const editor = fs.readFileSync('public/cms/editor.js', 'utf8');
+  assert.match(editor, /load\('https:\/\/cdn\.jsdelivr\.net\/npm\/decap-cms@\d+\.\d+\.\d+\/dist\/decap-cms\.js', 'sha384-[A-Za-z0-9+/=]{64}'\)/);
+  assert.match(editor, /script\.integrity = integrity; script\.crossOrigin = 'anonymous'/);
+});

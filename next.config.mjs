@@ -18,7 +18,14 @@ const nextConfig = {
       { key: 'X-Frame-Options', value: 'SAMEORIGIN' },
       { key: 'Content-Security-Policy', value: "frame-ancestors 'self'; object-src 'none'; base-uri 'self'" },
       { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
-    ] }, { source: '/cms/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] }];
+    ] }, { source: '/cms/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] },
+    // Files uploaded through the CMS are served from this site's own address,
+    // where the editor keeps its login. Opened directly, an uploaded SVG or HTML
+    // file must not be able to run script: the sandbox forbids it, and this
+    // policy replaces the general one above, so it repeats frame-ancestors.
+    { source: '/uploads/:path*', headers: [
+      { key: 'Content-Security-Policy', value: "default-src 'none'; img-src 'self' data:; media-src 'self'; style-src 'unsafe-inline'; sandbox; frame-ancestors 'none'; base-uri 'none'; form-action 'none'" },
+    ] }];
   },
 };
 export default nextConfig;
