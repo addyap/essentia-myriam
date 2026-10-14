@@ -1,6 +1,7 @@
 import definitions from '@/cms/schema.json';
 import french from '@/lib/french-content';
 import legalDetails from '@/content/launch-placeholders.json';
+import seo from '@/content/fr/seo.json';
 import { cmsEnvironment } from '@/cms/environment';
 import { makeCmsConfig, BLOG_FOLDER } from '@/cms/config';
 import { readBlogFiles } from '@/lib/blog';
@@ -28,9 +29,11 @@ export async function GET(request) {
   const demo = url.searchParams.get('demo') === '1';
   const headers = { 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow' };
   if (!demo && !env.configured) return Response.json({ error: 'Votre accès sécurisé est en cours de préparation. Antony doit terminer la connexion.' }, { status: 503, headers });
-  const config = makeCmsConfig(definitions, french, legalDetails, env.siteId, demo);
+  // Search text is edited here but kept out of the visitor's bundle (lib/french-content.js).
+  const content = { ...french, seo };
+  const config = makeCmsConfig(definitions, content, legalDetails, env.siteId, demo);
   const demoFiles = demo ? {
-    ...Object.fromEntries(config.collections.flatMap(collection => (collection.files || []).map(file => [file.file, JSON.stringify(file.name === 'legalDetails' ? legalDetails : french[file.name], null, 2)]))),
+    ...Object.fromEntries(config.collections.flatMap(collection => (collection.files || []).map(file => [file.file, JSON.stringify(file.name === 'legalDetails' ? legalDetails : content[file.name], null, 2)]))),
     ...blogFiles(),
   } : undefined;
   return Response.json({ config, demoFiles }, { headers });

@@ -16,6 +16,10 @@ L’aperçu à droite montre l’article tel qu’il apparaîtra sur le site. En
 
 Les textes de la page « Blog & podcast », les libellés des articles et la page « Podcast » (annonce « Bientôt ») se modifient dans « Pages du site ».
 
+### Titres et descriptions dans Google
+
+« Référencement (Google et partages) » contient, pour chaque page, le titre et la description qui apparaissent dans les résultats de Google et lorsqu’un lien est partagé (WhatsApp, LinkedIn…). Visez environ 60 caractères pour un titre et 155 pour une description. Ces textes ne sont pas visibles sur les pages, l’éditeur n’en propose donc pas d’aperçu. Google peut mettre plusieurs jours à prendre en compte une modification.
+
 Les autres langues, les photos des pages et les animations ne font pas partie des champs d’édition ; seules les images des articles se choisissent dans l’éditeur. Les modèles légaux restent dans le code ; les informations à compléter sont dans « Informations partagées ». Toute affirmation juridique ou professionnelle doit être validée par la responsable du site.
 
 ## Activation par Antony

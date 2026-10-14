@@ -17,7 +17,7 @@ export default function ConfidentialitePage() {
           Comment vos données personnelles sont collectées et utilisées sur ce site.
         </p>
 
-        <PendingDetails {...placeholders.privacy} />
+        <PendingDetails {...(t.legalDetails || placeholders).privacy} />
 
         <h2 className="legal-h3">Quelles données sont collectées</h2>
         <p className="prose">

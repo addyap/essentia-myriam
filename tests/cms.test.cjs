@@ -44,3 +44,20 @@ test('Demonstration config has no gateway or identity endpoint and uses only bro
   assert.deepEqual(demo.backend, {name:'essentia-demo'});
   assert.equal(demo.locale,'fr');
 });
+
+test('every page has editable search text, and every CMS field is used by the site', async () => {
+  const seo = require('../content/fr/seo.json');
+  const { ROUTES } = await import('../lib/routes.js');
+  for (const key of Object.keys(ROUTES)) {
+    assert.ok(seo[key]?.title?.trim() && seo[key]?.description?.trim(), `${key}: search title and description`);
+  }
+  const { makeCmsConfig } = await import('../cms/config.js');
+  const config = makeCmsConfig(definitions, french, require('../content/launch-placeholders.json'), '00000000-0000-0000-0000-000000000001');
+  assert.equal(config.collections.find(c => c.name === 'seo').editor.preview, false);
+  // A field the site never reads would let an edit silently do nothing.
+  const code = ['app', 'components', 'lib'].flatMap(dir => fs.readdirSync(dir, { recursive: true }).filter(f => f.endsWith('.js')).map(f => fs.readFileSync(`${dir}/${f}`, 'utf8'))).join('\n');
+  for (const [section, value] of Object.entries(french)) {
+    if (section === 'seo') continue;
+    for (const key of Object.keys(value)) assert.match(code, new RegExp(`\\b${key}\\b`), `${section}.${key} is shown somewhere`);
+  }
+});

@@ -7,6 +7,8 @@ import { CONTACT } from '@/lib/contact';
 
 export default function MentionsLegalesPage() {
   const { lang, t } = useApp();
+  // The CMS preview supplies draft details; the live site uses the published file.
+  const legal = (t.legalDetails || placeholders).legal;
   return (
     <section lang="fr" className="legal-page">
       <div className="wrap" style={{ maxWidth: 780 }}>
@@ -19,9 +21,9 @@ export default function MentionsLegalesPage() {
           RH et formatrice indépendante.
         </p>
         <p className="prose" style={{ marginTop: 10 }}>
-          Statut juridique : <em>{placeholders.legal.status}</em><br />
-          Siège / adresse professionnelle : <em>{placeholders.legal.address}</em><br />
-          Numéro SIRET : <em>{placeholders.legal.siret}</em><br />
+          Statut juridique : <em>{legal.status}</em><br />
+          Siège / adresse professionnelle : <em>{legal.address}</em><br />
+          Numéro SIRET : <em>{legal.siret}</em><br />
           Email : <RevealContact enc={CONTACT.email} kind="email" /><br />
           Téléphone : <RevealContact enc={CONTACT.phone} kind="tel" />
         </p>

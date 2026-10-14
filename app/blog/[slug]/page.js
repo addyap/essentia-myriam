@@ -3,6 +3,7 @@ import { ArticleView } from '@/components/Blog';
 import { getPosts, getPost } from '@/lib/blog';
 import { articlePath } from '@/lib/routes';
 import { SITE_URL } from '@/lib/config';
+import { seo } from '@/lib/metadata';
 
 // Articles are built from content/blog at deployment; unknown slugs are 404s.
 export const dynamicParams = false;
@@ -14,7 +15,7 @@ export async function generateMetadata({ params }) {
   const post = getPost((await params).slug);
   if (!post) return {};
   const title = `${post.title} | Essentia de Myriam Diougoan Blanch`;
-  const description = post.summary || 'Un article de Myriam Diougoan Blanch sur le blog d’Essentia.';
+  const description = post.summary || seo.article.description;
   const images = [post.image ? { url: post.image, alt: post.imageAlt } : { url: '/og-image.jpg', width: 1200, height: 630 }];
   return {
     title, description,

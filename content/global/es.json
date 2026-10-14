@@ -12,11 +12,6 @@
     "discover": "Descubrir",
     "menu": "Menú",
     "legalFrenchOnly": "Este documento legal solo está disponible en francés.",
-    "logoMotion": {
-      "replay": "Repetir el dibujo del logo",
-      "resume": "Reanudar el movimiento",
-      "pause": "Pausar el movimiento"
-    },
     "backgroundVideo": {
       "pause": "Pausar el vídeo",
       "resume": "Reanudar el vídeo"
@@ -105,7 +100,6 @@
     "eyebrow": "Sobre mí",
     "title": "Myriam Diougoan Blanch",
     "lead": "Coach multilingüe, psicoterapeuta y consultora de RRHH desde hace más de 15 años.",
-    "photoCaption": "Foto profesional — cálida y natural",
     "p1": "Mi trayectoria comienza con estudios en sociología y sociología de las organizaciones, y luego un máster en ingeniería de Recursos Humanos y psicología. Me lleva a trabajar en varios países, en proyectos financiados por la Unión Europea, desarrollando experiencia en la gestión de fondos comunitarios.",
     "p2": "Gestión de RRHH, formadora independiente, formada en coaching, en el enfoque de Carl Rogers y en PNL: ávida de saber, profundizo mi pasión por la psicología humana con enfoques complementarios. Desde hace más de 15 años desarrollo un enfoque tan espiritual como pragmático.",
     "journeyTitle": "Una trayectoria al servicio de la persona",

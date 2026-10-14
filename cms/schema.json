@@ -63,30 +63,6 @@
         "multiline": false,
         "required": false
       },
-      "logoMotion": {
-        "type": "object",
-        "label": "Animation du logo",
-        "fields": {
-          "replay": {
-            "type": "text",
-            "label": "Rejouer",
-            "multiline": false,
-            "required": false
-          },
-          "resume": {
-            "type": "text",
-            "label": "Reprendre",
-            "multiline": false,
-            "required": false
-          },
-          "pause": {
-            "type": "text",
-            "label": "Mettre en pause",
-            "multiline": false,
-            "required": false
-          }
-        }
-      },
       "backgroundVideo": {
         "type": "object",
         "label": "Vidéo de fond",
@@ -414,12 +390,6 @@
       "lead": {
         "type": "text",
         "label": "Introduction",
-        "multiline": false,
-        "required": false
-      },
-      "photoCaption": {
-        "type": "text",
-        "label": "Légende de la photo",
         "multiline": false,
         "required": false
       },
@@ -1353,6 +1323,240 @@
               }
             },
             "hero": false
+          }
+        }
+      }
+    }
+  },
+  "seo": {
+    "type": "object",
+    "label": "Titres et descriptions des pages",
+    "fields": {
+      "home": {
+        "type": "object",
+        "label": "Accueil",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "about": {
+        "type": "object",
+        "label": "À propos",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "coaching": {
+        "type": "object",
+        "label": "Accompagnement",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "rh": {
+        "type": "object",
+        "label": "Conseil RH",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "resources": {
+        "type": "object",
+        "label": "Blog & podcast",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "podcast": {
+        "type": "object",
+        "label": "Podcast",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "booking": {
+        "type": "object",
+        "label": "Rendez-vous",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "contact": {
+        "type": "object",
+        "label": "Contact",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "legalNotice": {
+        "type": "object",
+        "label": "Mentions légales",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "privacy": {
+        "type": "object",
+        "label": "Confidentialité",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "rgpd": {
+        "type": "object",
+        "label": "RGPD",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "ethics": {
+        "type": "object",
+        "label": "Charte éthique",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "article": {
+        "type": "object",
+        "label": "Articles sans résumé",
+        "fields": {
+          "description": {
+            "type": "text",
+            "label": "Description utilisée quand un article n’a pas de résumé",
+            "multiline": true,
+            "required": true
           }
         }
       }

@@ -27,7 +27,7 @@ export const BLOG_COLLECTION = {
 };
 
 export function makeCmsConfig(definitions, french, legalDetails, siteId, demo = false) {
-  const groups = { pages: ['home', 'about', 'coaching', 'rh', 'booking', 'contact', 'resources', 'blog', 'podcast'], shared: ['brand', 'nav', 'footer', 'launchDetails', 'legalDetails'], labels: ['ui', 'notFound'] };
+  const groups = { pages: ['home', 'about', 'coaching', 'rh', 'booking', 'contact', 'resources', 'blog', 'podcast'], shared: ['brand', 'nav', 'footer', 'launchDetails', 'legalDetails'], labels: ['ui', 'notFound'], seo: ['seo'] };
   return {
     load_config_file: false,
     backend: demo ? { name: 'essentia-demo' } : { name: 'git-gateway', repo: 'addyap/essentia-myriam', branch: 'main', auth_type: 'pkce', base_url: 'https://auth.decapbridge.com', auth_endpoint: `/sites/${siteId}/pkce`, auth_token_endpoint: `/sites/${siteId}/token`, gateway_url: 'https://gateway.decapbridge.com' },
@@ -37,7 +37,9 @@ export function makeCmsConfig(definitions, french, legalDetails, siteId, demo = 
     media_folder: 'public/uploads', public_folder: '/uploads',
     // Article addresses come from their titles: "L’été à Paris" becomes l-ete-a-paris.
     slug: { encoding: 'ascii', clean_accents: true, sanitize_replacement: '-' },
-    collections: [BLOG_COLLECTION, ...Object.entries(groups).map(([name, keys]) => ({ name, label: { pages: 'Pages du site', shared: 'Informations partagées', labels: 'Libellés et accessibilité' }[name], delete: false,
+    collections: [BLOG_COLLECTION, ...Object.entries(groups).map(([name, keys]) => ({ name, label: { pages: 'Pages du site', shared: 'Informations partagées', labels: 'Libellés et accessibilité', seo: 'Référencement (Google et partages)' }[name], delete: false,
+      // Titles and descriptions are not visible on the pages, so there is nothing to preview.
+      ...(name === 'seo' ? { editor: { preview: false }, description: 'Le titre et la description de chaque page tels qu’ils apparaissent dans Google et lorsqu’un lien est partagé. Visez environ 60 caractères pour un titre et 155 pour une description.' } : {}),
       files: keys.map(key => ({ name: key, label: definitions[key].label, file: key === 'legalDetails' ? 'content/launch-placeholders.json' : `content/fr/${key}.json`, format: 'json',
         fields: Object.entries(definitions[key].fields).map(([field, definition]) => decapField(field, definition, (key === 'legalDetails' ? legalDetails : french[key])?.[field])),
       })),

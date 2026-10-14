@@ -2,6 +2,7 @@ import { GFS_Didot, Mulish, Parisienne } from 'next/font/google';
 import './globals.css';
 import { SiteShell } from '@/components/SiteShell';
 import { SITE_URL } from '@/lib/config';
+import { seo } from '@/lib/metadata';
 import { INSTAGRAM } from '@/lib/contact';
 
 // Requested: Didot, per the specimen comparison Myriam reviewed. The real
@@ -32,9 +33,8 @@ const parisienne = Parisienne({
   display: 'swap',
 });
 
-const title = 'Essentia de Myriam Diougoan Blanch';
-const description =
-  "Coaching, psychothérapie et conseil RH. Un accompagnement à la fois spirituel et pragmatique pour transformer vos défis en évolutions profondes et durables.";
+// Home page search and sharing text, editable in the CMS ("Référencement").
+const { title, description } = seo.home;
 
 export const metadata = {
   title,
@@ -45,14 +45,14 @@ export const metadata = {
     url: SITE_URL,
     locale: 'fr_FR',
     title,
-    description: 'Coaching, psychothérapie et conseil RH multilingue.',
+    description,
     type: 'website',
     images: [{ url: '/og-image.jpg', width: 1200, height: 630, alt: title }],
   },
   twitter: {
     card: 'summary_large_image',
     title,
-    description: 'Coaching, psychothérapie et conseil RH multilingue.',
+    description,
     images: ['/og-image.jpg'],
   },
   icons: { icon: '/favicon.png' },

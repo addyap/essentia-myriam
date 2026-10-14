@@ -1,0 +1,53 @@
+{
+  "home": {
+    "title": "Essentia de Myriam Diougoan Blanch",
+    "description": "Coaching, psychothérapie et conseil RH. Un accompagnement à la fois spirituel et pragmatique pour transformer vos défis en évolutions profondes et durables."
+  },
+  "about": {
+    "title": "À propos — Essentia de Myriam Diougoan Blanch",
+    "description": "Découvrez le parcours de Myriam Diougoan Blanch, coach, psychothérapeute et consultante RH, et son approche holistique de l'accompagnement."
+  },
+  "coaching": {
+    "title": "Accompagnement — Coaching & psychothérapie | Essentia de Myriam Diougoan Blanch",
+    "description": "Coaching individuel et d'équipe, psychothérapie, gestion du stress : découvrez les accompagnements proposés par Myriam Diougoan Blanch, en cabinet ou en visioconférence."
+  },
+  "rh": {
+    "title": "Conseil RH — Essentia de Myriam Diougoan Blanch",
+    "description": "Conseil RH et formation pour accompagner les organisations : leadership, cohésion d'équipe et transformation managériale."
+  },
+  "resources": {
+    "title": "Blog & podcast | Essentia de Myriam Diougoan Blanch",
+    "description": "Les articles de Myriam Diougoan Blanch sur l’accompagnement, la psychothérapie et le monde du travail, et bientôt le podcast d’Essentia."
+  },
+  "podcast": {
+    "title": "Le podcast d’Essentia, bientôt disponible | Essentia de Myriam Diougoan Blanch",
+    "description": "Le podcast de Myriam Diougoan Blanch est en préparation : des échanges et des pistes concrètes autour de l’accompagnement, du bien-être et de la vie professionnelle."
+  },
+  "booking": {
+    "title": "Prendre rendez-vous — Essentia de Myriam Diougoan Blanch",
+    "description": "Réservez une séance de coaching, de psychothérapie ou de conseil RH avec Myriam Diougoan Blanch, en présentiel ou en ligne."
+  },
+  "contact": {
+    "title": "Contact — Essentia de Myriam Diougoan Blanch",
+    "description": "Contactez Myriam Diougoan Blanch pour toute question sur le coaching, la psychothérapie ou le conseil RH."
+  },
+  "legalNotice": {
+    "title": "Mentions légales — Essentia de Myriam Diougoan Blanch",
+    "description": "Mentions légales du site Essentia de Myriam Diougoan Blanch : éditeur, hébergement et propriété intellectuelle."
+  },
+  "privacy": {
+    "title": "Confidentialité — Essentia de Myriam Diougoan Blanch",
+    "description": "Politique de confidentialité d'Essentia de Myriam Diougoan Blanch : quelles données sont collectées, pourquoi, et pendant combien de temps."
+  },
+  "rgpd": {
+    "title": "RGPD — Essentia de Myriam Diougoan Blanch",
+    "description": "Vos droits RGPD sur le site Essentia de Myriam Diougoan Blanch : accès, rectification, effacement et comment les exercer."
+  },
+  "ethics": {
+    "title": "Charte éthique — Essentia de Myriam Diougoan Blanch",
+    "description": "La charte éthique qui encadre chaque accompagnement proposé par Essentia de Myriam Diougoan Blanch : confidentialité, bienveillance et consentement."
+  },
+  "article": {
+    "description": "Un article de Myriam Diougoan Blanch sur le blog d’Essentia."
+  }
+}

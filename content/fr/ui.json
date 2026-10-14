@@ -4,11 +4,6 @@
   "discover": "Découvrir",
   "menu": "Menu",
   "legalFrenchOnly": "Ce document légal n'est disponible qu'en français.",
-  "logoMotion": {
-    "replay": "Rejouer le dessin du logo",
-    "resume": "Reprendre le mouvement",
-    "pause": "Mettre le mouvement en pause"
-  },
   "backgroundVideo": {
     "pause": "Mettre la vidéo en pause",
     "resume": "Reprendre la vidéo"

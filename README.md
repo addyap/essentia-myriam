@@ -32,7 +32,7 @@ node scripts/verify-site.mjs http://localhost:3000
 | Site origin | `lib/config.js` |
 | Public contact destinations | `lib/contact.js`, `components/RevealContact.js` |
 | Contact form | `components/ContactForm.js`, `app/api/contact/route.js`, `lib/contact-form.js`, `lib/contact-rules.js` |
-| SEO metadata | `app/layout.js`, route `layout.js` files |
+| SEO titles and descriptions (editable in the CMS) | `content/fr/seo.json`, applied by `lib/metadata.js` in `app/layout.js` and each route's `layout.js` |
 | Asset credits | `public/images/nature/credits.json` |
 
 Contact and appointment pages use real email, phone and WhatsApp links. There is no connected calendar, payment flow or newsletter. Contact details are stored scrambled in `lib/contact.js` and only become real links in the visitor's browser when a link is used; this deters spam harvesters but is encoding, not a security boundary.

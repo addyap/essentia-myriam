@@ -12,11 +12,6 @@
     "discover": "Discover",
     "menu": "Menu",
     "legalFrenchOnly": "This legal document is only available in French.",
-    "logoMotion": {
-      "replay": "Replay the logo drawing",
-      "resume": "Resume motion",
-      "pause": "Pause motion"
-    },
     "backgroundVideo": {
       "pause": "Pause background video",
       "resume": "Resume background video"
@@ -105,7 +100,6 @@
     "eyebrow": "About",
     "title": "Myriam Diougoan Blanch",
     "lead": "Multilingual coach, psychotherapist and HR consultant for over 15 years.",
-    "photoCaption": "Professional photo — warm & natural",
     "p1": "My path began with studies in sociology and the sociology of organisations, followed by a postgraduate degree in HR engineering and psychology. It led me to work across several countries, within EU-funded projects, developing an expertise in managing community funds.",
     "p2": "HR management, independent trainer, trained in coaching, in Carl Rogers' approach and in NLP: eager to learn, I have deepened my passion for human psychology through complementary approaches. For over 15 years, I have developed an approach that is as spiritual as it is pragmatic.",
     "journeyTitle": "A career in service of people",
