@@ -59,7 +59,8 @@ export const metadata = {
 
 // JSON-LD: real, verifiable facts only — no invented address/SIRET (still
 // "à compléter" in the legal notice), so those fields are intentionally
-// omitted rather than guessed.
+// omitted rather than guessed. Email and phone are left out too: this block is
+// plain page code, exactly what spam harvesters collect.
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
@@ -67,8 +68,6 @@ const jsonLd = {
   description,
   url: SITE_URL,
   image: `${SITE_URL}/og-image.jpg`,
-  email: 'mdbchandale@gmail.com',
-  telephone: '+33601300642',
   founder: { '@type': 'Person', name: 'Myriam Diougoan Blanch' },
   areaServed: 'FR',
   availableLanguage: ['fr', 'en', 'it', 'es'],

@@ -1,11 +1,8 @@
 'use client';
 import { useApp } from './Providers';
-import { RevealContact } from './RevealContact';
+import { RevealContact, RevealText } from './RevealContact';
 import { CONTACT } from '@/lib/contact';
 import { Icon } from './Icon';
-
-// Shown for noting down as well as tapping: "+33 (0)6 …" becomes "+33 6 …".
-const phoneNumber = atob(CONTACT.phone).replace('(0)', '').replace(/\s+/g, ' ').trim();
 
 export function ContactOptions() {
   const { t } = useApp();
@@ -16,7 +13,7 @@ export function ContactOptions() {
     <div className="contact-actions">
       <RevealContact enc={CONTACT.wa} kind="wa" waText={t.booking.waGreeting} className="btn btn-whatsapp"><Icon name="whatsapp" />{t.contact.whatsapp}</RevealContact>
       <RevealContact enc={CONTACT.email} kind="email" className="contact-line"><Icon name="mail" />{t.contact.emailAction}<span aria-hidden="true">↗</span></RevealContact>
-      <RevealContact enc={CONTACT.phone} kind="tel" className="contact-line"><Icon name="phone" /><span className="contact-line-text"><span>{t.contact.phoneAction}</span><span className="contact-line-detail">{phoneNumber}</span></span><span aria-hidden="true">↗</span></RevealContact>
+      <RevealContact enc={CONTACT.phone} kind="tel" className="contact-line"><Icon name="phone" /><span className="contact-line-text"><span>{t.contact.phoneAction}</span><RevealText className="contact-line-detail" enc={CONTACT.phone} kind="tel" /></span><span aria-hidden="true">↗</span></RevealContact>
     </div>
   </div>;
 }

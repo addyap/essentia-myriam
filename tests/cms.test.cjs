@@ -5,7 +5,7 @@ const definitions = require('../cms/schema.json');
 const french = Object.fromEntries(fs.readdirSync('content/fr').map(name => [name.slice(0,-5), require('../content/fr/'+name)]));
 test('Live CMS access requires a valid bridge ID', async () => {
   const { cmsEnvironment, EDITOR_EMAIL } = await import('../cms/environment.js');
-  assert.equal(EDITOR_EMAIL,'mdbchandale@gmail.com');
+  assert.equal(EDITOR_EMAIL,['mdbchandale','gmail.com'].join('@'));
   assert.equal(cmsEnvironment({ DECAPBRIDGE_SITE_ID:'../bad' }).configured,false);
   assert.equal(cmsEnvironment({ DECAPBRIDGE_SITE_ID:'00000000-0000-0000-0000-000000000001' }).configured,true);
 });

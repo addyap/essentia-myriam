@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useApp } from './Providers';
 import { LogoMark } from './LogoMark';
 import { ROUTES } from '@/lib/routes';
-import { LIMITS, validateContact } from '@/lib/contact-form';
+import { LIMITS, validateContact } from '@/lib/contact-rules';
 
 // Sends a message to Myriam through /api/contact. Rules match the server's, so
 // visitors see problems before sending; the direct links below stay as a fallback.

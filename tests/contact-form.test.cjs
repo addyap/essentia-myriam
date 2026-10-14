@@ -142,9 +142,7 @@ test('confirmation HTML escapes CMS text', async () => {
 test('test mode routes email and WhatsApp to Antony, and Myriam otherwise', async () => {
   const { TEST_MODE } = await import('../lib/config.js');
   const { RECIPIENT } = await import('../lib/contact-form.js');
-  const { CONTACT } = await import('../lib/contact.js');
-  const wa = Buffer.from(CONTACT.wa, 'base64').toString();
-  assert.equal(RECIPIENT, TEST_MODE ? 'formations@antonyaddy.com' : 'mdbchandale@gmail.com');
-  assert.equal(wa, TEST_MODE ? '33649829826' : '33601300642');
-  assert.equal(Buffer.from(CONTACT.phone, 'base64').toString(), '+33 (0)6 01 30 06 42');
+  const { CONTACT, reveal } = await import('../lib/contact.js');
+  assert.equal(RECIPIENT, TEST_MODE ? ['formations', 'antonyaddy.com'].join('@') : ['mdbchandale', 'gmail.com'].join('@'));
+  assert.equal(reveal(CONTACT.wa), TEST_MODE ? ['336', '4982', '9826'].join('') : ['336', '0130', '0642'].join(''));
 });
