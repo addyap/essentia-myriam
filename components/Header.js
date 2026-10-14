@@ -110,13 +110,14 @@ export function Header() {
           <nav ref={nav} id="main-navigation" className={'main' + (open ? ' open' : '')} aria-hidden={navHidden}>
             {NAV.map((key) => {
               const href = ROUTES[key];
-              const active = pathname === href;
+              // Articles and the podcast page sit under "Blog & podcast".
+              const active = pathname === href || (key === 'resources' && (pathname === ROUTES.podcast || pathname.startsWith('/blog/')));
               return (
                 <Link
                   key={key}
                   href={href}
                   className={active ? 'active' : ''}
-                  aria-current={active ? 'page' : undefined}
+                  aria-current={pathname === href ? 'page' : active ? 'true' : undefined}
                   tabIndex={navHidden ? -1 : undefined}
                   onClick={() => setOpen(false)}
                 >

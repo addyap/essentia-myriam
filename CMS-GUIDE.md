@@ -8,7 +8,15 @@ Choisissez une page dans « Pages du site ». Modifiez les textes et vérifiez l
 
 Enregistrez le brouillon. Quand il est prêt, passez-le en révision puis choisissez « Publier ». Le texte est enregistré dans GitHub et Vercel reconstruit le site. Les changements apparaissent après un déploiement réussi. Si vous préférez une validation par Antony, laissez le contenu en brouillon ou en révision.
 
-Les autres langues, les images et les animations ne font pas partie des champs d’édition. Les modèles légaux restent dans le code ; les informations à compléter sont dans « Informations partagées ». Toute affirmation juridique ou professionnelle doit être validée par la responsable du site.
+### Écrire un article de blog
+
+Ouvrez « Blog », puis « ＋ article ». Renseignez le titre, la date de publication (aujourd’hui par défaut), un court résumé et, si vous le souhaitez, une image de couverture accompagnée d’une phrase qui la décrit. Rédigez le texte avec la barre d’outils : gras, italique, liens, intertitres, citations, listes et images. Le titre de l’article est déjà affiché en haut de la page ; commencez donc vos intertitres au niveau 2.
+
+L’aperçu à droite montre l’article tel qu’il apparaîtra sur le site. Enregistrez, passez en révision puis publiez, comme pour les pages. L’adresse de l’article est créée à partir du titre lors du premier enregistrement (« L’écoute, première étape » devient `/blog/l-ecoute-premiere-etape`) et ne change plus ensuite. L’article apparaît sur la page « Blog & podcast » après le déploiement du site. Les articles sont publiés en français ; les visiteurs d’une autre langue voient un message qui le signale.
+
+Les textes de la page « Blog & podcast », les libellés des articles et la page « Podcast » (annonce « Bientôt ») se modifient dans « Pages du site ».
+
+Les autres langues, les photos des pages et les animations ne font pas partie des champs d’édition ; seules les images des articles se choisissent dans l’éditeur. Les modèles légaux restent dans le code ; les informations à compléter sont dans « Informations partagées ». Toute affirmation juridique ou professionnelle doit être validée par la responsable du site.
 
 ## Activation par Antony
 
@@ -23,11 +31,11 @@ Le forfait gratuit annoncé par DecapBridge couvre actuellement 3 sites et 10 co
 
 ## Architecture
 
-`content/fr/*.json` contient les textes français inchangés. `lib/french-content.js` les recompose pour le site. Les traductions restent dans `content/global`. `cms/schema.json` définit les champs. `/api/cms-config` fournit uniquement une configuration publique et les chemins français autorisés ; il n’expose aucun token et ne réalise aucune écriture.
+`content/fr/*.json` contient les textes français inchangés. Les articles de blog sont des fichiers `content/blog/<adresse>.json` (titre, date, résumé, image, texte en Markdown) ; les images téléversées vont dans `public/uploads`. `lib/french-content.js` les recompose pour le site. Les traductions restent dans `content/global`. `cms/schema.json` définit les champs. `/api/cms-config` fournit uniquement une configuration publique et les chemins français autorisés ; il n’expose aucun token et ne réalise aucune écriture.
 
 Le CMS officiel Decap 3.16.3 est chargé depuis sa distribution npm épinglée, seulement sur `/cms/index.html`, avec `locale: fr`. La connexion PKCE redirige vers DecapBridge et prend en charge Google, Microsoft et le mot de passe. Le portail du fournisseur peut présenter du texte en anglais. Aucun widget Netlify n’est chargé.
 
-L’aperçu est un iframe de même origine. Il reçoit les modifications du parent, en vérifiant origine, fenêtre source, type de message, nonce et section autorisée. Il affiche uniquement les champs français connus, conserve les identifiants d’icônes et n’exécute aucun HTML provenant des textes. Aucun brouillon n’est lu depuis GitHub par une route publique. L’aperçu ne mesure aucune visite Analytics. Les autres pages gardent l’interdiction d’être intégrées dans un iframe ; seule `/cms-preview` accepte la même origine.
+L’aperçu est un iframe de même origine. Il reçoit les modifications du parent, en vérifiant origine, fenêtre source, type de message, nonce et section autorisée. Il affiche uniquement les champs français connus, conserve les identifiants d’icônes et n’exécute aucun HTML provenant des textes. Les articles sont lus par `lib/markdown.js`, qui ne reconnaît que les éléments de la barre d’outils : le HTML saisi reste du texte et les liens autres que `https`, `mailto`, `tel` ou internes sont ignorés. Aucun brouillon n’est lu depuis GitHub par une route publique. L’aperçu ne mesure aucune visite Analytics. Les autres pages gardent l’interdiction d’être intégrées dans un iframe ; seule `/cms-preview` accepte la même origine.
 
 `/cms/index.html?demo=1` active notre backend isolé en mémoire avec les textes publics existants. Il ne change aucun fichier et ne publie rien, y compris en production. Sans identifiant DecapBridge valide, la connexion de production affiche un message français d’accès en préparation.
 
@@ -37,4 +45,4 @@ Documentation : https://decapbridge.com/docs/getting-started et https://decapcms
 
 ## Essai sur le site
 
-Depuis `/admin`, « Essayer la démonstration » ouvre un éditeur isolé. Les modifications restent en mémoire dans le navigateur, sans connexion GitHub ni publication réelle. Recharger rétablit les textes publics. Le mode réel exige toujours la connexion DecapBridge et une invitation personnelle.
+Depuis `/admin`, « Essayer la démonstration » ouvre un éditeur isolé. Les modifications restent en mémoire dans le navigateur, sans connexion GitHub ni publication réelle. Un article d’exemple, présent uniquement dans la démonstration, permet de découvrir l’éditeur d’articles. Recharger rétablit les textes publics. Le mode réel exige toujours la connexion DecapBridge et une invitation personnelle.

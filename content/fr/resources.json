@@ -1,5 +1,11 @@
 {
   "eyebrow": "Ressources",
-  "title": "Ressources en préparation",
-  "lead": "Les prochaines publications seront présentées ici lorsqu’elles seront disponibles."
+  "title": "Blog & podcast",
+  "lead": "Des réflexions pour avancer avec plus de clarté, dans la vie comme au travail : à lire dès aujourd’hui, et bientôt à écouter.",
+  "blogTitle": "Le blog",
+  "blogLead": "Les articles de Myriam sur l’accompagnement, la psychothérapie et le monde du travail.",
+  "empty": "Les premiers articles seront publiés très prochainement.",
+  "podcastTitle": "Le podcast",
+  "podcastLead": "Des conversations et des pistes concrètes pour prendre soin de soi et de ses relations. Le podcast d’Essentia est en préparation.",
+  "podcastCta": "En savoir plus"
 }

@@ -155,7 +155,7 @@
       },
       "resources": {
         "type": "text",
-        "label": "Ressources",
+        "label": "Blog & podcast",
         "multiline": false,
         "required": false
       },
@@ -748,7 +748,7 @@
   },
   "resources": {
     "type": "object",
-    "label": "Ressources",
+    "label": "Blog & podcast (page d’accueil)",
     "fields": {
       "eyebrow": {
         "type": "text",
@@ -765,6 +765,132 @@
       "lead": {
         "type": "text",
         "label": "Introduction",
+        "multiline": true,
+        "required": false
+      },
+      "blogTitle": {
+        "type": "text",
+        "label": "Titre de la section blog",
+        "multiline": false,
+        "required": false
+      },
+      "blogLead": {
+        "type": "text",
+        "label": "Introduction du blog",
+        "multiline": true,
+        "required": false
+      },
+      "empty": {
+        "type": "text",
+        "label": "Message lorsqu’aucun article n’est publié",
+        "multiline": true,
+        "required": false
+      },
+      "podcastTitle": {
+        "type": "text",
+        "label": "Titre de la section podcast",
+        "multiline": false,
+        "required": false
+      },
+      "podcastLead": {
+        "type": "text",
+        "label": "Présentation du podcast",
+        "multiline": true,
+        "required": false
+      },
+      "podcastCta": {
+        "type": "text",
+        "label": "Bouton vers la page podcast",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "blog": {
+    "type": "object",
+    "label": "Articles (libellés)",
+    "fields": {
+      "readMore": {
+        "type": "text",
+        "label": "Lien « Lire l’article »",
+        "multiline": false,
+        "required": false
+      },
+      "back": {
+        "type": "text",
+        "label": "Lien de retour vers les articles",
+        "multiline": false,
+        "required": false
+      },
+      "readingTime": {
+        "type": "text",
+        "label": "Temps de lecture ({n} = nombre de minutes)",
+        "multiline": false,
+        "required": false
+      },
+      "frenchOnly": {
+        "type": "text",
+        "label": "Message pour les visiteurs d’une autre langue",
+        "multiline": false,
+        "required": false
+      },
+      "ctaTitle": {
+        "type": "text",
+        "label": "Titre de l’appel en fin d’article",
+        "multiline": false,
+        "required": false
+      },
+      "ctaLead": {
+        "type": "text",
+        "label": "Texte de l’appel en fin d’article",
+        "multiline": true,
+        "required": false
+      }
+    }
+  },
+  "podcast": {
+    "type": "object",
+    "label": "Podcast",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "lead": {
+        "type": "text",
+        "label": "Introduction",
+        "multiline": true,
+        "required": false
+      },
+      "badge": {
+        "type": "text",
+        "label": "Pastille « Bientôt »",
+        "multiline": false,
+        "required": false
+      },
+      "comingTitle": {
+        "type": "text",
+        "label": "Titre de l’annonce",
+        "multiline": false,
+        "required": false
+      },
+      "comingBody": {
+        "type": "text",
+        "label": "Texte de l’annonce",
+        "multiline": true,
+        "required": false
+      },
+      "blogCta": {
+        "type": "text",
+        "label": "Bouton vers le blog",
         "multiline": false,
         "required": false
       }

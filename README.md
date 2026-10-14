@@ -27,13 +27,21 @@ node scripts/verify-site.mjs http://localhost:3000
 | Design tokens, responsive layout, motion | `app/globals.css` |
 | Handwriting and 3D logo | `components/LogoMarkDraw.js`, `HeroCrest.js`, `GoldLogo3D.js` |
 | Navigation | `lib/routes.js` |
+| Blog articles (written in the CMS) | `content/blog/<slug>.json`, images in `public/uploads` |
+| Blog and podcast pages | `components/Blog.js`, `components/Markdown.js`, `lib/blog.js`, `lib/markdown.js` |
 | Site origin | `lib/config.js` |
 | Public contact destinations | `lib/contact.js`, `components/RevealContact.js` |
 | Contact form | `components/ContactForm.js`, `app/api/contact/route.js`, `lib/contact-form.js`, `lib/contact-rules.js` |
 | SEO metadata | `app/layout.js`, route `layout.js` files |
 | Asset credits | `public/images/nature/credits.json` |
 
-Contact and appointment pages use real email, phone and WhatsApp links. There is no connected calendar, payment flow, newsletter or analytics. Contact details are stored scrambled in `lib/contact.js` and only become real links in the visitor's browser when a link is used; this deters spam harvesters but is encoding, not a security boundary.
+Contact and appointment pages use real email, phone and WhatsApp links. There is no connected calendar, payment flow or newsletter. Contact details are stored scrambled in `lib/contact.js` and only become real links in the visitor's browser when a link is used; this deters spam harvesters but is encoding, not a security boundary.
+
+## Blog and podcast
+
+"Blog & podcast" in the navigation leads to `/ressources`, which lists every article, newest first, followed by a "Coming soon" podcast section. Each article has its own page at `/blog/<slug>`; `/blog` redirects to `/ressources`. `/podcast` is a "Coming soon" page and stays out of search results and the sitemap until the first episode is published (`app/podcast/layout.js`, `app/sitemap.js`).
+
+Myriam writes articles in the CMS "Blog" collection; each is one JSON file in `content/blog` with a title, date, summary, optional cover image and Markdown body. Articles are built into static pages at deployment, so a published article appears once Vercel has redeployed. Bodies are parsed by `lib/markdown.js`, which supports only the editor's toolbar (headings, bold, italic, links, quotes, lists, images) and never renders raw HTML. Articles are French only; visitors using another language see a notice. Interface text for these pages is in `content/fr/{resources,blog,podcast}.json` and the translation files.
 
 ## Contact form
 

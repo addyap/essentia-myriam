@@ -1,13 +1,9 @@
-'use client';
-import Link from 'next/link';
-import { useApp } from '@/components/Providers';
-import { PageHeader } from '@/components/PageHeader';
-import { ROUTES } from '@/lib/routes';
+import { ResourcesView } from '@/components/Blog';
+import { getPosts } from '@/lib/blog';
+import { readingMinutes } from '@/lib/markdown';
 
+// Article bodies stay on the server; cards only need the reading time.
 export default function ResourcesPage() {
-  const { t } = useApp();
-  return <>
-    <section className="page-hero"><PageHeader eyebrow={t.resources.eyebrow} title={t.resources.title} lead={t.resources.lead} scene="resources" /></section>
-    <section className="section-soft"><div className="wrap"><Link className="btn btn-gold" href={ROUTES.contact}>{t.nav.contact}</Link></div></section>
-  </>;
+  const posts = getPosts().map(({ body, ...post }) => ({ ...post, minutes: readingMinutes(body) }));
+  return <ResourcesView posts={posts} />;
 }

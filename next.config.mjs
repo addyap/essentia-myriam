@@ -3,6 +3,10 @@ const nextConfig = {
   reactStrictMode: true,
   allowedDevOrigins: ['127.0.0.1'],
   poweredByHeader: false,
+  // Articles live at /blog/<slug>; the list itself is the Blog & podcast page.
+  async redirects() {
+    return [{ source: '/blog', destination: '/ressources', permanent: true }];
+  },
   async headers() {
     return [{ source: '/:path*', headers: [
       { key: 'X-Content-Type-Options', value: 'nosniff' },

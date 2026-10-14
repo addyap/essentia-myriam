@@ -19,7 +19,12 @@ test('French editor schema covers every text without exposing translations', asy
   assert.equal(config.backend.auth_endpoint,'/sites/00000000-0000-0000-0000-000000000001/pkce');
   assert.equal(config.backend.auth_token_endpoint,'/sites/00000000-0000-0000-0000-000000000001/token');
   assert.equal(config.backend.identity_url,undefined);
-  const files=config.collections.flatMap(c=>c.files);
+  const files=config.collections.flatMap(c=>c.files||[]);
+  const posts=config.collections.find(c=>c.folder);
+  assert.equal(posts.folder,'content/blog'); assert.equal(posts.format,'json'); assert.equal(posts.create,true);
+  assert.deepEqual(posts.fields.map(f=>f.name),['title','date','summary','image','imageAlt','body']);
+  assert.deepEqual(posts.fields.find(f=>f.name==='body').editor_components,['image']);
+  assert.equal(config.slug.clean_accents,true);
   assert.equal(files.length,Object.keys(french).length+1);
   assert.ok(files.every(f=>f.file.startsWith('content/fr/') || f.file==='content/launch-placeholders.json'));
   const home=files.find(f=>f.name==='home');

@@ -30,7 +30,7 @@
     "about": "Sobre mí",
     "coaching": "Acompañamiento",
     "rh": "Consultoría RRHH",
-    "resources": "Recursos",
+    "resources": "Blog y pódcast",
     "contact": "Contacto"
   },
   "footer": {
@@ -237,8 +237,31 @@
   },
   "resources": {
     "eyebrow": "Recursos",
-    "title": "Recursos en preparación",
-    "lead": "Las nuevas publicaciones aparecerán aquí cuando estén disponibles."
+    "title": "Blog y pódcast",
+    "lead": "Reflexiones para avanzar con más claridad, en la vida y en el trabajo: para leer desde hoy, y muy pronto para escuchar.",
+    "blogTitle": "El blog",
+    "blogLead": "Los artículos de Myriam sobre el acompañamiento, la psicoterapia y el mundo laboral.",
+    "empty": "Los primeros artículos se publicarán muy pronto.",
+    "podcastTitle": "El pódcast",
+    "podcastLead": "Conversaciones e ideas concretas para cuidar de uno mismo y de sus relaciones. El pódcast de Essentia está en preparación.",
+    "podcastCta": "Saber más"
+  },
+  "blog": {
+    "readMore": "Leer el artículo",
+    "back": "Todos los artículos",
+    "readingTime": "{n} min de lectura",
+    "frenchOnly": "Este artículo solo está disponible en francés.",
+    "ctaTitle": "¿Quieres hablarlo?",
+    "ctaLead": "Cada situación es única. Hablemos de la tuya."
+  },
+  "podcast": {
+    "eyebrow": "Pódcast",
+    "title": "El pódcast de Essentia",
+    "lead": "Una voz para acompañar tus reflexiones, estés donde estés.",
+    "badge": "Próximamente",
+    "comingTitle": "Los primeros episodios están en preparación",
+    "comingBody": "Myriam compartirá conversaciones e ideas concretas sobre el acompañamiento, el bienestar y la vida profesional. Vuelve pronto para descubrir el primer episodio.",
+    "blogCta": "Mientras tanto, lee el blog"
   },
   "contact": {
     "eyebrow": "Contacto",

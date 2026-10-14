@@ -30,7 +30,7 @@
     "about": "About",
     "coaching": "Coaching",
     "rh": "HR Consulting",
-    "resources": "Resources",
+    "resources": "Blog & podcast",
     "contact": "Contact"
   },
   "footer": {
@@ -237,8 +237,31 @@
   },
   "resources": {
     "eyebrow": "Resources",
-    "title": "Resources in preparation",
-    "lead": "New publications will appear here when they are available."
+    "title": "Blog & podcast",
+    "lead": "Reflections to help you move forward with more clarity, in life and at work: to read today, and soon to listen to.",
+    "blogTitle": "The blog",
+    "blogLead": "Myriam’s articles on coaching, psychotherapy and the world of work.",
+    "empty": "The first articles will be published very soon.",
+    "podcastTitle": "The podcast",
+    "podcastLead": "Conversations and practical ideas for taking care of yourself and your relationships. The Essentia podcast is in preparation.",
+    "podcastCta": "Find out more"
+  },
+  "blog": {
+    "readMore": "Read the article",
+    "back": "All articles",
+    "readingTime": "{n} min read",
+    "frenchOnly": "This article is only available in French.",
+    "ctaTitle": "Would you like to talk about it?",
+    "ctaLead": "Every situation is unique. Let’s talk about yours."
+  },
+  "podcast": {
+    "eyebrow": "Podcast",
+    "title": "The Essentia podcast",
+    "lead": "A voice to accompany your reflections, wherever you are.",
+    "badge": "Coming soon",
+    "comingTitle": "The first episodes are in preparation",
+    "comingBody": "Myriam will share conversations and practical ideas about personal support, well-being and working life. Come back soon to discover the first episode.",
+    "blogCta": "Read the blog in the meantime"
   },
   "contact": {
     "eyebrow": "Contact",

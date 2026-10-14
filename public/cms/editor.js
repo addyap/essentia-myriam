@@ -31,21 +31,42 @@
         async logout() {}
         async getToken() { return ''; }
         async entriesByFiles(entries) { return entries.map(file => ({file,data:files[file.path]})); }
+        async entriesByFolder(folder, extension) { return Object.keys(files).filter(path => path.startsWith(folder + '/') && path.endsWith('.' + extension)).map(path => ({file:{path,id:path},data:files[path]})); }
+        async allEntriesByFolder(folder, extension) { return this.entriesByFolder(folder, extension); }
         async getEntry(path) { return {file:{path,id:path},data:files[path]}; }
         async persistEntry(entry) {
           for (const file of entry.dataFiles) {
-            if (!Object.hasOwn(files, file.path) || file.newPath && file.newPath !== file.path) throw new Error('Fichier non autorisé dans la démonstration.');
-            files[file.path] = file.raw;
+            // Existing pages may change; new files are allowed only as blog articles.
+            const article = path => /^content\/blog\/[A-Za-z0-9][A-Za-z0-9._~-]*\.json$/.test(path || '');
+            if (!(Object.hasOwn(files, file.path) || article(file.path)) || file.newPath && file.newPath !== file.path && !article(file.newPath)) throw new Error('Fichier non autorisé dans la démonstration.');
+            if (file.newPath && file.newPath !== file.path) delete files[file.path];
+            files[file.newPath || file.path] = file.raw;
           }
         }
+        async deleteFiles(paths) { for (const path of paths) if (path.startsWith('content/blog/')) delete files[path]; }
+        // Pictures chosen in the demonstration stay in this browser tab only.
+        async persistMedia(file) { const displayURL = URL.createObjectURL(file.fileObj); return { id: file.path, name: file.fileObj.name, path: file.path, displayURL, size: file.fileObj.size }; }
+        async getMediaDisplayURL(displayURL) { return displayURL; }
         async getMedia() { return []; }
         async getDeployPreview() { return null; }
       }
       window.CMS.registerBackend('essentia-demo', DemoBackend);
     }
-    for (const collection of data.config.collections) for (const file of collection.files) {
-      const section = file.name;
-      const page = ['home', 'about', 'coaching', 'rh', 'booking', 'contact', 'resources'].includes(section) ? section : 'home';
+    // Each preview is the real page in a frame, fed the draft through postMessage.
+    // Articles ("posts") and the article labels ("blog") preview on an article page.
+    const previews = [['posts', 'article'], ...data.config.collections.flatMap(collection => (collection.files || []).map(file => [file.name,
+      file.name === 'blog' ? 'article' : ['home', 'about', 'coaching', 'rh', 'booking', 'contact', 'resources', 'podcast'].includes(file.name) ? file.name : 'home']))];
+    // Pictures not yet published exist only in the editor; give the preview their temporary address.
+    const asset = (getAsset, path) => {
+      if (!path) return path;
+      try { const proxy = getAsset(path); return proxy && typeof proxy.then !== 'function' && String(proxy) || path; } catch { return path; }
+    };
+    const draft = (section, props) => {
+      const content = props.entry.get('data').toJS();
+      if (section !== 'posts') return content;
+      return { ...content, image: asset(props.getAsset, content.image), body: String(content.body || '').replace(/(!\[[^\]]*\]\()([^)\s]+)/g, (all, start, path) => start + asset(props.getAsset, path)) };
+    };
+    for (const [section, page] of previews) {
       const Preview = window.createClass({
         componentDidMount() {
           this.nonce = crypto.randomUUID();
@@ -56,7 +77,7 @@
         },
         componentWillUnmount() { window.removeEventListener('message', this.receiveReady); },
         componentDidUpdate() { this.send(); },
-        send() { if (this.frame && this.nonce) this.frame.contentWindow.postMessage({ type: 'essentia-cms-preview', nonce: this.nonce, section, content: this.props.entry.get('data').toJS() }, origin); },
+        send() { if (this.frame && this.nonce) this.frame.contentWindow.postMessage({ type: 'essentia-cms-preview', nonce: this.nonce, section, content: draft(section, this.props) }, origin); },
         render() { return window.h('iframe', { ref: el => { this.frame = el; }, onLoad: () => this.send(), title: 'Aperçu français du site', src: origin + '/cms-preview?page=' + page + '&nonce=' + (this.nonce || ''), style: { width: '100%', height: '100vh', border: 0 } }); },
       });
       window.CMS.registerPreviewTemplate(section, Preview);

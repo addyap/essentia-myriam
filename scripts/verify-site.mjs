@@ -23,10 +23,21 @@ for (const path of paths) {
 }
 assert.equal((await fetch(new URL('/this-page-does-not-exist', origin))).status, 404);
 const sitemap = await (await fetch(new URL('/sitemap.xml', origin))).text();
-for (const path of paths.filter(path => path !== '/ressources')) assert.ok(sitemap.includes(`https://www.essentiademdb.com${path === '/' ? '' : path}`));
-assert.ok(!sitemap.includes('/ressources'), 'unpublished resources excluded from sitemap');
-const resources = await (await fetch(new URL('/ressources', origin))).text();
-assert.match(resources, /name="robots" content="noindex, follow"/);
+for (const path of paths.filter(path => path !== '/podcast')) assert.ok(sitemap.includes(`<loc>https://www.essentiademdb.com${path}</loc>`), `${path}: in sitemap`);
+assert.ok(!sitemap.includes('/podcast'), 'podcast awaiting its first episode excluded from sitemap');
+assert.match(await (await fetch(new URL('/podcast', origin))).text(), /name="robots" content="noindex, follow"/);
+assert.doesNotMatch(await (await fetch(new URL('/ressources', origin))).text(), /name="robots" content="noindex/);
+// Every published article is listed in the sitemap and answers on its own page.
+const articles = [...sitemap.matchAll(/https:\/\/www\.essentiademdb\.com(\/blog\/[^<]+)</g)].map(m => m[1]);
+for (const path of articles) {
+  const html = await (await fetch(new URL(path, origin))).text();
+  assert.equal((html.match(/<h1[\s>]/g) || []).length, 1, `${path}: one h1`);
+  assert.ok(html.includes(`rel="canonical" href="https://www.essentiademdb.com${path}"`), `${path}: canonical`);
+  assert.match(html, /"@type":"BlogPosting"/, `${path}: structured data`);
+}
+const blogIndex = await fetch(new URL('/blog', origin), { redirect: 'manual' });
+assert.equal(blogIndex.status, 308); assert.equal(new URL(blogIndex.headers.get('location'), origin).pathname, '/ressources');
+assert.equal((await fetch(new URL('/blog/article-inexistant', origin))).status, 404);
 assert.match(await (await fetch(new URL('/robots.txt', origin))).text(), /Sitemap: https:\/\/www.essentiademdb.com\/sitemap.xml/);
 for (const path of ['/og-image.jpg', '/favicon.png', '/images/nature/home.webp']) assert.equal((await fetch(new URL(path, origin))).status, 200);
-console.log(`Passed: ${paths.length} routes, metadata, headers, contact details absent from page code, 404, robots, sitemap and key assets.`);
+console.log(`Passed: ${paths.length} routes, ${articles.length} articles, metadata, headers, contact details absent from page code, 404, robots, sitemap and key assets.`);
