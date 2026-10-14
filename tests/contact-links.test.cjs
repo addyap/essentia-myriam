@@ -10,7 +10,6 @@ const { renderToStaticMarkup } = require('react-dom/server');
 const MYRIAM_EMAIL = ['mdbchandale', 'gmail.com'].join('@');
 const MYRIAM_PHONE = ['+33 (0)6', '01 30', '06 42'].join(' ');
 const MYRIAM_WA = ['336', '0130', '0642'].join('');
-const ANTONY_WA = ['336', '4982', '9826'].join('');
 
 async function load() {
   await loadBindings();
@@ -48,8 +47,7 @@ test('links become the real destinations when used', async () => {
 
 test('stored contact details unscramble to the right values', async () => {
   const { CONTACT, reveal } = await import('../lib/contact.js');
-  const { TEST_MODE } = await import('../lib/config.js');
   assert.equal(reveal(CONTACT.email), MYRIAM_EMAIL);
   assert.equal(reveal(CONTACT.phone), MYRIAM_PHONE);
-  assert.equal(reveal(CONTACT.wa), TEST_MODE ? ANTONY_WA : MYRIAM_WA);
+  assert.equal(reveal(CONTACT.wa), MYRIAM_WA);
 });

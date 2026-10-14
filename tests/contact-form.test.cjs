@@ -37,8 +37,8 @@ test('a valid message is sent to Myriam, with the visitor as reply-to', async ()
   assert.equal(calls.length, 2);
   assert.equal(calls[0].url, 'https://api.resend.com/emails');
   assert.equal(calls[0].init.headers.Authorization, 'Bearer re_test_key');
-  const { RECIPIENT } = await import('../lib/contact-form.js');
-  assert.deepEqual(calls[0].body.to, [RECIPIENT]);
+  const { CONTACT_TO } = await import('../lib/contact-form.js');
+  assert.deepEqual(calls[0].body.to, [CONTACT_TO]);
   assert.equal(calls[0].body.cc, undefined);
   assert.equal(calls[0].body.from, 'Essentia de Myriam Diougoan Blanch <contact@essentiademdb.com>');
   assert.equal(calls[0].body.reply_to, 'claire@example.com');
@@ -48,7 +48,7 @@ test('a valid message is sent to Myriam, with the visitor as reply-to', async ()
   const confirmation = calls[1].body;
   assert.deepEqual(confirmation.to, ['claire@example.com']);
   assert.equal(confirmation.cc, undefined);
-  assert.equal(confirmation.reply_to, RECIPIENT);
+  assert.equal(confirmation.reply_to, CONTACT_TO);
   assert.equal(confirmation.from, 'Essentia de Myriam Diougoan Blanch <contact@essentiademdb.com>');
   assert.equal(confirmation.subject, 'Votre message à Essentia de Myriam Diougoan Blanch');
   assert.doesNotMatch(confirmation.text, /Claire|premier échange/);
@@ -139,10 +139,9 @@ test('confirmation HTML escapes CMS text', async () => {
   assert.match(m.html, /Note &amp; co/);
 });
 
-test('test mode routes email and WhatsApp to Antony, and Myriam otherwise', async () => {
-  const { TEST_MODE } = await import('../lib/config.js');
-  const { RECIPIENT } = await import('../lib/contact-form.js');
+test('form emails and WhatsApp go to Myriam', async () => {
+  const { CONTACT_TO } = await import('../lib/contact-form.js');
   const { CONTACT, reveal } = await import('../lib/contact.js');
-  assert.equal(RECIPIENT, TEST_MODE ? ['formations', 'antonyaddy.com'].join('@') : ['mdbchandale', 'gmail.com'].join('@'));
-  assert.equal(reveal(CONTACT.wa), TEST_MODE ? ['336', '4982', '9826'].join('') : ['336', '0130', '0642'].join(''));
+  assert.equal(CONTACT_TO, ['mdbchandale', 'gmail.com'].join('@'));
+  assert.equal(reveal(CONTACT.wa), ['336', '0130', '0642'].join(''));
 });

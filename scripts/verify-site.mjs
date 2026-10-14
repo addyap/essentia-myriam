@@ -3,8 +3,8 @@ import { readFile } from 'node:fs/promises';
 const origin = process.argv[2] || 'http://localhost:3114';
 // Contact details must never appear in page code; numbers are built from parts
 // so this public file does not contain them either.
-const digits = [['6', '0130', '0642'], ['6', '4982', '9826']].map(parts => parts.join(''));
-const HARVESTABLE = new RegExp(['mailto:', 'tel:\\+', 'wa\\.me\\/', '@gmail\\.com', '@antonyaddy\\.com', ...digits, ...digits.map(d => d.slice(1).replace(/(\d{2})(?=\d)/g, '$1 '))].join('|'));
+const digits = [['6', '0130', '0642']].map(parts => parts.join(''));
+const HARVESTABLE = new RegExp(['mailto:', 'tel:\\+', 'wa\\.me\\/', '@gmail\\.com', ...digits, ...digits.map(d => d.slice(1).replace(/(\d{2})(?=\d)/g, '$1 '))].join('|'));
 const paths = [...(await readFile('lib/routes.js', 'utf8')).matchAll(/\w+: '([^']+)'/g)].map(m => m[1]);
 for (const path of paths) {
   const response = await fetch(new URL(path, origin));
