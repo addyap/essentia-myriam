@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useApp } from './Providers';
+import { LogoMark } from './LogoMark';
 import { ROUTES } from '@/lib/routes';
 import { LIMITS, validateContact } from '@/lib/contact-form';
 
@@ -12,8 +13,12 @@ export function ContactForm() {
   const f = t.contact.form;
   const [status, setStatus] = useState('idle'); // idle | sending | sent | error | busy
   const [errors, setErrors] = useState({});
+  const [confirmed, setConfirmed] = useState(false);
   const opened = useRef(0);
+  const thanks = useRef(null);
   useEffect(() => { opened.current = Date.now(); }, []);
+  // Move focus to the thank-you panel so screen readers announce it.
+  useEffect(() => { if (status === 'sent') thanks.current?.focus(); }, [status]);
 
   async function submit(event) {
     event.preventDefault();
@@ -32,7 +37,7 @@ export function ContactForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...values, lang, elapsedMs: Date.now() - opened.current }),
       });
-      if (response.ok) { setStatus('sent'); form.reset(); }
+      if (response.ok) { setConfirmed(Boolean((await response.json().catch(() => ({}))).confirmed)); setStatus('sent'); }
       else setStatus(response.status === 429 ? 'busy' : 'error');
     } catch {
       setStatus('error');
@@ -53,7 +58,20 @@ export function ContactForm() {
     </div>
   );
 
-  const message = { sent: f.success, error: f.error, busy: f.busy }[status];
+  if (status === 'sent') return (
+    <div className="contact-thanks" role="status">
+      <span className="contact-thanks-mark"><LogoMark /></span>
+      <h2 className="contact-thanks-title" ref={thanks} tabIndex={-1}>{f.successTitle}</h2>
+      <span className="contact-thanks-rule" aria-hidden="true" />
+      <p className="contact-thanks-text">{f.success}</p>
+      {confirmed ? <p className="contact-thanks-note">{f.confirmNote}</p> : null}
+      <button type="button" className="editorial-link contact-thanks-again" onClick={() => { opened.current = Date.now(); setStatus('idle'); }}>
+        {f.sendAnother}
+      </button>
+    </div>
+  );
+
+  const message = { error: f.error, busy: f.busy }[status];
   return (
     <form className="contact-form" method="post" action="/api/contact" noValidate onSubmit={submit}>
       <span className="eyebrow">{f.eyebrow}</span>
@@ -74,7 +92,7 @@ export function ContactForm() {
       <button className="btn btn-gold" type="submit" disabled={status === 'sending'}>
         {status === 'sending' ? f.sending : f.send}
       </button>
-      <p className={'form-status' + (status === 'sent' ? ' is-sent' : message ? ' is-error' : '')} role="status" aria-live="polite">
+      <p className={'form-status' + (message ? ' is-error' : '')} role="status" aria-live="polite">
         {message || ''}
       </p>
     </form>

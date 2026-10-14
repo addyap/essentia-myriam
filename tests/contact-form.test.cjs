@@ -33,16 +33,47 @@ test('a valid message is sent to Myriam, with the visitor as reply-to', async ()
   const { POST } = await import('../app/api/contact/route.js');
   const response = await POST(post(valid));
   assert.equal(response.status, 200);
-  assert.deepEqual(await response.json(), { ok: true });
-  assert.equal(calls.length, 1);
+  assert.deepEqual(await response.json(), { ok: true, confirmed: true });
+  assert.equal(calls.length, 2);
   assert.equal(calls[0].url, 'https://api.resend.com/emails');
   assert.equal(calls[0].init.headers.Authorization, 'Bearer re_test_key');
   assert.deepEqual(calls[0].body.to, ['mdbchandale@gmail.com']);
   assert.deepEqual(calls[0].body.cc, ['formations@antonyaddy.com']);
-  assert.equal(calls[0].body.from, 'Essentia <contact@essentiademdb.com>');
+  assert.equal(calls[0].body.from, 'Essentia de Myriam Diougoan Blanch <contact@essentiademdb.com>');
   assert.equal(calls[0].body.reply_to, 'claire@example.com');
   assert.match(calls[0].body.subject, /Claire Martin$/);
   assert.match(calls[0].body.text, /je souhaite un premier échange/);
+  // The visitor's acknowledgement: their language, nothing they typed, replies to Myriam.
+  const confirmation = calls[1].body;
+  assert.deepEqual(confirmation.to, ['claire@example.com']);
+  assert.equal(confirmation.cc, undefined);
+  assert.equal(confirmation.reply_to, 'mdbchandale@gmail.com');
+  assert.equal(confirmation.from, 'Essentia de Myriam Diougoan Blanch <contact@essentiademdb.com>');
+  assert.equal(confirmation.subject, 'Votre message à Essentia de Myriam Diougoan Blanch');
+  assert.doesNotMatch(confirmation.text, /Claire|premier échange/);
+  assert.match(confirmation.text, /Cet e-mail automatique/);
+  assert.match(confirmation.html, /email\/monogram\.png/);
+  assert.match(confirmation.html, />Merci</);
+  assert.doesNotMatch(confirmation.html, /Claire|premier échange|claire@example/);
+});
+
+test('the confirmation follows the visitor\'s language', async () => {
+  const { POST } = await import('../app/api/contact/route.js');
+  await POST(post({ ...valid, lang: 'en' }));
+  assert.equal(calls[1].body.subject, 'Your message to Essentia de Myriam Diougoan Blanch');
+  assert.match(calls[1].body.text, /^Hello,/);
+});
+
+test('a failed confirmation does not undo a delivered message', async () => {
+  let n = 0;
+  global.fetch = async () => (++n === 1 ? new Response('{}', { status: 200 }) : new Response('{}', { status: 500 }));
+  const { POST } = await import('../app/api/contact/route.js');
+  const realError = console.error; console.error = () => {};
+  try {
+    const response = await POST(post(valid));
+    assert.equal(response.status, 200);
+    assert.deepEqual(await response.json(), { ok: true, confirmed: false });
+  } finally { console.error = realError; }
 });
 
 test('without an API key the form reports unavailable and sends nothing', async () => {
@@ -82,7 +113,7 @@ test('one address is limited to five messages in ten minutes', async () => {
   const statuses = [];
   for (let i = 0; i < 6; i++) statuses.push((await POST(post(valid, '198.51.100.7'))).status);
   assert.deepEqual(statuses, [200, 200, 200, 200, 200, 429]);
-  assert.equal(calls.length, 5);
+  assert.equal(calls.length, 10);
 });
 
 test('the email wording edited in the CMS is used, with safe fallbacks', async () => {
@@ -94,7 +125,15 @@ test('the email wording edited in the CMS is used, with safe fallbacks', async (
   assert.match(custom.text, /^Personne : Claire Martin\n/);
   assert.match(custom.text, /Merci\.$/);
   const empty = composeEmail(data, { wording: { subject: '   ' } });
-  assert.equal(empty.subject, 'Nouveau message du site Essentia — Claire Martin');
+  assert.equal(empty.subject, 'Nouveau message du site Essentia de Myriam Diougoan Blanch — Claire Martin');
   const contact = require('../content/fr/contact.json');
   assert.equal(composeEmail(data, { wording: contact.email }).subject, contact.email.subject.replace('{nom}', 'Claire Martin'));
+});
+
+test('confirmation HTML escapes CMS text', async () => {
+  const { composeConfirmation } = await import('../lib/contact-form.js');
+  const m = composeConfirmation({ email: 'a@example.com' }, { title: '<b>Merci</b>', subject: 'S', body: 'Un <script>x</script>\n\nFin', notice: 'Note & co' });
+  assert.doesNotMatch(m.html, /<script>|<b>Merci/);
+  assert.match(m.html, /&lt;script&gt;/);
+  assert.match(m.html, /Note &amp; co/);
 });

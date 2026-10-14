@@ -1,8 +1,13 @@
 // Receives the Contact page form and forwards it to Myriam through Resend.
 // Relative imports keep this route loadable by the node:test suite.
-import { validateContact, composeEmail, CONTACT_FROM, CONTACT_TO } from '../../../lib/contact-form.js';
+import { validateContact, composeEmail, composeConfirmation, CONTACT_FROM, CONTACT_TO } from '../../../lib/contact-form.js';
 import { ENABLED_LANGS } from '../../../lib/config.js';
 import contact from '../../../content/fr/contact.json' with { type: 'json' };
+import en from '../../../content/global/en.json' with { type: 'json' };
+import it from '../../../content/global/it.json' with { type: 'json' };
+import es from '../../../content/global/es.json' with { type: 'json' };
+
+const FORM_TEXT = { fr: contact.form, en: en.contact.form, it: it.contact.form, es: es.contact.form };
 
 export const dynamic = 'force-dynamic';
 
@@ -43,13 +48,15 @@ export async function POST(request) {
   if (!result.ok) return reply({ error: 'invalid', fields: Object.keys(result.errors) }, 400);
 
   const lang = ENABLED_LANGS.includes(body.lang) ? body.lang : 'fr';
-  const email = composeEmail(result.data, { from: process.env.CONTACT_FROM || CONTACT_FROM, to: CONTACT_TO, lang, wording: contact.email });
+  const from = process.env.CONTACT_FROM || CONTACT_FROM;
+  const send = (email) => fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify(email),
+  });
+
   try {
-    const response = await fetch('https://api.resend.com/emails', {
-      method: 'POST',
-      headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify(email),
-    });
+    const response = await send(composeEmail(result.data, { from, to: CONTACT_TO, lang, wording: contact.email }));
     // Log Resend's reason, never the visitor's message.
     if (!response.ok) {
       console.error('Resend rejected the contact email', response.status, await response.text().catch(() => ''));
@@ -59,5 +66,17 @@ export async function POST(request) {
     console.error('Resend request failed', error?.message);
     return reply({ error: 'send' }, 502);
   }
-  return reply({ ok: true });
+
+  // Myriam has the message; the visitor's acknowledgement is a courtesy, so a
+  // failure here is logged and reported but does not undo the success.
+  const text = FORM_TEXT[lang];
+  let confirmed = false;
+  try {
+    const response = await send(composeConfirmation(result.data, { from, replyTo: CONTACT_TO, senderName: contact.email?.senderName, lang, title: text.successTitle, subject: text.confirmSubject, body: text.confirmBody, notice: text.confirmNotice }));
+    confirmed = response.ok;
+    if (!response.ok) console.error('Resend rejected the confirmation email', response.status, await response.text().catch(() => ''));
+  } catch (error) {
+    console.error('Confirmation request failed', error?.message);
+  }
+  return reply({ ok: true, confirmed });
 }

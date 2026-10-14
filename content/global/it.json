@@ -262,14 +262,20 @@
       "messageHint": "Ti preghiamo di non includere informazioni dettagliate sulla salute in questo primo messaggio.",
       "send": "Invia il messaggio",
       "sending": "Invio in corso…",
-      "success": "Grazie, il tuo messaggio è stato inviato. Myriam ti risponderà via e-mail.",
+      "success": "Il tuo messaggio è stato inoltrato a Myriam, che ti risponderà personalmente via e-mail.",
       "error": "Non è stato possibile inviare il messaggio. Riprova tra poco, oppure scrivi a Myriam via e-mail o WhatsApp qui sotto.",
       "busy": "Sono appena stati inviati diversi messaggi dalla tua connessione. Riprova tra qualche minuto.",
       "privacy": "I tuoi dati servono solo per risponderti.",
       "privacyLink": "Informativa sulla privacy",
       "errorName": "Inserisci il tuo nome.",
       "errorEmail": "Inserisci un indirizzo e-mail valido.",
-      "errorMessage": "Scrivi un messaggio di almeno 10 caratteri."
+      "errorMessage": "Scrivi un messaggio di almeno 10 caratteri.",
+      "successTitle": "Grazie",
+      "confirmNote": "Ti abbiamo appena inviato un’e-mail di conferma.",
+      "sendAnother": "Scrivi un altro messaggio",
+      "confirmSubject": "Il tuo messaggio a Essentia de Myriam Diougoan Blanch",
+      "confirmBody": "Buongiorno,\n\ngrazie per il tuo messaggio. È stato inoltrato a Myriam Diougoan Blanch, che ti risponderà personalmente.\n\nUn caro saluto,\nEssentia de Myriam Diougoan Blanch\nwww.essentiademdb.com",
+      "confirmNotice": "Questa e-mail automatica conferma la ricezione del tuo messaggio. Se non sei tu ad averlo inviato, puoi ignorarla."
     }
   },
   "notFound": {

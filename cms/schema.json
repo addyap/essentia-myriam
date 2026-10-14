@@ -945,6 +945,42 @@
             "label": "Erreur : message trop court",
             "multiline": false,
             "required": false
+          },
+          "successTitle": {
+            "type": "text",
+            "label": "Titre de remerciement",
+            "multiline": false,
+            "required": false
+          },
+          "confirmNote": {
+            "type": "text",
+            "label": "Mention de l’e-mail de confirmation",
+            "multiline": false,
+            "required": false
+          },
+          "sendAnother": {
+            "type": "text",
+            "label": "Bouton « autre message »",
+            "multiline": false,
+            "required": false
+          },
+          "confirmSubject": {
+            "type": "text",
+            "label": "Objet de l’e-mail de confirmation envoyé à la personne",
+            "multiline": false,
+            "required": true
+          },
+          "confirmBody": {
+            "type": "text",
+            "label": "Texte de l’e-mail de confirmation envoyé à la personne",
+            "multiline": true,
+            "required": true
+          },
+          "confirmNotice": {
+            "type": "text",
+            "label": "Mention en bas de l’e-mail de confirmation",
+            "multiline": true,
+            "required": false
           }
         }
       },
