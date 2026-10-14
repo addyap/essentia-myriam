@@ -1,0 +1,31 @@
+{
+  "eyebrow": "Formation professionnelle",
+  "title": "Formations",
+  "lead": "Des formations sur mesure pour développer les compétences humaines et managériales de vos équipes.",
+  "items": [
+    {
+      "ic": "users",
+      "t": "Management & leadership",
+      "d": "Prendre sa place de manager, fédérer une équipe et piloter avec justesse."
+    },
+    {
+      "ic": "heart",
+      "t": "Communication & relations",
+      "d": "Mieux s'écouter, se comprendre et coopérer au quotidien."
+    },
+    {
+      "ic": "shield",
+      "t": "Prévention du stress",
+      "d": "Repérer les signaux, prévenir l'épuisement et préserver la qualité de vie au travail."
+    },
+    {
+      "ic": "target",
+      "t": "Ressources humaines",
+      "d": "Les fondamentaux de la fonction RH, de la gestion des talents au développement des compétences."
+    }
+  ],
+  "approachTitle": "Une pédagogie vivante",
+  "approachBody": "Forte de son expérience d'enseignante en management RH en école de commerce et de conception de projets de formation professionnelle, Myriam construit chaque formation à partir de vos enjeux réels : apports concrets, mises en situation et temps de réflexion pour que les acquis durent.",
+  "ctaTitle": "Un besoin de formation ?",
+  "ctaBtn": "Construisons votre programme"
+}

@@ -5,6 +5,7 @@ import Home from '../page';
 import About from '../a-propos/page';
 import Coaching from '../accompagnement/page';
 import Rh from '../conseil-rh/page';
+import Formations from '../formations/page';
 import Booking from '../rendez-vous/page';
 import Contact from '../contact/page';
 import Resources from '../ressources/page';
@@ -18,7 +19,7 @@ export const metadata = { title: 'Aperçu privé · Essentia', robots: { index: 
 // "article" has no page component: CmsPreview renders the draft article itself.
 // Shared details appear on two pages each, so their previews show both.
 const pair = (First, Second) => function Both() { return <><First /><Second /></>; };
-const pages = { home: Home, about: About, coaching: Coaching, rh: Rh, booking: Booking, contact: Contact, resources: Resources, podcast: Podcast, article: null,
+const pages = { home: Home, about: About, coaching: Coaching, rh: Rh, formations: Formations, booking: Booking, contact: Contact, resources: Resources, podcast: Podcast, article: null,
   launchDetails: pair(About, Booking), legalDetails: pair(LegalNotice, Privacy), notFound: NotFound };
 function Unavailable({ children }) { return <main className="cms-welcome"><div className="cms-welcome-card"><h1>Aperçu indisponible</h1><p>{children}</p><a href="/admin">Retour à l’éditeur</a></div></main>; }
 export default async function Preview({ searchParams }) {

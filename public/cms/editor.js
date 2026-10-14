@@ -57,7 +57,7 @@
     // Each preview is the real page in a frame, fed the draft through postMessage.
     // Articles ("posts") and the article labels ("blog") preview on an article page.
     const previews = [['posts', 'article'], ...data.config.collections.flatMap(collection => (collection.files || []).map(file => [file.name,
-      file.name === 'blog' ? 'article' : ['home', 'about', 'coaching', 'rh', 'booking', 'contact', 'resources', 'podcast', 'launchDetails', 'legalDetails', 'notFound'].includes(file.name) ? file.name : 'home']))];
+      file.name === 'blog' ? 'article' : ['home', 'about', 'coaching', 'rh', 'formations', 'booking', 'contact', 'resources', 'podcast', 'launchDetails', 'legalDetails', 'notFound'].includes(file.name) ? file.name : 'home']))];
     // Pictures not yet published exist only in the editor; give the preview their temporary address.
     const asset = (getAsset, path) => {
       if (!path) return path;

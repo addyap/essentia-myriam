@@ -129,6 +129,12 @@
         "multiline": false,
         "required": false
       },
+      "formations": {
+        "type": "text",
+        "label": "Formations",
+        "multiline": false,
+        "required": false
+      },
       "resources": {
         "type": "text",
         "label": "Blog & podcast",
@@ -639,6 +645,81 @@
       "approachBody": {
         "type": "text",
         "label": "Texte de l’expertise",
+        "multiline": true,
+        "required": false
+      },
+      "ctaTitle": {
+        "type": "text",
+        "label": "Titre de prise de contact",
+        "multiline": false,
+        "required": false
+      },
+      "ctaBtn": {
+        "type": "text",
+        "label": "Bouton de prise de contact",
+        "multiline": false,
+        "required": false
+      }
+    }
+  },
+  "formations": {
+    "type": "object",
+    "label": "Formations",
+    "fields": {
+      "eyebrow": {
+        "type": "text",
+        "label": "Sur-titre",
+        "multiline": false,
+        "required": false
+      },
+      "title": {
+        "type": "text",
+        "label": "Titre",
+        "multiline": false,
+        "required": true
+      },
+      "lead": {
+        "type": "text",
+        "label": "Introduction",
+        "multiline": false,
+        "required": false
+      },
+      "items": {
+        "type": "array",
+        "label": "Formations",
+        "length": 4,
+        "element": {
+          "type": "object",
+          "label": "Formations",
+          "fields": {
+            "ic": {
+              "type": "ignored"
+            },
+            "t": {
+              "type": "text",
+              "label": "Titre",
+              "multiline": false,
+              "required": true
+            },
+            "d": {
+              "type": "text",
+              "label": "Description",
+              "multiline": false,
+              "required": false
+            }
+          }
+        },
+        "hero": false
+      },
+      "approachTitle": {
+        "type": "text",
+        "label": "Titre de la pédagogie",
+        "multiline": false,
+        "required": false
+      },
+      "approachBody": {
+        "type": "text",
+        "label": "Texte de la pédagogie",
         "multiline": true,
         "required": false
       },
@@ -1389,6 +1470,24 @@
       "rh": {
         "type": "object",
         "label": "Conseil RH",
+        "fields": {
+          "title": {
+            "type": "text",
+            "label": "Titre dans Google et les partages",
+            "multiline": false,
+            "required": true
+          },
+          "description": {
+            "type": "text",
+            "label": "Description dans Google et les partages",
+            "multiline": true,
+            "required": true
+          }
+        }
+      },
+      "formations": {
+        "type": "object",
+        "label": "Formations",
         "fields": {
           "title": {
             "type": "text",

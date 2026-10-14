@@ -27,7 +27,7 @@ export const BLOG_COLLECTION = {
 };
 
 export function makeCmsConfig(definitions, french, legalDetails, siteId, demo = false) {
-  const groups = { pages: ['home', 'about', 'coaching', 'rh', 'booking', 'contact', 'resources', 'blog', 'podcast'], shared: ['brand', 'nav', 'footer', 'launchDetails', 'legalDetails'], labels: ['ui', 'notFound'], seo: ['seo'] };
+  const groups = { pages: ['home', 'about', 'coaching', 'rh', 'formations', 'booking', 'contact', 'resources', 'blog', 'podcast'], shared: ['brand', 'nav', 'footer', 'launchDetails', 'legalDetails'], labels: ['ui', 'notFound'], seo: ['seo'] };
   return {
     load_config_file: false,
     backend: demo ? { name: 'essentia-demo' } : { name: 'git-gateway', repo: 'addyap/essentia-myriam', branch: 'main', auth_type: 'pkce', base_url: 'https://auth.decapbridge.com', auth_endpoint: `/sites/${siteId}/pkce`, auth_token_endpoint: `/sites/${siteId}/token`, gateway_url: 'https://gateway.decapbridge.com' },

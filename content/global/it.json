@@ -25,6 +25,7 @@
     "about": "Chi sono",
     "coaching": "Coaching",
     "rh": "Consulenza HR",
+    "formations": "Formazione",
     "resources": "Blog e podcast",
     "contact": "Contatti"
   },
@@ -214,6 +215,37 @@
     "approachBody": "Oltre 15 anni al servizio delle politiche del lavoro, della formazione professionale e dello sviluppo economico delle imprese a livello internazionale — dalla gestione di fondi europei all'insegnamento del management HR in una business school. Una cultura inclusiva e performante, al servizio della persona.",
     "ctaTitle": "Un progetto per i tuoi team?",
     "ctaBtn": "Parliamo delle tue esigenze"
+  },
+  "formations": {
+    "eyebrow": "Formazione professionale",
+    "title": "Formazione",
+    "lead": "Percorsi formativi su misura per sviluppare le competenze umane e manageriali dei vostri team.",
+    "items": [
+      {
+        "ic": "users",
+        "t": "Management & leadership",
+        "d": "Assumere il ruolo di manager, unire una squadra e guidarla con equilibrio."
+      },
+      {
+        "ic": "heart",
+        "t": "Comunicazione & relazioni",
+        "d": "Ascoltarsi meglio, comprendersi e collaborare ogni giorno."
+      },
+      {
+        "ic": "shield",
+        "t": "Prevenzione dello stress",
+        "d": "Riconoscere i segnali, prevenire l'esaurimento e tutelare la qualità della vita lavorativa."
+      },
+      {
+        "ic": "target",
+        "t": "Risorse umane",
+        "d": "I fondamentali della funzione HR, dalla gestione dei talenti allo sviluppo delle competenze."
+      }
+    ],
+    "approachTitle": "Una didattica viva",
+    "approachBody": "Forte della sua esperienza di docente di gestione delle risorse umane in una business school e di progettazione di percorsi di formazione professionale, Myriam costruisce ogni corso a partire dalle vostre sfide reali: contenuti concreti, simulazioni e momenti di riflessione perché quanto appreso resti nel tempo.",
+    "ctaTitle": "Un bisogno di formazione?",
+    "ctaBtn": "Costruiamo il vostro programma"
   },
   "booking": {
     "eyebrow": "Prenota un incontro",

@@ -27,6 +27,7 @@ export function Footer() {
               <li><Link href={ROUTES.about}>{t.nav.about}</Link></li>
               <li><Link href={ROUTES.coaching}>{t.nav.coaching}</Link></li>
               <li><Link href={ROUTES.rh}>{t.nav.rh}</Link></li>
+              <li><Link href={ROUTES.formations}>{t.nav.formations}</Link></li>
               <li><Link href={ROUTES.resources}>{t.resources.blogTitle}</Link></li>
               <li><Link href={ROUTES.podcast}>{t.resources.podcastTitle}</Link></li>
             </ul>

@@ -39,10 +39,10 @@ export function Header() {
   }, [open]);
 
   useEffect(() => {
-    // Mirrors the @media(max-width:1320px) navigation breakpoint in globals.css —
+    // Mirrors the @media(max-width:1500px) navigation breakpoint in globals.css —
     // below it, nav.main is visually hidden off-screen via transform (not
     // display:none), so its links must be pulled out of the tab order by hand.
-    const mq = window.matchMedia('(max-width: 1320px)');
+    const mq = window.matchMedia('(max-width: 1500px)');
     const update = () => setIsMobile(mq.matches);
     update();
     mq.addEventListener('change', update);

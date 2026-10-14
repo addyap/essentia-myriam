@@ -25,6 +25,7 @@
     "about": "About",
     "coaching": "Coaching",
     "rh": "HR Consulting",
+    "formations": "Training",
     "resources": "Blog & podcast",
     "contact": "Contact"
   },
@@ -214,6 +215,37 @@
     "approachBody": "Over 15 years serving employment policy, professional training and the economic development of companies internationally — from managing European funds to teaching HR management in a business school. An inclusive, high-performing culture, in service of people.",
     "ctaTitle": "A project for your teams?",
     "ctaBtn": "Let’s discuss your needs"
+  },
+  "formations": {
+    "eyebrow": "Professional training",
+    "title": "Training",
+    "lead": "Bespoke training to develop the human and managerial skills of your teams.",
+    "items": [
+      {
+        "ic": "users",
+        "t": "Management & leadership",
+        "d": "Stepping into the manager's role, bringing a team together and leading with care."
+      },
+      {
+        "ic": "heart",
+        "t": "Communication & relationships",
+        "d": "Listening better, understanding one another and working together day to day."
+      },
+      {
+        "ic": "shield",
+        "t": "Stress prevention",
+        "d": "Spotting the signs, preventing burnout and protecting quality of life at work."
+      },
+      {
+        "ic": "target",
+        "t": "Human resources",
+        "d": "The fundamentals of HR, from talent management to skills development."
+      }
+    ],
+    "approachTitle": "A lively way of teaching",
+    "approachBody": "Drawing on her experience teaching HR management at business school and designing professional-training projects, Myriam builds each course around your real challenges: practical input, role-plays and time for reflection so that what is learned lasts.",
+    "ctaTitle": "Looking for training?",
+    "ctaBtn": "Let's build your programme"
   },
   "booking": {
     "eyebrow": "Book a session",

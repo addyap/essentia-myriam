@@ -25,6 +25,7 @@
     "about": "Sobre mí",
     "coaching": "Acompañamiento",
     "rh": "Consultoría RRHH",
+    "formations": "Formación",
     "resources": "Blog y pódcast",
     "contact": "Contacto"
   },
@@ -214,6 +215,37 @@
     "approachBody": "Más de 15 años al servicio de las políticas de empleo, la formación profesional y el desarrollo económico de las empresas a nivel internacional — de la gestión de fondos europeos a la enseñanza de la gestión de RRHH en una escuela de negocios. Una cultura inclusiva y de alto rendimiento, al servicio de la persona.",
     "ctaTitle": "¿Un proyecto para tus equipos?",
     "ctaBtn": "Hablemos de tus necesidades"
+  },
+  "formations": {
+    "eyebrow": "Formación profesional",
+    "title": "Formación",
+    "lead": "Formaciones a medida para desarrollar las competencias humanas y directivas de sus equipos.",
+    "items": [
+      {
+        "ic": "users",
+        "t": "Management y liderazgo",
+        "d": "Asumir el rol de responsable, unir a un equipo y dirigir con acierto."
+      },
+      {
+        "ic": "heart",
+        "t": "Comunicación y relaciones",
+        "d": "Escucharse mejor, entenderse y cooperar en el día a día."
+      },
+      {
+        "ic": "shield",
+        "t": "Prevención del estrés",
+        "d": "Detectar las señales, prevenir el agotamiento y cuidar la calidad de vida en el trabajo."
+      },
+      {
+        "ic": "target",
+        "t": "Recursos humanos",
+        "d": "Los fundamentos de la función de RR. HH., de la gestión del talento al desarrollo de competencias."
+      }
+    ],
+    "approachTitle": "Una pedagogía viva",
+    "approachBody": "Gracias a su experiencia como profesora de gestión de RR. HH. en una escuela de negocios y en el diseño de proyectos de formación profesional, Myriam construye cada formación a partir de sus retos reales: contenidos concretos, casos prácticos y tiempo de reflexión para que lo aprendido perdure.",
+    "ctaTitle": "¿Necesita una formación?",
+    "ctaBtn": "Construyamos su programa"
   },
   "booking": {
     "eyebrow": "Reservar una cita",

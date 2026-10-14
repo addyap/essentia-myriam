@@ -577,7 +577,7 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
 .menu-toggle[aria-expanded="true"] .menu-toggle-lines i:last-child{transform:translateY(-4px) rotate(-45deg)}
 
 /* Brand lockup sizing (unchanged; its own breakpoints). */
-@media(min-width:1321px){
+@media(min-width:1501px){
  .site .nav{gap:24px;min-height:92px;padding:0 40px;max-width:1800px;margin:auto}
  .site .brand{flex:none;gap:14px}
  .site .brand .mark{width:48px;height:62px}
@@ -585,10 +585,10 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
  .site .brand .byline{font-size:26px}
  .site .brand .words{gap:9px}
 }
-@media(min-width:1321px) and (max-width:1699px){
+@media(min-width:1501px) and (max-width:1759px){
  .site .brand-surname{display:none}
 }
-@media(max-width:1320px){
+@media(max-width:1500px){
  .site .nav{min-height:76px;gap:12px;padding:0 28px}
  .site .brand{flex:1 1 auto;min-width:0;gap:10px;padding:8px 0}
  .site .brand .mark{width:40px;height:52px}
@@ -617,12 +617,12 @@ header.site .brand{transform-origin:left center;transition:transform var(--motio
 header.site.is-compact{--bar-now:var(--bar-compact);margin-bottom:calc(var(--bar) - var(--bar-compact))}
 header.site.is-compact .nav{height:var(--bar-compact)}
 header.site.is-compact .brand{transform:scale(var(--brand-compact))}
-@media(max-width:1320px){header.site{--bar:76px;--bar-compact:60px;--brand-compact:.76}}
+@media(max-width:1500px){header.site{--bar:76px;--bar-compact:60px;--brand-compact:.76}}
 @media(max-width:560px){header.site{--bar:80px;--bar-compact:60px;--brand-compact:.72}}
 @media(prefers-reduced-motion:reduce){header.site,header.site .nav,header.site .brand{transition:none}}
 
 /* Desktop navigation: one row — pages, booking, then a quiet language switch. */
-@media(min-width:1321px){
+@media(min-width:1501px){
  .site nav.main{position:static;display:flex;flex-direction:row;align-items:center;gap:clamp(18px,1.6vw,28px);margin-left:auto;height:auto;padding:0;background:transparent;transform:none;overflow:visible;visibility:visible;opacity:1}
  .site nav.main a{min-height:44px;font-size:14px;font-weight:500;letter-spacing:.15px;color:var(--ink)}
  .site nav.main a:not(.btn)::after{content:"";position:absolute;left:0;right:0;bottom:9px;height:1px;background:var(--gold-deep);transform:scaleX(0);transform-origin:left;transition:transform var(--motion-control) var(--ease-out)}
@@ -639,7 +639,7 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
 }
 
 /* Smaller screens: the menu becomes a full-height panel under the masthead. */
-@media(max-width:1320px){
+@media(max-width:1500px){
  .site .menu-toggle{display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;padding:10px;border:0;background:transparent}
  .site nav.main{position:fixed;top:calc(var(--bar-now) + 1px);left:0;right:0;height:calc(100dvh - var(--bar-now) - 1px);background:var(--cream);flex-direction:column;align-items:stretch;padding:12px 28px 32px;gap:0;overflow-y:auto;transform:translateY(-120%);visibility:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),visibility .35s;z-index:30}
  .site nav.main.open{transform:none;visibility:visible}
