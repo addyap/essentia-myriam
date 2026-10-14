@@ -29,10 +29,17 @@ node scripts/verify-site.mjs http://localhost:3000
 | Navigation | `lib/routes.js` |
 | Site origin | `lib/config.js` |
 | Public contact destinations | `lib/contact.js`, `components/RevealContact.js` |
+| Contact form | `components/ContactForm.js`, `app/api/contact/route.js`, `lib/contact-form.js`, `lib/contact-rules.js` |
 | SEO metadata | `app/layout.js`, route `layout.js` files |
 | Asset credits | `public/images/nature/credits.json` |
 
-Contact and appointment pages use real email, phone and WhatsApp links. There is no connected calendar, payment flow, newsletter, CMS, analytics or contact form. Contact links are rendered server-side; their base64 configuration is encoding, not a security boundary.
+Contact and appointment pages use real email, phone and WhatsApp links. There is no connected calendar, payment flow, newsletter or analytics. Contact details are stored scrambled in `lib/contact.js` and only become real links in the visitor's browser when a link is used; this deters spam harvesters but is encoding, not a security boundary.
+
+## Contact form
+
+The Contact page form posts to `/api/contact`, which sends the message to Myriam through [Resend](https://resend.com) with the visitor's address as reply-to, then emails the visitor an HTML acknowledgement in the language they used. The acknowledgement repeats nothing the visitor typed. Field rules live in `lib/contact-rules.js`, shared by the browser and the server. A hidden honeypot field, a three-second minimum fill time and a per-instance limit of five messages per address in ten minutes deter spam.
+
+Set `RESEND_API_KEY` in Vercel → Settings → Environment Variables (never in a committed file); without it the endpoint answers 503. `CONTACT_FROM` optionally overrides the sender, which must be on the domain verified in Resend; the default is `contact@essentiademdb.com`. Redeploy after changing either variable. Form labels, the thank-you panel, the confirmation email and the wording of the email Myriam receives are editable in the CMS (French) and in `content/global/{en,it,es}.json`.
 
 ## Release
 
