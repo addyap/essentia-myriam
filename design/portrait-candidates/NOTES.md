@@ -17,3 +17,7 @@ Révision de la deuxième proposition : supprimer le poing sous le menton ; pose
 ## Bureau réel — deuxième référence de Myriam
 
 `myriam-bureau-reel-v2.png` : imagegen, référence d’identité WhatsApp du 13 octobre à 21:21:12 et référence de bureau à 20:56:18. Préserver traits, âge, proportions, lunettes, cheveux, chemisier blanc à manches courtes et bijoux ; aucune montre ajoutée. Mains détendues sur le bureau ; épurer les dossiers et le plateau, ajouter une plante, conserver la pièce et le mobilier réel, lumière naturelle. Proposition distincte ; aucun remplacement automatique sur le site.
+
+## Variante avec PC portable
+
+`myriam-bureau-pc.png` : retouche imagegen de la deuxième proposition du bureau réel. Ajouter seulement un PC portable gris sombre ouvert sur le plateau, clavier tourné vers Myriam, devant elle et légèrement à droite pour laisser le visage visible. Myriam reste assise derrière le bureau ; préserver ses traits, proportions, pose, vêtements, bijoux et le décor. Adapter uniquement l’emplacement du carnet si nécessaire, avec ombre et reflet cohérents. La génération peut présenter de légères variations : valider la fidélité avant publication.
