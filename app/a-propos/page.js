@@ -14,7 +14,7 @@ export default function AboutPage() {
       <section className="about-introduction">
         <div className="wrap split">
           <div className="portrait">
-            <Image src="/myriam-upright.jpg" alt={a.title} fill priority sizes="(max-width: 900px) 100vw, 480px" style={{ objectFit: 'cover' }} />
+            <Image src="/myriam-office.webp" alt={a.title} fill priority sizes="(max-width: 900px) 100vw, 480px" style={{ objectFit: 'cover' }} />
           </div>
           <div>
             <p className="prose" style={{ marginBottom: 14 }}>{a.p1}</p>
