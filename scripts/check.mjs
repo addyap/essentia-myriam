@@ -21,8 +21,10 @@ const keys = (value, prefix = '') => Object.entries(value).flatMap(([key, child]
   const path = prefix ? `${prefix}.${key}` : key;
   return child && typeof child === 'object' && !Array.isArray(child) ? keys(child, path) : [path];
 }).sort();
+// The email sent to Myriam is always in French, so it has no translations.
+const frenchKeys = keys(french).filter(path => !path.startsWith('contact.email.'));
 for (const lang of ['en', 'it', 'es']) {
   const translated = JSON.parse(await readFile(`content/global/${lang}.json`, 'utf8'));
-  if (JSON.stringify(keys(french)) !== JSON.stringify(keys(translated))) throw new Error(`Translation key mismatch: ${lang}`);
+  if (JSON.stringify(frenchKeys) !== JSON.stringify(keys(translated))) throw new Error(`Translation key mismatch: ${lang}`);
 }
 console.log('Translation keys match across all four languages.');

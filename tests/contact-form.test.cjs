@@ -83,3 +83,17 @@ test('one address is limited to five messages in ten minutes', async () => {
   assert.deepEqual(statuses, [200, 200, 200, 200, 200, 429]);
   assert.equal(calls.length, 5);
 });
+
+test('the email wording edited in the CMS is used, with safe fallbacks', async () => {
+  const { composeEmail } = await import('../lib/contact-form.js');
+  const data = { name: 'Claire Martin', email: 'claire@example.com', message: 'Bonjour Myriam, un message de test.' };
+  const custom = composeEmail(data, { wording: { senderName: 'Myriam "Essentia" <x>', subject: 'Demande de {nom}\nvia le site', labelName: 'Personne', footer: 'Merci.' } });
+  assert.equal(custom.from, 'Myriam Essentia x <contact@essentiademdb.com>');
+  assert.equal(custom.subject, 'Demande de Claire Martin via le site');
+  assert.match(custom.text, /^Personne : Claire Martin\n/);
+  assert.match(custom.text, /Merci\.$/);
+  const empty = composeEmail(data, { wording: { subject: '   ' } });
+  assert.equal(empty.subject, 'Nouveau message du site Essentia — Claire Martin');
+  const contact = require('../content/fr/contact.json');
+  assert.equal(composeEmail(data, { wording: contact.email }).subject, contact.email.subject.replace('{nom}', 'Claire Martin'));
+});

@@ -947,6 +947,48 @@
             "required": false
           }
         }
+      },
+      "email": {
+        "type": "object",
+        "label": "E-mail reçu par Myriam",
+        "fields": {
+          "senderName": {
+            "type": "text",
+            "label": "Nom de l’expéditeur affiché",
+            "multiline": false,
+            "required": true
+          },
+          "subject": {
+            "type": "text",
+            "label": "Objet — {nom} est remplacé par le nom de la personne",
+            "multiline": false,
+            "required": true
+          },
+          "labelName": {
+            "type": "text",
+            "label": "Libellé du nom",
+            "multiline": false,
+            "required": false
+          },
+          "labelEmail": {
+            "type": "text",
+            "label": "Libellé de l’e-mail",
+            "multiline": false,
+            "required": false
+          },
+          "labelLanguage": {
+            "type": "text",
+            "label": "Libellé de la langue",
+            "multiline": false,
+            "required": false
+          },
+          "footer": {
+            "type": "text",
+            "label": "Texte de fin d’e-mail",
+            "multiline": true,
+            "required": false
+          }
+        }
       }
     }
   },

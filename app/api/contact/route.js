@@ -2,6 +2,7 @@
 // Relative imports keep this route loadable by the node:test suite.
 import { validateContact, composeEmail, CONTACT_FROM, CONTACT_TO } from '../../../lib/contact-form.js';
 import { ENABLED_LANGS } from '../../../lib/config.js';
+import contact from '../../../content/fr/contact.json' with { type: 'json' };
 
 export const dynamic = 'force-dynamic';
 
@@ -42,7 +43,7 @@ export async function POST(request) {
   if (!result.ok) return reply({ error: 'invalid', fields: Object.keys(result.errors) }, 400);
 
   const lang = ENABLED_LANGS.includes(body.lang) ? body.lang : 'fr';
-  const email = composeEmail(result.data, { from: process.env.CONTACT_FROM || CONTACT_FROM, to: CONTACT_TO, lang });
+  const email = composeEmail(result.data, { from: process.env.CONTACT_FROM || CONTACT_FROM, to: CONTACT_TO, lang, wording: contact.email });
   try {
     const response = await fetch('https://api.resend.com/emails', {
       method: 'POST',

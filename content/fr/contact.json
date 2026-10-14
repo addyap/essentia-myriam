@@ -28,5 +28,13 @@
     "errorName": "Indiquez votre nom.",
     "errorEmail": "Indiquez une adresse e-mail valide.",
     "errorMessage": "Écrivez un message d’au moins 10 caractères."
+  },
+  "email": {
+    "senderName": "Essentia",
+    "subject": "Nouveau message du site Essentia — {nom}",
+    "labelName": "Nom",
+    "labelEmail": "Email",
+    "labelLanguage": "Langue du site",
+    "footer": "Envoyé depuis le formulaire de contact de essentiademdb.com.\nRépondez directement à cet email pour écrire à cette personne."
   }
 }
