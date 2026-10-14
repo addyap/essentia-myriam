@@ -38,6 +38,7 @@ test('a valid message is sent to Myriam, with the visitor as reply-to', async ()
   assert.equal(calls[0].url, 'https://api.resend.com/emails');
   assert.equal(calls[0].init.headers.Authorization, 'Bearer re_test_key');
   assert.deepEqual(calls[0].body.to, ['mdbchandale@gmail.com']);
+  assert.deepEqual(calls[0].body.cc, ['formations@antonyaddy.com']);
   assert.equal(calls[0].body.from, 'Essentia <contact@essentiademdb.com>');
   assert.equal(calls[0].body.reply_to, 'claire@example.com');
   assert.match(calls[0].body.subject, /Claire Martin$/);
