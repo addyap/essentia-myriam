@@ -540,7 +540,7 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
 }
 @media(max-width:345px){.brand .name{font-size:26px}.brand .byline{font-size:20px}}
 
-/* One continuous sweep across the full wordmark and back, then stillness. */
+/* One continuous sweep across the full wordmark: three complete return trips. */
 @supports ((background-clip:text) or (-webkit-background-clip:text)){
  .brand .words{
   background-image:linear-gradient(110deg,var(--ink) 0%,var(--ink) 32%,#A97910 38%,#FCC200 44%,#FFF0A3 50%,#FCC200 56%,#A97910 62%,var(--ink) 68%,var(--ink) 100%);
@@ -549,7 +549,7 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
   -webkit-background-clip:text;
   background-clip:text;
   color:transparent;
-  animation:essentia-golden-glint 4.8s cubic-bezier(.4,0,.2,1) .8s 2 alternate both;
+  animation:essentia-golden-glint 4.8s cubic-bezier(.4,0,.2,1) .8s 6 alternate both;
  }
  .brand .name,.brand .byline{color:inherit}
  @keyframes essentia-golden-glint{

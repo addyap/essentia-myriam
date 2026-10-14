@@ -236,7 +236,6 @@ Profiling in headless Chromium (1440×900, CPU slowed 4×) showed steady 60fps e
 - `HeroCrest` now mounts `GoldLogo3D` only when the drawing completes. The finished SVG holds until the model is ready (the existing waiting-for-model state), so the block happens while nothing is being drawn. Pages left within the first seven seconds no longer load WebGL at all.
 - `LogoMarkDraw` sets dash lengths once and, per frame, writes only the stroke being drawn and its nib instead of all ten masked strokes.
 - `MotionSystem` re-scans for reveal targets at most once per animation frame when content changes.
-- The header wordmark glint makes one sweep and return (about 10s) instead of three (about 29s), so the header is still while people read.
 
 After the change, the same profile shows no long frames during the handwriting. three.js is about 740KB across two chunks; importing only the classes the logo uses produced a larger bundle, so the full import remains.
 
