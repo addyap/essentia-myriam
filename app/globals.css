@@ -609,6 +609,18 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
 }
 @media(max-width:359px){.site .brand .byline{font-size:15px}}
 
+/* The masthead slims once the page scrolls. Its bottom margin grows by exactly
+   what the bar loses, over the same timing, so the page below never moves. */
+header.site{--bar:92px;--bar-compact:68px;--brand-compact:.78;--bar-now:var(--bar);transition:margin-bottom var(--motion-panel) var(--ease-out)}
+header.site .nav{min-height:0;height:var(--bar);transition:height var(--motion-panel) var(--ease-out)}
+header.site .brand{transform-origin:left center;transition:transform var(--motion-panel) var(--ease-out)}
+header.site.is-compact{--bar-now:var(--bar-compact);margin-bottom:calc(var(--bar) - var(--bar-compact))}
+header.site.is-compact .nav{height:var(--bar-compact)}
+header.site.is-compact .brand{transform:scale(var(--brand-compact))}
+@media(max-width:1320px){header.site{--bar:76px;--bar-compact:60px;--brand-compact:.76}}
+@media(max-width:560px){header.site{--bar:80px;--bar-compact:60px;--brand-compact:.72}}
+@media(prefers-reduced-motion:reduce){header.site,header.site .nav,header.site .brand{transition:none}}
+
 /* Desktop navigation: one row — pages, booking, then a quiet language switch. */
 @media(min-width:1321px){
  .site nav.main{position:static;display:flex;flex-direction:row;align-items:center;gap:clamp(18px,1.6vw,28px);margin-left:auto;height:auto;padding:0;background:transparent;transform:none;overflow:visible;visibility:visible;opacity:1}
@@ -629,7 +641,7 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
 /* Smaller screens: the menu becomes a full-height panel under the masthead. */
 @media(max-width:1320px){
  .site .menu-toggle{display:flex;align-items:center;justify-content:center;flex:none;width:44px;height:44px;padding:10px;border:0;background:transparent}
- .site nav.main{position:fixed;top:76px;left:0;right:0;height:calc(100dvh - 76px);background:var(--cream);flex-direction:column;align-items:stretch;padding:12px 28px 32px;gap:0;overflow-y:auto;transform:translateY(-120%);visibility:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),visibility .35s;z-index:30}
+ .site nav.main{position:fixed;top:calc(var(--bar-now) + 1px);left:0;right:0;height:calc(100dvh - var(--bar-now) - 1px);background:var(--cream);flex-direction:column;align-items:stretch;padding:12px 28px 32px;gap:0;overflow-y:auto;transform:translateY(-120%);visibility:hidden;transition:transform .35s cubic-bezier(.22,1,.36,1),visibility .35s;z-index:30}
  .site nav.main.open{transform:none;visibility:visible}
  .site nav.main a{display:flex;align-items:center;gap:14px;min-height:64px;padding:12px 0;font-family:var(--serif);font-size:25px;text-align:left;letter-spacing:0;color:var(--ink);border-bottom:1px solid var(--line)}
  .site nav.main a.active{color:var(--gold-deep)}

@@ -18,10 +18,24 @@ export function Header() {
   const nav = useRef(null);
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [compact, setCompact] = useState(false);
 
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
+    // Slim the bar after a little scrolling; the gap between the two
+    // thresholds stops it flickering when the page rests near the top.
+    let frame = 0;
+    const update = () => { frame = 0; const y = window.scrollY; setCompact(was => (was ? y > 8 : y > 48)); };
+    const scroll = () => { if (!frame) frame = requestAnimationFrame(update); };
+    update();
+    window.addEventListener('scroll', scroll, { passive: true });
+    return () => { window.removeEventListener('scroll', scroll); cancelAnimationFrame(frame); };
+  }, []);
+
+  useEffect(() => {
+    // Lock the page, not <body>: with html{overflow-x:clip}, a hidden body
+    // becomes its own scroll box, the header stops sticking and the page jumps.
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    return () => { document.documentElement.style.overflow = ''; };
   }, [open]);
 
   useEffect(() => {
@@ -87,7 +101,7 @@ export function Header() {
   return (
     <>
       {/* main header */}
-      <header className="site">
+      <header className={'site' + (compact ? ' is-compact' : '')}>
         <div className="wrap nav">
           <Link href="/" className="brand" aria-label={`${brand.name} ${brand.byline}`} onClick={() => setOpen(false)}>
             <span className="mark"><LogoMark /></span>
