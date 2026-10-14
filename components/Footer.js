@@ -4,7 +4,7 @@ import { useApp } from './Providers';
 import { ROUTES } from '@/lib/routes';
 import { RevealContact } from './RevealContact';
 import { ENABLED_LANGS } from '@/lib/config';
-import { CONTACT } from '@/lib/contact';
+import { CONTACT, INSTAGRAM } from '@/lib/contact';
 
 export function Footer() {
   const { t, brand, lang, setLang } = useApp();
@@ -38,6 +38,7 @@ export function Footer() {
               <li><Link href={ROUTES.contact}>{t.nav.contact}</Link></li>
               <li><RevealContact enc={CONTACT.email} kind="email" /></li>
               <li><RevealContact enc={CONTACT.wa} kind="wa" waText={t.booking.waGreeting}>{t.contact.whatsapp}</RevealContact></li>
+              <li><a href={INSTAGRAM.url} target="_blank" rel="noopener noreferrer">Instagram {INSTAGRAM.handle}</a></li>
             </ul>
           </div>
           <div>

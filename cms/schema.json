@@ -966,6 +966,12 @@
         "multiline": false,
         "required": false
       },
+      "instagramAction": {
+        "type": "text",
+        "label": "Lien Instagram",
+        "multiline": false,
+        "required": false
+      },
       "form": {
         "type": "object",
         "label": "Formulaire de contact",

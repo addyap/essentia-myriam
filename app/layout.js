@@ -2,6 +2,7 @@ import { GFS_Didot, Mulish, Parisienne } from 'next/font/google';
 import './globals.css';
 import { SiteShell } from '@/components/SiteShell';
 import { SITE_URL } from '@/lib/config';
+import { INSTAGRAM } from '@/lib/contact';
 
 // Requested: Didot, per the specimen comparison Myriam reviewed. The real
 // Linotype Didot is only licensed for local/system use (it ships with
@@ -69,6 +70,7 @@ const jsonLd = {
   url: SITE_URL,
   image: `${SITE_URL}/og-image.jpg`,
   founder: { '@type': 'Person', name: 'Myriam Diougoan Blanch' },
+  sameAs: [INSTAGRAM.url],
   areaServed: 'FR',
   availableLanguage: ['fr', 'en', 'it', 'es'],
 };

@@ -1,7 +1,7 @@
 'use client';
 import { useApp } from './Providers';
 import { RevealContact, RevealText } from './RevealContact';
-import { CONTACT } from '@/lib/contact';
+import { CONTACT, INSTAGRAM } from '@/lib/contact';
 import { Icon } from './Icon';
 
 export function ContactOptions() {
@@ -14,6 +14,7 @@ export function ContactOptions() {
       <RevealContact enc={CONTACT.wa} kind="wa" waText={t.booking.waGreeting} className="btn btn-whatsapp"><Icon name="whatsapp" />{t.contact.whatsapp}</RevealContact>
       <RevealContact enc={CONTACT.email} kind="email" className="contact-line"><Icon name="mail" />{t.contact.emailAction}<span aria-hidden="true">↗</span></RevealContact>
       <RevealContact enc={CONTACT.phone} kind="tel" className="contact-line"><Icon name="phone" /><span className="contact-line-text"><span>{t.contact.phoneAction}</span><RevealText className="contact-line-detail" enc={CONTACT.phone} kind="tel" /></span><span aria-hidden="true">↗</span></RevealContact>
+      <a href={INSTAGRAM.url} target="_blank" rel="noopener noreferrer" className="contact-line"><Icon name="instagram" /><span className="contact-line-text"><span>{t.contact.instagramAction}</span><span className="contact-line-detail">{INSTAGRAM.handle}</span></span><span aria-hidden="true">↗</span></a>
     </div>
   </div>;
 }
