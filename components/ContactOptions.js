@@ -11,7 +11,7 @@ export function ContactOptions() {
     <h2>{t.contact.directTitle}</h2>
     <p className="prose">{t.contact.directLead}</p>
     <div className="contact-actions">
-      <RevealContact enc={CONTACT.wa} kind="wa" waText={t.booking.waGreeting} className="btn btn-gold"><Icon name="whatsapp" />{t.contact.whatsapp}</RevealContact>
+      <RevealContact enc={CONTACT.wa} kind="wa" waText={t.booking.waGreeting} className="btn btn-whatsapp"><Icon name="whatsapp" />{t.contact.whatsapp}</RevealContact>
       <RevealContact enc={CONTACT.email} kind="email" className="contact-line"><Icon name="mail" />{t.contact.emailAction}<span aria-hidden="true">↗</span></RevealContact>
       <RevealContact enc={CONTACT.phone} kind="tel" className="contact-line"><Icon name="phone" />{t.contact.phoneAction}<span aria-hidden="true">↗</span></RevealContact>
     </div>
