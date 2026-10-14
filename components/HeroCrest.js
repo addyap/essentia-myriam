@@ -45,7 +45,10 @@ export function HeroCrest() {
         <LogoMark className="crest-face" />
         <div className="crest-highlight"><LogoMark /></div>
       </div>
-      {!reduced && !failed && source && <GoldLogo3D source={source} animate={phase === 'gold'} onReady={onReady} onFailure={onFailure} />}
+      {/* Starting WebGL blocks the main thread for a moment, which would make the
+          pen stutter; it loads once the drawing is complete, which stays visible
+          until the 3D logo is ready to take over. */}
+      {!reduced && !failed && source && phase === 'gold' && <GoldLogo3D source={source} animate onReady={onReady} onFailure={onFailure} />}
     </div>
   </div>;
 }

@@ -7,11 +7,12 @@ const stage = app => find(app.tree, node => node.props.className === 'crest-stag
 const model = app => find(app.tree, node => node.type === 'Mock3D');
 const pen = app => find(app.tree, node => node.type === 'LogoMarkDraw');
 
-test('late 3D readiness keeps the completed SVG visible and starts one takeover', async () => {
+test('3D loads only after the handwriting, keeping the completed SVG visible until it takes over', async () => {
   const app = await mount('components/HeroCrest.js', 'HeroCrest', { host });
   assert.equal(stage(app)['data-phase'], 'drawing');
-  assert.equal(model(app).props.animate, false);
+  assert.equal(model(app), null, 'no WebGL work while the pen is drawing');
   pen(app).props.onComplete(); app.flush();
+  assert.equal(model(app).props.animate, true);
   assert.equal(stage(app)['data-webgl'], false);
   assert.equal(stage(app)['data-phase'], 'gold');
   model(app).props.onReady(); app.flush();
@@ -20,8 +21,8 @@ test('late 3D readiness keeps the completed SVG visible and starts one takeover'
 });
 test('failed 3D uses the SVG fallback without visible logo controls', async () => {
   const app = await mount('components/HeroCrest.js', 'HeroCrest', { host });
-  model(app).props.onFailure(); app.flush();
   pen(app).props.onComplete(); app.flush();
+  model(app).props.onFailure(); app.flush();
   assert.equal(stage(app)['data-fallback'], true);
   assert.equal(model(app), null);
   assert.equal(find(app.tree, node => node.type === 'button'), null);

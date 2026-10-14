@@ -23,6 +23,10 @@ export function LogoMarkDraw({ className, onComplete, paused = false }) {
     const fill = svg.querySelector('.hd-fill');
     const lengths = paths.map(path => path.getTotalLength());
     const total = lengths.reduce((a, b) => a + b, 0);
+    // Dash lengths are fixed, so they are set once; each frame then writes only
+    // the stroke being drawn and its nib, not all ten masked strokes.
+    strokes.forEach((stroke, i) => { stroke.style.strokeDasharray = `${lengths[i] + 1}`; stroke.style.strokeDashoffset = `${lengths[i] + 1}`; });
+    const drawn = lengths.map(() => -1), lit = lengths.map(() => false);
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let elapsed = 0, last = null, frame, finished = false, visible = true;
     const finish = () => {
@@ -40,17 +44,18 @@ export function LogoMarkDraw({ className, onComplete, paused = false }) {
       let consumed = 0;
       strokes.forEach((stroke, i) => {
         const distance = Math.max(0, Math.min(lengths[i], progress * total - consumed));
-        stroke.style.strokeDasharray = `${lengths[i] + 1}`;
+        consumed += lengths[i];
+        if (distance === drawn[i]) return;
+        drawn[i] = distance;
         stroke.style.strokeDashoffset = `${lengths[i] + 1 - distance}`;
         const active = distance > 0 && distance < lengths[i];
-        nibs[i].setAttribute('opacity', active ? '1' : '0');
+        if (active !== lit[i]) { lit[i] = active; nibs[i].setAttribute('opacity', active ? '1' : '0'); }
         if (active) {
           const point = paths[i].getPointAtLength(distance);
           nibs[i].setAttribute('transform', `translate(${point.x} ${point.y})`);
         }
-        consumed += lengths[i];
       });
-      fill.style.opacity = Math.max(0, Math.min(1, (elapsed - 7100) / 180));
+      if (elapsed > 7100) fill.style.opacity = Math.min(1, (elapsed - 7100) / 180);
       if (elapsed >= 7280) finish();
       else frame = requestAnimationFrame(tick);
     };

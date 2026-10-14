@@ -40,13 +40,16 @@ export function MotionSystem() {
       });
     };
     setup();
+    // Content can change many times in one frame (a language switch, the logo
+    // handoff); re-scan at most once per frame.
+    let pending = 0;
     const additions = new MutationObserver(records => {
-      if (records.some(record => record.addedNodes.length)) setup();
+      if (!pending && records.some(record => record.addedNodes.length)) pending = requestAnimationFrame(() => { pending = 0; setup(); });
     });
     additions.observe(main, { childList: true, subtree: true });
     preference.addEventListener('change', setup);
     return () => {
-      observer?.disconnect(); additions.disconnect();
+      observer?.disconnect(); additions.disconnect(); cancelAnimationFrame(pending);
       targets.forEach(el => { reveal(el); el.classList.remove('motion-reveal'); el.style.removeProperty('--reveal-delay'); });
       preference.removeEventListener('change', setup);
     };

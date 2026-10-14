@@ -34,7 +34,7 @@ From first paint:
 - CTA group: 240ms delay, 450ms arrival, translateY 6px → 0. Links remain usable throughout.
 - Draw the logo with the existing continuous figure-to-letters sequence, approximately 7.3 seconds. No separate second introduction for MDB.
 
-Load the 3D code after first paint while the handwriting runs. Keep the SVG visible if the model is late or WebGL is unavailable. No spinner or artificial progress indicator for decorative assets.
+Load the 3D code once the handwriting completes (see the 14 October 2026 note below). Keep the SVG visible if the model is late or WebGL is unavailable. No spinner or artificial progress indicator for decorative assets.
 
 ## Signature logo handoff
 
@@ -228,3 +228,15 @@ The front face uses an unlit #FCC200 material again so side lighting cannot mute
 
 ### Persistent relief at rest
 After pivoting, the hero model settles at 0.26 radians yaw (14.9 degrees) and −0.10 radians pitch (−5.7 degrees). The added yaw eases in only during the final tenth of the sequence, retaining the existing two-sided excursions and 30-degree hard cap. SVG fallbacks have a small physical layer offset so the static logo retains visible depth even without WebGL. Brand gold is unchanged.
+
+## Smoothness pass — 14 October 2026
+
+Profiling in headless Chromium (1440×900, CPU slowed 4×) showed steady 60fps everywhere except one 180–270ms main-thread block while three.js was evaluated and the renderer initialised, about 0.4–0.7s into the page. That fell during the handwriting and made the pen stall on every page.
+
+- `HeroCrest` now mounts `GoldLogo3D` only when the drawing completes. The finished SVG holds until the model is ready (the existing waiting-for-model state), so the block happens while nothing is being drawn. Pages left within the first seven seconds no longer load WebGL at all.
+- `LogoMarkDraw` sets dash lengths once and, per frame, writes only the stroke being drawn and its nib instead of all ten masked strokes.
+- `MotionSystem` re-scans for reveal targets at most once per animation frame when content changes.
+- The header wordmark glint makes one sweep and return (about 10s) instead of three (about 29s), so the header is still while people read.
+
+After the change, the same profile shows no long frames during the handwriting. three.js is about 740KB across two chunks; importing only the classes the logo uses produced a larger bundle, so the full import remains.
+
