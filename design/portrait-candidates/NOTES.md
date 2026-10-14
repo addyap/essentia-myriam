@@ -21,3 +21,7 @@ Révision de la deuxième proposition : supprimer le poing sous le menton ; pose
 ## Variante avec PC portable
 
 `myriam-bureau-pc.png` : retouche imagegen de la deuxième proposition du bureau réel. Ajouter seulement un PC portable gris sombre ouvert sur le plateau, clavier tourné vers Myriam, devant elle et légèrement à droite pour laisser le visage visible. Myriam reste assise derrière le bureau ; préserver ses traits, proportions, pose, vêtements, bijoux et le décor. Adapter uniquement l’emplacement du carnet si nécessaire, avec ombre et reflet cohérents. La génération peut présenter de légères variations : valider la fidélité avant publication.
+
+## Fond plus naturel
+
+`myriam-bureau-pc-background-natural.png` : imagegen, retouche ciblée du fond de `myriam-bureau-pc.png`. Consigne : protéger intégralement Myriam et le premier plan ; changer uniquement le décor derrière elle. Bibliothèque avec livres de tailles variées, quelques dossiers ordinaires, patine du bois, tissu et lumière moins uniformes, plante à croissance irrégulière ; éviter une composition trop scénographiée. Conservation exacte des pixels de la personne non garantie par l’outil génératif. Variante séparée, non publiée.
