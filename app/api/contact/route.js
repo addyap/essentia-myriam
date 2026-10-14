@@ -1,6 +1,6 @@
 // Receives the Contact page form and forwards it to Myriam through Resend.
 // Relative imports keep this route loadable by the node:test suite.
-import { validateContact, composeEmail, composeConfirmation, CONTACT_FROM, CONTACT_TO } from '../../../lib/contact-form.js';
+import { validateContact, composeEmail, composeConfirmation, CONTACT_FROM, RECIPIENT } from '../../../lib/contact-form.js';
 import { ENABLED_LANGS } from '../../../lib/config.js';
 import contact from '../../../content/fr/contact.json' with { type: 'json' };
 import en from '../../../content/global/en.json' with { type: 'json' };
@@ -56,7 +56,7 @@ export async function POST(request) {
   });
 
   try {
-    const response = await send(composeEmail(result.data, { from, to: CONTACT_TO, lang, wording: contact.email }));
+    const response = await send(composeEmail(result.data, { from, to: RECIPIENT, lang, wording: contact.email }));
     // Log Resend's reason, never the visitor's message.
     if (!response.ok) {
       console.error('Resend rejected the contact email', response.status, await response.text().catch(() => ''));
@@ -72,7 +72,7 @@ export async function POST(request) {
   const text = FORM_TEXT[lang];
   let confirmed = false;
   try {
-    const response = await send(composeConfirmation(result.data, { from, replyTo: CONTACT_TO, senderName: contact.email?.senderName, lang, title: text.successTitle, subject: text.confirmSubject, body: text.confirmBody, notice: text.confirmNotice }));
+    const response = await send(composeConfirmation(result.data, { from, replyTo: RECIPIENT, senderName: contact.email?.senderName, lang, title: text.successTitle, subject: text.confirmSubject, body: text.confirmBody, notice: text.confirmNotice }));
     confirmed = response.ok;
     if (!response.ok) console.error('Resend rejected the confirmation email', response.status, await response.text().catch(() => ''));
   } catch (error) {

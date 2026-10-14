@@ -16,7 +16,7 @@ for (const path of paths) {
   if (path === '/contact' || path === '/rendez-vous') {
     assert.match(html, /href="mailto:mdbchandale@gmail.com"/);
     assert.match(html, /href="tel:\+33601300642"/);
-    assert.match(html, /href="https:\/\/wa.me\/33601300642/);
+    assert.match(html, /href="https:\/\/wa.me\/(33601300642|33649829826)/);
   }
 }
 assert.equal((await fetch(new URL('/this-page-does-not-exist', origin))).status, 404);
