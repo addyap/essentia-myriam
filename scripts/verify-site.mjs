@@ -19,7 +19,7 @@ for (const path of paths) {
   assert.match(response.headers.get('content-security-policy'), /frame-ancestors 'none'/);
   // Contact details are assembled only when a visitor uses a link, never in page code.
   assert.doesNotMatch(html, HARVESTABLE, `${path}: no harvestable contact details`);
-  assert.ok(html.includes('href="https://www.instagram.com/mdbchandale/"'), `${path}: Instagram link`);
+  assert.ok(html.includes('href="https://www.instagram.com/mbdchandale/"'), `${path}: Instagram link`);
   if (path === '/contact' || path === '/rendez-vous') assert.match(html, /<a[^>]*target="_blank"[^>]*href="\/contact"|<a[^>]*href="\/contact"[^>]*target="_blank"/, `${path}: WhatsApp link present`);
 }
 assert.equal((await fetch(new URL('/this-page-does-not-exist', origin))).status, 404);
