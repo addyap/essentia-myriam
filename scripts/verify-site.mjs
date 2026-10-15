@@ -23,6 +23,11 @@ for (const path of paths) {
   if (path === '/contact' || path === '/rendez-vous') assert.match(html, /<a[^>]*target="_blank"[^>]*href="\/contact"|<a[^>]*href="\/contact"[^>]*target="_blank"/, `${path}: WhatsApp link present`);
 }
 assert.equal((await fetch(new URL('/this-page-does-not-exist', origin))).status, 404);
+// The contact form's signed token (503 only where no Resend key is configured, e.g. a local build).
+const tokenResponse = await fetch(new URL('/api/contact/token', origin));
+assert.ok([200, 503].includes(tokenResponse.status), 'contact token endpoint');
+if (tokenResponse.status === 200) assert.match((await tokenResponse.json()).token, /^\d{13}\.[\w-]+\.[\w-]+$/);
+assert.equal((await fetch(new URL('/api/contact', origin), { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: 'https://evil.example' }, body: '{}' })).status === 403 || tokenResponse.status === 503, true, 'cross-site posts refused');
 const sitemap = await (await fetch(new URL('/sitemap.xml', origin))).text();
 for (const path of paths.filter(path => path !== '/podcast')) assert.ok(sitemap.includes(`<loc>https://www.essentiademdb.com${path}</loc>`), `${path}: in sitemap`);
 assert.ok(!sitemap.includes('/podcast'), 'podcast awaiting its first episode excluded from sitemap');

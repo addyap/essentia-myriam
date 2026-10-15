@@ -29,6 +29,7 @@
     "errorName": "Indiquez votre nom.",
     "errorEmail": "Indiquez une adresse e-mail valide.",
     "errorMessage": "Écrivez un message d’au moins 10 caractères.",
+    "errorLinks": "Votre message contient trop de liens. Retirez-les, ou écrivez directement à Myriam par e-mail.",
     "successTitle": "Merci",
     "confirmNote": "Un e-mail de confirmation vient de vous être envoyé.",
     "sendAnother": "Écrire un autre message",

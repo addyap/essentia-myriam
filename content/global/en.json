@@ -320,6 +320,7 @@
       "errorName": "Please enter your name.",
       "errorEmail": "Please enter a valid email address.",
       "errorMessage": "Please write a message of at least 10 characters.",
+      "errorLinks": "Your message contains too many links. Please remove them, or email Myriam directly.",
       "successTitle": "Thank you",
       "confirmNote": "A confirmation email has just been sent to you.",
       "sendAnother": "Write another message",

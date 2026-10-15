@@ -1129,6 +1129,12 @@
             "multiline": false,
             "required": false
           },
+          "errorLinks": {
+            "type": "text",
+            "label": "Erreur : trop de liens",
+            "multiline": false,
+            "required": false
+          },
           "successTitle": {
             "type": "text",
             "label": "Titre de remerciement",
