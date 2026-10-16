@@ -19,6 +19,17 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [compact, setCompact] = useState(false);
+  const header = useRef(null);
+
+  useEffect(() => {
+    // Keep the bar at least as tall as the logo and full name (see globals.css).
+    const el = header.current, brand = el?.querySelector('.brand');
+    if (!brand || typeof ResizeObserver === 'undefined') return;
+    const fit = () => { el.style.setProperty('--brand-h', `${brand.offsetHeight}px`); el.dataset.fit = ''; };
+    const observer = new ResizeObserver(fit);
+    observer.observe(brand); fit();
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     // Slim the bar after a little scrolling; the gap between the two
@@ -101,7 +112,7 @@ export function Header() {
   return (
     <>
       {/* main header */}
-      <header className={'site' + (compact ? ' is-compact' : '')}>
+      <header ref={header} className={'site' + (compact ? ' is-compact' : '')}>
         <div className="wrap nav">
           <Link href="/" className="brand" aria-label={`${brand.name} ${brand.byline}`} onClick={() => setOpen(false)}>
             <span className="mark"><LogoMark /></span>

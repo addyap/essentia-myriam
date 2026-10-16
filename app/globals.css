@@ -314,7 +314,9 @@ main h1:not(.hero-cine-title){animation:pageArrival 280ms var(--ease-out)}
 .portrait.motion-pending,.about-nature.motion-pending{transform:scale(1.025)}
 input,textarea,select{transition:border-color var(--motion-fast),background-color var(--motion-fast)}
 @media (max-width:900px){
-  .hero-cine-halo,.hero-cine-sign{display:none}
+  .hero-cine-halo{display:none}
+  /* Myriam's name stays beneath the logo on phones and tablets too. */
+  .hero-cine-sign{font-size:19px;margin-top:2px}
   .hero-cine-copy{max-width:none;position:relative;z-index:6;transform:none;opacity:1}
   .hero-cine-grade{background:
     radial-gradient(130% 80% at 60% 46%,rgba(252,194,0,.14),rgba(252,194,0,0) 52%),
@@ -481,7 +483,7 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
  .page-hero{padding:32px 0}
  .page-heading{grid-template-columns:minmax(0,1fr) 112px;gap:24px}
  .page-monogram svg{width:92px;max-height:120px}
- .page-monogram span{display:none}
+ .page-monogram span{font-size:18px}
  .page-heading .big{font-size:clamp(32px,5.8vw,44px)}
  .page-hero .lead{font-size:16px}
  .contact-aside{padding:24px;border-top:0;border-left:2px solid var(--gold-soft)}
@@ -628,11 +630,16 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
 
 /* The masthead slims once the page scrolls. Its bottom margin grows by exactly
    what the bar loses, over the same timing, so the page below never moves. */
-header.site{--bar:92px;--bar-compact:68px;--brand-compact:.78;--bar-now:var(--bar);transition:margin-bottom var(--motion-panel) var(--ease-out)}
-header.site .nav{min-height:0;height:var(--bar);transition:height var(--motion-panel) var(--ease-out)}
+/* The bar is never shorter than the logo and name: Header.js measures the
+   lockup (--brand-h), because browsers and text-size settings draw the two
+   lines of the name at slightly different heights. Until it has measured
+   (or without JavaScript), the bar simply grows to fit. */
+header.site{--bar:92px;--bar-compact:68px;--brand-compact:.78;--bar-fit:max(var(--bar),var(--brand-h,0px));--bar-compact-fit:max(var(--bar-compact),calc(var(--brand-h,0px) * var(--brand-compact)));--bar-now:var(--bar-fit);transition:margin-bottom var(--motion-panel) var(--ease-out)}
+header.site .nav{min-height:var(--bar);height:auto;transition:height var(--motion-panel) var(--ease-out)}
+header.site[data-fit] .nav{min-height:0;height:var(--bar-fit)}
 header.site .brand{transform-origin:left center;transition:transform var(--motion-panel) var(--ease-out)}
-header.site.is-compact{--bar-now:var(--bar-compact);margin-bottom:calc(var(--bar) - var(--bar-compact))}
-header.site.is-compact .nav{height:var(--bar-compact)}
+header.site.is-compact{--bar-now:var(--bar-compact-fit);margin-bottom:calc(var(--bar-fit) - var(--bar-compact-fit))}
+header.site.is-compact .nav{min-height:0;height:var(--bar-compact-fit)}
 header.site.is-compact .brand{transform:scale(var(--brand-compact))}
 @media(max-width:1500px){header.site{--bar:76px;--bar-compact:60px;--brand-compact:.76}}
 @media(max-width:560px){header.site{--bar:80px;--bar-compact:60px;--brand-compact:.72}}
