@@ -527,7 +527,7 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
 .page-hero .hero-scene .hero-cine-video{filter:saturate(.7)}
 .page-hero .hero-scene .hero-video-control{position:absolute;right:16px;bottom:12px;z-index:3;pointer-events:auto;width:44px;height:44px;padding:8px;border-radius:50%;background:rgba(10,25,17,.75);color:#fff;font-size:18px}
 
-/* One flowing line; the full surname is retained in the mobile link label. */
+/* One flowing line on wider screens; phones stack the name beneath Essentia. */
 .brand .words{display:flex;flex-direction:row;align-items:baseline;gap:10px;flex:0 1 auto;white-space:nowrap}
 .brand .byline{font-size:26px;line-height:1.2;margin-top:0;overflow:visible;text-overflow:clip;max-width:none}
 @media(max-width:1080px){.brand .name{font-size:34px}.brand .byline{font-size:24px}}
@@ -536,7 +536,6 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
  .brand .words{gap:6px}
  .brand .name{font-size:28px}
  .brand .byline{font-size:22px}
- .brand-surname{display:none}
 }
 @media(max-width:345px){.brand .name{font-size:26px}.brand .byline{font-size:20px}}
 
@@ -595,8 +594,16 @@ header.site{background:rgba(250,246,239,.97);border-bottom:1px solid rgba(38,56,
  .site .brand .byline{font-size:26px}
  .site .brand .words{gap:9px}
 }
+/* Myriam's full name always shows. Where the desktop row is tightest, the
+   lockup and spacing shrink a little instead (measured in all four languages). */
 @media(min-width:1501px) and (max-width:1759px){
- .site .brand-surname{display:none}
+ .site .nav{padding:0 28px;gap:16px}
+ .site .brand{gap:10px}
+ .site .brand .mark{width:42px;height:54px}
+ .site .brand .name{font-size:34px}
+ .site .brand .byline{font-size:21px}
+ .site .brand .words{gap:7px}
+ header.site nav.main{gap:clamp(14px,1.1vw,20px)}
 }
 @media(max-width:1500px){
  .site .nav{min-height:76px;gap:12px;padding:0 28px}
