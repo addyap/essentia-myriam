@@ -559,11 +559,21 @@ main .grid:has(>.editorial-card){column-gap:48px;row-gap:16px}
   70%{filter:drop-shadow(0 0 5px rgba(252,194,0,.38))}
   100%{background-position:0% 50%;filter:drop-shadow(0 0 0 transparent)}
  }
+ /* Visitors who ask for less motion get the light without movement: a still,
+    softly glowing gold on "Essentia", in deeper golds that stay readable on
+    the ivory header. Myriam's name stays in ink. */
  @media(prefers-reduced-motion:reduce){
   .brand .words{animation:none;background:none;color:var(--ink)}
+  .brand .name{
+   background-image:linear-gradient(100deg,#765916 0%,#A97910 28%,#D9A800 50%,#A97910 72%,#765916 100%);
+   -webkit-background-clip:text;
+   background-clip:text;
+   color:transparent;
+   filter:drop-shadow(0 0 6px rgba(252,194,0,.35));
+  }
  }
  @media(forced-colors:active){
-  .brand .words{animation:none;background:none;color:LinkText}
+  .brand .words,.brand .name{animation:none;background:none;color:LinkText;filter:none}
  }
 }
 
