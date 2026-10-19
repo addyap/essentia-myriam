@@ -289,7 +289,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 .hero-cine{position:relative;display:flex;align-items:center;overflow:hidden;background:#0c0f0b;isolation:isolate;--hg:#FCC200;--hg2:#E7A500;--ivory:#F4EEE1;--mx:0;--my:0;min-height:clamp(440px,64svh,610px);padding:36px 0 58px}
 .hero-cine-crest .hero-cine-mark{position:relative;right:auto;top:auto;transform:none;height:auto;aspect-ratio:681/842;color:#FCC200;opacity:1;width:min(250px,24vw)}
 .crest-webgl{position:absolute;inset:0;opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
-.crest-webgl canvas{display:block;width:100%;height:100%;filter:drop-shadow(1px 2px 0 #704e18aa) drop-shadow(0 7px 9px #0005)}
+.crest-webgl canvas{display:block;width:100%;height:100%;filter:drop-shadow(1px 2px 0 #A47609aa) drop-shadow(0 7px 9px #0005)}
 .crest-stage[data-webgl="true"] .crest-webgl{opacity:1}
 .crest-stage[data-webgl="true"] .crest-relief{opacity:0}
 .hero-cine-inner{position:relative;z-index:6;display:grid;align-items:center;gap:40px;width:100%;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr)}
@@ -459,7 +459,7 @@ footer a:focus-visible,.crest-pause:focus-visible,.hero-video-control:focus-visi
 .page-heading .divider{width:48px;margin:20px 0}
 .page-monogram{display:flex;flex-direction:column;align-items:center;gap:12px;color:#FCC200;pointer-events:none}
 .page-monogram svg{display:block;width:132px;height:auto;max-height:164px;filter:drop-shadow(0 2px 10px rgba(252,194,0,.12))}
-.page-monogram span{font-family:var(--script);font-size:20px;line-height:1.3;white-space:nowrap;color:var(--gold-soft)}
+.page-monogram span{font-family:var(--script);font-size:20px;line-height:1.3;white-space:nowrap;color:#FCC200}
 .page-heading--quiet{padding:0;grid-template-columns:minmax(0,1fr) 100px;gap:24px;margin-bottom:32px}
 .page-heading--quiet .page-monogram svg{width:76px;max-height:100px;filter:none}
 .page-heading--quiet .page-monogram span{display:none}

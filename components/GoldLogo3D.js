@@ -62,7 +62,8 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
             diffuseColor.rgb *= mix(0.84, 1.04, surfaceLight);`);
       };
       face.customProgramCacheKey = () => 'crest-resting-relief-v1';
-      const edge = new T.MeshStandardMaterial({ color: '#FCC200', metalness: .02, roughness: .76, bumpMap: clayTexture, bumpScale: .3, toneMapped: false, side: T.DoubleSide });
+      // A gold self-glow keeps the lit sides as bright as the hero logo film instead of bronze.
+      const edge = new T.MeshStandardMaterial({ color: '#FCC200', emissive: '#FCC200', emissiveIntensity: .3, metalness: .02, roughness: .76, bumpMap: clayTexture, bumpScale: .3, toneMapped: false, side: T.DoubleSide });
       materials.push(face, edge);
       const group = new T.Group(); scene.add(group);
       const data = new SVGLoader().parse(source.replaceAll('currentColor', '#FCC200'));
