@@ -2,7 +2,8 @@
 import { useEffect, useRef, useState } from 'react';
 
 // Myriam's own logo reveal: the monogram written by a glowing pen, then her
-// name, in the logo's gold (#FCC200) directly over the forest. Her video's
+// name, directly over the forest. The monogram is shaded from bright to deep
+// gold like the inner pages' 3D logo; the name stays brand gold (#FCC200). Her video's
 // background was removed, so these are transparent videos: Safari and every
 // iPhone browser (WebKit) play transparency only from HEVC, the others from
 // VP9. It plays once and rests on its final frame. The still final frame
