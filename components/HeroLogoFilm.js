@@ -7,8 +7,9 @@ const HeroCrest = dynamic(() => import('./HeroCrest').then(m => m.HeroCrest), { 
 
 // Myriam's own logo reveal: the monogram written by a glowing pen, then her
 // name, directly over the forest. The film supplies only the shapes of the
-// strokes: the browser paints them (paintFrame) in the 3D logo's own gold, with
-// the same formula as its shader and its deep-gold raised edge, so the colour
+// strokes, with Myriam's name levelled (it was inclined in her source video).
+// The browser paints them (paintFrame) in the 3D logo's own gold, with the
+// same formula as its shader and its deep-gold raised edge, so the colour
 // never depends on how a browser decodes video colour and nothing changes when
 // the 3D logo takes over. The name stays brand gold (#FCC200). If a browser
 // cannot read the film's transparency in a canvas, the film shows as it is.
@@ -27,7 +28,7 @@ const PLAYBACK_RATE = 2 / 3;
 
 // Film frame size, where the 3D logo sits on it (globals.css .hero-logo-3d),
 // and the rows below which Myriam's name is written.
-const W = 1080, H = 792, SPLIT = 595;
+const W = 1080, H = 792, SPLIT = 583;
 const LOGO = { x: 0.31355 * W, y: 0.11581 * H, w: 0.36873 * W };
 LOGO.h = LOGO.w * 842 / 681;
 const EDGE = { dx: 4, dy: 3, colour: [176, 135, 6] }; // the 3D logo's lit sides, as measured on screen
