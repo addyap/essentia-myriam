@@ -809,9 +809,11 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
 /* The frame keeps room for the pen's light streaks, so it is wider than the
    logo; it is transparent and lets clicks through. */
 .hero-logo-film{position:relative;width:min(640px,44vw);aspect-ratio:1080/792;pointer-events:none}
-.hero-logo-film>img,.hero-logo-film>video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
-.hero-logo-film>video{opacity:0}
-.hero-logo-film[data-state="film"]>video{opacity:1}
+.hero-logo-film>img,.hero-logo-film>video,.hero-logo-film>canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.hero-logo-film>video,.hero-logo-film>canvas{opacity:0}
+/* The browser-painted gold (HeroLogoFilm) replaces the raw film once it works. */
+.hero-logo-film[data-state="film"]:not([data-paint="on"])>video{opacity:1}
+.hero-logo-film[data-state="film"][data-paint="on"]>canvas{opacity:1}
 .hero-logo-still{opacity:0;transition:opacity 600ms var(--ease-out)}
 .hero-logo-film[data-state="still"] .hero-logo-still{opacity:1}
 /* After the film: the 3D gold monogram takes over exactly where the film's monogram is
@@ -819,10 +821,10 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
 .hero-logo-name{opacity:0}
 .hero-logo-film[data-state="gold"] .hero-logo-name{opacity:1}
 .hero-logo-film[data-state="gold"] .hero-logo-still{opacity:0}
-.hero-logo-film[data-state="gold"]>video{opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
+.hero-logo-film[data-state="gold"]>video,.hero-logo-film[data-state="gold"]>canvas{opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
 .hero-logo-3d{position:absolute;left:31.355%;top:11.581%;width:36.873%;opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
 .hero-logo-film[data-state="gold"] .hero-logo-3d{opacity:1}
 /* The film already drew the monogram; only the 3D logo (or, without WebGL, the gold relief) shows. */
 .hero-logo-3d .crest-ink{display:none}
 @media(max-width:900px){.hero-logo-film{width:min(440px,calc(100% + 56px))}}
-@media(prefers-reduced-motion:reduce){.hero-logo-still{opacity:1;transition:none}.hero-logo-film>video{display:none}}
+@media(prefers-reduced-motion:reduce){.hero-logo-still{opacity:1;transition:none}.hero-logo-film>video,.hero-logo-film>canvas{display:none}}
