@@ -812,7 +812,7 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
    as it does in her video. The frame keeps dark margin around the name so the
    fade never reaches the letters. */
 .hero-logo-film::before{content:"";position:absolute;inset:-12% -14%;border-radius:50%;pointer-events:none;
- background:radial-gradient(closest-side,rgba(30,22,14,.96) 0%,rgba(26,19,12,.9) 60%,rgba(20,15,9,.55) 82%,rgba(20,15,9,0) 100%)}
+ background:radial-gradient(closest-side,rgba(52,42,28,.97) 0%,rgba(46,37,25,.94) 60%,rgba(40,32,22,.6) 82%,rgba(40,32,22,0) 100%)}
 .hero-logo-film>img,.hero-logo-film>video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
  -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 86%,transparent 100%);
  mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 86%,transparent 100%)}
