@@ -1,12 +1,15 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 
-// Myriam's own logo reveal: the monogram written in gold, then her name, with a
-// gentle turn and passing light, on the dark background of her original video,
-// which a soft oval fade (globals.css) melts into the forest. It plays once and
-// rests on its final frame. The still final frame stands in without
-// JavaScript, with reduced motion or Save-Data, and whenever the video cannot start.
-const SOURCE = '/videos/logo-reveal.mp4';
+// Myriam's own logo reveal: the monogram written by a glowing pen, then her
+// name, in the logo's gold (#FCC200) directly over the forest. Her video's
+// background was removed, so these are transparent videos: Safari and every
+// iPhone browser (WebKit) play transparency only from HEVC, the others from
+// VP9. It plays once and rests on its final frame. The still final frame
+// stands in without JavaScript, with reduced motion or Save-Data, and
+// whenever the video cannot start.
+const WEBKIT_SOURCE = '/videos/logo-reveal.mov';
+const SOURCE = '/videos/logo-reveal.webm';
 const START_TIMEOUT_MS = 4000;
 // Played slower than recorded: the 10-second film unfolds over 15 seconds.
 const PLAYBACK_RATE = 2 / 3;
@@ -34,7 +37,7 @@ export function HeroLogoFilm({ label }) {
     if (reduce.matches || navigator.connection?.saveData) still();
     else {
       video.muted = true;
-      video.src = SOURCE;
+      video.src = navigator.vendor === 'Apple Computer, Inc.' ? WEBKIT_SOURCE : SOURCE;
       video.defaultPlaybackRate = PLAYBACK_RATE;
       video.playbackRate = PLAYBACK_RATE;
       video.addEventListener('playing', playing);

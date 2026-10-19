@@ -32,9 +32,11 @@ async function start(options = {}) {
   return { app, host, events };
 }
 
-test('plays the logo film once it starts, labelled with Myriam\'s name', async () => {
+test('plays the transparent VP9 film in Chrome and Firefox, the HEVC one in Safari and on iPhone', async () => {
   const chrome = await start();
-  assert.equal(chrome.host.src, '/videos/logo-reveal.mp4');
+  assert.equal(chrome.host.src, '/videos/logo-reveal.webm');
+  const safari = await start({ vendor: 'Apple Computer, Inc.' });
+  assert.equal(safari.host.src, '/videos/logo-reveal.mov');
   assert.equal(chrome.host.muted, true);
   assert.ok(Math.abs(chrome.host.playbackRate - 2 / 3) < 1e-9, 'played slower than recorded');
   assert.equal(film(chrome.app)['data-state'], 'pending');
