@@ -10,7 +10,11 @@ export function HeroVideo({ labels, desktopSource = '/videos/forest-sunlight.mp4
   const [ready, setReady] = useState(false);
   const [controls, setControls] = useState(null);
 
-  useEffect(() => { pausedRef.current = paused; wake.current?.(); }, [paused]);
+  useEffect(() => {
+    pausedRef.current = paused; wake.current?.();
+    // Lets the hero logo animation follow the same pause button.
+    if (typeof window !== 'undefined' && typeof CustomEvent === 'function') window.dispatchEvent(new CustomEvent('hero-motion', { detail: { paused } }));
+  }, [paused]);
   useEffect(() => {
     const video = ref.current;
     const preference = matchMedia('(prefers-reduced-motion: reduce)');

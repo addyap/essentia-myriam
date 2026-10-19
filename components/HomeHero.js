@@ -4,14 +4,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useApp } from '@/components/Providers';
 import { HeroVideo } from '@/components/HeroVideo';
-import { HeroCrest } from '@/components/HeroCrest';
+import { HeroLogoFilm } from '@/components/HeroLogoFilm';
 import { ROUTES } from '@/lib/routes';
 
 // "Clairière" — the art-directed home hero. A cinematic forest-at-golden-hour
-// scene graded to let the type sit in light on the left while the hand-signed
-// gold monogram crest glows in the shadowed right. Depth comes from layered
-// pointer parallax; the crest adds a progressively enhanced 3D pivot. All
-// motion is transform/opacity and disabled under prefers-reduced-motion.
+// scene graded to let the type sit in light on the left while Myriam's gold
+// logo reveal (HeroLogoFilm) plays in the shadowed right. Depth comes from
+// layered pointer parallax. All motion is disabled under prefers-reduced-motion.
 export function HomeHero() {
   const { t } = useApp();
   const h = t.home;
@@ -101,8 +100,7 @@ export function HomeHero() {
 
         <div className="hero-cine-crest">
           <div className="hero-cine-halo" aria-hidden="true" />
-          <div className="hero-cine-mark"><HeroCrest /></div>
-          <span className="hero-cine-sign">Myriam Diougoan Blanch</span>
+          <HeroLogoFilm label="Myriam Diougoan Blanch" />
         </div>
       </div>
 

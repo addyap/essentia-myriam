@@ -802,3 +802,23 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
 }
 .post-cover--mark{display:flex;align-items:center;justify-content:center;color:var(--gold-deep)}
 .post-cover--mark svg,.post-cover--mark img{width:56px;height:72px;object-fit:contain;opacity:.7}
+
+/* Home hero logo: Myriam's gold logo reveal (HeroLogoFilm) on its own dark
+   background, melted into the forest by a soft oval fade. The still final frame
+   shows when the video cannot or should not play. */
+.hero-logo-film{position:relative;width:min(540px,38vw);aspect-ratio:1080/792}
+/* A glow in the video's own dark brown sits behind it, wider than the frame,
+   and the frame fades out in an oval, so its edges vanish and the gold reads
+   as it does in her video. The frame keeps dark margin around the name so the
+   fade never reaches the letters. */
+.hero-logo-film::before{content:"";position:absolute;inset:-12% -14%;border-radius:50%;pointer-events:none;
+ background:radial-gradient(closest-side,rgba(30,22,14,.96) 0%,rgba(26,19,12,.9) 60%,rgba(20,15,9,.55) 82%,rgba(20,15,9,0) 100%)}
+.hero-logo-film>img,.hero-logo-film>video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;
+ -webkit-mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 86%,transparent 100%);
+ mask-image:radial-gradient(ellipse 50% 50% at 50% 50%,#000 86%,transparent 100%)}
+.hero-logo-film>video{opacity:0}
+.hero-logo-film[data-state="film"]>video{opacity:1}
+.hero-logo-still{opacity:0;transition:opacity 600ms var(--ease-out)}
+.hero-logo-film[data-state="still"] .hero-logo-still{opacity:1}
+@media(max-width:900px){.hero-logo-film{width:min(400px,100%)}}
+@media(prefers-reduced-motion:reduce){.hero-logo-still{opacity:1;transition:none}.hero-logo-film>video{display:none}}
