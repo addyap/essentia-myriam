@@ -6,9 +6,10 @@ import dynamic from 'next/dynamic';
 const HeroCrest = dynamic(() => import('./HeroCrest').then(m => m.HeroCrest), { ssr: false });
 
 // Myriam's own logo reveal: the monogram written by a glowing pen, then her
-// name, directly over the forest. The monogram is written in the exact face
-// colour of the 3D logo it turns into (brand gold under the same light); the
-// name stays brand gold (#FCC200).
+// name, directly over the forest. The monogram is written in the 3D logo's own
+// gold, as measured on screen: the same face shading (brand gold, brighter at
+// the top left, deeper lower down) and its deep-gold raised edge, so nothing
+// changes colour when the 3D logo takes over. The name stays brand gold (#FCC200).
 // Her video's background was removed, so these are transparent videos: Safari
 // and every iPhone browser (WebKit) play transparency only from HEVC, the
 // others from VP9. The still final frame stands in without JavaScript, with
