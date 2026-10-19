@@ -5,13 +5,17 @@ import { LogoMarkDraw } from './LogoMarkDraw';
 import dynamic from 'next/dynamic';
 const GoldLogo3D = dynamic(() => import('./GoldLogo3D').then(m => m.GoldLogo3D), { ssr: false });
 
-export function HeroCrest() {
+// skipDrawing: start straight at the gold 3D stage (the home film has already
+// drawn the monogram). onTakeover: called once the 3D logo is on screen.
+export function HeroCrest({ skipDrawing = false, onTakeover } = {}) {
   const [phase, setPhase] = useState('static');
   const [source, setSource] = useState('');
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [reduced, setReduced] = useState(true);
-  const onReady = useCallback(() => setReady(true), []);
+  const takeover = useRef(onTakeover);
+  takeover.current = onTakeover;
+  const onReady = useCallback(() => { setReady(true); takeover.current?.(); }, []);
   const onFailure = useCallback(() => { setReady(false); setFailed(true); }, []);
   const ref = useRef(null);
   useEffect(() => {
@@ -19,7 +23,7 @@ export function HeroCrest() {
     setReduced(preference.matches);
     const svg = ref.current.querySelector('.crest-face');
     setSource(svg.outerHTML);
-    if (!preference.matches) setPhase('drawing');
+    if (!preference.matches) setPhase(skipDrawing ? 'gold' : 'drawing');
     const change = () => { setReduced(preference.matches); if (preference.matches) setPhase('static'); };
     preference.addEventListener('change', change);
     return () => preference.removeEventListener('change', change);

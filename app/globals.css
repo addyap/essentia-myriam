@@ -814,5 +814,12 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
 .hero-logo-film[data-state="film"]>video{opacity:1}
 .hero-logo-still{opacity:0;transition:opacity 600ms var(--ease-out)}
 .hero-logo-film[data-state="still"] .hero-logo-still{opacity:1}
+/* After the film: the 3D gold monogram takes over exactly where the film's monogram is
+   (measured on its final frame); the name and sparkles stay from the film's last frame. */
+.hero-logo-name{opacity:0}
+.hero-logo-film[data-state="gold"] .hero-logo-name{opacity:1}
+.hero-logo-film[data-state="gold"]>video{opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
+.hero-logo-3d{position:absolute;left:31.355%;top:11.581%;width:36.873%}
+.hero-logo-3d .crest-ink,.hero-logo-3d .crest-relief{display:none}
 @media(max-width:900px){.hero-logo-film{width:min(440px,calc(100% + 56px))}}
 @media(prefers-reduced-motion:reduce){.hero-logo-still{opacity:1;transition:none}.hero-logo-film>video{display:none}}

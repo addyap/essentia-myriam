@@ -1,14 +1,20 @@
 'use client';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import dynamic from 'next/dynamic';
+
+// Loaded only once the film has ended, so it never competes with the pen.
+const HeroCrest = dynamic(() => import('./HeroCrest').then(m => m.HeroCrest), { ssr: false });
 
 // Myriam's own logo reveal: the monogram written by a glowing pen, then her
 // name, directly over the forest. The monogram is shaded from bright to deep
-// gold like the inner pages' 3D logo; the name stays brand gold (#FCC200). Her video's
-// background was removed, so these are transparent videos: Safari and every
-// iPhone browser (WebKit) play transparency only from HEVC, the others from
-// VP9. It plays once and rests on its final frame. The still final frame
-// stands in without JavaScript, with reduced motion or Save-Data, and
-// whenever the video cannot start.
+// gold like the inner pages' 3D logo; the name stays brand gold (#FCC200).
+// Her video's background was removed, so these are transparent videos: Safari
+// and every iPhone browser (WebKit) play transparency only from HEVC, the
+// others from VP9. The still final frame stands in without JavaScript, with
+// reduced motion or Save-Data, and whenever the video cannot start.
+// When the film ends, the inner pages' 3D gold monogram is prepared exactly
+// over the film's monogram and cross-fades in, while the name and sparkles
+// stay (logo-reveal-name.webp is the final frame without the monogram).
 const WEBKIT_SOURCE = '/videos/logo-reveal.mov';
 const SOURCE = '/videos/logo-reveal.webm';
 const START_TIMEOUT_MS = 4000;
@@ -17,7 +23,9 @@ const PLAYBACK_RATE = 2 / 3;
 
 export function HeroLogoFilm({ label }) {
   const ref = useRef(null);
-  const [state, setState] = useState('pending'); // pending | film | still
+  const [state, setState] = useState('pending'); // pending | film | still | gold
+  const [ended, setEnded] = useState(false);
+  const takeover = useCallback(() => setState(current => (current === 'film' ? 'gold' : current)), []);
   useEffect(() => {
     const video = ref.current;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
@@ -27,6 +35,7 @@ export function HeroLogoFilm({ label }) {
       video.pause(); video.removeAttribute('src'); video.load();
     };
     const playing = () => { if (!settled) { settled = true; clearTimeout(timer); setState('film'); } };
+    const finished = () => { if (!reduce.matches) setEnded(true); };
     // The background video's pause button stops the logo as well.
     const motion = event => {
       if (event.detail?.paused) video.pause();
@@ -42,6 +51,7 @@ export function HeroLogoFilm({ label }) {
       video.defaultPlaybackRate = PLAYBACK_RATE;
       video.playbackRate = PLAYBACK_RATE;
       video.addEventListener('playing', playing);
+      video.addEventListener('ended', finished);
       video.addEventListener('error', still);
       // A slow connection should not leave the hero without its logo.
       timer = setTimeout(() => { if (!settled) still(); }, START_TIMEOUT_MS);
@@ -52,12 +62,15 @@ export function HeroLogoFilm({ label }) {
       reduce.removeEventListener('change', preference);
       window.removeEventListener('hero-motion', motion);
       video.removeEventListener('playing', playing);
+      video.removeEventListener('ended', finished);
       video.removeEventListener('error', still);
       video.pause();
     };
   }, []);
   return <div className="hero-logo-film" data-state={state} role="img" aria-label={label}>
     <img className="hero-logo-still" src="/images/logo-reveal-still.webp" alt="" width="1080" height="792" decoding="async" />
+    <img className="hero-logo-name" src="/images/logo-reveal-name.webp" alt="" width="1080" height="792" decoding="async" loading="lazy" />
     <video ref={ref} muted playsInline preload="auto" aria-hidden="true" tabIndex={-1} />
+    {ended ? <div className="hero-logo-3d" aria-hidden="true"><HeroCrest skipDrawing onTakeover={takeover} /></div> : null}
   </div>;
 }
