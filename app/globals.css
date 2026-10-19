@@ -819,7 +819,9 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
 .hero-logo-name{opacity:0}
 .hero-logo-film[data-state="gold"] .hero-logo-name{opacity:1}
 .hero-logo-film[data-state="gold"]>video{opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
-.hero-logo-3d{position:absolute;left:31.355%;top:11.581%;width:36.873%}
-.hero-logo-3d .crest-ink,.hero-logo-3d .crest-relief{display:none}
+.hero-logo-3d{position:absolute;left:31.355%;top:11.581%;width:36.873%;opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
+.hero-logo-film[data-state="gold"] .hero-logo-3d{opacity:1}
+/* The film already drew the monogram; only the 3D logo (or, without WebGL, the gold relief) shows. */
+.hero-logo-3d .crest-ink{display:none}
 @media(max-width:900px){.hero-logo-film{width:min(440px,calc(100% + 56px))}}
 @media(prefers-reduced-motion:reduce){.hero-logo-still{opacity:1;transition:none}.hero-logo-film>video{display:none}}

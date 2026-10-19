@@ -16,7 +16,8 @@ export function HeroCrest({ skipDrawing = false, onTakeover } = {}) {
   const takeover = useRef(onTakeover);
   takeover.current = onTakeover;
   const onReady = useCallback(() => { setReady(true); takeover.current?.(); }, []);
-  const onFailure = useCallback(() => { setReady(false); setFailed(true); }, []);
+  // Without WebGL the layered gold relief stands in, so it takes over too.
+  const onFailure = useCallback(() => { setReady(false); setFailed(true); takeover.current?.(); }, []);
   const ref = useRef(null);
   useEffect(() => {
     const preference = matchMedia('(prefers-reduced-motion: reduce)');

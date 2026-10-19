@@ -25,26 +25,32 @@ export function HeroLogoFilm({ label }) {
   const ref = useRef(null);
   const [state, setState] = useState('pending'); // pending | film | still | gold
   const [ended, setEnded] = useState(false);
-  const takeover = useCallback(() => setState(current => (current === 'film' ? 'gold' : current)), []);
+  // The 3D logo takes over from the film, or from the still when the film could not play.
+  const takeover = useCallback(() => setState(current => (current === 'film' || current === 'still' ? 'gold' : current)), []);
   useEffect(() => {
     const video = ref.current;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
     let settled = false, timer = 0;
-    const still = () => {
+    // allowGold: the film could not play (slow start, blocked autoplay, error),
+    // but motion is welcome, so the 3D logo still takes over from the still.
+    const still = (allowGold = true) => {
       settled = true; clearTimeout(timer); setState('still');
       video.pause(); video.removeAttribute('src'); video.load();
+      if (allowGold !== false && !reduce.matches && !navigator.connection?.saveData) setEnded(true);
     };
     const playing = () => { if (!settled) { settled = true; clearTimeout(timer); setState('film'); } };
     const finished = () => { if (!reduce.matches) setEnded(true); };
+    // Some browsers do not always report 'ended' at a slowed playback rate.
+    const progress = () => { if (video.duration && video.currentTime >= video.duration - 0.1) finished(); };
     // The background video's pause button stops the logo as well.
     const motion = event => {
       if (event.detail?.paused) video.pause();
       else if (video.getAttribute('src') && !video.ended) video.play()?.catch(() => {});
     };
-    const preference = () => { if (reduce.matches) still(); };
+    const preference = () => { if (reduce.matches) still(false); };
     reduce.addEventListener('change', preference);
     window.addEventListener('hero-motion', motion);
-    if (reduce.matches || navigator.connection?.saveData) still();
+    if (reduce.matches || navigator.connection?.saveData) still(false);
     else {
       video.muted = true;
       video.src = navigator.vendor === 'Apple Computer, Inc.' ? WEBKIT_SOURCE : SOURCE;
@@ -52,6 +58,7 @@ export function HeroLogoFilm({ label }) {
       video.playbackRate = PLAYBACK_RATE;
       video.addEventListener('playing', playing);
       video.addEventListener('ended', finished);
+      video.addEventListener('timeupdate', progress);
       video.addEventListener('error', still);
       // A slow connection should not leave the hero without its logo.
       timer = setTimeout(() => { if (!settled) still(); }, START_TIMEOUT_MS);
@@ -63,13 +70,14 @@ export function HeroLogoFilm({ label }) {
       window.removeEventListener('hero-motion', motion);
       video.removeEventListener('playing', playing);
       video.removeEventListener('ended', finished);
+      video.removeEventListener('timeupdate', progress);
       video.removeEventListener('error', still);
       video.pause();
     };
   }, []);
   return <div className="hero-logo-film" data-state={state} role="img" aria-label={label}>
     <img className="hero-logo-still" src="/images/logo-reveal-still.webp" alt="" width="1080" height="792" decoding="async" />
-    <img className="hero-logo-name" src="/images/logo-reveal-name.webp" alt="" width="1080" height="792" decoding="async" loading="lazy" />
+    <img className="hero-logo-name" src="/images/logo-reveal-name.webp" alt="" width="1080" height="792" decoding="async" />
     <video ref={ref} muted playsInline preload="auto" aria-hidden="true" tabIndex={-1} />
     {ended ? <div className="hero-logo-3d" aria-hidden="true"><HeroCrest skipDrawing onTakeover={takeover} /></div> : null}
   </div>;
