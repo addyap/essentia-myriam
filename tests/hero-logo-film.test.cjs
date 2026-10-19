@@ -36,6 +36,7 @@ test('plays the logo film once it starts, labelled with Myriam\'s name', async (
   const chrome = await start();
   assert.equal(chrome.host.src, '/videos/logo-reveal.mp4');
   assert.equal(chrome.host.muted, true);
+  assert.ok(Math.abs(chrome.host.playbackRate - 2 / 3) < 1e-9, 'played slower than recorded');
   assert.equal(film(chrome.app)['data-state'], 'pending');
   chrome.host.listeners.playing(); chrome.app.flush();
   assert.equal(film(chrome.app)['data-state'], 'film');

@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 // JavaScript, with reduced motion or Save-Data, and whenever the video cannot start.
 const SOURCE = '/videos/logo-reveal.mp4';
 const START_TIMEOUT_MS = 4000;
+// Played slower than recorded: the 10-second film unfolds over 15 seconds.
+const PLAYBACK_RATE = 2 / 3;
 
 export function HeroLogoFilm({ label }) {
   const ref = useRef(null);
@@ -33,6 +35,8 @@ export function HeroLogoFilm({ label }) {
     else {
       video.muted = true;
       video.src = SOURCE;
+      video.defaultPlaybackRate = PLAYBACK_RATE;
+      video.playbackRate = PLAYBACK_RATE;
       video.addEventListener('playing', playing);
       video.addEventListener('error', still);
       // A slow connection should not leave the hero without its logo.
