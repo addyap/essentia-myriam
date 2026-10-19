@@ -818,6 +818,7 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
    (measured on its final frame); the name and sparkles stay from the film's last frame. */
 .hero-logo-name{opacity:0}
 .hero-logo-film[data-state="gold"] .hero-logo-name{opacity:1}
+.hero-logo-film[data-state="gold"] .hero-logo-still{opacity:0}
 .hero-logo-film[data-state="gold"]>video{opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
 .hero-logo-3d{position:absolute;left:31.355%;top:11.581%;width:36.873%;opacity:0;transition:opacity var(--motion-handoff) var(--ease-out)}
 .hero-logo-film[data-state="gold"] .hero-logo-3d{opacity:1}

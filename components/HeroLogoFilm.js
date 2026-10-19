@@ -6,8 +6,9 @@ import dynamic from 'next/dynamic';
 const HeroCrest = dynamic(() => import('./HeroCrest').then(m => m.HeroCrest), { ssr: false });
 
 // Myriam's own logo reveal: the monogram written by a glowing pen, then her
-// name, directly over the forest. The monogram is shaded from bright to deep
-// gold like the inner pages' 3D logo; the name stays brand gold (#FCC200).
+// name, directly over the forest. The monogram is written in the exact face
+// colour of the 3D logo it turns into (brand gold under the same light); the
+// name stays brand gold (#FCC200).
 // Her video's background was removed, so these are transparent videos: Safari
 // and every iPhone browser (WebKit) play transparency only from HEVC, the
 // others from VP9. The still final frame stands in without JavaScript, with
@@ -25,18 +26,20 @@ export function HeroLogoFilm({ label }) {
   const ref = useRef(null);
   const [state, setState] = useState('pending'); // pending | film | still | gold
   const [ended, setEnded] = useState(false);
+  const [saveData, setSaveData] = useState(false);
   // The 3D logo takes over from the film, or from the still when the film could not play.
   const takeover = useCallback(() => setState(current => (current === 'film' || current === 'still' ? 'gold' : current)), []);
   useEffect(() => {
     const video = ref.current;
     const reduce = matchMedia('(prefers-reduced-motion: reduce)');
     let settled = false, timer = 0;
-    // allowGold: the film could not play (slow start, blocked autoplay, error),
-    // but motion is welcome, so the 3D logo still takes over from the still.
-    const still = (allowGold = true) => {
+    // The gold monogram takes over from the still too: as the 3D logo when the
+    // film could not play, or as the still gold relief with reduced motion or
+    // Save-Data, exactly as on the inner pages.
+    const still = () => {
       settled = true; clearTimeout(timer); setState('still');
       video.pause(); video.removeAttribute('src'); video.load();
-      if (allowGold !== false && !reduce.matches && !navigator.connection?.saveData) setEnded(true);
+      setEnded(true);
     };
     const playing = () => { if (!settled) { settled = true; clearTimeout(timer); setState('film'); } };
     const finished = () => { if (!reduce.matches) setEnded(true); };
@@ -47,10 +50,11 @@ export function HeroLogoFilm({ label }) {
       if (event.detail?.paused) video.pause();
       else if (video.getAttribute('src') && !video.ended) video.play()?.catch(() => {});
     };
-    const preference = () => { if (reduce.matches) still(false); };
+    const preference = () => { if (reduce.matches) still(); };
     reduce.addEventListener('change', preference);
     window.addEventListener('hero-motion', motion);
-    if (reduce.matches || navigator.connection?.saveData) still(false);
+    setSaveData(Boolean(navigator.connection?.saveData));
+    if (reduce.matches || navigator.connection?.saveData) still();
     else {
       video.muted = true;
       video.src = navigator.vendor === 'Apple Computer, Inc.' ? WEBKIT_SOURCE : SOURCE;
@@ -79,6 +83,6 @@ export function HeroLogoFilm({ label }) {
     <img className="hero-logo-still" src="/images/logo-reveal-still.webp" alt="" width="1080" height="792" decoding="async" />
     <img className="hero-logo-name" src="/images/logo-reveal-name.webp" alt="" width="1080" height="792" decoding="async" />
     <video ref={ref} muted playsInline preload="auto" aria-hidden="true" tabIndex={-1} />
-    {ended ? <div className="hero-logo-3d" aria-hidden="true"><HeroCrest skipDrawing onTakeover={takeover} /></div> : null}
+    {ended ? <div className="hero-logo-3d" aria-hidden="true"><HeroCrest skipDrawing onTakeover={takeover} noWebGL={saveData} /></div> : null}
   </div>;
 }

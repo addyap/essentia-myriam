@@ -6,8 +6,9 @@ import dynamic from 'next/dynamic';
 const GoldLogo3D = dynamic(() => import('./GoldLogo3D').then(m => m.GoldLogo3D), { ssr: false });
 
 // skipDrawing: start straight at the gold 3D stage (the home film has already
-// drawn the monogram). onTakeover: called once the 3D logo is on screen.
-export function HeroCrest({ skipDrawing = false, onTakeover } = {}) {
+// drawn the monogram). onTakeover: called once the 3D logo, or the gold relief
+// that stands in for it, is on screen. noWebGL: show the relief only (Save-Data).
+export function HeroCrest({ skipDrawing = false, onTakeover, noWebGL = false } = {}) {
   const [phase, setPhase] = useState('static');
   const [source, setSource] = useState('');
   const [ready, setReady] = useState(false);
@@ -25,7 +26,9 @@ export function HeroCrest({ skipDrawing = false, onTakeover } = {}) {
     const svg = ref.current.querySelector('.crest-face');
     setSource(svg.outerHTML);
     if (!preference.matches) setPhase(skipDrawing ? 'gold' : 'drawing');
-    const change = () => { setReduced(preference.matches); if (preference.matches) setPhase('static'); };
+    // With reduced motion or without WebGL, the still gold relief is the logo.
+    if (preference.matches || noWebGL) takeover.current?.();
+    const change = () => { setReduced(preference.matches); if (preference.matches) { setPhase('static'); takeover.current?.(); } };
     preference.addEventListener('change', change);
     return () => preference.removeEventListener('change', change);
   }, []);
@@ -43,7 +46,7 @@ export function HeroCrest({ skipDrawing = false, onTakeover } = {}) {
     ref.current.style.removeProperty('--tilt-y');
   };
   return <div className="crest-experience">
-    <div className="crest-stage" ref={ref} data-phase={phase} data-fallback={failed || reduced} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
+    <div className="crest-stage" ref={ref} data-phase={phase} data-fallback={failed || reduced || noWebGL} data-webgl={ready && !reduced && phase !== 'drawing'} onPointerMove={move} onPointerLeave={reset}>
       <div className="crest-ink">{phase === 'drawing' ? <LogoMarkDraw onComplete={finish} /> : <LogoMark />}</div>
       <div className="crest-relief" aria-hidden="true">
         {[4, 3, 2, 1].map(layer => <LogoMark key={layer} className="crest-side" style={{ transform: `translate3d(${layer * .45}px,${layer * .6}px,${-layer * 1.5}px)` }} />)}
@@ -53,7 +56,7 @@ export function HeroCrest({ skipDrawing = false, onTakeover } = {}) {
       {/* Starting WebGL blocks the main thread for a moment, which would make the
           pen stutter; it loads once the drawing is complete, which stays visible
           until the 3D logo is ready to take over. */}
-      {!reduced && !failed && source && phase === 'gold' && <GoldLogo3D source={source} animate onReady={onReady} onFailure={onFailure} />}
+      {!reduced && !failed && !noWebGL && source && phase === 'gold' && <GoldLogo3D source={source} animate onReady={onReady} onFailure={onFailure} />}
     </div>
   </div>;
 }
