@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import {
-  STORAGE_KEY, SETTINGS_KEY, DAILY_KEY, THEMES, FONTS, SIZES, DEFAULT_SETTINGS, PROMPTS,
+  STORAGE_KEY, SETTINGS_KEY, DAILY_KEY, THEMES, FONTS, SIZES, DEFAULT_SETTINGS, PROMPTS, thoughtFor, greetingFor,
   newId, countWords, dailyProgress, isWebLink, safeFileName, readSettings, readLibrary, mergeLibraries,
   encodeShare, decodeShare,
 } from '@/lib/ecrire';
@@ -48,6 +48,7 @@ const ICONS = {
   spark: <><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" /></>,
   file: <><path d="M14 3H6v18h12V7z" /><path d="M14 3v4h4M9 13h6M9 17h6" /></>,
   sync: <><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4" /></>,
+  leaf: <><path d="M5 19c0-8 5.5-13.5 15-14-.5 9.5-6 15-14 15" /><path d="M5 19c2.5-4 6-7 10-9" /></>,
   copy: <><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" /></>,
 };
 function Svg({ name }) {
@@ -88,8 +89,9 @@ function startSound(kind, volume) {
   gain.gain.setTargetAtTime(volume, ctx.currentTime, 0.6);
   gain.connect(ctx.destination);
   const nodes = [];
-  if (kind === 'pluie') {
-    // Pink noise through a soft filter sounds like steady rain.
+  if (kind === 'pluie' || kind === 'vagues') {
+    // Pink noise: through a soft filter it sounds like steady rain; darker and
+    // slowly swelling (one wave every ~12 seconds) it sounds like the sea.
     const length = ctx.sampleRate * 4;
     const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
     const data = buffer.getChannelData(0);
@@ -107,8 +109,21 @@ function startSound(kind, volume) {
     source.loop = true;
     const filter = ctx.createBiquadFilter();
     filter.type = 'lowpass';
-    filter.frequency.value = 2200;
-    source.connect(filter).connect(gain);
+    filter.frequency.value = kind === 'vagues' ? 700 : 2200;
+    if (kind === 'vagues') {
+      const swell = ctx.createGain();
+      swell.gain.value = 0.55;
+      const tide = ctx.createOscillator();
+      tide.frequency.value = 0.08;
+      const depth = ctx.createGain();
+      depth.gain.value = 0.45;
+      tide.connect(depth).connect(swell.gain);
+      tide.start();
+      nodes.push(tide);
+      source.connect(filter).connect(swell).connect(gain);
+    } else {
+      source.connect(filter).connect(gain);
+    }
     source.start();
     nodes.push(source);
   } else {
@@ -135,6 +150,33 @@ function startSound(kind, volume) {
   };
 }
 
+// A guided pause: breathe in for 4 seconds, out for 6, five times.
+const BREATHS = 5;
+function Breathe({ active }) {
+  const [phase, setPhase] = useState('ready');
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!active) { setPhase('ready'); setCount(0); return undefined; }
+    if (phase === 'ready' || phase === 'done') return undefined;
+    const t = setTimeout(() => {
+      if (phase === 'in') setPhase('out');
+      else if (count + 1 >= BREATHS) { setCount(BREATHS); setPhase('done'); }
+      else { setCount((c) => c + 1); setPhase('in'); }
+    }, phase === 'in' ? 4000 : 6000);
+    return () => clearTimeout(t);
+  }, [active, phase, count]);
+  const words = { ready: 'Installez-vous confortablement.', in: 'Inspirez…', out: 'Expirez doucement…', done: 'Merci. Vous pouvez écrire.' };
+  return (
+    <div className="ec-breathe">
+      <div className={`ec-orb ec-orb--${phase}`} aria-hidden="true"><span /></div>
+      <p className="ec-breathe-word" aria-live="polite">{words[phase]}</p>
+      {phase === 'ready' || phase === 'done'
+        ? <button type="button" className="ec-primary" onClick={() => { setCount(0); setPhase('in'); }}><Svg name="leaf" />{phase === 'done' ? 'Encore une fois' : 'Commencer (1 minute)'}</button>
+        : <p className="ec-hint">Respiration {count + 1} sur {BREATHS}</p>}
+    </div>
+  );
+}
+
 export function Ecrire() {
   const [ready, setReady] = useState(false);
   const [docs, setDocs] = useState([]);
@@ -149,6 +191,8 @@ export function Ecrire() {
   const [formats, setFormats] = useState({});
   const [sound, setSound] = useState(null);
   const [volume, setVolume] = useState(0.3);
+  const [now, setNow] = useState(null); // set in the browser, so the greeting matches her clock
+  const [thoughtShift, setThoughtShift] = useState(0);
   const [shareLink, setShareLink] = useState('');
   const [note, setNote] = useState('');
 
@@ -182,6 +226,7 @@ export function Ecrire() {
   const pushTimer = useRef(null);
 
   const active = docs.find((d) => d.id === activeId) || docs[0];
+  const thought = thoughtFor(now || new Date(), thoughtShift);
   const sorted = useMemo(() => [...docs].sort((a, b) => b.updatedAt - a.updatedAt), [docs]);
   const total = useMemo(() => docs.reduce((sum, d) => sum + (d.words || 0), 0), [docs]);
   const today = dailyProgress(daily, total);
@@ -214,6 +259,7 @@ export function Ecrire() {
     setSettings(readSettings(read(SETTINGS_KEY)));
     setDaily(read(DAILY_KEY));
     setReady(true);
+    setNow(new Date());
     const match = window.location.hash.match(/^#t=([\w-]+)$/);
     if (window.location.hash) history.replaceState(null, '', window.location.pathname);
     if (match) decodeShare(match[1]).then((shared) => (shared ? setIncoming(shared) : say('Ce lien de transfert est incomplet ou abîmé.')));
@@ -650,6 +696,8 @@ export function Ecrire() {
 
   return (
     <div className={`ecrire${zen ? ' is-zen' : ''}`} data-theme={settings.theme} data-font={settings.font} data-size={settings.size} lang="fr">
+      {/* Slow washes of colour behind the page. */}
+      <div className="ec-sky" aria-hidden="true"><i /><i /><i /></div>
       <header className="ec-bar ec-fade">
         <button type="button" className="ec-btn" onClick={() => setPanel('library')}><Svg name="texts" /><span>Mes textes</span></button>
         <div className="ec-brand">
@@ -667,6 +715,17 @@ export function Ecrire() {
       </header>
 
       <div className="ec-page">
+        <section className="ec-welcome ec-fade" aria-label="Pensée du jour">
+          <p className="ec-hello">{now ? `${greetingFor(now)}, Myriam` : '\u00a0'}</p>
+          {now ? (
+            <button type="button" className="ec-thought" onClick={() => setThoughtShift((n) => n + 1)} title="Une autre pensée">
+              <span className="ec-thought-text">« {thought[0]} »</span>
+              <span className="ec-thought-by">{thought[1]}</span>
+            </button>
+          ) : null}
+          <button type="button" className="ec-breathe-btn" onClick={() => setPanel('breathe')}><Svg name="leaf" />Respirer un instant</button>
+        </section>
+
         <div className="ec-toolbar ec-fade" role="toolbar" aria-label="Mise en forme">
           <div className="ec-group">
             {tool('Gras', formats.bold, () => run('bold'), <b>G</b>)}
@@ -700,8 +759,9 @@ export function Ecrire() {
       <footer className="ec-foot ec-fade">
         <span className={`ec-status ec-status--${statusKind}`} role="status"><i aria-hidden="true" />{statusText}</span>
         <span className="ec-words">{active?.words || 0} mot{(active?.words || 0) > 1 ? 's' : ''}</span>
-        <span className="ec-goal" title={`Mots écrits aujourd’hui, tous textes confondus`}>
-          <span>Aujourd’hui {today.written} / {settings.goal}</span>
+        <span className={`ec-goal${goalPercent >= 100 ? ' is-done' : ''}`} title={`Mots écrits aujourd’hui, tous textes confondus`}>
+          <Svg name="leaf" />
+          <span>{goalPercent >= 100 ? `Objectif atteint : ${today.written} mots` : `Aujourd’hui ${today.written} / ${settings.goal}`}</span>
           <span className="ec-meter" aria-hidden="true"><span style={{ width: `${goalPercent}%` }} /></span>
         </span>
       </footer>
@@ -781,6 +841,9 @@ export function Ecrire() {
           <button type="button" className={`ec-choice${sound === 'pluie' ? ' is-on' : ''}`} aria-pressed={sound === 'pluie'} onClick={() => toggleSound('pluie')}>
             <strong>Pluie douce</strong><small>Un bruit de fond régulier</small>
           </button>
+          <button type="button" className={`ec-choice${sound === 'vagues' ? ' is-on' : ''}`} aria-pressed={sound === 'vagues'} onClick={() => toggleSound('vagues')}>
+            <strong>Vagues</strong><small>La mer, lente et régulière</small>
+          </button>
           <button type="button" className={`ec-choice${sound === 'alpha' ? ' is-on' : ''}`} aria-pressed={sound === 'alpha'} onClick={() => toggleSound('alpha')}>
             <strong>Ondes alpha</strong><small>Avec un casque ou des écouteurs</small>
           </button>
@@ -833,6 +896,10 @@ export function Ecrire() {
             <button type="button" className="ec-primary" onClick={copyLink}><Svg name="copy" />Copier le lien</button>
           </>
         ) : <button type="button" className="ec-primary" onClick={makeLink}><Svg name="share" />Créer le lien</button>}
+      </Panel>
+
+      <Panel open={panel === 'breathe'} onClose={() => setPanel(null)} title="Respirer un instant">
+        <Breathe active={panel === 'breathe'} />
       </Panel>
 
       <Panel open={panel === 'sync'} onClose={() => { setPanel(null); setPhrase(''); setPhrase2(''); setSyncStep('enter'); }} title="Synchroniser mes textes">
