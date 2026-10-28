@@ -19,6 +19,12 @@ const nextConfig = {
       { key: 'Content-Security-Policy', value: "frame-ancestors 'self'; object-src 'none'; base-uri 'self'" },
       { key: 'X-Robots-Tag', value: 'noindex, nofollow' },
     ] }, { source: '/cms/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] },
+    // Myriam's private writing page: never listed, and its address is never
+    // passed on to the sites its links open.
+    { source: '/ecrire', headers: [
+      { key: 'X-Robots-Tag', value: 'noindex, nofollow, noarchive, nosnippet, noimageindex' },
+      { key: 'Referrer-Policy', value: 'no-referrer' },
+    ] },
     // Files uploaded through the CMS are served from this site's own address,
     // where the editor keeps its login. Opened directly, an uploaded SVG or HTML
     // file must not be able to run script: the sandbox forbids it, and this

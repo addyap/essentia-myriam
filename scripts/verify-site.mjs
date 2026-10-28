@@ -45,5 +45,13 @@ const blogIndex = await fetch(new URL('/blog', origin), { redirect: 'manual' });
 assert.equal(blogIndex.status, 308); assert.equal(new URL(blogIndex.headers.get('location'), origin).pathname, '/ressources');
 assert.equal((await fetch(new URL('/blog/article-inexistant', origin))).status, 404);
 assert.match(await (await fetch(new URL('/robots.txt', origin))).text(), /Sitemap: https:\/\/www.essentiademdb.com\/sitemap.xml/);
+// Myriam's private writing page answers, but is never listed or advertised.
+const ecrire = await fetch(new URL('/ecrire', origin));
+assert.equal(ecrire.status, 200, '/ecrire');
+assert.match(ecrire.headers.get('x-robots-tag') || '', /noindex/, '/ecrire: noindex header');
+assert.equal(ecrire.headers.get('referrer-policy'), 'no-referrer', '/ecrire: no referrer');
+assert.match(await ecrire.text(), /name="robots" content="noindex, nofollow/, '/ecrire: noindex tag');
+assert.ok(!sitemap.includes('/ecrire'), '/ecrire not in sitemap');
+assert.ok(!(await (await fetch(new URL('/robots.txt', origin))).text()).includes('ecrire'), '/ecrire not revealed in robots.txt');
 for (const path of ['/og-image.jpg', '/favicon.png', '/images/nature/home.webp']) assert.equal((await fetch(new URL(path, origin))).status, 200);
 console.log(`Passed: ${paths.length} routes, ${articles.length} articles, metadata, headers, contact details absent from page code, 404, robots, sitemap and key assets.`);

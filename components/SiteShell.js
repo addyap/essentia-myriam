@@ -8,6 +8,7 @@ import { MotionSystem } from './MotionSystem';
 import { Analytics } from '@vercel/analytics/next';
 export function SiteShell({ children }) {
   const path = usePathname();
-  if (path === '/admin' || path === '/cms-preview') return children;
+  // The private writing page has its own full-screen layout and no visit analytics.
+  if (path === '/admin' || path === '/cms-preview' || path === '/ecrire') return children;
   return <><Providers><SkipLink /><Header /><MotionSystem /><main id="main-content" tabIndex={-1}>{children}</main><Footer /></Providers><Analytics /></>;
 }
