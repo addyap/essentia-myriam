@@ -73,3 +73,10 @@ test('sync route: stores only locked copies, refuses other sites, and never lets
   delete process.env.ECRIRE_MEMORY_STORE;
   assert.equal((await GET(req('GET'))).status, 503, 'without storage configured, sync says so');
 });
+
+test('sync store: either way Vercel connects storage counts as set up', async () => {
+  const { vaultStore } = await import('../lib/ecrire-store.js');
+  assert.ok(vaultStore({ BLOB_READ_WRITE_TOKEN: 'vercel_blob_rw_x' }));
+  assert.ok(vaultStore({ BLOB_STORE_ID: 'store_abc' }));
+  assert.equal(vaultStore({ NODE_ENV: 'production' }), null);
+});
