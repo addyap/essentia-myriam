@@ -49,6 +49,7 @@ const ICONS = {
   file: <><path d="M14 3H6v18h12V7z" /><path d="M14 3v4h4M9 13h6M9 17h6" /></>,
   sync: <><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4" /></>,
   leaf: <><path d="M5 19c0-8 5.5-13.5 15-14-.5 9.5-6 15-14 15" /><path d="M5 19c2.5-4 6-7 10-9" /></>,
+  check: <path d="m5 12.5 4.5 4.5L19 7.5" />,
   copy: <><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" /></>,
 };
 function Svg({ name }) {
@@ -188,6 +189,15 @@ export function Ecrire() {
   const [incoming, setIncoming] = useState(null);
   const [toast, setToast] = useState('');
   const [zen, setZen] = useState(false);
+  // On a phone, the top and bottom bars step aside while she types, so the
+  // on-screen keyboard leaves as much room as possible for her words.
+  const [writing, setWriting] = useState(false);
+  const onWriteFocus = () => { if (window.matchMedia('(max-width: 820px)').matches) setWriting(true); };
+  const onWriteBlur = () => setTimeout(() => {
+    const el = document.activeElement;
+    if (el !== editorRef.current && el !== titleRef.current) setWriting(false);
+  }, 150);
+  const doneWriting = () => { document.activeElement?.blur?.(); setWriting(false); };
   const [formats, setFormats] = useState({});
   const [sound, setSound] = useState(null);
   const [volume, setVolume] = useState(0.3);
@@ -695,7 +705,7 @@ export function Ecrire() {
   );
 
   return (
-    <div className={`ecrire${zen ? ' is-zen' : ''}`} data-theme={settings.theme} data-font={settings.font} data-size={settings.size} lang="fr">
+    <div className={`ecrire${zen ? ' is-zen' : ''}${writing ? ' is-writing' : ''}`} data-theme={settings.theme} data-font={settings.font} data-size={settings.size} lang="fr">
       {/* Slow washes of colour behind the page. */}
       <div className="ec-sky" aria-hidden="true"><i /><i /><i /></div>
       <header className="ec-bar ec-fade">
@@ -716,14 +726,16 @@ export function Ecrire() {
 
       <div className="ec-page">
         <section className="ec-welcome ec-fade" aria-label="Pensée du jour">
-          <p className="ec-hello">{now ? `${greetingFor(now)}, Myriam` : '\u00a0'}</p>
+          <div className="ec-welcome-top">
+            <p className="ec-hello">{now ? `${greetingFor(now)}, Myriam` : '\u00a0'}</p>
+            <button type="button" className="ec-breathe-btn" onClick={() => setPanel('breathe')} aria-label="Respirer un instant"><Svg name="leaf" /><span>Respirer un instant</span></button>
+          </div>
           {now ? (
             <button type="button" className="ec-thought" onClick={() => setThoughtShift((n) => n + 1)} title="Une autre pensée">
               <span className="ec-thought-text">« {thought[0]} »</span>
               <span className="ec-thought-by">{thought[1]}</span>
             </button>
           ) : null}
-          <button type="button" className="ec-breathe-btn" onClick={() => setPanel('breathe')}><Svg name="leaf" />Respirer un instant</button>
         </section>
 
         <div className="ec-toolbar ec-fade" role="toolbar" aria-label="Mise en forme">
@@ -740,7 +752,8 @@ export function Ecrire() {
           </div>
           <div className="ec-group">
             <button type="button" className="ec-tool ec-tool--word" onMouseDown={keep} onClick={spark} title="Ajouter une question pour vous inspirer"><Svg name="spark" /><span>Étincelle</span></button>
-            <button type="button" className="ec-tool" onClick={exportMarkdown} aria-label="Télécharger ce texte" title="Télécharger ce texte (.md)"><Svg name="down" /></button>
+            <button type="button" className="ec-tool ec-download" onClick={exportMarkdown} aria-label="Télécharger ce texte" title="Télécharger ce texte (.md)"><Svg name="down" /></button>
+            <button type="button" className="ec-tool ec-done" onClick={doneWriting}><Svg name="check" /><span>OK</span></button>
           </div>
         </div>
 
@@ -748,11 +761,12 @@ export function Ecrire() {
           <label htmlFor="ec-title" className="sr-only">Titre du texte</label>
           <input id="ec-title" ref={titleRef} className="ec-title" type="text" placeholder="Titre" value={active?.title || ''} disabled={!ready}
             onChange={(e) => updateActive({ title: e.target.value })}
-            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); editorRef.current.focus(); } }} />
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); editorRef.current.focus(); } }}
+            onFocus={onWriteFocus} onBlur={onWriteBlur} />
           <div ref={editorRef} className="ec-editor" contentEditable={ready} suppressContentEditableWarning role="textbox" aria-multiline="true" aria-label="Votre texte"
             data-placeholder="Commencez à écrire…" spellCheck="true"
             onInput={onEditorInput} onPaste={onPaste} onDrop={onDrop} onKeyDown={onEditorKey}
-            onFocus={() => document.execCommand('defaultParagraphSeparator', false, 'p')} />
+            onFocus={() => { document.execCommand('defaultParagraphSeparator', false, 'p'); onWriteFocus(); }} onBlur={onWriteBlur} />
         </div>
       </div>
 
@@ -761,7 +775,8 @@ export function Ecrire() {
         <span className="ec-words">{active?.words || 0} mot{(active?.words || 0) > 1 ? 's' : ''}</span>
         <span className={`ec-goal${goalPercent >= 100 ? ' is-done' : ''}`} title={`Mots écrits aujourd’hui, tous textes confondus`}>
           <Svg name="leaf" />
-          <span>{goalPercent >= 100 ? `Objectif atteint : ${today.written} mots` : `Aujourd’hui ${today.written} / ${settings.goal}`}</span>
+          <span className="ec-goal-long">{goalPercent >= 100 ? `Objectif atteint : ${today.written} mots` : `Aujourd’hui ${today.written} / ${settings.goal}`}</span>
+          <span className="ec-goal-short" aria-hidden="true">{today.written}/{settings.goal}</span>
           <span className="ec-meter" aria-hidden="true"><span style={{ width: `${goalPercent}%` }} /></span>
         </span>
       </footer>
