@@ -53,5 +53,9 @@ assert.equal(ecrire.headers.get('referrer-policy'), 'no-referrer', '/ecrire: no 
 assert.match(await ecrire.text(), /name="robots" content="noindex, nofollow/, '/ecrire: noindex tag');
 assert.ok(!sitemap.includes('/ecrire'), '/ecrire not in sitemap');
 assert.ok(!(await (await fetch(new URL('/robots.txt', origin))).text()).includes('ecrire'), '/ecrire not revealed in robots.txt');
+// Its sync endpoint only answers a request carrying a passphrase-derived secret.
+const vault = await fetch(new URL('/api/ecrire', origin));
+assert.ok([400, 503].includes(vault.status), '/api/ecrire refuses requests without a secret');
+assert.equal(vault.headers.get('cache-control'), 'no-store');
 for (const path of ['/og-image.jpg', '/favicon.png', '/images/nature/home.webp']) assert.equal((await fetch(new URL(path, origin))).status, 200);
 console.log(`Passed: ${paths.length} routes, ${articles.length} articles, metadata, headers, contact details absent from page code, 404, robots, sitemap and key assets.`);

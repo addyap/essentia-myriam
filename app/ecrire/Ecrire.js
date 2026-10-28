@@ -6,19 +6,24 @@ import {
   encodeShare, decodeShare,
 } from '@/lib/ecrire';
 import { sanitizeHtml, editorHtml, htmlToText, htmlToMarkdown, quoteHtml, shrinkImage, download } from '@/lib/ecrire-dom';
+import {
+  SYNC_KEY, MAX_VAULT_BYTES, normalizePhrase, phraseProblem, deriveSecrets, lockVault, unlockVault, mergeVaults, vaultStamp, cleanTombstones,
+} from '@/lib/ecrire-sync';
 
-// Myriam's private writing page. Every text stays in this browser's storage:
-// nothing is sent to the site's server, so the page has no account or login.
+// Myriam's private writing page. Texts are kept in this browser's storage.
+// With sync switched on, a copy locked with her passphrase is also kept online
+// (see lib/ecrire-sync.js): the server can store it but never read it.
 
 const read = (key) => { try { return JSON.parse(localStorage.getItem(key)); } catch { return null; } };
 const write = (key, value) => localStorage.setItem(key, JSON.stringify(value));
 
+// A fixed id, so each new device's welcome text merges into one when synced.
 const welcome = () => ({
-  id: newId(),
+  id: 'welcome',
   title: 'Bienvenue, Myriam',
   html: '<p>Cet espace est le vôtre, pour écrire, réfléchir et préparer vos textes.</p>'
-    + '<p>Chaque mot est <b>enregistré automatiquement dans ce navigateur</b>, sur cet appareil. Rien n’est envoyé sur internet : personne d’autre ne peut lire vos textes, même avec l’adresse de cette page.</p>'
-    + '<p>Pensez à télécharger de temps en temps une sauvegarde (dans « Mes textes ») : si l’historique du navigateur est effacé, elle vous permet de tout retrouver.</p>',
+    + '<p>Chaque mot est <b>enregistré automatiquement</b> sur cet appareil. Personne d’autre ne peut lire vos textes, même avec l’adresse de cette page.</p>'
+    + '<p>Pour retrouver vos textes sur votre téléphone, votre tablette et votre ordinateur, activez la <b>synchronisation</b> dans « Mes textes » avec une phrase secrète que vous seule connaissez. Vos textes sont verrouillés avec cette phrase avant de partir sur internet.</p>',
   words: null,
   updatedAt: Date.now(),
   sources: [],
@@ -42,6 +47,7 @@ const ICONS = {
   quote: <path d="M5 17c-1-1.5-1-5 .5-7.5S9 6 10 6M14 17c-1-1.5-1-5 .5-7.5S18 6 19 6M5 17a2.5 2.5 0 1 0 0-.1M14 17a2.5 2.5 0 1 0 0-.1" />,
   spark: <><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" /></>,
   file: <><path d="M14 3H6v18h12V7z" /><path d="M14 3v4h4M9 13h6M9 17h6" /></>,
+  sync: <><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8M4 4v4h4M4 13a8 8 0 0 0 14.3 4.9L20 16M20 20v-4h-4" /></>,
   copy: <><rect x="8" y="8" width="12" height="12" rx="2" /><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3" /></>,
 };
 function Svg({ name }) {
@@ -51,13 +57,17 @@ function Svg({ name }) {
 function Panel({ open, onClose, side = 'center', title, children }) {
   const ref = useRef(null);
   const id = useId();
+  const wanted = useRef(open);
+  wanted.current = open;
   useEffect(() => {
     const dialog = ref.current;
     if (open && !dialog.open) dialog.showModal();
     if (!open && dialog.open) dialog.close();
   }, [open]);
+  // Only a close the person made (Escape) is reported; a close this page asked
+  // for — say, to open another panel — must not cancel that other panel.
   return (
-    <dialog ref={ref} className={`ec-panel ec-panel--${side}`} aria-labelledby={id} onClose={onClose}
+    <dialog ref={ref} className={`ec-panel ec-panel--${side}`} aria-labelledby={id} onClose={() => { if (wanted.current) onClose(); }}
       onClick={(e) => { if (e.target === ref.current) onClose(); }}>
       <div className="ec-panel-inner">
         <div className="ec-panel-head">
@@ -150,8 +160,26 @@ export function Ecrire() {
   const saveTimer = useRef(null);
   const zenTimer = useRef(null);
   const focusTitle = useRef(false);
+  const [deleted, setDeleted] = useState({});
+  const deletedRef = useRef(deleted);
   docsRef.current = docs;
   activeRef.current = activeId;
+  deletedRef.current = deleted;
+
+  // Sync: the device's secrets (from the passphrase) and how the last sync went.
+  const [syncOn, setSyncOn] = useState(false);
+  const [syncState, setSyncState] = useState('off');
+  const [syncedAt, setSyncedAt] = useState(null);
+  const [phrase, setPhrase] = useState('');
+  const [phrase2, setPhrase2] = useState('');
+  const [syncStep, setSyncStep] = useState('enter');
+  const [syncMessage, setSyncMessage] = useState('');
+  const [showPhrase, setShowPhrase] = useState(false);
+  const syncRef = useRef(null);
+  const dirtyRef = useRef(false);
+  const busyRef = useRef(false);
+  const againRef = useRef(false);
+  const pushTimer = useRef(null);
 
   const active = docs.find((d) => d.id === activeId) || docs[0];
   const sorted = useMemo(() => [...docs].sort((a, b) => b.updatedAt - a.updatedAt), [docs]);
@@ -170,13 +198,19 @@ export function Ecrire() {
   const loadLibrary = useCallback(() => {
     const library = readLibrary(read(STORAGE_KEY));
     const list = (library?.docs.length ? library.docs : [welcome()]).map((d) => (d.words == null ? { ...d, words: countWords(htmlToText(d.html)) } : d));
-    return { docs: list, activeId: library?.docs.length ? library.activeId : list[0].id };
+    return { docs: list, activeId: library?.docs.length ? library.activeId : list[0].id, deleted: library?.deleted || {} };
   }, []);
 
   useEffect(() => {
     const library = loadLibrary();
     setDocs(library.docs);
     setActiveId(library.activeId);
+    setDeleted(library.deleted);
+    const saved = read(SYNC_KEY);
+    if (saved && /^[\w-]{43}$/.test(saved.key) && /^[\w-]{43}$/.test(saved.access)) {
+      syncRef.current = { key: saved.key, access: saved.access, version: typeof saved.version === 'string' ? saved.version : null };
+      setSyncOn(true);
+    }
     setSettings(readSettings(read(SETTINGS_KEY)));
     setDaily(read(DAILY_KEY));
     setReady(true);
@@ -190,7 +224,7 @@ export function Ecrire() {
     clearTimeout(saveTimer.current);
     saveTimer.current = null;
     try {
-      write(STORAGE_KEY, { version: 1, activeId: activeRef.current, docs: docsRef.current });
+      write(STORAGE_KEY, { version: 1, activeId: activeRef.current, docs: docsRef.current, deleted: deletedRef.current });
       setStatus('saved');
     } catch {
       setStatus('full');
@@ -201,7 +235,7 @@ export function Ecrire() {
     setStatus((s) => (s === 'full' ? s : 'saving'));
     clearTimeout(saveTimer.current);
     saveTimer.current = setTimeout(flush, 400);
-  }, [docs, activeId, ready, flush]);
+  }, [docs, activeId, deleted, ready, flush]);
   useEffect(() => {
     const leave = () => { if (saveTimer.current) flush(); };
     window.addEventListener('pagehide', leave);
@@ -221,6 +255,7 @@ export function Ecrire() {
       if (e.key !== STORAGE_KEY) return;
       const library = loadLibrary();
       setDocs(library.docs);
+      setDeleted(library.deleted);
       const current = library.docs.find((d) => d.id === activeRef.current);
       if (!current) setActiveId(library.activeId);
       else if (editorRef.current && editorRef.current.innerHTML !== current.html) editorRef.current.innerHTML = sanitizeHtml(current.html);
@@ -236,9 +271,164 @@ export function Ecrire() {
     editorRef.current.innerHTML = sanitizeHtml(doc?.html || '') || '<p><br></p>';
   }, [ready, activeId]);
 
+  // ---- Sync with the locked online copy.
+  const keepSync = (cfg) => { try { write(SYNC_KEY, cfg); } catch {} };
+  const callVault = (cfg, method, extra = {}, body) => fetch('/api/ecrire', {
+    method, body, cache: 'no-store',
+    headers: { 'X-Ecrire-Access': cfg.access, ...(body ? { 'Content-Type': 'application/octet-stream' } : {}), ...extra },
+  });
+  const failure = (status) => Object.assign(new Error('sync'), { status });
+
+  // Brings another device's texts into this one. Returns true when this
+  // device holds something the online copy does not, so it must be sent.
+  const applyRemote = useCallback((remote) => {
+    const local = { docs: docsRef.current, deleted: deletedRef.current };
+    const incomingDocs = remote.docs.map((d) => (d.words == null ? { ...d, words: countWords(htmlToText(d.html)) } : d));
+    const merged = mergeVaults(local, { docs: incomingDocs, deleted: remote.deleted });
+    if (vaultStamp(merged) !== vaultStamp(local)) {
+      const before = docsRef.current.find((d) => d.id === activeRef.current);
+      docsRef.current = merged.docs;
+      deletedRef.current = merged.deleted;
+      setDocs(merged.docs);
+      setDeleted(merged.deleted);
+      const after = merged.docs.find((d) => d.id === activeRef.current);
+      if (!after) {
+        const next = [...merged.docs].sort((a, b) => b.updatedAt - a.updatedAt)[0];
+        if (next) setActiveId(next.id);
+      } else if (editorRef.current && (!before || after.updatedAt !== before.updatedAt)) {
+        editorRef.current.innerHTML = sanitizeHtml(after.html) || '<p><br></p>';
+      }
+    }
+    return vaultStamp(merged) !== vaultStamp({ docs: remote.docs, deleted: cleanTombstones(remote.deleted) });
+  }, []);
+
+  const syncNow = useCallback(async () => {
+    const cfg = syncRef.current;
+    if (!cfg) return;
+    if (busyRef.current) { againRef.current = true; return; }
+    busyRef.current = true;
+    clearTimeout(pushTimer.current);
+    setSyncState('syncing');
+    try {
+      for (let attempt = 0; attempt < 4; attempt++) {
+        // 1. Take in what other devices saved since last time.
+        const got = await callVault(cfg, 'GET', cfg.version ? { 'X-Ecrire-Known': cfg.version } : {});
+        if (got.status === 200) {
+          const remote = readLibrary(await unlockVault(new Uint8Array(await got.arrayBuffer()), cfg.key));
+          if (!remote) throw failure('locked');
+          cfg.version = got.headers.get('X-Ecrire-Version');
+          keepSync(cfg);
+          if (applyRemote(remote)) dirtyRef.current = true;
+        } else if (got.status === 404) {
+          cfg.version = null;
+          dirtyRef.current = true;
+        } else if (got.status !== 204) {
+          throw failure(got.status);
+        }
+        if (!dirtyRef.current) break;
+        // 2. Send this device's changes, unless another device saved first.
+        dirtyRef.current = false;
+        const body = await lockVault({ version: 1, docs: docsRef.current, deleted: deletedRef.current }, cfg.key);
+        if (body.length > MAX_VAULT_BYTES) { dirtyRef.current = true; throw failure(413); }
+        const sent = await callVault(cfg, 'PUT', cfg.version ? { 'X-Ecrire-Base': cfg.version } : {}, body);
+        if (sent.ok) {
+          cfg.version = sent.headers.get('X-Ecrire-Version');
+          keepSync(cfg);
+          break;
+        }
+        dirtyRef.current = true;
+        if (sent.status !== 409) throw failure(sent.status);
+      }
+      setSyncState(dirtyRef.current ? 'error' : 'ok');
+      if (!dirtyRef.current) setSyncedAt(Date.now());
+    } catch (error) {
+      const status = error?.status;
+      setSyncState(status === undefined ? 'offline' : { 503: 'unconfigured', 413: 'too-large', 507: 'full', locked: 'locked' }[status] || 'error');
+    } finally {
+      busyRef.current = false;
+      if (againRef.current) { againRef.current = false; setTimeout(syncNow, 0); }
+    }
+  }, [applyRemote]);
+
+  // A change on this device: send it a few seconds after typing pauses.
+  const markDirty = useCallback(() => {
+    if (!syncRef.current) return;
+    dirtyRef.current = true;
+    clearTimeout(pushTimer.current);
+    pushTimer.current = setTimeout(syncNow, 4000);
+  }, [syncNow]);
+
+  // Check for other devices' changes on opening, on return, and every 30 s.
+  useEffect(() => {
+    if (!ready || !syncOn) return undefined;
+    syncNow();
+    const visible = () => document.visibilityState === 'visible';
+    const onShow = () => { if (visible()) syncNow(); else if (dirtyRef.current) syncNow(); };
+    const timer = setInterval(() => { if (visible()) syncNow(); }, 30000);
+    document.addEventListener('visibilitychange', onShow);
+    window.addEventListener('online', syncNow);
+    window.addEventListener('focus', syncNow);
+    return () => {
+      clearInterval(timer);
+      clearTimeout(pushTimer.current);
+      document.removeEventListener('visibilitychange', onShow);
+      window.removeEventListener('online', syncNow);
+      window.removeEventListener('focus', syncNow);
+    };
+  }, [ready, syncOn, syncNow]);
+
+  const startSync = async (e) => {
+    e.preventDefault();
+    const problem = phraseProblem(phrase);
+    if (problem) { setSyncMessage(problem); return; }
+    if (syncStep === 'confirm' && normalizePhrase(phrase2) !== normalizePhrase(phrase)) {
+      setSyncMessage('Les deux phrases ne sont pas identiques.');
+      return;
+    }
+    const step = syncStep;
+    setSyncStep('working');
+    setSyncMessage('');
+    try {
+      const secrets = await deriveSecrets(phrase);
+      const cfg = { ...secrets, version: null };
+      if (step === 'enter') {
+        const got = await callVault(cfg, 'GET');
+        if (got.status === 404) {
+          setSyncStep('confirm');
+          return;
+        }
+        if (got.status === 503) throw failure(503);
+        if (!got.ok) throw failure(got.status);
+        try { await unlockVault(new Uint8Array(await got.arrayBuffer()), cfg.key); } catch { throw failure('locked'); }
+      }
+      syncRef.current = cfg;
+      keepSync(cfg);
+      dirtyRef.current = true;
+      setSyncOn(true);
+      setPhrase(''); setPhrase2(''); setSyncStep('enter'); setPanel(null);
+      say(step === 'enter' ? 'Synchronisation activée : vos textes ont été réunis.' : 'Synchronisation activée. Utilisez la même phrase sur vos autres appareils.');
+    } catch (error) {
+      setSyncStep(step);
+      const status = error?.status;
+      setSyncMessage(status === 503 ? 'La synchronisation n’est pas encore activée sur le site. Prévenez Antony.'
+        : status === 'locked' ? 'Ces textes en ligne n’ont pas pu être ouverts avec cette phrase.'
+        : status === undefined ? 'Pas de connexion internet. Réessayez une fois connectée.'
+        : 'La synchronisation n’a pas pu démarrer. Réessayez dans un instant.');
+    }
+  };
+
+  const stopSync = () => {
+    if (!window.confirm('Arrêter la synchronisation sur cet appareil ? Vos textes restent ici, et en ligne pour vos autres appareils.')) return;
+    try { localStorage.removeItem(SYNC_KEY); } catch {}
+    syncRef.current = null;
+    setSyncOn(false);
+    setSyncState('off');
+  };
+
   const updateActive = useCallback((patch) => {
     setDocs((list) => list.map((d) => (d.id === activeRef.current ? { ...d, ...patch, updatedAt: Date.now() } : d)));
-  }, []);
+    markDirty();
+  }, [markDirty]);
 
   const onEditorInput = useCallback(() => {
     const editor = editorRef.current;
@@ -335,6 +525,7 @@ export function Ecrire() {
     setActiveId(doc.id);
     setPanel(null);
     focusTitle.current = true;
+    markDirty();
   };
   // Runs after the panel has closed and handed focus back, so the title keeps it.
   useEffect(() => {
@@ -348,6 +539,8 @@ export function Ecrire() {
     const rest = docs.filter((d) => d.id !== doc.id);
     const next = rest.length ? rest : [blank()];
     setDocs(next);
+    setDeleted((map) => ({ ...map, [doc.id]: Date.now() }));
+    markDirty();
     if (doc.id === activeId) setActiveId([...next].sort((a, b) => b.updatedAt - a.updatedAt)[0].id);
   };
   const exportMarkdown = () => {
@@ -366,6 +559,7 @@ export function Ecrire() {
     if (!library || !library.docs.length) { say('Ce fichier n’est pas une sauvegarde de vos textes.'); return; }
     const restored = library.docs.map((d) => ({ ...d, html: sanitizeHtml(d.html), words: d.words ?? countWords(htmlToText(d.html)) }));
     setDocs((list) => mergeLibraries(list, restored));
+    markDirty();
     say(`${restored.length} texte${restored.length > 1 ? 's' : ''} ajouté${restored.length > 1 ? 's' : ''} depuis la sauvegarde.`);
   };
 
@@ -433,9 +627,23 @@ export function Ecrire() {
     setDocs((list) => [doc, ...list]);
     setActiveId(doc.id);
     setIncoming(null);
+    markDirty();
   };
 
-  const statusText = { saved: 'Enregistré sur cet appareil', saving: 'Enregistrement…', full: 'Espace plein : téléchargez une sauvegarde et retirez des photos' }[status];
+  const SYNC_TEXT = {
+    syncing: 'Synchronisation…',
+    ok: 'Synchronisé',
+    offline: 'Hors ligne : enregistré sur cet appareil',
+    unconfigured: 'Synchronisation pas encore activée sur le site',
+    'too-large': 'Trop de photos pour synchroniser : retirez-en quelques-unes',
+    full: 'Synchronisation indisponible : espace en ligne plein',
+    locked: 'Synchronisation : textes en ligne illisibles',
+    error: 'Synchronisation en attente : nouvel essai bientôt',
+  };
+  const statusText = status === 'full' ? 'Espace plein : téléchargez une sauvegarde et retirez des photos'
+    : syncOn && syncState !== 'off' && (syncState !== 'ok' || status === 'saved') ? SYNC_TEXT[syncState]
+    : { saved: 'Enregistré sur cet appareil', saving: 'Enregistrement…' }[status];
+  const statusKind = status === 'full' ? 'full' : syncOn && ['offline', 'unconfigured', 'too-large', 'full', 'locked', 'error'].includes(syncState) ? 'warn' : status;
   const tool = (label, on, onClick, children) => (
     <button type="button" className={`ec-tool${on ? ' is-on' : ''}`} aria-pressed={on ? 'true' : 'false'} aria-label={label} title={label} onMouseDown={keep} onClick={onClick}>{children}</button>
   );
@@ -490,7 +698,7 @@ export function Ecrire() {
       </div>
 
       <footer className="ec-foot ec-fade">
-        <span className={`ec-status ec-status--${status}`} role="status"><i aria-hidden="true" />{statusText}</span>
+        <span className={`ec-status ec-status--${statusKind}`} role="status"><i aria-hidden="true" />{statusText}</span>
         <span className="ec-words">{active?.words || 0} mot{(active?.words || 0) > 1 ? 's' : ''}</span>
         <span className="ec-goal" title={`Mots écrits aujourd’hui, tous textes confondus`}>
           <span>Aujourd’hui {today.written} / {settings.goal}</span>
@@ -514,8 +722,25 @@ export function Ecrire() {
           ))}
         </ul>
         <div className="ec-backup">
+          <h3>Synchronisation</h3>
+          {syncOn ? (
+            <>
+              <p>Vos textes sont synchronisés entre vos appareils.{syncedAt ? ` Dernière synchronisation à ${new Date(syncedAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}.` : ''}</p>
+              <div className="ec-row">
+                <button type="button" className="ec-secondary" onClick={syncNow}><Svg name="sync" />Synchroniser</button>
+                <button type="button" className="ec-secondary" onClick={stopSync}>Arrêter ici</button>
+              </div>
+            </>
+          ) : (
+            <>
+              <p>Retrouvez vos textes sur votre téléphone, votre tablette et votre ordinateur, avec une phrase secrète.</p>
+              <button type="button" className="ec-primary" onClick={() => { setSyncMessage(''); setSyncStep('enter'); setPanel('sync'); }}><Svg name="sync" />Activer sur cet appareil</button>
+            </>
+          )}
+        </div>
+        <div className="ec-backup">
           <h3>Sauvegarde</h3>
-          <p>Vos textes restent dans ce navigateur, sur cet appareil. Téléchargez une sauvegarde de temps en temps, et pour retrouver vos textes sur un autre appareil.</p>
+          <p>Un fichier de tous vos textes, à garder de temps en temps en lieu sûr.</p>
           <div className="ec-row">
             <button type="button" className="ec-secondary" onClick={exportBackup}><Svg name="down" />Télécharger</button>
             <label className="ec-secondary"><Svg name="up" />Restaurer<input type="file" accept=".json,application/json" onChange={restoreBackup} className="sr-only" /></label>
@@ -608,6 +833,28 @@ export function Ecrire() {
             <button type="button" className="ec-primary" onClick={copyLink}><Svg name="copy" />Copier le lien</button>
           </>
         ) : <button type="button" className="ec-primary" onClick={makeLink}><Svg name="share" />Créer le lien</button>}
+      </Panel>
+
+      <Panel open={panel === 'sync'} onClose={() => { setPanel(null); setPhrase(''); setPhrase2(''); setSyncStep('enter'); }} title="Synchroniser mes textes">
+        <form className="ec-sync" onSubmit={startSync}>
+          <p>Choisissez une phrase secrète, puis tapez <b>la même phrase</b> sur chacun de vos appareils. Vos textes y seront réunis et tenus à jour.</p>
+          <p className="ec-hint">Une petite phrase qui a du sens pour vous, d’au moins 4 mots, par exemple un souvenir. Vos textes sont verrouillés avec elle avant de partir sur internet : personne d’autre ne peut les lire, pas même Antony.</p>
+          <p className="ec-warn">Notez-la en lieu sûr : si elle est oubliée, les textes en ligne ne peuvent pas être récupérés.</p>
+          <label className="ec-field">Phrase secrète
+            <input type={showPhrase ? 'text' : 'password'} value={phrase} onChange={(e) => setPhrase(e.target.value)} autoComplete="off" autoCapitalize="none" spellCheck="false" disabled={syncStep === 'working'} />
+          </label>
+          {syncStep === 'confirm' ? <p className="ec-warn" role="status">C’est la première fois que cette phrase est utilisée. Retapez-la pour la confirmer.</p> : null}
+          {syncStep === 'confirm' ? (
+            <label className="ec-field">Retapez la phrase
+              <input type={showPhrase ? 'text' : 'password'} value={phrase2} onChange={(e) => setPhrase2(e.target.value)} autoComplete="off" autoCapitalize="none" spellCheck="false" autoFocus />
+            </label>
+          ) : null}
+          <label className="ec-check"><input type="checkbox" checked={showPhrase} onChange={(e) => setShowPhrase(e.target.checked)} /> Afficher la phrase</label>
+          {syncMessage ? <p className="ec-message" role="alert">{syncMessage}</p> : null}
+          <button type="submit" className="ec-primary" disabled={syncStep === 'working'}>
+            <Svg name="sync" />{syncStep === 'working' ? 'Un instant…' : syncStep === 'confirm' ? 'Confirmer et activer' : 'Continuer'}
+          </button>
+        </form>
       </Panel>
 
       <Panel open={Boolean(incoming)} onClose={() => setIncoming(null)} title="Un texte vous a été transféré">
