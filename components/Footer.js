@@ -55,6 +55,7 @@ export function Footer() {
         <div className="foot-bottom">
           <span>{t.footer.rights.replace('{year}', new Date().getFullYear()).replace('{name}', brand.name)}</span>
           <a href="/admin" className="footer-editor-link" rel="nofollow" lang="fr">Espace d’édition</a>
+          <span className="footer-credit">{{ fr: 'Site réalisé par ', en: 'Website by ', it: 'Sito realizzato da ', es: 'Sitio web de ' }[lang] || 'Website by '}<a href={{ fr: 'https://thevitrine.fr/', it: 'https://thevitrine.fr/it/' }[lang] || 'https://thevitrine.fr/en/'} target="_blank" rel="noopener">The Vitrine</a></span>
           <span className="script" style={{ fontSize: 15 }}>{t.footer.tagline}</span>
         </div>
       </div>

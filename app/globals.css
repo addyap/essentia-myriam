@@ -835,3 +835,5 @@ header.site.is-compact .brand{transform:scale(var(--brand-compact))}
 .hero-logo-3d .crest-ink{display:none}
 @media(max-width:900px){.hero-logo-film{width:min(440px,calc(100% + 56px))}}
 @media(prefers-reduced-motion:reduce){.hero-logo-still{opacity:1;transition:none}.hero-logo-film>video,.hero-logo-film>canvas{display:none}}
+
+.footer-credit{font-size:12px;color:#b8c1b7}.footer-credit a{color:inherit;text-underline-offset:3px}.footer-credit a:hover,.footer-credit a:focus-visible{color:#FCC200}
