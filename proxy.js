@@ -215,14 +215,17 @@ function soon(request, { error = false, status = 200, unset = false, tooMany = f
   } });
 }
 
+// Pictures and the hero videos requested by a page of this site itself.
+const MEDIA = new Set(['image', 'video', 'audio', 'track']);
+
 function open(request) {
   const { pathname } = new URL(request.url);
   if (/^\/(cms|admin|api\/cms-config|ecrire|api\/ecrire|uploads|prelaunch)(\/|$)/.test(pathname)) return true;
   if (pathname === '/favicon.png' || pathname === '/robots.txt') return true;
   // The CMS shows drafts in /cms-preview inside its own frame, with the
-  // pictures that page uses; typed directly into the address bar it stays locked.
+  // pictures and videos that page uses; typed directly into the address bar it stays locked.
   const dest = request.headers.get('sec-fetch-dest'), site = request.headers.get('sec-fetch-site');
-  if (site === 'same-origin' && ((pathname === '/cms-preview' && dest === 'iframe') || dest === 'image')) return true;
+  if (site === 'same-origin' && ((pathname === '/cms-preview' && dest === 'iframe') || MEDIA.has(dest))) return true;
   return false;
 }
 
