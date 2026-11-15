@@ -10,27 +10,68 @@
 // live preview when the CMS itself frames it.
 // Written with plain web Request/Response so it runs (and is tested) anywhere;
 // returning nothing lets the request carry on to the site.
+import { createHash, createHmac, timingSafeEqual } from 'node:crypto';
 
 const COOKIE = 'essentia-preview';
 const UNLOCK_PATH = '/acces-prive';
 const NOINDEX = 'noindex, nofollow, noarchive, nosnippet, noimageindex';
 
-const encoder = new TextEncoder();
-async function token(password) {
-  const digest = await crypto.subtle.digest('SHA-256', encoder.encode(`essentia-preview:${password}`));
-  return Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, '0')).join('');
+// The access cookie holds an expiry date and a signature. The signature uses a
+// server secret (FORM_SECRET, already set in Vercel for the contact form) mixed
+// with the password, so a cookie cannot be forged, reveals nothing about the
+// password, stops working after 90 days whatever the browser does, and every
+// cookie dies as soon as the password changes.
+const MAX_AGE_S = 60 * 60 * 24 * 90;
+let warned = false;
+function cookieKey(password, env = process.env) {
+  const secret = env.FORM_SECRET && env.FORM_SECRET.length >= 32 ? env.FORM_SECRET
+    : env.RESEND_API_KEY ? createHmac('sha256', env.RESEND_API_KEY).update('essentia-preview-secret').digest('base64url')
+    : null;
+  if (!secret && !warned) warned = true, console.warn('proxy.js: FORM_SECRET is not set; the access cookie is signed with the password alone.');
+  return createHmac('sha256', secret || 'essentia-preview').update(`essentia-preview:${password}`).digest();
 }
-function same(a, b) {
-  if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
-  let diff = 0;
-  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
-  return diff === 0;
+const sign = (key, expires) => createHmac('sha256', key).update(`v2.${expires}`).digest('base64url');
+const issueCookie = (key, now = Date.now()) => { const expires = Math.floor(now / 1000) + MAX_AGE_S; return `v2.${expires}.${sign(key, expires)}`; };
+function validCookie(value, key, now = Date.now()) {
+  const parts = typeof value === 'string' && value.length < 200 ? value.split('.') : [];
+  if (parts.length !== 3 || parts[0] !== 'v2' || !/^\d{10}$/.test(parts[1])) return false;
+  if (Number(parts[1]) * 1000 <= now) return false;
+  return same(parts[2], sign(key, parts[1]));
 }
+const digest = (text) => createHash('sha256').update(text).digest();
+// Compares through fixed-length digests so neither length nor content leaks through timing.
+const same = (a, b) => typeof a === 'string' && typeof b === 'string' && timingSafeEqual(digest(a), digest(b));
+
+// Guessing is slowed and capped: every wrong password waits a second, and an
+// address with 5 wrong passwords in 15 minutes is refused until the window
+// ends. A cap on all addresses together blunts guesses spread over many
+// machines; you and Myriam stay in meanwhile, since your cookie still works.
+// Counts live in this server instance's memory, so they reset when Vercel
+// starts a fresh one: this slows a script down, it is not a wall on its own.
+const WINDOW_MS = 15 * 60 * 1000, PER_ADDRESS = 5, ALL_ADDRESSES = 100;
+export const limits = { wrongDelayMs: 1000 };
+const failures = new Map();
+let allFailures = { count: 0, since: 0 };
+export function resetGuessLimits() { failures.clear(); allFailures = { count: 0, since: 0 }; }
+const address = (request) => request.headers.get('x-real-ip') || (request.headers.get('x-forwarded-for') || '').split(',')[0].trim() || 'unknown';
+function blocked(ip, now = Date.now()) {
+  const entry = failures.get(ip);
+  if (entry && now - entry.since < WINDOW_MS && entry.count >= PER_ADDRESS) return true;
+  return now - allFailures.since < WINDOW_MS && allFailures.count >= ALL_ADDRESSES;
+}
+function recordFailure(ip, now = Date.now()) {
+  const entry = failures.get(ip);
+  failures.set(ip, entry && now - entry.since < WINDOW_MS ? { count: entry.count + 1, since: entry.since } : { count: 1, since: now });
+  allFailures = now - allFailures.since < WINDOW_MS ? { count: allFailures.count + 1, since: allFailures.since } : { count: 1, since: now };
+  if (failures.size > 5000) for (const [key, value] of failures) if (now - value.since >= WINDOW_MS) failures.delete(key);
+}
+const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
 // Only a path on this site may follow a successful unlock.
 const safeNext = (value) => (typeof value === 'string' && /^\/(?![/\\])/.test(value) ? value : '/');
 const escape = (text) => text.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
-export function soonPage({ next = '/', error = false } = {}) {
+export function soonPage({ next = '/', error = false, unset = false, tooMany = false } = {}) {
   return `<!doctype html>
 <html lang="fr">
 <head>
@@ -81,17 +122,19 @@ export function soonPage({ next = '/', error = false } = {}) {
       <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Mot de passe" required${error ? ' autofocus aria-describedby="error"' : ''}>
       <button type="submit">Entrer</button>
     </form>
-    ${error ? '<p class="error" id="error" role="alert">Mot de passe incorrect.</p>' : ''}
+    ${error ? `<p class="error" id="error" role="alert">${unset ? 'Accès privé non configuré : le mot de passe SITE_PASSWORD est introuvable sur ce déploiement.' : tooMany ? 'Trop d’essais. Réessayez dans 15 minutes.' : 'Mot de passe incorrect.'}</p>` : ''}
   </details>
 </main>
 </body>
 </html>`;
 }
 
-function soon(request, { error = false, status = 200 } = {}) {
+function soon(request, { error = false, status = 200, unset = false, tooMany = false } = {}) {
   const { pathname, search } = new URL(request.url);
   const next = pathname === UNLOCK_PATH ? '/' : `${pathname}${search}`;
-  return new Response(soonPage({ next, error }), { status, headers: {
+  return new Response(soonPage({ next, error, unset, tooMany }), { status, headers: {
+    // Says only whether a password exists on this deployment, never what it is.
+    'X-Private-Access': unset ? 'not-configured' : 'configured',
     'Content-Type': 'text/html; charset=utf-8',
     'Cache-Control': 'no-store',
     'X-Robots-Tag': NOINDEX,
@@ -118,28 +161,40 @@ function cookieValue(request, name) {
 }
 
 export async function proxy(request) {
-  const password = process.env.SITE_PASSWORD || '';
+  // Spaces or a line break pasted around the password in Vercel or the form are ignored.
+  const password = (process.env.SITE_PASSWORD || '').trim();
   // Local development without a password stays open; a deployment without one stays locked.
   if (!password && process.env.NODE_ENV !== 'production') return;
   if (open(request)) return;
 
   const url = new URL(request.url);
-  const expected = password ? await token(password) : null;
+  const key = password ? cookieKey(password) : null;
   if (url.pathname === UNLOCK_PATH && request.method === 'POST') {
+    if (!key) {
+      console.error('proxy.js: SITE_PASSWORD is not set on this deployment, so private access is closed.');
+      return soon(request, { error: true, status: 503, unset: true });
+    }
+    const ip = address(request);
+    if (blocked(ip)) return soon(request, { error: true, status: 429, tooMany: true });
     let form;
     try { form = await request.formData(); } catch { return soon(request, { error: true, status: 400 }); }
-    const given = String(form.get('password') || '');
-    if (!expected || !same(await token(given), expected)) return soon(request, { error: true, status: 401 });
+    const given = String(form.get('password') || '').trim();
+    if (!same(given, password)) {
+      recordFailure(ip);
+      await pause(limits.wrongDelayMs);
+      return soon(request, { error: true, status: 401 });
+    }
+    failures.delete(ip);
     const secure = url.protocol === 'https:' ? '; Secure' : '';
     return new Response(null, { status: 303, headers: {
       Location: new URL(safeNext(form.get('next')), url).href,
-      'Set-Cookie': `${COOKIE}=${expected}; Path=/; Max-Age=${60 * 60 * 24 * 90}; HttpOnly; SameSite=Lax${secure}`,
+      'Set-Cookie': `${COOKIE}=${issueCookie(key)}; Path=/; Max-Age=${MAX_AGE_S}; HttpOnly; SameSite=Lax${secure}`,
       'Cache-Control': 'no-store',
       'X-Robots-Tag': NOINDEX,
     } });
   }
-  if (expected && same(cookieValue(request, COOKIE), expected)) return;
-  return soon(request);
+  if (key && validCookie(cookieValue(request, COOKIE), key)) return;
+  return soon(request, { unset: !key });
 }
 
 // Everything except Next's built files, which carry no page of their own.
