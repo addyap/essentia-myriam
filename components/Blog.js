@@ -21,7 +21,8 @@ function PostMeta({ post }) {
   return <p className="post-meta">
     {date ? <time dateTime={post.date}>{date}</time> : null}
     {date ? <span aria-hidden="true"> · </span> : null}
-    <span>{t.blog.readingTime.replace('{n}', post.minutes ?? readingMinutes(post.body))}</span>
+    {/* An article on another site shows where it lives; its reading time is unknown here. */}
+    <span>{post.externalUrl ? externalSite(post.externalUrl) : t.blog.readingTime.replace('{n}', post.minutes ?? readingMinutes(post.body))}</span>
   </p>;
 }
 
