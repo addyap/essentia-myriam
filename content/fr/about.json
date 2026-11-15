@@ -1,17 +1,9 @@
 {
-  "eyebrow": "À propos",
-  "title": "Je m'appelle Myriam Diougoan Blanch",
-  "lead": "Je suis coach, psychothérapeute, formatrice et conseillère en ressources humaines.",
-  "p1": "Depuis l’enfance, je suis habitée par le désir profond de comprendre l’être humain dans toute sa richesse et sa complexité.\nCette curiosité m’a conduite à me former aux sciences sociales et humaines, et à exercer auprès de personnes et d’organisations dans différents pays.",
-  "p2": "Depuis le début des années 2000, j’accompagne les personnes et les organisations qui aspirent à plus de cohérence, d’alignement et de sens, et qui souhaitent avoir un impact constructif et durable.\n",
-  "journeyTitle": "Un parcours au service de l’humain",
-  "journeyBody": "Dans un espace professionnel, bienveillant et sécurisant, je vous invite à vous reconnecter à l’essentiel, à clarifier ce qui compte vraiment pour vous, à lever les freins et à avancer avec plus de sens, d’épanouissement et d’authenticité.",
-  "valuesTitle": "Mes valeurs",
-  "valuesSub": "Le socle de chaque accompagnement.",
+  "p1": "Depuis l’enfance, je suis animée par une passion profonde : comprendre l’être humain dans toutes ses dimensions — émotionnelles, spirituelles, biologiques, mentales, relationnelles et environnementales.\nCe désir de saisir l’humain dans sa richesse et sa complexité m’a naturellement conduite vers les sciences sociales et humaines, puis vers un parcours professionnel au service des personnes et des organisations, à travers différents pays. ",
   "values": [
     {
       "ic": "ear",
-      "t": "Écoute",
+      "t": "Une écoute empathique et inconditionnelle",
       "d": "Une attention pleine et sincère à ce qui se dit et ne se dit pas."
     },
     {
@@ -30,7 +22,15 @@
       "d": "Envers soi et les autres — la résilience se cultive jour après jour."
     }
   ],
+  "journeyBody": "Dans un espace professionnel, bienveillant et sécurisant, je vous invite à vous reconnecter à l’essentiel, à clarifier ce qui compte vraiment pour vous, à lever les freins et à avancer avec plus de sens, d’épanouissement et d’authenticité.",
+  "p2": "Depuis le début des années 2000, j’accompagne les personnes et les organisations qui aspirent à plus de cohérence, d’alignement et de sens, et qui souhaitent avoir un impact constructif et durable.\n",
+  "eyebrow": "À propos",
+  "whyBody": "J'ai vécu de nombreuses expériences douloureuses et magnifiques qui ont façonnées mon évolution personnelle mais aussi consolidées mon expérience professionnelles que j'ai renforcée par des formations certifiantes ciblées et des approfondissements personnels.\nLes transitions personnelles vécues m'ont permises d'appréhender de l'intérieur les mutations, les transformations, les transitions que la vie propose, impose. les sont autant d'opportunités, même douloureuses de mieux se connaitre et de construire son propre chemin de vie, en conscience et autonomie.\nJe vous accompagne dans un espace d’écoute sécurisant pour mieux vous comprendre.\nEnsemble, dans un espace chaleureux et sécurisé, nous explorons vos émotions, vos schémas de pensée et vos comportements, tout en prenant en charge avec douceur les traumatismes et les situations douloureuses que vous avez traversés.\nL’objectif est d’apaiser ce qui fait souffrance, de développer vos ressources intérieures et de vous rendre progressivement autonome, conscient(e) et créateur(trice) de votre propre parcours de vie, afin de retrouver plus d’équilibre, de clarté et de liberté.\nJe vous accompagne également dans vos projet d'expatriation, de création d'entreprise, de transition professionnelle, de développement de confiance en soi et d'amélioration de votre communication relationnelle.\nMulticulturelle et ancrée dans la réalité des entreprises, mes conseils RH sont orientés sur la mise en place du développement des talents, des compétences, des softs skill et de la communication au sein de vos équipes pour explorer, expérimenter le changement et le faire rayonner au sein de votre entreprise.",
   "whyTitle": "Pourquoi choisir mon approche ?",
-  "whyBody": "Parce que j'ai vécu de nombreuses transitions moi-même : de l'expatriation à la création d'entreprise, du deuil personnel au deuil professionnel, suivies d'autant de renaissances plus lumineuses. Multiculturelle et ancrée dans la réalité des entreprises, j'offre un espace chaleureux et sécurisé pour oser explorer, expérimenter le changement et rayonner.",
-  "langsTitle": "Un accompagnement en quatre langues"
+  "langsTitle": "Un accompagnement en trois langues: Français, Italien, Espagnol.",
+  "valuesTitle": "Mes valeurs",
+  "title": "Je m'appelle Myriam Diougoan Blanch",
+  "journeyTitle": "Un parcours au service de l’humain",
+  "lead": "Je suis coach, psychothérapeute, formatrice et conseillère en ressources humaines.",
+  "valuesSub": "Le socle de chaque accompagnement."
 }
