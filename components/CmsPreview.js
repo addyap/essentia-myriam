@@ -32,8 +32,20 @@ export function CmsPreview({ content, nonce, article = false, children }) {
     }
     return () => window.removeEventListener('message', receive);
   }, [content, nonce, article]);
+  // The preview is a picture of the page, not a place to browse: a link would
+  // take the frame to a real page, which refuses to be framed (and, before
+  // launch, is locked), leaving the editor with a blocked pane. Links that
+  // open a new tab, such as an article's original on another site, still work.
+  useEffect(() => {
+    const stay = (event) => {
+      const link = event.target instanceof Element ? event.target.closest('a[href]') : null;
+      if (link && link.target !== '_blank') event.preventDefault();
+    };
+    document.addEventListener('click', stay, true);
+    return () => document.removeEventListener('click', stay, true);
+  }, []);
   return <Providers previewContent={draft}>
-    <aside className="cms-preview-notice" lang="fr"><span>Aperçu français · Les modifications affichées ne sont pas encore publiées.</span></aside>
+    <aside className="cms-preview-notice" lang="fr"><span>Aperçu français · Les modifications affichées ne sont pas encore publiées. Les liens sont inactifs dans l’aperçu.</span></aside>
     <SkipLink /><Header /><MotionSystem /><main id="main-content" tabIndex={-1}>{article ? <ArticleView post={post} /> : children}</main><Footer />
   </Providers>;
 }
