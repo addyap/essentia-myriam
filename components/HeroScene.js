@@ -4,7 +4,7 @@ import { HeroVideo } from './HeroVideo';
 import { useApp } from './Providers';
 
 const scenes = new Set(['home', 'about', 'coaching', 'rh', 'resources', 'contact', 'booking']);
-const videos = { about: 'sunrise-valley', rh: 'misty-lake', resources: 'sunlit-leaves', coaching: 'golden-sea', contact: 'quiet-shore', booking: 'mountain-clouds' };
+const videos = { about: 'sunrise-valley', rh: 'fog-hillside', resources: 'sunlit-leaves', coaching: 'golden-sea', contact: 'quiet-shore', booking: 'mountain-clouds' };
 
 export function HeroScene({ scene = 'home' }) {
   const { t } = useApp();

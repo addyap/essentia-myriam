@@ -31,9 +31,9 @@ test('the CMS, its preview frame and Myriam’s writing page stay reachable', as
   assert.equal(await isSoon(framed), false);
   // The hero videos play in the preview, but are not handed out to a visitor typing their address.
   const media = { 'sec-fetch-site': 'same-origin' };
-  assert.equal(await isSoon(await call('/videos/misty-lake.mp4', { headers: { ...media, 'sec-fetch-dest': 'video' } })), false);
+  assert.equal(await isSoon(await call('/videos/fog-hillside.mp4', { headers: { ...media, 'sec-fetch-dest': 'video' } })), false);
   assert.equal(await isSoon(await call('/images/nature/home.webp', { headers: { ...media, 'sec-fetch-dest': 'image' } })), false);
-  assert.equal(await isSoon(await call('/videos/misty-lake.mp4', { headers: { 'sec-fetch-dest': 'document', 'sec-fetch-site': 'none' } })), true);
+  assert.equal(await isSoon(await call('/videos/fog-hillside.mp4', { headers: { 'sec-fetch-dest': 'document', 'sec-fetch-site': 'none' } })), true);
 });
 
 test('only the right password opens the site, and only towards this site', async () => {
