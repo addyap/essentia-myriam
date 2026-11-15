@@ -1,17 +1,11 @@
 {
-  "heroKicker": "Coaching · Psychothérapie · Conseil RH · Formations",
-  "heroTitle": [
-    "Un voyage suspendu où le temps\nmurmure à votre véritable ",
-    "essence",
-    ""
-  ],
-  "heroSub": "Un accompagnement humain et pragmatique pour vous réaligner avec clarté, sens et authenticité.",
-  "heroCta1": "Prendre rendez-vous",
-  "heroCta2": "Découvrir mon approche",
-  "introEyebrow": "Une approche humaine",
-  "introTitle": "Transformer vos défis en opportunités d'évolution",
-  "introBody": "Intuitive et observatrice, dotée d'une écoute attentive, je propose aux personnes et aux groupes de s'engager dans l'aventure de la découverte de soi — pour créer un parcours en cohérence avec leurs aspirations et leurs valeurs.",
   "pillarsEyebrow": "Ce que nous explorons ensemble",
+  "forEyebrow": "À qui je m’adresse",
+  "testiTitle": "L'accompagnement n'est pas une mode, c'est un chemin",
+  "bandText": "Ensemble, nous co-créons un chemin sur mesure, aligné sur vos valeurs et vos ambitions.",
+  "bandTitle": "Prêt(e) à libérer votre potentiel ?",
+  "heroSub": "Un accompagnement bienveillant et pragmatique pour vous réaligner avec clarté, sens et authenticité.",
+  "bandBtn": "Réserver un premier échange",
   "pillars": [
     {
       "ic": "spark",
@@ -29,8 +23,11 @@
       "d": "Apaiser l'anxiété, les conflits et les dynamiques complexes, se libérer des autosabotages."
     }
   ],
-  "forEyebrow": "À qui je m’adresse",
+  "introTitle": "Accompagnement adulte, adolescent, couple.",
+  "heroKicker": "Coaching · Psychothérapie · Formations · Conseil RH",
+  "introBody": "Intuitive et observatrice, dotée d'une écoute attentive, je propose aux personnes et aux groupes de s'engager dans l'aventure de la découverte de soi — pour créer un parcours en cohérence avec leurs aspirations et leurs valeurs profondes.",
   "forTitle": "Un accompagnement sur mesure",
+  "pauseEyebrow": "Une philosophie",
   "forWho": [
     {
       "ic": "user",
@@ -48,9 +45,12 @@
       "d": "Développement des compétences, gestion des talents, prévention du stress et culture inclusive."
     }
   ],
-  "testiTitle": "L'accompagnement n'est pas une mode, c'est un chemin",
-  "bandTitle": "Prêt(e) à libérer votre potentiel ?",
-  "bandText": "Ensemble, nous co-créons un chemin sur mesure, aligné sur vos valeurs et vos ambitions.",
-  "bandBtn": "Réserver un premier échange",
-  "pauseEyebrow": "Une philosophie"
+  "heroCta1": "Prendre rendez-vous",
+  "heroCta2": "Découvrir mon approche",
+  "introEyebrow": "Une approche humaine",
+  "heroTitle": [
+    "Un voyage intime, hors du temps où écouter le murmure de votre véritable essence.",
+    "essence",
+    ""
+  ]
 }
