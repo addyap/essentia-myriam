@@ -18,14 +18,14 @@ test('before launch every page shows "launching soon" in French and Italian, nev
     assert.equal(response.headers.get('x-robots-tag')?.startsWith('noindex'), true, path);
     assert.equal(response.headers.get('cache-control'), 'no-store', path);
     const html = await response.text();
-    assert.ok(html.includes('Bientôt en ligne') && html.includes('Presto online'), path);
+    assert.ok(html.includes('Bientôt <em>en ligne</em>') && html.includes('Presto <em>online</em>'), path);
   }
 });
 
 test('the CMS, its preview frame and Myriam’s writing page stay reachable', async () => {
   process.env.SITE_PASSWORD = 'mot-de-passe-test';
   const { call } = await load();
-  for (const path of ['/cms/index.html', '/admin', '/api/cms-config', '/ecrire', '/api/ecrire', '/uploads/photo.jpg', '/robots.txt'])
+  for (const path of ['/cms/index.html', '/admin', '/api/cms-config', '/ecrire', '/api/ecrire', '/uploads/photo.jpg', '/robots.txt', '/prelaunch/forest.webp', '/prelaunch/didot.woff2'])
     assert.equal(await isSoon(await call(path)), false, path);
   const framed = await call('/cms-preview', { headers: { 'sec-fetch-dest': 'iframe', 'sec-fetch-site': 'same-origin' } });
   assert.equal(await isSoon(framed), false);

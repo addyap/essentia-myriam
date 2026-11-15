@@ -71,60 +71,134 @@ const pause = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const safeNext = (value) => (typeof value === 'string' && /^\/(?![/\\])/.test(value) ? value : '/');
 const escape = (text) => text.replace(/[&<>"']/g, (c) => `&#${c.charCodeAt(0)};`);
 
+// The page is built from the site's own brand: GFS Didot headings with a gold
+// italic word, Mulish text, the Parisienne signature, the gold monogram and the
+// misty forest of the home page. Those few files are copied into
+// public/prelaunch, the only folder open before launch, so nothing else of the
+// site is served to visitors.
 export function soonPage({ next = '/', error = false, unset = false, tooMany = false } = {}) {
+  const message = unset ? 'Accès privé non configuré : le mot de passe SITE_PASSWORD est introuvable sur ce déploiement.'
+    : tooMany ? 'Trop d’essais. Réessayez dans 15 minutes.' : 'Mot de passe incorrect.';
   return `<!doctype html>
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="robots" content="${NOINDEX}">
-<title>Essentia · Bientôt en ligne · Presto online</title>
+<meta name="theme-color" content="#1b2620">
+<title>Essentia de Myriam Diougoan Blanch · Bientôt en ligne</title>
+<meta name="description" content="Coaching, psychothérapie, conseil RH et formations. Le site ouvre très prochainement.">
 <link rel="icon" href="/favicon.png">
+<link rel="preload" href="/prelaunch/didot.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/prelaunch/parisienne.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/prelaunch/forest.webp" as="image">
 <style>
-  :root{--bg:#f7f1e6;--ink:#1f2a24;--soft:#5d665f;--gold:#a8853f;--line:#d9c9a6}
-  @media (prefers-color-scheme:dark){:root{--bg:#16201b;--ink:#f3ecdf;--soft:#b9b3a6;--gold:#d2b072;--line:#4a4636}}
-  *{box-sizing:border-box}
-  body{margin:0;min-height:100vh;display:grid;place-items:center;background:var(--bg);color:var(--ink);font-family:Georgia,"Times New Roman",serif;padding:32px 16px}
-  main{max-width:560px;text-align:center}
-  .brand{font-style:italic;font-size:clamp(34px,8vw,52px);letter-spacing:.01em;margin:0;color:var(--gold)}
-  .who{font-family:system-ui,sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);margin:10px 0 0}
-  .rule{width:56px;height:1px;background:var(--gold);margin:40px auto;border:0}
-  h1{font-weight:400;font-size:clamp(26px,6vw,36px);margin:0 0 12px}
-  p{font-size:18px;line-height:1.6;color:var(--soft);margin:0}
-  section+section{margin-top:36px}
-  details{margin-top:64px;font-family:system-ui,sans-serif;font-size:13px;color:var(--soft)}
-  summary{cursor:pointer;list-style:none;display:inline-block;padding:10px;border-bottom:1px solid var(--line)}
+  @font-face{font-family:"GFS Didot";src:url(/prelaunch/didot.woff2) format("woff2");font-weight:400;font-display:swap}
+  @font-face{font-family:Mulish;src:url(/prelaunch/mulish.woff2) format("woff2");font-weight:300 700;font-display:swap}
+  @font-face{font-family:Parisienne;src:url(/prelaunch/parisienne.woff2) format("woff2");font-weight:400;font-display:swap}
+  :root{--gold:#FCC200;--gold-soft:#E8D8A6;--ivory:#FAF6EF;--ink:#1b2620;--serif:"GFS Didot",Georgia,serif;--sans:Mulish,system-ui,sans-serif;--script:Parisienne,cursive}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{min-height:100%}
+  body{min-height:100vh;min-height:100svh;background:var(--ink);color:var(--ivory);font-family:var(--sans);font-weight:300;line-height:1.7;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column;position:relative;overflow-x:hidden}
+  .scene{position:fixed;inset:0;z-index:0;background:#1b2620 url(/prelaunch/forest.webp) center 35%/cover no-repeat;transform:scale(1.04);animation:drift 24s ease-in-out infinite alternate}
+  .scene::after{content:"";position:absolute;inset:0;background:
+    radial-gradient(ellipse 70% 55% at 50% 42%,rgba(27,38,32,.35),rgba(27,38,32,.82) 70%,rgba(20,28,24,.94)),
+    linear-gradient(180deg,rgba(20,28,24,.55),rgba(20,28,24,.2) 35%,rgba(20,28,24,.75))}
+  @keyframes drift{to{transform:scale(1.1) translate(-1%,-1%)}}
+  .frame{position:fixed;inset:16px;z-index:1;pointer-events:none;border:1px solid rgba(252,194,0,.18)}
+  .frame i{position:absolute;width:15px;height:15px;border:0 solid rgba(252,194,0,.8)}
+  .frame i:nth-child(1){top:-1px;left:-1px;border-top-width:2px;border-left-width:2px}
+  .frame i:nth-child(2){top:-1px;right:-1px;border-top-width:2px;border-right-width:2px}
+  .frame i:nth-child(3){bottom:-1px;left:-1px;border-bottom-width:2px;border-left-width:2px}
+  .frame i:nth-child(4){bottom:-1px;right:-1px;border-bottom-width:2px;border-right-width:2px}
+  header,main,footer{position:relative;z-index:2}
+  header{display:flex;justify-content:center;padding:44px 24px 0}
+  .brand{display:flex;align-items:center;gap:14px;line-height:1}
+  .brand img{width:38px;height:47px;filter:drop-shadow(0 0 14px rgba(252,194,0,.35))}
+  .brand .name{font-family:var(--script);font-size:38px;color:var(--ivory);line-height:1.15}
+  .brand .byline{font-family:var(--script);font-size:19px;color:var(--gold-soft);margin-left:6px}
+  main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:56px 24px}
+  .mark{width:92px;height:auto;margin-bottom:34px;filter:drop-shadow(0 0 28px rgba(252,194,0,.45));animation:rise 1.2s ease both}
+  .kicker{display:inline-flex;align-items:center;gap:14px;font-size:11.5px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--gold);animation:rise 1.2s .1s ease both}
+  .kicker::before,.kicker::after{content:"";width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--gold))}
+  .kicker::after{background:linear-gradient(90deg,var(--gold),transparent)}
+  h1{font-family:var(--serif);font-weight:400;font-size:clamp(46px,9vw,92px);line-height:1.04;letter-spacing:.005em;margin:26px 0 22px;animation:rise 1.2s .2s ease both}
+  h1 em,h2 em{font-style:italic;color:var(--gold);text-shadow:0 0 36px rgba(252,194,0,.4)}
+  .lead{max-width:34em;font-size:clamp(16px,2.2vw,18.5px);color:rgba(250,246,239,.86);animation:rise 1.2s .3s ease both}
+  .tagline{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2.6vw,22px);color:var(--gold-soft);margin-top:14px;animation:rise 1.2s .35s ease both}
+  .rule{width:64px;height:1px;border:0;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:44px auto 36px;animation:rise 1.2s .4s ease both}
+  section[lang=it]{animation:rise 1.2s .45s ease both}
+  h2{font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.6vw,40px);line-height:1.1;margin-bottom:12px}
+  section[lang=it] p{max-width:34em;font-size:clamp(15px,2vw,17px);color:rgba(250,246,239,.78)}
+  .follow{display:inline-flex;align-items:center;gap:10px;margin-top:44px;padding:13px 26px;border:1px solid rgba(252,194,0,.55);border-radius:4px;color:var(--ivory);text-decoration:none;font-size:14px;font-weight:600;letter-spacing:.04em;transition:background .25s,border-color .25s,transform .25s;animation:rise 1.2s .55s ease both}
+  .follow:hover{background:rgba(252,194,0,.12);border-color:var(--gold);transform:translateY(-2px)}
+  .follow svg{width:18px;height:18px;color:var(--gold)}
+  .follow:focus-visible,summary:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+  footer{padding:0 24px 40px;text-align:center;font-size:12.5px;color:rgba(250,246,239,.55)}
+  footer .sig{font-family:var(--script);font-size:21px;color:var(--gold-soft);margin-bottom:12px}
+  details{display:inline-block}
+  summary{cursor:pointer;list-style:none;display:inline-block;padding:8px 10px;letter-spacing:.08em;border-bottom:1px solid rgba(250,246,239,.18);transition:color .2s}
+  summary:hover{color:var(--ivory)}
   summary::-webkit-details-marker{display:none}
-  form{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:16px}
-  input{font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:2px;min-width:0;width:220px}
-  button{font:inherit;font-size:14px;padding:10px 18px;border:1px solid var(--gold);background:var(--gold);color:#fff;border-radius:2px;cursor:pointer}
-  .error{color:#b3402f;margin-top:12px}
+  form{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  input{font:inherit;font-size:16px;padding:11px 14px;border:1px solid rgba(250,246,239,.25);background:rgba(20,28,24,.55);color:var(--ivory);border-radius:4px;width:230px;max-width:100%}
+  input::placeholder{color:rgba(250,246,239,.5)}
+  button{font:inherit;font-size:14px;font-weight:600;padding:11px 22px;border:0;border-radius:4px;cursor:pointer;color:#201603;background:linear-gradient(135deg,#FFD758,#FCC200 48%,#E7A500)}
+  .error{color:#FFB4A2;margin-top:12px}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @media (max-width:560px){
+    .frame{inset:10px}
+    header{padding-top:34px}
+    .brand img{width:30px;height:37px}
+    .brand .name{font-size:32px}
+    .brand .byline{display:none}
+    main{padding:40px 20px}
+    .mark{width:72px;margin-bottom:26px}
+    .kicker{display:block;max-width:270px;margin:0 auto;font-size:10px;letter-spacing:.2em;line-height:2;text-wrap:balance}
+    .kicker::before,.kicker::after{display:none}
+    h1{font-size:clamp(38px,11vw,46px);margin:20px 0 18px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.scene{transform:none}}
 </style>
 </head>
 <body>
+<div class="scene" aria-hidden="true"></div>
+<div class="frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+<header>
+  <p class="brand"><img src="/prelaunch/monogram.svg" alt="" width="38" height="47"><span class="name">Essentia</span><span class="byline">de Myriam Diougoan Blanch</span></p>
+</header>
 <main>
-  <p class="brand">Essentia</p>
-  <p class="who">Myriam Diougoan Blanch</p>
-  <hr class="rule">
+  <img class="mark" src="/prelaunch/monogram.svg" alt="Monogramme MDB" width="92" height="114">
   <section lang="fr">
-    <h1>Bientôt en ligne</h1>
-    <p>Le site est en préparation. Merci de votre patience, nous ouvrons très prochainement.</p>
+    <p class="kicker">Coaching&nbsp;· Psychothérapie&nbsp;· Conseil&nbsp;RH&nbsp;· Formations</p>
+    <h1>Bientôt <em>en ligne</em></h1>
+    <p class="lead">Un accompagnement humain et pragmatique pour vous réaligner avec clarté, sens et authenticité. Le site d’Essentia ouvre très prochainement.</p>
+    <p class="tagline">Un voyage suspendu où le temps murmure à votre véritable essence</p>
   </section>
+  <hr class="rule">
   <section lang="it">
-    <h1>Presto online</h1>
-    <p>Il sito è in preparazione. Grazie per la pazienza, apriremo molto presto.</p>
+    <h2>Presto <em>online</em></h2>
+    <p>Un accompagnamento umano e concreto per ritrovare chiarezza, senso e autenticità. Il sito di Essentia aprirà molto presto.</p>
   </section>
+  <a class="follow" href="https://www.instagram.com/mbdchandale/" target="_blank" rel="noopener">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+    Suivre Myriam sur Instagram<span class="sr-only"> (nouvel onglet)</span>
+  </a>
+</main>
+<footer>
+  <p class="sig">accompagner l’humain, en profondeur</p>
   <details${error ? ' open' : ''}>
     <summary>Accès privé</summary>
     <form method="post" action="${UNLOCK_PATH}">
       <input type="hidden" name="next" value="${escape(next)}">
-      <label for="password" style="position:absolute;left:-9999px">Mot de passe</label>
+      <label class="sr-only" for="password">Mot de passe</label>
       <input id="password" name="password" type="password" autocomplete="current-password" placeholder="Mot de passe" required${error ? ' autofocus aria-describedby="error"' : ''}>
       <button type="submit">Entrer</button>
     </form>
-    ${error ? `<p class="error" id="error" role="alert">${unset ? 'Accès privé non configuré : le mot de passe SITE_PASSWORD est introuvable sur ce déploiement.' : tooMany ? 'Trop d’essais. Réessayez dans 15 minutes.' : 'Mot de passe incorrect.'}</p>` : ''}
+    ${error ? `<p class="error" id="error" role="alert">${message}</p>` : ''}
   </details>
-</main>
+</footer>
 </body>
 </html>`;
 }
@@ -143,7 +217,7 @@ function soon(request, { error = false, status = 200, unset = false, tooMany = f
 
 function open(request) {
   const { pathname } = new URL(request.url);
-  if (/^\/(cms|admin|api\/cms-config|ecrire|api\/ecrire|uploads)(\/|$)/.test(pathname)) return true;
+  if (/^\/(cms|admin|api\/cms-config|ecrire|api\/ecrire|uploads|prelaunch)(\/|$)/.test(pathname)) return true;
   if (pathname === '/favicon.png' || pathname === '/robots.txt') return true;
   // The CMS shows drafts in /cms-preview inside its own frame, with the
   // pictures that page uses; typed directly into the address bar it stays locked.
