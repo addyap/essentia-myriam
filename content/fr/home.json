@@ -2,20 +2,20 @@
   "pillarsEyebrow": "Ce que nous explorons ensemble",
   "forEyebrow": "À qui je m’adresse",
   "testiTitle": "L'accompagnement n'est pas une mode, c'est un chemin",
-  "bandText": "Ensemble, nous co-créons un chemin sur mesure, aligné sur vos valeurs et vos ambitions.",
+  "bandText": "Ensemble, nous co-créons un chemin sur mesure, aligné sur vos valeurs profondes et vos désirs véritables..",
   "bandTitle": "Prêt(e) à libérer votre potentiel ?",
-  "heroSub": "Un accompagnement bienveillant et pragmatique pour vous réaliUn accompagnement bienveillant et pragmatique pour renouer avec la clarté, le sens et l’authenticité de son histoire de vie.",
+  "heroSub": "Un accompagnement bienveillant et pragmatique pour renouer avec plus de clarté, de sens et d’authenticité avec votre histoire de vie.",
   "bandBtn": "Réserver un premier échange",
   "pillars": [
     {
       "ic": "spark",
-      "t": "Confiance & estime de soi",
+      "t": "Traumatismes, confiance et estime de soi, sens de la vie",
       "d": "(Re)découvrir vos forces et les valoriser au quotidien, à travers des outils personnalisés."
     },
     {
       "ic": "compass",
       "t": "Transitions de vie",
-      "d": "Prise de poste, reconversion, création d'entreprise ou expatriation : transformer l'incertitude en levier."
+      "d": "Transition de vie, prise de poste, reconversion, création d'entreprise, expatriation : transformer l'incertitude en levier."
     },
     {
       "ic": "heart",
@@ -31,13 +31,13 @@
   "forWho": [
     {
       "ic": "user",
-      "t": "Particuliers",
+      "t": "Particuliers; adulte, adolescent, couple",
       "d": "En quête de sens, de confiance et d'équilibre, ou traversant une transition personnelle ou professionnelle."
     },
     {
       "ic": "briefcase",
-      "t": "Dirigeants & cadres",
-      "d": "Pour piloter la performance avec justesse, sans se perdre, et incarner un leadership aligné."
+      "t": "Entreprises; équipes, dirigeants, cadres, employés",
+      "d": "Pour piloter l'évolution de votre entreprise en vous appuyant sur les ressources et talents de ceux qui la font vivre, avec justesse, sens, orientation claire et incarner un leadership aligné."
     },
     {
       "ic": "users",
