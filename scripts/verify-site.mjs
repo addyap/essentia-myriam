@@ -1,6 +1,15 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 const origin = process.argv[2] || 'http://localhost:3114';
+// Before launch the site sits behind the private password (proxy.js): unlock once
+// with SITE_PASSWORD, then send its cookie with every request.
+let cookie = '';
+if (process.env.SITE_PASSWORD) {
+  const unlock = await globalThis.fetch(new URL('/acces-prive', origin), { method: 'POST', redirect: 'manual', body: new URLSearchParams({ password: process.env.SITE_PASSWORD, next: '/' }) });
+  assert.equal(unlock.status, 303, 'private access accepts SITE_PASSWORD');
+  cookie = unlock.headers.get('set-cookie').split(';')[0];
+}
+const fetch = (url, init = {}) => globalThis.fetch(url, { ...init, headers: { ...init.headers, ...(cookie ? { Cookie: cookie } : {}) } });
 // Contact details must never appear in page code; numbers are built from parts
 // so this public file does not contain them either.
 const digits = [['6', '0130', '0642']].map(parts => parts.join(''));
