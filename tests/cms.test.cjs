@@ -22,7 +22,7 @@ test('French editor schema covers every text without exposing translations', asy
   const files=config.collections.flatMap(c=>c.files||[]);
   const posts=config.collections.find(c=>c.folder);
   assert.equal(posts.folder,'content/blog'); assert.equal(posts.format,'json'); assert.equal(posts.create,true);
-  assert.deepEqual(posts.fields.map(f=>f.name),['title','date','summary','image','imageAlt','body']);
+  assert.deepEqual(posts.fields.map(f=>f.name),['title','date','summary','externalUrl','image','imageAlt','body']);
   assert.deepEqual(posts.fields.find(f=>f.name==='body').editor_components,['image']);
   assert.equal(config.slug.clean_accents,true);
   assert.equal(files.length,Object.keys(french).length+1);

@@ -40,8 +40,16 @@ test('articles are read from their files, sorted newest first, and invalid ones 
   write('casse.json', '{ pas du json');
   write('Mauvais nom!.json', { title: 'Ignoré' });
   write('note.txt', 'ignoré');
+  write('ailleurs.json', { title: 'Ailleurs', date: '2016-10-17', externalUrl: 'https://www.cap-coherence.fr/blog/a', body: 'x' });
+  write('lien-douteux.json', { title: 'Douteux', date: '2015-01-01', externalUrl: 'javascript:alert(1)', body: 'x' });
   const posts = getPosts();
-  assert.deepEqual(posts.map(p => p.slug), ['recent', 'ancien']);
+  assert.deepEqual(posts.map(p => p.slug), ['recent', 'ancien', 'ailleurs', 'lien-douteux']);
+  // An article published elsewhere is listed but has no page here; unsafe links are dropped.
+  assert.equal(posts[2].externalUrl, 'https://www.cap-coherence.fr/blog/a');
+  assert.equal(posts[3].externalUrl, '');
+  assert.equal(getPost('ailleurs'), null);
+  const { getLocalPosts } = await import('../lib/blog.js');
+  assert.deepEqual(getLocalPosts().map(p => p.slug), ['recent', 'ancien', 'lien-douteux']);
   assert.equal(posts[0].date, '2026-03-04');
   assert.equal(posts[0].summary, 'Résumé');
   assert.equal(posts[0].image, '', 'unsafe cover image dropped');

@@ -1,5 +1,7 @@
 {
   "readMore": "Lire l’article",
+  "readElsewhere": "Lire sur {site}",
+  "newTab": "(nouvel onglet)",
   "back": "Tous les articles",
   "readingTime": "{n} min de lecture",
   "frenchOnly": "Cet article est disponible uniquement en français.",

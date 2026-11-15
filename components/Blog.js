@@ -5,7 +5,8 @@ import { PageHeader } from './PageHeader';
 import { LogoMark } from './LogoMark';
 import { Markdown } from './Markdown';
 import { ROUTES, articlePath } from '@/lib/routes';
-import { readingMinutes } from '@/lib/markdown';
+import { readingMinutes, safeLink } from '@/lib/markdown';
+import { externalSite } from '@/lib/post';
 
 const LOCALES = { fr: 'fr-FR', en: 'en-GB', it: 'it-IT', es: 'es-ES' };
 function formatDate(date, lang) {
@@ -28,18 +29,25 @@ function PostMeta({ post }) {
 // to a fixed frame by CSS rather than sized by next/image.
 const Cover = ({ src, alt, eager = false }) => <div className="post-cover"><img src={src} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" /></div>;
 
+// A card for an article published on another site opens it there, in a new tab.
+function CardLink({ post, children, ...props }) {
+  return post.externalUrl
+    ? <a href={post.externalUrl} target="_blank" rel="noopener" {...props}>{children}</a>
+    : <Link href={articlePath(post.slug)} {...props}>{children}</Link>;
+}
+
 function PostCard({ post }) {
   const { t } = useApp();
-  const href = articlePath(post.slug);
+  const site = post.externalUrl ? externalSite(post.externalUrl) : '';
   return <article className="post-card">
     {/* Articles without a photo get the gold monogram, so the cards stay aligned. */}
-    <Link href={href} tabIndex={-1} aria-hidden="true">{post.image ? <Cover src={post.image} alt="" /> : <div className="post-cover post-cover--mark"><LogoMark /></div>}</Link>
+    <CardLink post={post} tabIndex={-1} aria-hidden="true">{post.image ? <Cover src={post.image} alt="" /> : <div className="post-cover post-cover--mark"><LogoMark /></div>}</CardLink>
     <div className="post-card-body" lang="fr">
       <PostMeta post={post} />
-      <h3><Link href={href}>{post.title}</Link></h3>
+      <h3><CardLink post={post}>{post.title}</CardLink></h3>
       {post.summary ? <p>{post.summary}</p> : null}
     </div>
-    <Link className="editorial-link" href={href}>{t.blog.readMore}<span aria-hidden="true">↗</span></Link>
+    <CardLink post={post} className="editorial-link">{site ? t.blog.readElsewhere.replace('{site}', site) : t.blog.readMore}<span aria-hidden="true">↗</span>{site ? <span className="sr-only"> {t.blog.newTab}</span> : null}</CardLink>
   </article>;
 }
 
@@ -57,6 +65,7 @@ export function ResourcesView({ posts }) {
         {posts.length
           ? <div className="post-grid">{posts.map((post) => <PostCard key={post.slug} post={post} />)}</div>
           : <p className="notice" role="status">{r.empty}</p>}
+        {r.elsewhereLink && safeLink(r.elsewhereUrl || '') ? <p className="post-elsewhere"><a className="editorial-link" href={safeLink(r.elsewhereUrl)} target="_blank" rel="noopener">{r.elsewhereLink}<span aria-hidden="true">↗</span><span className="sr-only"> {t.blog.newTab}</span></a></p> : null}
       </div>
     </section>
     <section aria-labelledby="podcast-title">
@@ -88,6 +97,7 @@ export function ArticleView({ post }) {
         {lang !== 'fr' ? <p className="notice" role="status">{t.blog.frenchOnly}</p> : null}
         {post.image ? <Cover src={post.image} alt={post.imageAlt} eager /> : null}
         <div className="article-body" lang="fr"><Markdown source={post.body} /></div>
+        {post.externalUrl ? <p><a className="editorial-link" href={post.externalUrl} target="_blank" rel="noopener">{t.blog.readElsewhere.replace('{site}', externalSite(post.externalUrl))}<span aria-hidden="true">↗</span><span className="sr-only"> {t.blog.newTab}</span></a></p> : null}
       </div>
     </article>
     <section>

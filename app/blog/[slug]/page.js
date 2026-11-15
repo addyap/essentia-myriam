@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { ArticleView } from '@/components/Blog';
-import { getPosts, getPost } from '@/lib/blog';
+import { getLocalPosts, getPost } from '@/lib/blog';
 import { articlePath } from '@/lib/routes';
 import { SITE_URL } from '@/lib/config';
 import { seo } from '@/lib/metadata';
@@ -8,7 +8,7 @@ import { seo } from '@/lib/metadata';
 // Articles are built from content/blog at deployment; unknown slugs are 404s.
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return getPosts().map(({ slug }) => ({ slug }));
+  return getLocalPosts().map(({ slug }) => ({ slug }));
 }
 
 export async function generateMetadata({ params }) {

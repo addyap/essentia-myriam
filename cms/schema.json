@@ -837,6 +837,18 @@
         "multiline": true,
         "required": false
       },
+      "elsewhereLink": {
+        "type": "text",
+        "label": "Lien vers vos articles publiés ailleurs (texte)",
+        "multiline": false,
+        "required": false
+      },
+      "elsewhereUrl": {
+        "type": "text",
+        "label": "Lien vers vos articles publiés ailleurs (adresse, commençant par https://)",
+        "multiline": false,
+        "required": false
+      },
       "podcastTitle": {
         "type": "text",
         "label": "Titre de la section podcast",
@@ -864,6 +876,18 @@
       "readMore": {
         "type": "text",
         "label": "Lien « Lire l’article »",
+        "multiline": false,
+        "required": false
+      },
+      "readElsewhere": {
+        "type": "text",
+        "label": "Lien vers un article publié sur un autre site ({site} = nom du site)",
+        "multiline": false,
+        "required": false
+      },
+      "newTab": {
+        "type": "text",
+        "label": "Mention « nouvel onglet » (lue par les lecteurs d’écran)",
         "multiline": false,
         "required": false
       },

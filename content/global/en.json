@@ -268,12 +268,16 @@
     "blogTitle": "The blog",
     "blogLead": "Myriam’s articles on coaching, psychotherapy and the world of work.",
     "empty": "The first articles will be published very soon.",
+    "elsewhereLink": "All my articles on the Cap Cohérence blog (in French)",
+    "elsewhereUrl": "https://www.cap-coherence.fr/blog/auteurs/myriam-diougoan-blanch",
     "podcastTitle": "The podcast",
     "podcastLead": "Conversations and practical ideas for taking care of yourself and your relationships. The Essentia podcast is in preparation.",
     "podcastCta": "Find out more"
   },
   "blog": {
     "readMore": "Read the article",
+    "readElsewhere": "Read on {site}",
+    "newTab": "(opens in a new tab)",
     "back": "All articles",
     "readingTime": "{n} min read",
     "frenchOnly": "This article is only available in French.",
