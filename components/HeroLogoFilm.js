@@ -1,6 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { MONOGRAM_PATH } from './LogoMark';
 
 // Loaded only once the film has ended, so it never competes with the pen.
 const HeroCrest = dynamic(() => import('./HeroCrest').then(m => m.HeroCrest), { ssr: false });
@@ -32,6 +33,24 @@ const W = 1080, H = 792, SPLIT = 583;
 const LOGO = { x: 0.31355 * W, y: 0.11581 * H, w: 0.36873 * W };
 LOGO.h = LOGO.w * 842 / 681;
 const EDGE = { dx: 4, dy: 3, colour: [176, 135, 6] }; // the 3D logo's lit sides, as measured on screen
+// Myriam found the pen's floating gold sparkles too busy, so only what lies on
+// the monogram's own strokes (with a margin for the pen's glow) and on the
+// line of her name is painted; the specks scattered around them are dropped.
+// The still images had the same specks removed (public/images/logo-reveal-*.webp).
+const NAME_BAND = { x: 235, y: 606, w: 630, h: 94 };
+const STROKE_MARGIN = 14; // film pixels either side of a stroke
+export function keepMask() {
+  const mask = document.createElement('canvas'); mask.width = W; mask.height = H;
+  const m = mask.getContext('2d');
+  m.fillStyle = m.strokeStyle = '#000';
+  m.fillRect(NAME_BAND.x, NAME_BAND.y, NAME_BAND.w, NAME_BAND.h);
+  m.save(); m.translate(LOGO.x, LOGO.y); m.scale(LOGO.w / 681, LOGO.h / 842);
+  const path = new Path2D(MONOGRAM_PATH);
+  m.lineJoin = 'round'; m.lineWidth = STROKE_MARGIN * 2 * 681 / LOGO.w;
+  m.fill(path, 'evenodd'); m.fill(path); m.stroke(path);
+  m.restore();
+  return mask;
+}
 
 // GoldLogo3D's face: brand gold times mix(0.84, 1.04, smoothstep(-421, 421, y - 0.35x))
 // in the logo's own coordinates. The name keeps flat brand gold.
@@ -52,6 +71,9 @@ function goldFields() {
   }
   f.putImageData(pixels, 0, 0);
   e.fillStyle = `rgb(${EDGE.colour.join(',')})`; e.fillRect(0, 0, W, SPLIT);
+  // Outside the kept areas the gold fields are transparent, so nothing is painted there.
+  const mask = keepMask();
+  for (const c of [f, e]) { c.globalCompositeOperation = 'destination-in'; c.drawImage(mask, 0, 0); c.globalCompositeOperation = 'source-over'; }
   return { face, edge };
 }
 
