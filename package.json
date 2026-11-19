@@ -7,6 +7,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "video": "remotion studio remotion/index.js",
+    "video:render": "remotion render remotion/index.js",
     "test:motion": "node --test tests/motion-lifecycle.test.cjs",
     "check": "node scripts/check.mjs",
     "test": "node --test tests/*.test.cjs"
@@ -26,5 +28,11 @@
   },
   "engines": {
     "node": "24.x"
+  },
+  "devDependencies": {
+    "@remotion/cli": "4.0.545",
+    "@remotion/google-fonts": "4.0.545",
+    "remotion": "4.0.545",
+    "zod": "4.6.7"
   }
 }
