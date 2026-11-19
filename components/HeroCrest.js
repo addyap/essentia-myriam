@@ -10,7 +10,6 @@ const GoldLogo3D = dynamic(() => import('./GoldLogo3D').then(m => m.GoldLogo3D),
 // that stands in for it, is on screen. noWebGL: show the relief only (Save-Data).
 export function HeroCrest({ skipDrawing = false, onTakeover, noWebGL = false } = {}) {
   const [phase, setPhase] = useState('static');
-  const [source, setSource] = useState('');
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [reduced, setReduced] = useState(true);
@@ -23,8 +22,6 @@ export function HeroCrest({ skipDrawing = false, onTakeover, noWebGL = false } =
   useEffect(() => {
     const preference = matchMedia('(prefers-reduced-motion: reduce)');
     setReduced(preference.matches);
-    const svg = ref.current.querySelector('.crest-face');
-    setSource(svg.outerHTML);
     if (!preference.matches) setPhase(skipDrawing ? 'gold' : 'drawing');
     // With reduced motion or without WebGL, the still gold relief is the logo.
     if (preference.matches || noWebGL) takeover.current?.();
@@ -56,7 +53,7 @@ export function HeroCrest({ skipDrawing = false, onTakeover, noWebGL = false } =
       {/* Starting WebGL blocks the main thread for a moment, which would make the
           pen stutter; it loads once the drawing is complete, which stays visible
           until the 3D logo is ready to take over. */}
-      {!reduced && !failed && !noWebGL && source && phase === 'gold' && <GoldLogo3D source={source} animate onReady={onReady} onFailure={onFailure} />}
+      {!reduced && !failed && !noWebGL && phase === 'gold' && <GoldLogo3D animate onReady={onReady} onFailure={onFailure} />}
     </div>
   </div>;
 }

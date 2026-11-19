@@ -239,3 +239,9 @@ Profiling in headless Chromium (1440×900, CPU slowed 4×) showed steady 60fps e
 
 After the change, the same profile shows no long frames during the handwriting. three.js is about 740KB across two chunks; importing only the classes the logo uses produced a larger bundle, so the full import remains.
 
+
+## Sculpted Blender model — 19 November 2026
+
+The shared 3D logo is now a model made in Blender (`design/blender-logo-test/logo-test.blend`) from the same SVG outline: rounded strokes about 34 SVG units deep whose front silhouette matches the SVG, exported in SVG units centred on the viewBox so the handwriting and the home film hand over in place. `GoldLogo3D` loads `public/models/mdb-crest.glb` (meshopt-compressed, about 120 KB over the wire, decoder about 8 KB) instead of extruding the SVG in the browser, and no longer needs `SVGLoader`.
+
+Light now falls across the whole surface, like the studio concept: satin #FCC200 (`MeshStandardMaterial`, roughness .5, metalness .4) under a warm key from the upper left, a fill from the right, a rim from behind and ambient fill, tuned against the Blender render (median brightness 163 vs 177 at the 190 px header size). This supersedes the flat unlit #FCC200 front face: the face now ranges from brand gold in the light to deeper gold in shadow. A model that fails to load falls back to the static gold relief without starting WebGL. Timing, pivot limits, settle pose, pointer tilt, offscreen suspension and reduced motion are unchanged. `/models` is open in the pre-launch lock so the CMS preview keeps its 3D logo.

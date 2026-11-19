@@ -1,8 +1,15 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
+// The sculpted gold monogram, modelled in Blender (design/blender-logo-test/logo-test.blend)
+// from the same SVG outline: rounded strokes whose front silhouette matches the SVG
+// exactly, in SVG units centred on the viewBox, so the handwriting hands over in place.
+// Meshopt-compressed (about 120 KB over the wire); the decoder is about 8 KB.
+export const CREST_MODEL = '/models/mdb-crest.glb';
+const KEY = 4.4, FILL = 2.4, RIM = 2.2, AMBIENT = 2.1;
+
 // Prepare behind the handwriting; start the pivot only after the handoff.
-export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure }) {
+export function GoldLogo3D({ animate, paused = false, onReady, onFailure }) {
   const host = useRef(null);
   const pause = useRef(paused);
   const playing = useRef(animate);
@@ -12,8 +19,11 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
   useEffect(() => {
     let disposed = false, renderer, frame, observer, resizeObserver, cleanup = () => {};
     const geometries = [], materials = [];
-    let clayTexture;
-    Promise.all([import('three'), import('three/addons/loaders/SVGLoader.js')]).then(([T, { SVGLoader }]) => {
+    Promise.all([
+      import('three'), import('three/addons/loaders/GLTFLoader.js'), import('three/addons/libs/meshopt_decoder.module.js'),
+    ]).then(async ([T, { GLTFLoader }, { MeshoptDecoder }]) => {
+      if (disposed) return;
+      const model = await new GLTFLoader().setMeshoptDecoder(MeshoptDecoder).loadAsync(CREST_MODEL);
       if (disposed) return;
       const el = host.current;
       renderer = new T.WebGLRenderer({ alpha: true, antialias: true, powerPreference: 'low-power' });
@@ -22,60 +32,26 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
       renderer.setPixelRatio(Math.min(devicePixelRatio, compact ? 1.25 : 1.5));
       renderer.setClearColor(0x000000, 0);
       renderer.outputColorSpace = T.SRGBColorSpace;
-      renderer.toneMapping = T.ACESFilmicToneMapping;
-      renderer.toneMappingExposure = .85;
       el.appendChild(renderer.domElement);
       const scene = new T.Scene();
       const camera = new T.OrthographicCamera(-340.5, 340.5, 421, -421, .1, 3000);
       camera.position.z = 1500;
-      // Matte clay uses direct studio lights; skip costly reflection-map generation.
-      const light = new T.DirectionalLight(0xffffff, 2.2);
-      light.position.set(-600, 350, 650); scene.add(light);
-      const fill = new T.DirectionalLight(0xffffff, .55);
-      fill.position.set(450, -100, 900); scene.add(fill);
-      scene.add(new T.AmbientLight(0xffffff, .45));
-      // Procedural microtexture adds tactile relief without downloading an image or changing contours.
-      const grain = new Uint8Array(128 * 128 * 4);
-      let seed = 719;
-      for (let i = 0; i < grain.length; i += 4) {
-        seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0;
-        const value = 112 + (seed >>> 27);
-        grain[i] = grain[i + 1] = grain[i + 2] = value;
-        grain[i + 3] = 255;
-      }
-      clayTexture = new T.DataTexture(grain, 128, 128, T.RGBAFormat);
-      clayTexture.wrapS = clayTexture.wrapT = T.RepeatWrapping;
-      clayTexture.repeat.set(.008, .008);
-      clayTexture.magFilter = T.LinearFilter;
-      clayTexture.minFilter = T.LinearMipmapLinearFilter;
-      clayTexture.generateMipmaps = true;
-      clayTexture.needsUpdate = true;
-      // Preserve the brand-gold base, while a restrained surface light gives the face volume at rest.
-      const face = new T.MeshBasicMaterial({ color: '#FCC200', toneMapped: false, side: T.DoubleSide });
-      // Static object-space lighting: no extra texture, animation loop or colour-changing sweep.
-      face.onBeforeCompile = shader => {
-        shader.vertexShader = shader.vertexShader.replace('#include <common>', '#include <common>\nvarying vec2 crestPosition;')
-          .replace('#include <begin_vertex>', '#include <begin_vertex>\ncrestPosition = position.xy;');
-        shader.fragmentShader = shader.fragmentShader.replace('#include <common>', '#include <common>\nvarying vec2 crestPosition;')
-          .replace('#include <color_fragment>', `#include <color_fragment>
-            float surfaceLight = smoothstep(-421.0, 421.0, crestPosition.y - crestPosition.x * 0.35);
-            diffuseColor.rgb *= mix(0.84, 1.04, surfaceLight);`);
-      };
-      face.customProgramCacheKey = () => 'crest-resting-relief-v1';
-      // A gold self-glow keeps the lit sides as bright as the hero logo film instead of bronze.
-      const edge = new T.MeshStandardMaterial({ color: '#FCC200', emissive: '#FCC200', emissiveIntensity: .3, metalness: .02, roughness: .76, bumpMap: clayTexture, bumpScale: .3, toneMapped: false, side: T.DoubleSide });
-      materials.push(face, edge);
+      // The Blender studio: a warm key from the upper left, a soft fill from the
+      // right and a rim from behind that lights the rounded edges.
+      const warm = 0xffeecc;
+      const key = new T.DirectionalLight(warm, KEY); key.position.set(-3, 4, 4); scene.add(key);
+      const fill = new T.DirectionalLight(warm, FILL); fill.position.set(4, -1, 6); scene.add(fill);
+      const rim = new T.DirectionalLight(warm, RIM); rim.position.set(2, 4, -2); scene.add(rim);
+      scene.add(new T.AmbientLight(0xffffff, AMBIENT));
+      // Satin gold: light falls across the whole surface, as in the studio render.
+      const gold = new T.MeshStandardMaterial({ color: '#FCC200', roughness: .5, metalness: .4 });
+      materials.push(gold);
       const group = new T.Group(); scene.add(group);
-      const data = new SVGLoader().parse(source.replaceAll('currentColor', '#FCC200'));
-      for (const path of data.paths) {
-        for (const shape of path.toShapes()) {
-          const geometry = new T.ExtrudeGeometry(shape, { depth: 40, bevelEnabled: true, bevelThickness: 2, bevelSize: 1.6, bevelSegments: 4, curveSegments: compact ? 12 : 20, steps: 1 });
-          // Grow backwards: preserve the original front face during the handwriting handoff.
-          geometry.translate(-340.5, -421, -33);
-          geometry.scale(1, -1, 1);
-          geometries.push(geometry); group.add(new T.Mesh(geometry, [face, edge]));
-        }
-      }
+      model.scene.traverse(node => {
+        if (!node.isMesh) return;
+        geometries.push(node.geometry);
+        group.add(new T.Mesh(node.geometry, gold));
+      });
       let elapsed = 0, last = null, visible = true, px = 0, py = 0;
       const duration = 32000;
       const handoff = 900;
@@ -128,9 +104,9 @@ export function GoldLogo3D({ source, animate, paused = false, onReady, onFailure
     }).catch(() => { if (!disposed) onFailure(); });
     return () => {
       disposed = true; wake.current = null; cancelAnimationFrame(frame); cleanup(); observer?.disconnect(); resizeObserver?.disconnect();
-      geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose()); clayTexture?.dispose();
+      geometries.forEach(g => g.dispose()); materials.forEach(m => m.dispose());
       renderer?.dispose(); renderer?.domElement.remove();
     };
-  }, [source, onReady, onFailure]);
+  }, [onReady, onFailure]);
   return <div ref={host} className="crest-webgl" aria-hidden="true" />;
 }

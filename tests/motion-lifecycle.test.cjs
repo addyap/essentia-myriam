@@ -84,8 +84,8 @@ function gpu() {
     PMREMGenerator:class {fromScene(){return {texture:{},dispose(){}}}dispose(){}},
   };
   // No geometry required to exercise the production animation clock.
-  class Loader { parse(){return {paths:[]}} }
-  return { rotations, modules:{three:T,'three/addons/loaders/SVGLoader.js':{SVGLoader:Loader},'three/addons/environments/RoomEnvironment.js':{RoomEnvironment:Item}} };
+  class Loader { setMeshoptDecoder(){return this} loadAsync(){return Promise.resolve({scene:{traverse(){}}})} }
+  return { rotations, modules:{three:T,'three/addons/loaders/GLTFLoader.js':{GLTFLoader:Loader},'three/addons/libs/meshopt_decoder.module.js':{MeshoptDecoder:{}}} };
 }
 const gpuHost = () => ({clientWidth:250,clientHeight:309,appendChild(){},addEventListener(){},removeEventListener(){}});
 const importsReady = () => new Promise(resolve=>setImmediate(resolve));
@@ -93,7 +93,7 @@ const importsReady = () => new Promise(resolve=>setImmediate(resolve));
 test('3D waits for handwriting, holds the crossfade, pivots gently within readable angles and settles', async () => {
   const { rotations, modules }=gpu();
   let ready=0;
-  const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{source:'<svg/>',animate:false,onReady:()=>ready++,onFailure:()=>assert.fail('Unexpected GPU failure')}});
+  const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{animate:false,onReady:()=>ready++,onFailure:()=>assert.fail('Unexpected GPU failure')}});
   await importsReady();
   for(let i=0;i<40;i++)app.frame();
   assert.equal(ready,1); assert.equal(rotations.at(-1).y,0);
@@ -118,7 +118,7 @@ test('3D waits for handwriting, holds the crossfade, pivots gently within readab
 });
 test('3D pause stops rendering once settled, and resume wakes the animation', async () => {
   const {rotations,modules}=gpu();
-  const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{source:'<svg/>',animate:true,onReady(){},onFailure:()=>assert.fail('Unexpected GPU failure')}});
+  const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{animate:true,onReady(){},onFailure:()=>assert.fail('Unexpected GPU failure')}});
   await importsReady(); for(let i=0;i<80;i++)app.frame();
   app.update({paused:true}); for(let i=0;i<50;i++)app.frame();
   const count=rotations.length, yaw=rotations.at(-1).y;
@@ -130,8 +130,15 @@ test('3D pause stops rendering once settled, and resume wakes the animation', as
 test('WebGL initialization failure calls fallback without reporting readiness', async () => {
   const {modules}=gpu(); modules.three.WebGLRenderer=class {constructor(){throw Error('No WebGL context')}};
   let failed=0;
-  const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{source:'<svg/>',animate:true,onReady:()=>assert.fail('Failed renderer cannot be ready'),onFailure:()=>failed++}});
+  const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{animate:true,onReady:()=>assert.fail('Failed renderer cannot be ready'),onFailure:()=>failed++}});
   await importsReady(); assert.equal(failed,1); app.unmount();
+});
+test('a model that fails to load falls back without starting WebGL', async () => {
+  const {modules}=gpu(); let renderers=0, failed=0;
+  modules['three/addons/loaders/GLTFLoader.js'].GLTFLoader=class { setMeshoptDecoder(){return this} loadAsync(){return Promise.reject(Error('404'))} };
+  modules.three.WebGLRenderer=class {constructor(){renderers++}};
+  const app=await mount('components/GoldLogo3D.js','GoldLogo3D',{host:gpuHost(),modules,props:{animate:true,onReady:()=>assert.fail('A missing model cannot be ready'),onFailure:()=>failed++}});
+  await importsReady(); await importsReady(); assert.equal(failed,1); assert.equal(renderers,0); app.unmount();
 });
 
 test('section logos keep a still preview until entering the viewport', async () => {

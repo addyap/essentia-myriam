@@ -6,7 +6,8 @@
 // file: nothing else depends on it.
 //
 // Left open so Myriam keeps working: the CMS (/cms, /admin and its API), her
-// private writing page (/ecrire and its API), uploaded images, and the editor's
+// private writing page (/ecrire and its API), uploaded images, the 3D logo model
+// (/models, so the CMS preview keeps its gold logo), and the editor's
 // live preview when the CMS itself frames it.
 // Written with plain web Request/Response so it runs (and is tested) anywhere;
 // returning nothing lets the request carry on to the site.
@@ -220,7 +221,7 @@ const MEDIA = new Set(['image', 'video', 'audio', 'track']);
 
 function open(request) {
   const { pathname } = new URL(request.url);
-  if (/^\/(cms|admin|api\/cms-config|ecrire|api\/ecrire|uploads|prelaunch)(\/|$)/.test(pathname)) return true;
+  if (/^\/(cms|admin|api\/cms-config|ecrire|api\/ecrire|uploads|prelaunch|models)(\/|$)/.test(pathname)) return true;
   if (pathname === '/favicon.png' || pathname === '/robots.txt') return true;
   // The CMS shows drafts in /cms-preview inside its own frame, with the
   // pictures and videos that page uses; typed directly into the address bar it stays locked.
